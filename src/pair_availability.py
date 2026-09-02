@@ -225,9 +225,15 @@ def _fmt(v):
 
 
 def build_summary(records):
+    """Strata are (version x source). The per-source split is required by
+    Sec. 7: S1 (Bogner's peer-reviewed corpus) and S2 (the fresh crawl) must be
+    reportable separately, not silently pooled. Empty strata are skipped."""
     rows = []
-    for version in ("all", "2.0", "3.x"):
-        bucket = records if version == "all" else [r for r in records if r["spec_version"] == version]
+    sources = ["all"] + sorted({r.get("source", "") for r in records} - {""})
+    for version, source in [(v, s) for v in ("all", "2.0", "3.x") for s in sources]:
+        bucket = _stratum(records, version, source)
+        if not bucket:
+            continue
         tot_pairs = sum(r["n_pairs"] for r in bucket)
         with_pairs = [r for r in bucket if r["n_pairs"] > 0]
 
@@ -238,6 +244,7 @@ def build_summary(records):
             ratios = [c2(r[f"a_{feat}"]) / r["n_pairs"] for r in with_pairs]
             macro = (100.0 * sum(ratios) / len(ratios)) if ratios else None
             rows.append({"kind": "coavail", "key": feat, "version": version,
+                         "source": source,
                          "micro_pct": _fmt(micro), "macro_pct": _fmt(macro),
                          "macro_n_services": len(ratios)})
 
@@ -248,9 +255,19 @@ def build_summary(records):
             ratios = [1 - c2(r[f"c_all4_{d}"]) / r["n_pairs"] for r in with_pairs]
             macro = (100.0 * sum(ratios) / len(ratios)) if ratios else None
             rows.append({"kind": "maskfire", "key": d, "version": version,
+                         "source": source,
                          "micro_pct": _fmt(micro), "macro_pct": _fmt(macro),
                          "macro_n_services": len(ratios)})
     return rows
+
+
+def _stratum(records, version, source):
+    bucket = records
+    if version != "all":
+        bucket = [r for r in bucket if r["spec_version"] == version]
+    if source != "all":
+        bucket = [r for r in bucket if r.get("source") == source]
+    return bucket
 
 
 def maskfire_distribution(records):
@@ -259,11 +276,11 @@ def maskfire_distribution(records):
     Reports quartiles, the count of services with 0% mask-fire (complete specs
     the mask never changes), and the % of services where the mask matters."""
     rows = []
+    sources = ["all"] + sorted({r.get("source", "") for r in records} - {""})
     for d in MASK_DEFS:
         col = f"c_all4_{d}"
-        for version in ("all", "2.0", "3.x"):
-            bucket = [r for r in records if r["n_pairs"] > 0
-                      and (version == "all" or r["spec_version"] == version)]
+        for version, source in [(v, s) for v in ("all", "2.0", "3.x") for s in sources]:
+            bucket = [r for r in _stratum(records, version, source) if r["n_pairs"] > 0]
             if not bucket:
                 continue
             vals = sorted(100 * (1 - c2(r[col]) / r["n_pairs"]) for r in bucket)
@@ -273,7 +290,8 @@ def maskfire_distribution(records):
             q = (statistics.quantiles(vals, n=4, method="inclusive")
                  if n >= 2 else [vals[0], vals[0], vals[0]])
             rows.append({
-                "f2_def": d, "version": version, "n_services": n,
+                "f2_def": d, "version": version, "source": source,
+                "n_services": n,
                 "zero_count": zero, "zero_pct": f"{100 * zero / n:.3f}",
                 "matters_pct": f"{100 * (n - zero) / n:.3f}",
                 "full_count": full, "full_pct": f"{100 * full / n:.3f}",
@@ -285,7 +303,7 @@ def maskfire_distribution(records):
 
 
 def write_distribution(rows, out_path):
-    cols = ["f2_def", "version", "n_services", "zero_count", "zero_pct",
+    cols = ["f2_def", "version", "source", "n_services", "zero_count", "zero_pct",
             "matters_pct", "full_count", "full_pct",
             "min", "q1", "median", "q3", "max", "mean"]
     with open(out_path, "w", newline="", encoding="utf-8") as fh:
@@ -347,7 +365,7 @@ def make_maskfire_histogram(vals_all, vals_2, vals_3, out_path):
 
 
 PER_SERVICE_COLUMNS = [
-    "clean_file", "title", "provider", "spec_version", "n_operations", "n_pairs",
+    "clean_file", "title", "provider", "source", "spec_version", "n_operations", "n_pairs",
     "a_f2_codegen", "a_f2_nonempty", "a_f2_derived",
     "a_f4_parameters", "a_f5_schemas", "a_f6_description",
     "c_all4_codegen", "c_all4_nonempty", "c_all4_derived",
@@ -372,7 +390,8 @@ def write_per_service(records, out_path):
 
 
 def write_summary(rows, out_path):
-    cols = ["kind", "key", "version", "micro_pct", "macro_pct", "macro_n_services"]
+    cols = ["kind", "key", "version", "source", "micro_pct", "macro_pct",
+            "macro_n_services"]
     with open(out_path, "w", newline="", encoding="utf-8") as fh:
         w = csv.DictWriter(fh, fieldnames=cols)
         w.writeheader()
@@ -384,7 +403,9 @@ def main(argv=None):
     ap.add_argument("--specs-dir", default=os.path.join(_ROOT, "specs", "clean"))
     ap.add_argument("--out-dir", default=os.path.join(_ROOT, "results"))
     ap.add_argument("--fig", default=os.path.join(_ROOT, "figures", "fig2_maskfire_distribution.pdf"))
-    ap.add_argument("--manifest", default=None)
+    ap.add_argument("--manifest",
+                    default=os.path.join(_ROOT, "results", "manifest.csv"),
+                    help="supplies provider and the provenance (source) column")
     args = ap.parse_args(argv)
 
     specs_dir = os.path.abspath(args.specs_dir)
@@ -393,13 +414,14 @@ def main(argv=None):
     if not files:
         sys.exit(f"no specs in {specs_dir}")
 
-    provider = {}
-    if args.manifest:
+    provider, source_of = {}, {}
+    if args.manifest and os.path.exists(args.manifest):
         with open(args.manifest, newline="", encoding="utf-8") as fh:
             for r in csv.DictReader(fh):
                 k = r.get("clean_file") or r.get("rel")
                 if k:
                     provider[k] = r.get("provider", "")
+                    source_of[k] = r.get("source", "")
 
     records, skips = [], []
     for path in files:
@@ -410,6 +432,7 @@ def main(argv=None):
             continue
         rec["clean_file"] = cf
         rec["provider"] = provider.get(cf, "")
+        rec["source"] = source_of.get(cf, "")
         records.append(rec)
 
     os.makedirs(args.out_dir, exist_ok=True)
