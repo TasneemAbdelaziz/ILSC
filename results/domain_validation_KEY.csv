@@ -1,0 +1,51 @@
+#,provider,title,auto_label,evidence
+1,keyserv.solutions,KeyServ,UNLABELLED,no_keyword_match
+2,amazonaws.com,AWSKendraFrontendService,devtools,provider_override:amazonaws.com
+3,afterbanks.com,Afterbanks API,finance,keywords:bank
+4,pinecone.io,Pinecone API,UNLABELLED,no_keyword_match
+5,azure.com,DataBoxEdgeManagementClient,devtools,provider_override:azure.com
+6,azure.com,ApplicationInsightsManagementClient,devtools,provider_override:azure.com
+7,apisetu.gov.in,"Directorate of Municipal Administration, Karnataka",government,provider_override:apisetu.gov.in
+8,amazonaws.com,AWS OpsWorks,devtools,provider_override:amazonaws.com
+9,pdfblocks.com,PDF Blocks API,UNLABELLED,no_keyword_match
+10,amazonaws.com,AWS IoT 1-Click Devices Service,devtools,provider_override:amazonaws.com
+11,microsoft.com,Video Search Client,media,keywords:video
+12,phantauth.net,PhantAuth,UNLABELLED,no_keyword_match
+13,zeno.fm,Aggregators API Service,UNLABELLED,no_keyword_match
+14,googleapis.com,Google Keep API,devtools,provider_override:googleapis.com
+15,amazonaws.com,FinSpace User Environment Management service,devtools,provider_override:amazonaws.com
+16,googleapis.com,Cloud Tool Results API,devtools,provider_override:googleapis.com
+17,dropx.io,DropX,UNLABELLED,no_keyword_match
+18,amazonaws.com,Amazon Prometheus Service,devtools,provider_override:amazonaws.com
+19,amazonaws.com,AWS Account,devtools,provider_override:amazonaws.com
+20,amazonaws.com,AWS Greengrass,devtools,provider_override:amazonaws.com
+21,apisetu.gov.in,Go Digit General Insurance Ltd.,government,provider_override:apisetu.gov.in
+22,appveyor.com,AppVeyor REST API,UNLABELLED,no_keyword_match
+23,googleapis.com,Compute Engine API,devtools,provider_override:googleapis.com
+24,googleapis.com,YouTube Reporting API,devtools,provider_override:googleapis.com
+25,airbyte.local,Airbyte Configuration API,UNLABELLED,no_keyword_match
+26,googleapis.com,OS Config API,devtools,provider_override:googleapis.com
+27,apideck.com,Accounting API,finance,keywords:accounting
+28,openchannel.io,OpenChannel Market API,UNLABELLED,no_keyword_match
+29,logoraisr.com,API docs | logoraisr.com,UNLABELLED,no_keyword_match
+30,nordigen.com,Nordigen Account Information Services API,UNLABELLED,no_keyword_match
+31,dodo.ac,Nookipedia,UNLABELLED,no_keyword_match
+32,apisetu.gov.in,"Jharsewa (eDistrict), Jharkhand",government,provider_override:apisetu.gov.in
+33,fungenerators.com,Random Lottery Number generator API,UNLABELLED,no_keyword_match
+34,googleapis.com,Google Tasks API,devtools,provider_override:googleapis.com
+35,azure.com,DataLakeAnalyticsJobManagementClient,devtools,provider_override:azure.com
+36,thebluealliance.com,The Blue Alliance API v3,UNLABELLED,no_keyword_match
+37,vtex.local,VTEX Do API,commerce,provider_override:vtex.local
+38,adyen.com,Configuration API,finance,provider_override:adyen.com
+39,reverb.com,reverb,UNLABELLED,no_keyword_match
+40,telegram.org,Telegram Bot API,UNLABELLED,no_keyword_match
+41,amazonaws.com,CloudWatch RUM,devtools,provider_override:amazonaws.com
+42,nexmo.com,Reports API,communication,provider_override:nexmo.com
+43,dweet.io,dweet.io,UNLABELLED,no_keyword_match
+44,azure.com,SignalRManagementClient,devtools,provider_override:azure.com
+45,amazonaws.com,AWS RoboMaker,devtools,provider_override:amazonaws.com
+46,apisetu.gov.in,"Revenue, Registration & Land Reforms Department, Jharkhand",government,provider_override:apisetu.gov.in
+47,rumble.run,Rumble API (deprecated),UNLABELLED,no_keyword_match
+48,azure.com,ServerManagement,devtools,provider_override:azure.com
+49,amazonaws.com,AWS Glue,devtools,provider_override:amazonaws.com
+50,callcontrol.com,Call Control API,UNLABELLED,no_keyword_match

@@ -1,0 +1,6 @@
+# Pinned for reproducibility. Regenerate with: pip freeze > requirements.txt
+pyyaml==6.0.2
+openapi-spec-validator==0.7.2
+# Day 3 field-availability study (src/availability.py) only: vector PDF figure.
+# No stdlib path to a publication-quality vector chart; used for figures/ output.
+matplotlib==3.8.2

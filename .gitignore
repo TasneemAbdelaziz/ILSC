@@ -1,0 +1,7 @@
+# Regenerated corpus — 476 MB, rebuilt from the pinned APIs.guru commit.
+# Not committed by design (see README.md sections 1-2).
+specs/clean/
+
+# Python bytecode cache
+__pycache__/
+*.pyc
