@@ -37,6 +37,7 @@ specs/
   benchmarks/          Sock Shop OpenAPI specs (5 services, 28 operations)
 docs/
   DECISIONS.md         Why each methodological choice was made (D-01 … D-15)
+  PLAN.md              Revised schedule from the current state, with owners
   gate1_expectations.md  The ten hand-picked services and what we expect
 run_all.py             One-command reproduction of everything below
 ```
@@ -194,7 +195,11 @@ The `< 3 operations` corpus filter is **not** applied here — see DECISIONS.md 
 
 ## 6. Next steps
 
-- [ ] Resolve D1, D2 and D3
+Day-by-day schedule with owners, gates and decision deadlines:
+[`docs/PLAN.md`](docs/PLAN.md). The one item everything else waits on is the
+similarity engine (`embed.py`, `similarity.py`, the mask).
+
+- [ ] Resolve D1, D2, D3 and D-14
 - [x] Day 1–2 — multi-source curation (S1 + S2), conversion, provenance
 - [x] Day 3 — field-availability and pair co-availability studies
 - [x] Day 1–2 (metric) — parser, tokenizer, path normaliser, T(Oi) without description
