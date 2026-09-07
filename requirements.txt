@@ -4,3 +4,12 @@ openapi-spec-validator==0.7.2
 # Day 3 field-availability study (src/availability.py) only: vector PDF figure.
 # No stdlib path to a publication-quality vector chart; used for figures/ output.
 matplotlib==3.8.2
+
+# D-02 strict-validation sample (src/validate_sample.py). Pinned but previously
+# unused: the strict pass rate D-02 promises now has a script that produces it.
+
+# --- Node dependency -------------------------------------------------------
+# Step (b) of the Sec. 7 pipeline converts Swagger 2.0 with swagger2openapi,
+# the tool named in the proposal. It is a Node package, not a Python one:
+#     npm install            (see package.json, pinned to 7.0.8)
+# Only src/convert.py needs it; every other script is pure Python.

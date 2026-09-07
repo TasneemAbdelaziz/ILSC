@@ -1,0 +1,12 @@
+{
+  "name": "ilsc",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ILSC - Interface-Level Semantic Cohesion. Node is needed for exactly one step: Swagger 2.0 -> OpenAPI 3.x conversion (Sec. 7 pipeline step b, DECISIONS.md D-01). Everything else is Python.",
+  "scripts": {
+    "convert": "python src/convert.py"
+  },
+  "dependencies": {
+    "swagger2openapi": "7.0.8"
+  }
+}

@@ -146,13 +146,32 @@ def relabel_manifest(path_in, path_out):
     return rows
 
 
-if __name__ == "__main__":
+def main(argv=None):
+    import argparse
     import collections
-    rows = relabel_manifest(
-        "/home/claude/ilsc/results/manifest.csv",
-        "/home/claude/ilsc/results/manifest_labelled.csv",
-    )
+    import os
+    import sys
+
+    _root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.insert(0, _root)
+    import config                               # noqa: E402
+
+    ap = argparse.ArgumentParser(
+        description="ILSC coarse domain labeller (REJECTED, see DECISIONS.md D-03).")
+    ap.add_argument("--manifest", default=os.path.join(config.RESULTS_DIR, "manifest.csv"))
+    ap.add_argument("--out", default=os.path.join(config.RESULTS_DIR,
+                                                  "manifest_labelled.csv"))
+    args = ap.parse_args(argv)
+
+    rows = relabel_manifest(args.manifest, args.out)
     c = collections.Counter(r["domain"] for r in rows)
     total = len(rows)
     for k, v in c.most_common():
-        print(f"  {k:15s} {v:5d}  ({v / total * 100:5.1f}%)")
+        print("  %-15s %5d  (%5.1f%%)" % (k, v, v / total * 100))
+    print("\nwritten: %s" % args.out)
+    print("NOTE: these labels are inert. D-03 rejected them at 52%% agreement;")
+    print("      the perturbation control uses provider proximity instead (D-05).")
+
+
+if __name__ == "__main__":
+    main()

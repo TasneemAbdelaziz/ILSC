@@ -58,10 +58,11 @@ Reproducibility notes:
   * ``config.MIN_OPERATIONS`` is used only as an input sanity invariant: clean
     survivors must have >= MIN_OPERATIONS operations. Benchmark systems may not
     (D-06), so a violation is logged, not fatal.
-  * Admin-path handling comes from filter.py's regex, which is BROADER than the
-    ``config.ADMIN_PATHS`` tuple (the tuple is the D-07 list; the corpus was in
-    fact built with the regex). This module matches the corpus, i.e. filter.py.
-    The discrepancy is flagged here but neither file is modified.
+  * Admin-path handling comes from ``config.ADMIN_PATHS_RE``, re-exported by
+    filter.py as ``ADMIN_PATHS``. The regex and the plain-language
+    ``config.ADMIN_PATHS`` tuple (the D-07 list) are now kept in sync; an
+    earlier revision had a 6-entry tuple and a 12-entry regex, and the corpus
+    was built with the regex. Do not re-derive either here.
 
 Every skipped spec and every input-invariant violation is logged to
 ``results/availability_skiplog.csv``.
@@ -274,47 +275,75 @@ def _fmt_rate(value):
 
 
 def build_summary(records):
-    """Return rows for availability_summary.csv, one per (field, denom, version).
+    """Return rows for availability_summary.csv, one per (field, denom, version,
+    source).
 
     micro = operation-weighted (pool operations);
     macro = per-service mean (each service equal, zero-denominator services
     excluded and counted).
+
+    The per-source stratum is required by Sec. 7 / Day 3: the study must be
+    reported per source (S1 vs S2), not only pooled, because S1 is Bogner's
+    peer-reviewed corpus and S2 the fresh crawl, and a difference between them
+    is exactly what the multi-source design exists to expose. Empty strata are
+    skipped, so a single-source run still produces the same rows it always did.
     """
     rows = []
-    for version in ("all", "2.0", "3.x"):
-        bucket = records if version == "all" else [r for r in records if r["spec_version"] == version]
+    sources = ["all"] + sorted({r.get("source", "") for r in records} - {""})
+    strata = [(v, s) for v in ("all", "2.0", "3.x") for s in sources]
+
+    for version, source in strata:
+        bucket = _stratum(records, version, source)
+        if not bucket:
+            continue
         for label, count_key, denom_kind in FIELD_SPECS:
-            denom_key = "n_operations" if denom_kind == "all_ops" else "n_body_eligible"
-
-            micro_with = sum(r[count_key] for r in bucket)
-            micro_den = sum(r[denom_key] for r in bucket)
-
-            per_service, excluded = [], 0
-            for r in bucket:
-                d = r[denom_key]
-                if d:
-                    per_service.append(r[count_key] / d)
-                else:
-                    excluded += 1
-            macro = (sum(per_service) / len(per_service)) if per_service else None
-
-            rows.append({
-                "field": label,
-                "denominator": denom_kind,
-                "version": version,
-                "micro_n_with": micro_with,
-                "micro_n_denom": micro_den,
-                "micro_pct": "" if not micro_den else f"{100 * micro_with / micro_den:.3f}",
-                "macro_mean_pct": "" if macro is None else f"{100 * macro:.3f}",
-                "macro_n_services": len(per_service),
-                "macro_n_services_excluded": excluded,
-            })
+            rows.append(_summary_row(bucket, version, source,
+                                     label, count_key, denom_kind))
     return rows
 
 
+def _stratum(records, version, source):
+    bucket = records
+    if version != "all":
+        bucket = [r for r in bucket if r["spec_version"] == version]
+    if source != "all":
+        bucket = [r for r in bucket if r.get("source") == source]
+    return bucket
+
+
+def _summary_row(bucket, version, source, label, count_key, denom_kind):
+    denom_key = "n_operations" if denom_kind == "all_ops" else "n_body_eligible"
+
+    micro_with = sum(r[count_key] for r in bucket)
+    micro_den = sum(r[denom_key] for r in bucket)
+
+    per_service, excluded = [], 0
+    for r in bucket:
+        d = r[denom_key]
+        if d:
+            per_service.append(r[count_key] / d)
+        else:
+            excluded += 1
+    macro = (sum(per_service) / len(per_service)) if per_service else None
+
+    return {
+        "field": label,
+        "denominator": denom_kind,
+        "version": version,
+        "source": source,
+        "micro_n_with": micro_with,
+        "micro_n_denom": micro_den,
+        "micro_pct": "" if not micro_den else f"{100 * micro_with / micro_den:.3f}",
+        "macro_mean_pct": "" if macro is None else f"{100 * macro:.3f}",
+        "macro_n_services": len(per_service),
+        "macro_n_services_excluded": excluded,
+    }
+
+
 def summary_lookup(summary_rows):
-    """(field, denominator, version) -> row, for the figure."""
-    return {(r["field"], r["denominator"], r["version"]): r for r in summary_rows}
+    """(field, denominator, version, source) -> row, for the figure."""
+    return {(r["field"], r["denominator"], r["version"], r["source"]): r
+            for r in summary_rows}
 
 
 # ----------------------------------------------------------------------------
@@ -322,7 +351,7 @@ def summary_lookup(summary_rows):
 # ----------------------------------------------------------------------------
 
 PER_SERVICE_COLUMNS = [
-    "clean_file", "title", "provider", "spec_version",
+    "clean_file", "title", "provider", "source", "spec_version",
     "n_operations", "n_body_eligible",
     "n_description", "n_summary", "n_operation_id", "n_parameters",
     "n_request_schema", "n_request_schema_body_eligible",
@@ -353,7 +382,7 @@ def write_per_service(records, out_path):
 
 
 SUMMARY_COLUMNS = [
-    "field", "denominator", "version",
+    "field", "denominator", "version", "source",
     "micro_n_with", "micro_n_denom", "micro_pct",
     "macro_mean_pct", "macro_n_services", "macro_n_services_excluded",
 ]
@@ -374,37 +403,59 @@ def write_skiplog(skips, out_path):
 
 
 def make_figure(summary_rows, out_path, n_services, n_ops):
+    """Fig 1 -- grouped bars, two panels wide.
+
+    Left column groups by SOURCE, which is what Sec. 7 / Day 3 asks for: the
+    multi-source design exists so that S1 (Bogner's peer-reviewed corpus) and
+    S2 (the fresh crawl) can be compared rather than silently pooled. The right
+    column keeps the 2.0-vs-3.x grouping, which carries a separate finding.
+    """
     look = summary_lookup(summary_rows)
     labels = [lbl.replace("_", "\n") for lbl, _ in FIGURE_FIELDS]
     x = range(len(FIGURE_FIELDS))
-    width = 0.38
-    colors = {"2.0": "#4C72B0", "3.x": "#DD8452"}
+    palette = ["#4C72B0", "#DD8452", "#55A868", "#C44E52"]
 
-    def pct(field, version, kind):  # kind: "micro_pct" or "macro_mean_pct"
-        row = look.get((field, "all_ops", version))
+    sources = sorted({r["source"] for r in summary_rows} - {"all"})
+    versions = [v for v in VERSIONS
+                if any(r["version"] == v for r in summary_rows)]
+
+    def pct(field, version, source, kind):  # kind: micro_pct | macro_mean_pct
+        row = look.get((field, "all_ops", version, source))
         if not row or row[kind] == "":
             return 0.0
         return float(row[kind])
 
-    fig, axes = plt.subplots(2, 1, figsize=(9, 8), sharex=True)
-    for ax, kind, title in (
-        (axes[0], "micro_pct", "(a) Operation-weighted (micro)"),
-        (axes[1], "macro_mean_pct", "(b) Per-service mean (macro)"),
-    ):
-        for i, version in enumerate(VERSIONS):
-            offs = (i - 0.5) * width
-            vals = [pct(lbl, version, kind) for lbl, _ in FIGURE_FIELDS]
-            bars = ax.bar([xi + offs for xi in x], vals, width,
-                          label=f"OpenAPI {version}", color=colors[version])
-            ax.bar_label(bars, fmt="%.0f", padding=2, fontsize=7)
-        ax.set_ylim(0, 105)
-        ax.set_ylabel("% of operations")
-        ax.set_title(title, fontsize=10, loc="left")
-        ax.grid(axis="y", linestyle=":", alpha=0.5)
-        ax.legend(loc="lower right", fontsize=8)
+    # (group label, version, source) per column
+    columns = [
+        ("by source", [(s, "all", s) for s in sources]),
+        ("by OpenAPI version", [("OpenAPI " + v, v, "all") for v in versions]),
+    ]
+    columns = [c for c in columns if len(c[1]) > 1] or [columns[1]]
 
-    axes[1].set_xticks(list(x))
-    axes[1].set_xticklabels(labels, fontsize=8)
+    fig, axes = plt.subplots(2, len(columns), figsize=(7.5 * len(columns), 8),
+                             squeeze=False, sharey=True)
+    panel = iter("abcd")
+    for col, (col_title, groups) in enumerate(columns):
+        width = 0.8 / len(groups)
+        for row_i, (kind, kind_title) in enumerate(
+                (("micro_pct", "Operation-weighted (micro)"),
+                 ("macro_mean_pct", "Per-service mean (macro)"))):
+            ax = axes[row_i][col]
+            for i, (glabel, version, source) in enumerate(groups):
+                offs = (i - (len(groups) - 1) / 2) * width
+                vals = [pct(lbl, version, source, kind) for lbl, _ in FIGURE_FIELDS]
+                bars = ax.bar([xi + offs for xi in x], vals, width,
+                              label=glabel, color=palette[i % len(palette)])
+                ax.bar_label(bars, fmt="%.0f", padding=2, fontsize=6.5)
+            ax.set_ylim(0, 105)
+            if col == 0:
+                ax.set_ylabel("% of operations")
+            ax.set_title("(%s) %s, %s" % (next(panel), kind_title, col_title),
+                         fontsize=10, loc="left")
+            ax.grid(axis="y", linestyle=":", alpha=0.5)
+            ax.legend(loc="lower right", fontsize=8)
+            ax.set_xticks(list(x))
+            ax.set_xticklabels(labels, fontsize=8)
 
     fig.suptitle("Fig 1 — Field availability across specs/clean "
                  f"(n={n_services} services, {n_ops:,} operations)", fontsize=11)
@@ -444,8 +495,10 @@ def main(argv=None):
     ap.add_argument("--specs-dir", default=os.path.join(_ROOT, "specs", "clean"))
     ap.add_argument("--out-dir", default=os.path.join(_ROOT, "results"))
     ap.add_argument("--fig", default=os.path.join(_ROOT, "figures", "fig1_availability.pdf"))
-    ap.add_argument("--manifest", default=None,
-                    help="optional manifest.csv to cross-check n_operations per service")
+    ap.add_argument("--manifest", default=os.path.join(_ROOT, "results", "manifest.csv"),
+                    help="manifest.csv: cross-checks n_operations and supplies "
+                         "the provenance (source) column the per-source "
+                         "stratification requires")
     ap.add_argument("--provider-from-manifest", action="store_true",
                     help="read the provider column from --manifest instead of leaving it blank")
     args = ap.parse_args(argv)
@@ -461,8 +514,8 @@ def main(argv=None):
     if not files:
         sys.exit(f"no specs in {specs_dir}")
 
-    manifest_ops, manifest_provider = {}, {}
-    if args.manifest:
+    manifest_ops, manifest_provider, manifest_source = {}, {}, {}
+    if args.manifest and os.path.exists(args.manifest):
         with open(args.manifest, newline="", encoding="utf-8") as fh:
             for row in csv.DictReader(fh):
                 key = row.get("clean_file") or row.get("rel")
@@ -470,6 +523,10 @@ def main(argv=None):
                     continue
                 manifest_ops[key] = int(row["n_operations"])
                 manifest_provider[key] = row.get("provider", "")
+                manifest_source[key] = row.get("source", "")
+    elif args.manifest:
+        print("warning: manifest not found (%s); per-source stratification "
+              "will be empty" % args.manifest, file=sys.stderr)
 
     records, skips, invariant_notes = [], [], []
     mismatches = []
@@ -481,6 +538,7 @@ def main(argv=None):
             continue
         rec["clean_file"] = clean_file
         rec["provider"] = manifest_provider.get(clean_file, "") if args.provider_from_manifest else ""
+        rec["source"] = manifest_source.get(clean_file, "")
 
         # Input invariant (uses config.MIN_OPERATIONS): clean survivors carry
         # >= MIN_OPERATIONS ops. Benchmarks legitimately may not (D-06) -> log.
