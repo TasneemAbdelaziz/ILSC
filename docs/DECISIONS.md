@@ -443,6 +443,15 @@ are the wrong basis for predicting mask behaviour. This is the sort of thing
 that surfaces at Gate 2 as an unexplained discrepancy if it is not written down
 now.
 
+**Stated position, pending re-derivation.** Day 3's outputs — `availability.*`,
+`pair_availability.*`, **Fig 1 and Fig 2** — all describe **`specs/clean/` (as
+published)**, while the mask itself will run on **`specs/clean3/` (converted)**;
+the gap is **f4 96.41% (`clean/`) vs 91.04% (`clean3/`) across the 144 converted
+2.0 services**, making the reported pair-level f4 co-availability ~5 points
+optimistic. We are deliberately *not* re-deriving now: a stated ~5-point
+discrepancy on one feature is a limitation, an unstated one is a defect. Revisit
+if Exp. 4 proves sensitive to it — not at the cost of Day 5.
+
 ---
 
 ## D-15 · Tokenisation order: stopwords before letter/digit splitting

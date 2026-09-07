@@ -115,6 +115,16 @@ it equals `filter.operations()`. Input `specs/clean/` (2,206 services);
 well as by version**, which Sec. 7 requires and which turns out to matter a great
 deal.
 
+> **Which corpus these figures describe (D-14).** Every number in A and B, and
+> both **Fig 1 and Fig 2**, are measured on **`specs/clean/` (as published)** —
+> not on the corpus the similarity engine reads, which is **`specs/clean3/`
+> (converted)** via `src/parse_spec.py`. The two diverge for the **144 converted
+> 2.0 services**, because conversion moves an `in: body` parameter into
+> `requestBody`: **f4 (parameters) is 96.41% on `clean/` against 91.04% on
+> `clean3/`**, so B's pair-level mask figures are **~5 points optimistic on f4**
+> for those services. Not re-derived yet, by choice — stated here so the gap is a
+> declared limitation rather than an unstated defect.
+
 ### A. Per-operation availability (descriptive)
 
 **Script:** [`src/availability.py`](src/availability.py) · **Scope:** 97,912
