@@ -1,0 +1,885 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-travel2-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-travel2-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/travel2service/admin_trip": {
+   "get": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "adminQueryAll",
+    "operationId": "ts-travel2-service.adminQueryAllUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/routes/{tripId}": {
+   "get": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "getRouteByTripId",
+    "operationId": "ts-travel2-service.getRouteByTripIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "tripId",
+      "in": "path",
+      "description": "tripId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/train_types/{tripId}": {
+   "get": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "getTrainTypeByTripId",
+    "operationId": "ts-travel2-service.getTrainTypeByTripIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "tripId",
+      "in": "path",
+      "description": "tripId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/trip_detail": {
+   "post": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "getTripAllDetailInfo",
+    "operationId": "ts-travel2-service.getTripAllDetailInfoUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "gtdi",
+      "description": "gtdi",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.TripAllDetailInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/trips": {
+   "get": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "queryAll",
+    "operationId": "ts-travel2-service.queryAllUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   },
+   "post": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "createTrip",
+    "operationId": "ts-travel2-service.createTripUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "routeIds",
+      "description": "routeIds",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.TravelInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "object"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   },
+   "put": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "updateTrip",
+    "operationId": "ts-travel2-service.updateTripUsingPUT",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.TravelInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/trips/left": {
+   "post": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "queryInfo",
+    "operationId": "ts-travel2-service.queryInfoUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.TripInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/trips/routes": {
+   "post": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "getTripsByRouteId",
+    "operationId": "ts-travel2-service.getTripsByRouteIdUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "routeIds",
+      "description": "routeIds",
+      "required": true,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/trips/{tripId}": {
+   "get": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "retrieve",
+    "operationId": "ts-travel2-service.retrieveUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "tripId",
+      "in": "path",
+      "description": "tripId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   },
+   "delete": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "deleteTrip",
+    "operationId": "ts-travel2-service.deleteTripUsingDELETE",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "tripId",
+      "in": "path",
+      "description": "tripId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-travel2-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "204": {
+      "description": "No Content"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  },
+  "/api/v1/travel2service/welcome": {
+   "get": {
+    "tags": [
+     "travel-2-controller",
+     "ts-travel2-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-travel2-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-travel2-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-travel2-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  },
+  "ts-travel2-service.TravelInfo": {
+   "type": "object",
+   "properties": {
+    "endTime": {
+     "type": "string"
+    },
+    "loginId": {
+     "type": "string"
+    },
+    "routeId": {
+     "type": "string"
+    },
+    "startStationName": {
+     "type": "string"
+    },
+    "startTime": {
+     "type": "string"
+    },
+    "stationsName": {
+     "type": "string"
+    },
+    "terminalStationName": {
+     "type": "string"
+    },
+    "trainTypeName": {
+     "type": "string"
+    },
+    "tripId": {
+     "type": "string"
+    }
+   }
+  },
+  "ts-travel2-service.TripAllDetailInfo": {
+   "type": "object",
+   "properties": {
+    "from": {
+     "type": "string"
+    },
+    "to": {
+     "type": "string"
+    },
+    "travelDate": {
+     "type": "string"
+    },
+    "tripId": {
+     "type": "string"
+    }
+   }
+  },
+  "ts-travel2-service.TripInfo": {
+   "type": "object",
+   "properties": {
+    "departureTime": {
+     "type": "string"
+    },
+    "endPlace": {
+     "type": "string"
+    },
+    "startPlace": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

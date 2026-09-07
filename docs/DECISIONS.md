@@ -487,3 +487,79 @@ while leaving `OAuth` intact.
 **Status of the knob.** Extending `{v1, v2}` to `^v<digits>$` goes beyond the pinned
 list, so it is a named flag and belongs in the f2/f3 sensitivity analysis
 (Exp. 5), not in the silent defaults.
+
+---
+
+## D-16 · Train Ticket enters as a labelled `generated-from-source` condition — and Sock Shop is our only independent-spec system
+
+**Decision.** Ingest Train Ticket with `spec_origin = 'generated-from-source'`.
+
+| Experiment | Train Ticket's role |
+|---|---|
+| **Exp. 2** (perturbation, provider proximity) | **full participation** |
+| **Exp. 3** (code correlation) | **separate condition — never pooled with Sock Shop** |
+
+Exp. 3 reports two coefficients: **ρ_independent** (Sock Shop, hand-written
+specs) and **ρ_derived** (Train Ticket, specs generated from the code). They are
+never averaged into one number.
+
+**Why the label is necessary — the negative search result.** Train Ticket ships
+no OpenAPI specifications. A reviewer will ask why we did not simply use the
+project's own specs, so the search is recorded here rather than left implicit:
+
+- The only published, citable artifact carrying Train Ticket OpenAPI specs is the
+  replication package of **arXiv 2607.12101** (Mazhar, Wang, Mäntylä, 13 Jul
+  2026), Zenodo **`10.5281/zenodo.21342161`**, CC-BY-4.0 — baseline **34
+  services, 172 paths, 211 operations**.
+- **That artifact is itself code-derived.** Quoting its methodology: the baseline
+  was built "by querying the `/v2/api-docs` endpoint exposed by Spring Boot
+  services via the **Springfox** library, which **auto-generates OpenAPI
+  specifications from annotated controllers at runtime**"; the four services that
+  returned no usable output were "manually constructed using **source-level
+  inspection**".
+- The FudanSELab wiki publishes a human-written *Service Guide and API Reference*,
+  but as prose and tables — not machine-readable OpenAPI.
+
+So no independent Train Ticket specification exists. The choice was
+code-derived or nothing, and we take code-derived **with the label attached**.
+
+**Why circularity bites Exp. 3 but not Exp. 2.** Exp. 3 correlates
+interface-level similarity against **code-level entity overlap**; if the
+interface was generated *from* that code, the correlation is partly circular and
+inflated. Exp. 2 perturbs by injecting operations between specifications and
+never reads source code at all (D-05), so spec–code derivation is irrelevant
+there. Hence full participation in one and quarantine in the other.
+
+**What the split buys us.** The distance between ρ_independent and ρ_derived is a
+**measurable estimate of how much spec–code derivation inflates the
+correlation** — a finding in its own right, and one a single-system design
+cannot produce. The quarantine is therefore not merely defensive.
+
+**The cost, stated plainly.** Online Boutique was the candidate third system. It
+is **gRPC / Protocol Buffers** (11 services, definitions in `./protos`) and ships
+**no OpenAPI at all**; any specification would have to be generated from the
+`.proto` files — also `generated-from-source` — and gRPC methods are not HTTP
+operations, so they do not fit the (METHOD, path) operation model the metric is
+defined on. Online Boutique therefore cannot supply independent specs either.
+
+**Consequently Exp. 3's independent-spec evidence rests on Sock Shop alone:**
+5 services, 27 operations after D-07, **122 within-service pairs**. (README §5's
+"123" counts `payment`'s `/health`, which D-07 strips.) **ρ_independent is a
+single-system estimate and must be reported as such** — it is not a
+corpus-level claim, and this constrains what Exp. 3 can conclude.
+
+**Provenance is recorded, not assumed.** `results/benchmark_manifest.csv` carries
+`spec_origin`, `spec_source_url` and `spec_pin` per system, so no downstream
+reader has to infer where a specification came from.
+
+**Paper text.**
+
+> Train Ticket exposes no authored OpenAPI specifications; the only published
+> artifact (Zenodo 10.5281/zenodo.21342161) derives them from the service code
+> via Springfox introspection. We therefore admit Train Ticket to the
+> perturbation experiment, which never inspects source code, but hold it out of
+> the pooled code-correlation analysis, reporting ρ separately for hand-written
+> (Sock Shop) and generated (Train Ticket) specifications. The difference
+> between the two estimates quantifies the inflation that specification–code
+> derivation introduces. Because Online Boutique is a gRPC system with no
+> OpenAPI descriptions, the hand-written condition rests on a single system.

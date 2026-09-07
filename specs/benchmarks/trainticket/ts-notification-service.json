@@ -1,0 +1,350 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-notification-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-notification-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/notifyservice/notification/order_cancel_success": {
+   "post": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "order_cancel_success",
+    "operationId": "ts-notification-service.order_cancel_successUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-notification-service.NotifyInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  },
+  "/api/v1/notifyservice/notification/order_changed_success": {
+   "post": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "order_changed_success",
+    "operationId": "ts-notification-service.order_changed_successUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-notification-service.NotifyInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  },
+  "/api/v1/notifyservice/notification/order_create_success": {
+   "post": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "order_create_success",
+    "operationId": "ts-notification-service.order_create_successUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-notification-service.NotifyInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  },
+  "/api/v1/notifyservice/notification/preserve_success": {
+   "post": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "preserve_success",
+    "operationId": "ts-notification-service.preserve_successUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-notification-service.NotifyInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  },
+  "/api/v1/notifyservice/test_send_mail": {
+   "get": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "test_send_mail",
+    "operationId": "ts-notification-service.test_send_mailUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  },
+  "/api/v1/notifyservice/test_send_mq": {
+   "get": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "test_send",
+    "operationId": "ts-notification-service.test_sendUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  },
+  "/api/v1/notifyservice/welcome": {
+   "get": {
+    "tags": [
+     "notification-controller",
+     "ts-notification-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-notification-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-notification-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-notification-service.NotifyInfo": {
+   "type": "object",
+   "properties": {
+    "date": {
+     "type": "string"
+    },
+    "email": {
+     "type": "string"
+    },
+    "endPlace": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "orderNumber": {
+     "type": "string"
+    },
+    "price": {
+     "type": "string"
+    },
+    "seatClass": {
+     "type": "string"
+    },
+    "seatNumber": {
+     "type": "string"
+    },
+    "sendStatus": {
+     "type": "boolean"
+    },
+    "startPlace": {
+     "type": "string"
+    },
+    "startTime": {
+     "type": "string"
+    },
+    "username": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

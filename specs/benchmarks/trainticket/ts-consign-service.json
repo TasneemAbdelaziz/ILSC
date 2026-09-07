@@ -1,0 +1,463 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-consign-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-consign-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/consignservice/consigns": {
+   "post": {
+    "tags": [
+     "consign-controller",
+     "ts-consign-service"
+    ],
+    "summary": "insertConsign",
+    "operationId": "ts-consign-service.insertConsignUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "request",
+      "description": "request",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.Consign"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-service"
+   },
+   "put": {
+    "tags": [
+     "consign-controller",
+     "ts-consign-service"
+    ],
+    "summary": "updateConsign",
+    "operationId": "ts-consign-service.updateConsignUsingPUT",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "request",
+      "description": "request",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.Consign"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-service"
+   }
+  },
+  "/api/v1/consignservice/consigns/account/{id}": {
+   "get": {
+    "tags": [
+     "consign-controller",
+     "ts-consign-service"
+    ],
+    "summary": "findByAccountId",
+    "operationId": "ts-consign-service.findByAccountIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "description": "id",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-service"
+   }
+  },
+  "/api/v1/consignservice/consigns/order/{id}": {
+   "get": {
+    "tags": [
+     "consign-controller",
+     "ts-consign-service"
+    ],
+    "summary": "findByOrderId",
+    "operationId": "ts-consign-service.findByOrderIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "id",
+      "in": "path",
+      "description": "id",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-service"
+   }
+  },
+  "/api/v1/consignservice/consigns/{consignee}": {
+   "get": {
+    "tags": [
+     "consign-controller",
+     "ts-consign-service"
+    ],
+    "summary": "findByConsignee",
+    "operationId": "ts-consign-service.findByConsigneeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "consignee",
+      "in": "path",
+      "description": "consignee",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-service"
+   }
+  },
+  "/api/v1/consignservice/welcome": {
+   "get": {
+    "tags": [
+     "consign-controller",
+     "ts-consign-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-consign-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-consign-service.Consign": {
+   "type": "object",
+   "properties": {
+    "accountId": {
+     "type": "string"
+    },
+    "consignee": {
+     "type": "string"
+    },
+    "from": {
+     "type": "string"
+    },
+    "handleDate": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "orderId": {
+     "type": "string"
+    },
+    "phone": {
+     "type": "string"
+    },
+    "targetDate": {
+     "type": "string"
+    },
+    "to": {
+     "type": "string"
+    },
+    "weight": {
+     "type": "number",
+     "format": "double"
+    },
+    "within": {
+     "type": "boolean"
+    }
+   }
+  },
+  "ts-consign-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

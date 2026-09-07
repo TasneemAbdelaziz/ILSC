@@ -20,7 +20,7 @@ steps in `README.md` §2.
 | Day 4 prep — Gate 1 candidates | [`src/gate1_select.py`](src/gate1_select.py) | ✅ complete | ten services picked, [`docs/gate1_expectations.md`](docs/gate1_expectations.md) |
 | Day 3 — similarity engine + mask | — | ⏳ pending | next on the metric track |
 | Day 4 — Gate 1 run | — | ⏳ pending | needs `ILSC_mean` from the engine |
-| Day 5 — benchmark prep (+ Train Ticket) | — | ⏳ pending | see `README.md` §6 |
+| Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
 | Day 7 — perturbation (provider proximity) | — | ⏳ pending | see D-05 |
 | Day 8–11 — code dig | — | ⏳ pending | — |
 
@@ -305,6 +305,50 @@ tags declare six unrelated domains (Data Tools, E-commerce, Geolocation,
 Imaging, Security and Networking, Telephony).
 
 Gate 1 itself is pending — it needs `ILSC_mean`, which is Mohamed's engine.
+
+---
+
+## Day 5 — Benchmark preparation  (Exp. 3 sample size, fixed in advance)
+
+**Script:** [`src/benchmark_prep.py`](src/benchmark_prep.py) · **Governed by:**
+D-06 (no `<3 ops` filter), D-07 (admin stripping), **D-16** (provenance split).
+
+**Outputs:** [`results/benchmark_manifest.csv`](results/benchmark_manifest.csv)
+(39) · [`results/benchmark_split_log.csv`](results/benchmark_split_log.csv) (34) ·
+`specs/benchmarks/{sockshop,trainticket}/`.
+
+**Exp. 3's sample size is now known before the code dig starts:**
+
+| System | `spec_origin` | Services | Ops | **Pairs** | Exp. 3 role |
+|---|---|--:|--:|--:|---|
+| `sockshop` | hand-written | 5 (4 with pairs) | 27 | **122** | **ρ_independent** |
+| `trainticket` | generated-from-source | 34 (32 with pairs) | 211 | **794** | **ρ_derived** |
+| **Total** | | **39** | **238** | **916** | never pooled |
+
+> **Finding — the independent condition rests on one system.** Sock Shop is the
+> only benchmark whose specifications were written by hand rather than derived
+> from code. Train Ticket publishes none (the sole citable artifact, Zenodo
+> `10.5281/zenodo.21342161`, is Springfox-generated from the controllers), and
+> **Online Boutique is a gRPC/Protocol-Buffers system with no OpenAPI at all** —
+> its `.proto` methods are not (METHOD, path) operations, so it cannot supply
+> independent specs either. **ρ_independent is therefore a single-system
+> estimate over 122 pairs** and must be reported as such; it is not a
+> corpus-level claim. The ρ_independent − ρ_derived gap is itself the
+> deliverable: a measurable estimate of how much spec–code derivation inflates
+> the correlation (D-16).
+
+**Train Ticket ingestion.** The upstream baseline is one combined document
+(172 paths, 211 operations). It is split into 34 per-service specs on the
+`ts-*-service` tag that every operation carries — read off the artifact, not
+guessed — with `definitions` pruned to each service's transitive `$ref` closure
+and the (METHOD, path) multiset asserted unchanged. Measuring the combined
+document instead would have produced C(211,2) = 22,155 fabricated cross-service
+pairs in place of the 794 real ones. Attribution (CC-BY-4.0) in
+[`specs/benchmarks/trainticket/README.md`](specs/benchmarks/trainticket/README.md).
+
+**Known gap.** Sock Shop's five specs predate this pipeline and carry
+`spec_pin = UNPINNED` — no upstream commit was recorded for them. Train Ticket is
+pinned by DOI + archive sha256. Pinning Sock Shop is outstanding.
 
 ---
 

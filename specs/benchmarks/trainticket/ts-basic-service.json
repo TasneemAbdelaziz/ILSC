@@ -1,0 +1,314 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-basic-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-basic-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/basicservice/basic/travel": {
+   "post": {
+    "tags": [
+     "basic-controller",
+     "ts-basic-service"
+    ],
+    "summary": "queryForTravel",
+    "operationId": "ts-basic-service.queryForTravelUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-basic-service.Travel"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-basic-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-basic-service"
+   }
+  },
+  "/api/v1/basicservice/basic/travels": {
+   "post": {
+    "tags": [
+     "basic-controller",
+     "ts-basic-service"
+    ],
+    "summary": "queryForTravels",
+    "operationId": "ts-basic-service.queryForTravelsUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "infos",
+      "description": "infos",
+      "required": true,
+      "schema": {
+       "type": "array",
+       "items": {
+        "$ref": "#/definitions/ts-basic-service.Travel"
+       }
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-basic-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-basic-service"
+   }
+  },
+  "/api/v1/basicservice/basic/{stationName}": {
+   "get": {
+    "tags": [
+     "basic-controller",
+     "ts-basic-service"
+    ],
+    "summary": "queryForStationId",
+    "operationId": "ts-basic-service.queryForStationIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "stationName",
+      "in": "path",
+      "description": "stationName",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-basic-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-basic-service"
+   }
+  },
+  "/api/v1/basicservice/welcome": {
+   "get": {
+    "tags": [
+     "basic-controller",
+     "ts-basic-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-basic-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-basic-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-basic-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  },
+  "ts-basic-service.Travel": {
+   "type": "object",
+   "properties": {
+    "departureTime": {
+     "type": "string"
+    },
+    "endPlace": {
+     "type": "string"
+    },
+    "startPlace": {
+     "type": "string"
+    },
+    "trip": {
+     "$ref": "#/definitions/ts-basic-service.Trip"
+    }
+   }
+  },
+  "ts-basic-service.Trip": {
+   "type": "object",
+   "properties": {
+    "endTime": {
+     "type": "string"
+    },
+    "id": {
+     "type": "string"
+    },
+    "routeId": {
+     "type": "string"
+    },
+    "startStationName": {
+     "type": "string"
+    },
+    "startTime": {
+     "type": "string"
+    },
+    "stationsName": {
+     "type": "string"
+    },
+    "terminalStationName": {
+     "type": "string"
+    },
+    "trainTypeName": {
+     "type": "string"
+    },
+    "tripId": {
+     "$ref": "#/definitions/ts-basic-service.TripId"
+    }
+   }
+  },
+  "ts-basic-service.TripId": {
+   "type": "object",
+   "properties": {
+    "number": {
+     "type": "string"
+    },
+    "type": {
+     "type": "string",
+     "enum": [
+      "G",
+      "D",
+      "Z",
+      "T",
+      "K"
+     ]
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

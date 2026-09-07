@@ -1,0 +1,72 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-news-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-news-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/news": {
+   "get": {
+    "operationId": "ts-news-service.getNews",
+    "produces": [
+     "text/html"
+    ],
+    "responses": {
+     "200": {
+      "description": "List of news items (JSON array returned with Content-Type text/html)",
+      "schema": {
+       "type": "array",
+       "items": {
+        "$ref": "#/definitions/ts-news-service.News"
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found - News service unavailable or no data",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-news-service",
+    "tags": [
+     "ts-news-service"
+    ]
+   }
+  }
+ },
+ "definitions": {
+  "ts-news-service.News": {
+   "type": "object",
+   "properties": {
+    "Title": {
+     "type": "string"
+    },
+    "Content": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

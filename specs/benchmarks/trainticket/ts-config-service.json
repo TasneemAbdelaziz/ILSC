@@ -1,0 +1,434 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-config-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-config-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/configservice/configs": {
+   "get": {
+    "tags": [
+     "config-controller",
+     "ts-config-service"
+    ],
+    "summary": "queryAll",
+    "operationId": "ts-config-service.queryAllUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-config-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-config-service"
+   },
+   "post": {
+    "tags": [
+     "config-controller",
+     "ts-config-service"
+    ],
+    "summary": "createConfig",
+    "operationId": "ts-config-service.createConfigUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-config-service.Config"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "object"
+      }
+     },
+     "201": {
+      "description": "Created",
+      "schema": {
+       "type": "object"
+      },
+      "headers": {
+       "Location": {
+        "type": "string",
+        "description": "URI of the created resource"
+       }
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-config-service"
+   },
+   "put": {
+    "tags": [
+     "config-controller",
+     "ts-config-service"
+    ],
+    "summary": "updateConfig",
+    "operationId": "ts-config-service.updateConfigUsingPUT",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-config-service.Config"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-config-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-config-service"
+   }
+  },
+  "/api/v1/configservice/configs/{configName}": {
+   "get": {
+    "tags": [
+     "config-controller",
+     "ts-config-service"
+    ],
+    "summary": "retrieve",
+    "operationId": "ts-config-service.retrieveUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "configName",
+      "in": "path",
+      "description": "configName",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-config-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-config-service"
+   },
+   "delete": {
+    "tags": [
+     "config-controller",
+     "ts-config-service"
+    ],
+    "summary": "deleteConfig",
+    "operationId": "ts-config-service.deleteConfigUsingDELETE",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "configName",
+      "in": "path",
+      "description": "configName",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-config-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "204": {
+      "description": "No Content"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-config-service"
+   }
+  },
+  "/api/v1/configservice/welcome": {
+   "get": {
+    "tags": [
+     "config-controller",
+     "ts-config-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-config-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-config-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-config-service.Config": {
+   "type": "object",
+   "properties": {
+    "description": {
+     "type": "string"
+    },
+    "name": {
+     "type": "string"
+    },
+    "value": {
+     "type": "string"
+    }
+   }
+  },
+  "ts-config-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

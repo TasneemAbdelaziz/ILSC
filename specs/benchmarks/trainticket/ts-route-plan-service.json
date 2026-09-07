@@ -1,0 +1,291 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-route-plan-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-route-plan-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/routeplanservice/routePlan/cheapestRoute": {
+   "post": {
+    "tags": [
+     "route-plan-controller",
+     "ts-route-plan-service"
+    ],
+    "summary": "getCheapestRoutes",
+    "operationId": "ts-route-plan-service.getCheapestRoutesUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-route-plan-service.RoutePlanInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-route-plan-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-route-plan-service"
+   }
+  },
+  "/api/v1/routeplanservice/routePlan/minStopStations": {
+   "post": {
+    "tags": [
+     "route-plan-controller",
+     "ts-route-plan-service"
+    ],
+    "summary": "getMinStopStations",
+    "operationId": "ts-route-plan-service.getMinStopStationsUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-route-plan-service.RoutePlanInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-route-plan-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-route-plan-service"
+   }
+  },
+  "/api/v1/routeplanservice/routePlan/quickestRoute": {
+   "post": {
+    "tags": [
+     "route-plan-controller",
+     "ts-route-plan-service"
+    ],
+    "summary": "getQuickestRoutes",
+    "operationId": "ts-route-plan-service.getQuickestRoutesUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "info",
+      "description": "info",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-route-plan-service.RoutePlanInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-route-plan-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-route-plan-service"
+   }
+  },
+  "/api/v1/routeplanservice/welcome": {
+   "get": {
+    "tags": [
+     "route-plan-controller",
+     "ts-route-plan-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-route-plan-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-route-plan-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-route-plan-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  },
+  "ts-route-plan-service.RoutePlanInfo": {
+   "type": "object",
+   "properties": {
+    "endStation": {
+     "type": "string"
+    },
+    "num": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "startStation": {
+     "type": "string"
+    },
+    "travelDate": {
+     "type": "string"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

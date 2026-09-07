@@ -1,0 +1,256 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-station-food-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-station-food-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/stationfoodservice/stationfoodstores": {
+   "get": {
+    "tags": [
+     "station-food-controller",
+     "ts-station-food-service"
+    ],
+    "summary": "getAllFoodStores",
+    "operationId": "ts-station-food-service.getAllFoodStoresUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-station-food-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-station-food-service"
+   },
+   "post": {
+    "tags": [
+     "station-food-controller",
+     "ts-station-food-service"
+    ],
+    "summary": "getFoodStoresByStationNames",
+    "operationId": "ts-station-food-service.getFoodStoresByStationNamesUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "stationNameList",
+      "description": "stationNameList",
+      "required": true,
+      "schema": {
+       "type": "array",
+       "items": {
+        "type": "string"
+       }
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-station-food-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-station-food-service"
+   }
+  },
+  "/api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId}": {
+   "get": {
+    "tags": [
+     "station-food-controller",
+     "ts-station-food-service"
+    ],
+    "summary": "getFoodListByStationFoodStoreId",
+    "operationId": "ts-station-food-service.getFoodListByStationFoodStoreIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "stationFoodStoreId",
+      "in": "path",
+      "description": "stationFoodStoreId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-station-food-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-station-food-service"
+   }
+  },
+  "/api/v1/stationfoodservice/stationfoodstores/welcome": {
+   "get": {
+    "tags": [
+     "station-food-controller",
+     "ts-station-food-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-station-food-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-station-food-service"
+   }
+  },
+  "/api/v1/stationfoodservice/stationfoodstores/{stationId}": {
+   "get": {
+    "tags": [
+     "station-food-controller",
+     "ts-station-food-service"
+    ],
+    "summary": "getFoodStoresOfStation",
+    "operationId": "ts-station-food-service.getFoodStoresOfStationUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "stationName",
+      "in": "path",
+      "description": "stationName",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "stationId",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-station-food-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-station-food-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-station-food-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-verification-code-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-verification-code-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/verifycode/generate": {
+   "get": {
+    "operationId": "ts-verification-code-service.imageCode",
+    "parameters": [],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string",
+       "format": "binary"
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "produces": [
+     "image/jpeg"
+    ],
+    "x-service": "ts-verification-code-service",
+    "tags": [
+     "ts-verification-code-service"
+    ]
+   }
+  },
+  "/api/v1/verifycode/verify/{verifyCode}": {
+   "get": {
+    "operationId": "ts-verification-code-service.verifyCode",
+    "produces": [
+     "application/json"
+    ],
+    "parameters": [
+     {
+      "name": "verifyCode",
+      "in": "path",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "successful operation",
+      "schema": {
+       "type": "boolean"
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-verification-code-service",
+    "tags": [
+     "ts-verification-code-service"
+    ]
+   }
+  }
+ },
+ "definitions": {},
+ "schemes": [
+  "http"
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-avatar-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-avatar-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/avatar": {
+   "post": {
+    "operationId": "ts-avatar-service.uploadAvatar",
+    "summary": "Upload avatar image (base64)",
+    "description": "Accepts a base64-encoded image, detects face, crops it, and returns the cropped face image also in base64 format.",
+    "parameters": [
+     {
+      "in": "body",
+      "name": "body",
+      "description": "Request body containing base64 encoded image",
+      "required": true,
+      "schema": {
+       "type": "object",
+       "properties": {
+        "img": {
+         "type": "string",
+         "description": "Base64 encoded image string"
+        }
+       },
+       "required": [
+        "img"
+       ]
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "Cropped face image returned as base64 string (not JSON)",
+      "schema": {
+       "type": "string",
+       "description": "Base64 encoded cropped face image"
+      }
+     },
+     "400": {
+      "description": "Invalid input (missing or incorrect image)",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "msg": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "500": {
+      "description": "Unexpected server error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "msg": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "503": {
+      "description": "Service Unavailable - Face detection service unavailable",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        },
+        "requestId": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-avatar-service",
+    "tags": [
+     "ts-avatar-service"
+    ],
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "application/json",
+     "*/*"
+    ]
+   }
+  }
+ },
+ "definitions": {},
+ "schemes": [
+  "http"
+ ]
+}

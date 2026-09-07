@@ -1,0 +1,134 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-train-food-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-train-food-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/trainfoodservice/trainfoods": {
+   "get": {
+    "tags": [
+     "train-food-controller",
+     "ts-train-food-service"
+    ],
+    "summary": "getAllTrainFood",
+    "operationId": "ts-train-food-service.getAllTrainFoodUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-train-food-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-train-food-service"
+   }
+  },
+  "/api/v1/trainfoodservice/trainfoods/welcome": {
+   "get": {
+    "tags": [
+     "train-food-controller",
+     "ts-train-food-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-train-food-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-train-food-service"
+   }
+  },
+  "/api/v1/trainfoodservice/trainfoods/{tripId}": {
+   "get": {
+    "tags": [
+     "train-food-controller",
+     "ts-train-food-service"
+    ],
+    "summary": "getTrainFoodOfTrip",
+    "operationId": "ts-train-food-service.getTrainFoodOfTripUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "tripId",
+      "in": "path",
+      "description": "tripId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-train-food-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-train-food-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-train-food-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

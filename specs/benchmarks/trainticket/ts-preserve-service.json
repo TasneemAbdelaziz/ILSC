@@ -1,0 +1,196 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-preserve-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-preserve-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/preserveservice/preserve": {
+   "post": {
+    "tags": [
+     "preserve-controller",
+     "ts-preserve-service"
+    ],
+    "summary": "preserve",
+    "operationId": "ts-preserve-service.preserveUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "oti",
+      "description": "oti",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-preserve-service.OrderTicketsInfo"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-preserve-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-preserve-service"
+   }
+  },
+  "/api/v1/preserveservice/welcome": {
+   "get": {
+    "tags": [
+     "preserve-controller",
+     "ts-preserve-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-preserve-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-preserve-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-preserve-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  },
+  "ts-preserve-service.OrderTicketsInfo": {
+   "type": "object",
+   "properties": {
+    "accountId": {
+     "type": "string"
+    },
+    "assurance": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "consigneeName": {
+     "type": "string"
+    },
+    "consigneePhone": {
+     "type": "string"
+    },
+    "consigneeWeight": {
+     "type": "number",
+     "format": "double"
+    },
+    "contactsId": {
+     "type": "string"
+    },
+    "date": {
+     "type": "string"
+    },
+    "foodName": {
+     "type": "string"
+    },
+    "foodPrice": {
+     "type": "number",
+     "format": "double"
+    },
+    "foodType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "from": {
+     "type": "string"
+    },
+    "handleDate": {
+     "type": "string"
+    },
+    "loginToken": {
+     "type": "string"
+    },
+    "seatType": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "stationName": {
+     "type": "string"
+    },
+    "storeName": {
+     "type": "string"
+    },
+    "to": {
+     "type": "string"
+    },
+    "tripId": {
+     "type": "string"
+    },
+    "within": {
+     "type": "boolean"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

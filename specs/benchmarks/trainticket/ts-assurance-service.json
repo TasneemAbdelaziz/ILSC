@@ -1,0 +1,601 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-assurance-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-assurance-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/assuranceservice/assurance/orderid/{orderId}": {
+   "get": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "findAssuranceByOrderId",
+    "operationId": "ts-assurance-service.findAssuranceByOrderIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "orderId",
+      "in": "path",
+      "description": "orderId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/assurances": {
+   "get": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "getAllAssurances",
+    "operationId": "ts-assurance-service.getAllAssurancesUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/assurances/assuranceid/{assuranceId}": {
+   "get": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "getAssuranceById",
+    "operationId": "ts-assurance-service.getAssuranceByIdUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "assuranceId",
+      "in": "path",
+      "description": "assuranceId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-assurance-service"
+   },
+   "delete": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "deleteAssurance",
+    "operationId": "ts-assurance-service.deleteAssuranceUsingDELETE",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "assuranceId",
+      "in": "path",
+      "description": "assuranceId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "204": {
+      "description": "No Content"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/assurances/orderid/{orderId}": {
+   "delete": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "deleteAssuranceByOrderId",
+    "operationId": "ts-assurance-service.deleteAssuranceByOrderIdUsingDELETE",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "orderId",
+      "in": "path",
+      "description": "orderId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "204": {
+      "description": "No Content"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/assurances/types": {
+   "get": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "getAllAssuranceType",
+    "operationId": "ts-assurance-service.getAllAssuranceTypeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex}": {
+   "patch": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "modifyAssurance",
+    "operationId": "ts-assurance-service.modifyAssuranceUsingPATCH",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "assuranceId",
+      "in": "path",
+      "description": "assuranceId",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "orderId",
+      "in": "path",
+      "description": "orderId",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "typeIndex",
+      "in": "path",
+      "description": "typeIndex",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "in": "body",
+      "name": "body",
+      "required": false,
+      "schema": {
+       "type": "object",
+       "properties": {
+        "_em_placeholder": {
+         "type": "string"
+        }
+       },
+       "additionalProperties": true
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "204": {
+      "description": "No Content"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/assurances/{typeIndex}/{orderId}": {
+   "get": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "createNewAssurance",
+    "operationId": "ts-assurance-service.createNewAssuranceUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "typeIndex",
+      "in": "path",
+      "description": "typeIndex",
+      "required": true,
+      "type": "integer",
+      "format": "int32"
+     },
+     {
+      "name": "orderId",
+      "in": "path",
+      "description": "orderId",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-assurance-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  },
+  "/api/v1/assuranceservice/welcome": {
+   "get": {
+    "tags": [
+     "assurance-controller",
+     "ts-assurance-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-assurance-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     },
+     "404": {
+      "description": "Not Found"
+     }
+    },
+    "x-service": "ts-assurance-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-assurance-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}

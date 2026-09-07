@@ -171,23 +171,38 @@ needs deciding before the Exp. 1 run, not during it.
 
 ## 5. Benchmark specs
 
-`specs/benchmarks/` holds the five Sock Shop services used for the
-code-correlation study.
+`specs/benchmarks/<system>/` holds the benchmark systems, built by
+`src/benchmark_prep.py` and catalogued with their provenance in
+[`results/benchmark_manifest.csv`](results/benchmark_manifest.csv).
 
-| Service | Operations | Pairs |
-|---|---|---|
-| user | 15 | 105 |
-| carts | 5 | 10 |
-| catalogue | 4 | 6 |
-| orders | 2 | 1 |
-| payment | 2 (1 after `/health`) | 1 |
-| **Total** | **28** | **123** |
+| System | `spec_origin` | Services | Operations | **Within-service pairs** |
+|---|---|--:|--:|--:|
+| `sockshop` | hand-written | 5 | 27 | **122** |
+| `trainticket` | generated-from-source | 34 | 211 | **794** |
+| **Total** | | **39** | **238** | **916** |
 
-Two things to remember:
+Per-service Sock Shop counts (after D-07 strips `payment`'s `/health`):
+user 15 ops / 105 pairs · carts 5 / 10 · catalogue 4 / 6 · orders 2 / 1 ·
+payment 1 / 0. Earlier revisions of this table said **123** pairs; that counted
+`payment`'s `/health`, which D-07 removes. The correct figure is **122**.
 
-- All five are **Swagger 2.0**; run them through `src/convert.py` before parsing.
-- Spec paths differ per service in the upstream repos: `apispec/user.json` but
-  `api-spec/carts.json`. This is not a typo.
+**The two systems are not interchangeable.** Sock Shop's specifications are
+hand-written and independent of its source code; Train Ticket's are generated
+from its source by Springfox introspection. Exp. 3 therefore reports
+`rho_independent` (Sock Shop) and `rho_derived` (Train Ticket) **separately and
+never pooled** — see **D-16**, which also records why no independent Train Ticket
+specification exists, and why Online Boutique (gRPC, no OpenAPI at all) cannot
+supply one either.
+
+Also worth remembering:
+
+- Every benchmark spec is **Swagger 2.0**; run them through `src/convert.py`
+  before parsing.
+- Sock Shop spec paths differ per service in the upstream repos:
+  `apispec/user.json` but `api-spec/carts.json`. This is not a typo.
+- Train Ticket ships as one combined document and is split per service on its
+  `ts-*-service` tags; see [`specs/benchmarks/trainticket/README.md`](specs/benchmarks/trainticket/README.md)
+  for attribution (CC-BY-4.0) and [`results/benchmark_split_log.csv`](results/benchmark_split_log.csv).
 
 The `< 3 operations` corpus filter is **not** applied here — see DECISIONS.md D-06.
 

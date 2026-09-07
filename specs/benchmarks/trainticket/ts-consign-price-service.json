@@ -1,0 +1,371 @@
+{
+ "swagger": "2.0",
+ "info": {
+  "title": "ts-consign-price-service",
+  "version": "2.0",
+  "description": "Train Ticket service 'ts-consign-price-service', split from the combined baseline specification (see results/benchmark_split_log.csv)."
+ },
+ "paths": {
+  "/api/v1/consignpriceservice/consignprice": {
+   "post": {
+    "tags": [
+     "consign-price-controller",
+     "ts-consign-price-service"
+    ],
+    "summary": "modifyPriceConfig",
+    "operationId": "ts-consign-price-service.modifyPriceConfigUsingPOST",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "in": "body",
+      "name": "priceConfig",
+      "description": "priceConfig",
+      "required": true,
+      "schema": {
+       "$ref": "#/definitions/ts-consign-price-service.ConsignPrice"
+      }
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-price-service.HttpEntity"
+      }
+     },
+     "201": {
+      "description": "Created"
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-price-service"
+   }
+  },
+  "/api/v1/consignpriceservice/consignprice/config": {
+   "get": {
+    "tags": [
+     "consign-price-controller",
+     "ts-consign-price-service"
+    ],
+    "summary": "getPriceConfig",
+    "operationId": "ts-consign-price-service.getPriceConfigUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-price-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-price-service"
+   }
+  },
+  "/api/v1/consignpriceservice/consignprice/price": {
+   "get": {
+    "tags": [
+     "consign-price-controller",
+     "ts-consign-price-service"
+    ],
+    "summary": "getPriceInfo",
+    "operationId": "ts-consign-price-service.getPriceInfoUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-price-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-price-service"
+   }
+  },
+  "/api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion}": {
+   "get": {
+    "tags": [
+     "consign-price-controller",
+     "ts-consign-price-service"
+    ],
+    "summary": "getPriceByWeightAndRegion",
+    "operationId": "ts-consign-price-service.getPriceByWeightAndRegionUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "parameters": [
+     {
+      "name": "weight",
+      "in": "path",
+      "description": "weight",
+      "required": true,
+      "type": "string"
+     },
+     {
+      "name": "isWithinRegion",
+      "in": "path",
+      "description": "isWithinRegion",
+      "required": true,
+      "type": "string"
+     }
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "$ref": "#/definitions/ts-consign-price-service.HttpEntity"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-price-service"
+   }
+  },
+  "/api/v1/consignpriceservice/welcome": {
+   "get": {
+    "tags": [
+     "consign-price-controller",
+     "ts-consign-price-service"
+    ],
+    "summary": "home",
+    "operationId": "ts-consign-price-service.homeUsingGET",
+    "consumes": [
+     "application/json"
+    ],
+    "produces": [
+     "*/*"
+    ],
+    "responses": {
+     "200": {
+      "description": "OK",
+      "schema": {
+       "type": "string"
+      }
+     },
+     "401": {
+      "description": "Unauthorized"
+     },
+     "403": {
+      "description": "Forbidden"
+     },
+     "404": {
+      "description": "Not Found"
+     },
+     "500": {
+      "description": "Internal Server Error",
+      "schema": {
+       "type": "object",
+       "properties": {
+        "timestamp": {
+         "type": "string",
+         "format": "date-time"
+        },
+        "status": {
+         "type": "integer"
+        },
+        "error": {
+         "type": "string"
+        },
+        "message": {
+         "type": "string"
+        },
+        "path": {
+         "type": "string"
+        }
+       }
+      }
+     }
+    },
+    "x-service": "ts-consign-price-service"
+   }
+  }
+ },
+ "definitions": {
+  "ts-consign-price-service.ConsignPrice": {
+   "type": "object",
+   "properties": {
+    "beyondPrice": {
+     "type": "number",
+     "format": "double"
+    },
+    "id": {
+     "type": "string"
+    },
+    "index": {
+     "type": "integer",
+     "format": "int32"
+    },
+    "initialPrice": {
+     "type": "number",
+     "format": "double"
+    },
+    "initialWeight": {
+     "type": "number",
+     "format": "double"
+    },
+    "withinPrice": {
+     "type": "number",
+     "format": "double"
+    }
+   }
+  },
+  "ts-consign-price-service.HttpEntity": {
+   "type": "object",
+   "properties": {
+    "body": {
+     "type": "object"
+    }
+   }
+  }
+ },
+ "schemes": [
+  "http"
+ ]
+}
