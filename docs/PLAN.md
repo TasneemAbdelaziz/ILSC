@@ -51,16 +51,65 @@ because a rejection with a number attached is a methodological result.
 
 ---
 
-## 3. What remains
+## 3. Day by day — what each track delivered, and what it still owes
 
-### 3a. The four debts
+### 3a. The 09-08 schedule, marked off
 
-| # | Debt | Cost | Blocks |
-|---|---|---|---|
-| **1** | **Two inter-annotator agreement figures.** Both sample sheets are written and blank. **Cannot be self-administered** — a second pass by the same reader measures memory, not reliability. | ~1 h each, needs a *second person* | Exp. 3's write-up |
-| **2** | **`DROP_VERSION_TOKENS` (D-15) is unswept.** It changes the tokenizer → `T(Oi)` → the f1 embeddings, so it needs a full re-parse and re-embed, not a reweighting. | ~30 min compute, unattended | Exp. 5's write-up |
-| **3** | **Two Train Ticket services have no extracted entities** — `ts-avatar-service` (Python), `ts-news-service` (Go). | ~1 h manual | nothing; ρ_derived already excludes them |
-| **4** | **Figures are not yet restyled to one palette**, and the replication package has not been tested on a fresh clone. | ~1 day | submission, not the draft |
+The day numbers are the ones from the 09-08 morning plan, kept so the two
+documents line up. **The owner columns are the proposal's division of labour
+(Sec. 9) — whose track each item belongs to for the write-up and who owns what is
+left — not a claim about who sat at the keyboard; the whole schedule was executed
+in one push.**
+
+✅ done · ◐ partial, see the note · ⬚ not done
+
+| Day | Mohamed — metric track | | Tasneem — empirical track | |
+|---|---|:-:|---|:-:|
+| **1** | `embed.py`, `similarity.py`; **D3 decided (D-18)** | ✅ | Responsibility one-pagers, both systems | ◐ |
+| **2** | 17/17 unit tests incl. R2; `ilsc.py` | ✅ | One-pagers cont.; extraction design | ✅ |
+| **3** | Null models, global + provider (**D-21** flatness) | ✅ | Code dig — `user` (15 endpoints) | ✅ |
+| **4** | **Gate 1** → MARGINAL (**D-24**) | ✅ | Code dig — `carts` + `catalogue` | ✅ |
+| **5** | **Exp. 1** big run + quartile thresholds | ✅ | Code dig — `orders` + `payment` | ✅ |
+| **6** | Inter-feature correlation, **Fig 9** | ✅ | Verification pass; `endpoint_entities.csv` | ✅ |
+| **7** | `inject.py` + monotonicity/contrast checker | ✅ | **Train Ticket automated extraction** (209/211) | ✅ |
+| **8** | **Exp. 2** perturbation run, **Fig 3** | ✅ | TT manual verification; go/no-go on ρ_derived | ⬚ |
+| **9** | **Exp. 4** — SIDC + LoCmsg implemented | ✅ | **Reliability check**, 10 endpoints re-derived | ⬚ |
+| **10** | Exp. 4 baselines under perturbation, **Fig 7** | ✅ | Figures restyled to one palette | ⬚ |
+| **11** | **Exp. 3** pair-level ρ, both conditions | ✅ | Replication package | ◐ |
+| **12** | Exp. 3 service-level ρ; discordance; **Gate 2** | ✅ | Fresh-clone test | ⬚ |
+| **13** | **Exp. 5** weights, Kendall's W, **Fig 6** | ✅ | Threats to Validity | ⬚ |
+| **14** | Exp. 5 τ sweep ✅ · `DROP_VERSION_TOKENS` (D-15) ⬚ | ◐ | Experimental Setup + dataset section | ⬚ |
+
+**Metric track: 13½ of 14 days complete.** The only gap is the second half of
+Day 14 — the `DROP_VERSION_TOKENS` sweep, debt 2 below. The τ sweep it was
+paired with is done.
+
+**Empirical track: 7 of 14 complete.** Everything *experimental* landed; what is
+outstanding is the two reliability figures, the figure restyling, the
+fresh-clone test and the two writing sections. This is not a track that fell
+behind — the code dig, the hardest single task in the proposal, finished on
+schedule on both systems.
+
+**The two ◐ entries, stated plainly:**
+
+- **Day 1, one-pagers.** Sock Shop's were written from the repositories and are
+  sound. Train Ticket's were written from the **specification surface**, not the
+  FudanSELab *Service Guide* which could not be retrieved. That makes them a
+  restatement of one side of the Exp. 3 correlation, so they are adequate for
+  orientation but **must not** guide the entity extraction (**F-03**).
+- **Day 11, replication package.** `run_all.py` now covers every step including
+  the ones it was missing, and `requirements.txt` pins the previously unpinned
+  metric-track dependencies. What has *not* happened is the fresh-clone test,
+  which is the half that actually proves it (debt 4).
+
+### 3b. The four debts
+
+| # | Debt | Owner | Cost | Blocks |
+|---|---|---|---|---|
+| **1** | **Two inter-annotator agreement figures.** Both sample sheets are written and blank. **Cannot be self-administered** — a second pass by the same reader measures memory, not reliability. | **Tasneem** (needs a *second* reader) | ~1 h each | Exp. 3's write-up |
+| **2** | **`DROP_VERSION_TOKENS` (D-15) is unswept.** It changes the tokenizer → `T(Oi)` → the f1 embeddings, so it needs a full re-parse and re-embed, not a reweighting. | **Mohamed** | ~30 min, unattended | Exp. 5's write-up |
+| **3** | **Two Train Ticket services have no extracted entities** — `ts-avatar-service` (Python), `ts-news-service` (Go). | **Tasneem** | ~1 h manual | nothing; ρ_derived already excludes them |
+| **4** | **Figures not restyled to one palette**; replication package not fresh-clone tested. | **Tasneem** | ~1 day | submission, not the draft |
 
 **Debt 1 is the only one that needs another person.** Everything else is
 schedulable. Until it is paid, every entity set in the study is
@@ -72,7 +121,7 @@ the sensitivity analysis covers **two knobs, not three**, and
 `src/sensitivity.py` says so on every run. The paper must not describe it as
 three.
 
-### 3b. The writing schedule
+### 3c. The writing schedule
 
 Day numbers are working days from tomorrow. Both halves run in parallel; the
 proposal's own division of labour is kept.
