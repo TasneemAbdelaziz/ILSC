@@ -149,16 +149,22 @@ proposal currently implies both (D-12).
 | # | Decision | Options | Blocks |
 |---|---|---|---|
 | D1 | Provider cap | none / 50 / 30 / 20 per provider | Exp. 1 |
-| D2 | Oversized services (> 200 operations) | exclude / subsample / hard cap | Exp. 1 (compute) |
+| ~~D2~~ | ~~Oversized services (> 200 operations)~~ | **RESOLVED — see D-17** | — |
 | D3 | Domain-restricted null model | what replaces the rejected domain labels? | Exp. 1 |
 
-**On D2 — now the sharpest of the three.** Pairwise similarity is O(n²). The
-corpus holds 77,611,030 operation pairs, of which **65,225,331 — 84.0% of all
-computation — come from a single service** (Microsoft Graph, 11,422 operations).
-The 70 services with more than 200 operations (3.2% of the corpus) hold **97.6%**
-of all pairs. Any pair-weighted corpus statistic is therefore a statement about
-a handful of mega-specs until D2 caps them. An ILSC score for a service that size
-is also not interpretable. Some cap is required.
+**On D2 — RESOLVED by D-17.** Services above **200 operations** are flagged
+`oversized` and held out of the *primary* analysis; every analysis is repeated on
+the full corpus as a *sensitivity* check and both are reported together. Nothing
+is deleted. The justification is **scope, not compute**: above ~200 operations a
+specification describes an API gateway or a whole platform surface (Microsoft
+Graph, Kubernetes, GitHub, Compute Engine, EC2, Stripe), not the single-capability
+microservice ILSC is defined over.
+
+The cap matters more than expected. 70 services (3.2%) hold **97.6%** of all
+77,611,030 pairs — 84.0% from Microsoft Graph alone — and removing them moves
+pair-weighted feature co-availability by up to **50 points** (f6: 24.1% → 74.4%)
+while moving every per-service quartile boundary by at most **3.2**. See D-17 and
+`results/oversized_thresholds.csv`.
 
 **On D3 — raised by this work, not yet in the proposal.** D-05 replaced domain
 labels with provider proximity for the *perturbation control*, which resolves

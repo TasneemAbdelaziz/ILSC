@@ -51,6 +51,15 @@ FIGURES_DIR = os.path.join(ROOT, "figures")
 
 MIN_OPERATIONS = 3
 
+# D-17: services above this many operations are flagged `oversized` and excluded
+# from the PRIMARY analysis; the sensitivity analysis re-runs on the full corpus.
+# The boundary is a SCOPE judgement, not a compute budget: above ~200 operations
+# a specification describes an API gateway or a whole platform surface (Microsoft
+# Graph, Kubernetes, GitHub, Compute Engine, EC2, Stripe), not the single-capability
+# microservice ILSC is defined for. Nothing is ever deleted - the flag rides along
+# in results/manifest.csv.
+OVERSIZED_MAX_OPERATIONS = 200
+
 HTTP_METHODS = ("get", "post", "put", "delete", "patch")
 
 # Administrative endpoints (D-07). The regex is the authoritative definition

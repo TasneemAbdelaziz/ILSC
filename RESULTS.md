@@ -20,6 +20,7 @@ steps in `README.md` §2.
 | Day 4 prep — Gate 1 candidates | [`src/gate1_select.py`](src/gate1_select.py) | ✅ complete | ten services picked, [`docs/gate1_expectations.md`](docs/gate1_expectations.md) |
 | Day 3 — similarity engine + mask | — | ⏳ pending | next on the metric track |
 | Day 4 — Gate 1 run | — | ⏳ pending | needs `ILSC_mean` from the engine |
+| D2 → oversized cap (D-17) | [`src/oversized.py`](src/oversized.py) | ✅ complete | cap 200; **mask-fire 56.87% primary vs 90.58% full**; quartiles move ≤3.2 |
 | Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
 | Day 7 — perturbation (provider proximity) | — | ⏳ pending | see D-05 |
 | Day 8–11 — code dig | — | ⏳ pending | — |
@@ -40,8 +41,13 @@ operations (3.2% of the corpus) hold **97.6%** of all pairs.
 Every operation-weighted ("micro") corpus statistic on this page is therefore
 close to a statement about a handful of mega-specs. **Quote the service-level
 figures.** The micro numbers are reported for completeness and because the f2
-sensitivity band is computed on them; they are not the paper's claim. Resolving
-**D2** (`README.md` §4) is what would make them quotable.
+sensitivity band is computed on them; they are not the paper's claim.
+
+**D2 is now resolved (D-17).** The pair-weighted numbers on this page are the
+*sensitivity* (full-corpus) values. The **primary** values, with the 70 oversized
+gateway specs held out, differ sharply — mask-fire is **56.87%** primary against
+90.58% here, and f6 co-availability **74.41%** against 24.08%. Quote the primary
+figures; see the Day 5 / D-17 section below and `results/oversized_thresholds.csv`.
 
 This is not hypothetical: until D-13, *which* Microsoft Graph spec occupied that
 84% was decided by filename sort order. See the decision log.
@@ -349,6 +355,68 @@ pairs in place of the 794 real ones. Attribution (CC-BY-4.0) in
 **Known gap.** Sock Shop's five specs predate this pipeline and carry
 `spec_pin = UNPINNED` — no upstream commit was recorded for them. Train Ticket is
 pinned by DOI + archive sha256. Pinning Sock Shop is outstanding.
+
+---
+
+## D2 resolved — the oversized cap (D-17)
+
+**Script:** [`src/oversized.py`](src/oversized.py) · **Cap:**
+`config.OVERSIZED_MAX_OPERATIONS = 200` · **Governed by:** D-17.
+
+Every analysis is run **twice** and both are always reported: **PRIMARY**
+(≤ 200 operations) and **SENSITIVITY** (full corpus). Nothing is deleted —
+`results/manifest.csv` keeps all 2,206 rows and gains an `oversized` flag.
+
+**Justification is scope, not compute.** Above ~200 operations a specification
+describes an API gateway or a whole platform surface — Microsoft Graph (11,422),
+Autotask PSA (2,958), Kubernetes (1,113), GitHub v3 (845), Compute Engine (758),
+EC2 (718), Stripe (452) — not the single-capability microservice ILSC is defined
+over. 200 sits at ≈ p96.8 of the size distribution (median 16, p95 136, p97 208).
+
+| | services | operations | within-service pairs |
+|---|--:|--:|--:|
+| **PRIMARY** (≤ 200) | 2,136 | 57,420 | 1,828,978 |
+| **SENSITIVITY** (full) | 2,206 | 97,912 | 77,611,030 |
+| excluded | 70 (3.17%) | 40,492 | 75,782,052 (**97.6%**) |
+
+**Pair-weighted (micro) — the cap does not trim the picture, it inverts it:**
+
+| statistic | PRIMARY | SENSITIVITY | move |
+|---|--:|--:|--:|
+| **mask-fire %** | **56.87** | 90.58 | **+33.71** |
+| f2 co-availability % | 78.39 | 97.17 | +18.77 |
+| f4 co-availability % | 81.29 | 92.34 | +11.05 |
+| f5 co-availability % | 70.36 | 36.09 | **−34.28** |
+| f6 co-availability % | 74.41 | 24.08 | **−50.33** |
+
+**Per-service quartile thresholds — almost unmoved.** Largest movement of any
+boundary across all ten measures: **3.17 points** (f5 co-availability Q1).
+`operations` Q3 32 → 35; mask-fire median 38.71 → 40.00; f2, f6, description rate
+and operationId rate all move **0.00**. Full table:
+[`results/oversized_thresholds.csv`](results/oversized_thresholds.csv).
+
+> **Finding — this is the empirical case for the service-level framing.**
+> Mega-specs do not merely add noise to the pair-weighted view, they reverse it:
+> f6 (description) co-availability reads **24.08%** on the full corpus and
+> **74.41%** once gateway specs are removed, a 50-point swing produced by a
+> handful of documents. Every per-service quartile boundary, meanwhile, moves by
+> at most 3.17 points. Service-level statistics are robust to the cap;
+> pair-weighted ones are not.
+
+**Consequence for RQ2.** The mask-fire headline is **56.87% (micro, primary)**
+against 90.58% on the full corpus. The 90.58% was substantially a statement about
+a few gateway specifications. Quote the primary figure, with the sensitivity
+figure beside it — never instead of it. The service-level claim ("the mask
+matters for 68.4% of services") is unaffected.
+
+**Duplicates (F-02) do not disturb this.** The one numerically significant
+near-duplicate (GitHub v3, 845 ops) is itself oversized and excluded here;
+residual contamination in the primary corpus is 0.31% of pairs, so the thresholds
+were not re-derived.
+
+**Not yet included.** ILSC scores do not exist — the similarity engine is
+pending — so no ILSC quartile thresholds appear above. D-17 fixes the
+**protocol**; the ILSC thresholds must be derived under it once the engine lands.
 
 ---
 

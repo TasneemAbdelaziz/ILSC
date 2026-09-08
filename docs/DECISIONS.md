@@ -563,3 +563,90 @@ reader has to infer where a specification came from.
 > between the two estimates quantifies the inflation that specification–code
 > derivation introduces. Because Online Boutique is a gRPC system with no
 > OpenAPI descriptions, the hand-written condition rests on a single system.
+
+---
+
+## D-17 · Oversized services: capped at 200 operations, primary + sensitivity
+
+**Decision.** Services with more than `config.OVERSIZED_MAX_OPERATIONS` = **200**
+operations are flagged `oversized` in `results/manifest.csv` and held out of the
+**primary** analysis. Every analysis is *also* run on the full corpus as a
+**sensitivity** check, and the two are always reported side by side. **Nothing is
+deleted**: the flag rides along in the manifest, so the sensitivity run is one
+filter away and no downstream reader inherits a silently truncated corpus.
+This resolves the long-open **D2** (`README.md` §4) and closes flag **F-01**.
+
+**The justification is scope, not compute.** Above roughly 200 operations a
+specification has stopped describing a single-capability microservice and started
+describing an API gateway or an entire platform surface. The top of the corpus
+reads: Microsoft Graph (11,422 operations), Datto/Autotask PSA (2,958),
+Kubernetes (1,113), GitHub v3 REST (845), NetBox (843), Mist (779), Compute
+Engine (758), EC2 (718), Meraki Dashboard (616), Stripe (452). Not one of these
+is the unit ILSC is defined over — an interface whose operations are supposed to
+share a single capability. Cheaper computation is a *side effect* of the cap and
+is never offered as its reason.
+
+**Where the boundary sits.** Operations per service: median **16**, p75 35,
+p90 84, p95 136, p97 208. The cap therefore lands at ≈ **p96.8** and marks
+**70 services (3.17%)** oversized — which hold **97.64% of all within-service
+pairs**.
+
+| | services | operations | within-service pairs |
+|---|--:|--:|--:|
+| **PRIMARY** (≤ 200) | 2,136 | 57,420 | 1,828,978 |
+| **SENSITIVITY** (full) | 2,206 | 97,912 | 77,611,030 |
+| excluded | 70 | 40,492 | 75,782,052 |
+
+**Evidence — the cap transforms the pair-weighted picture and barely touches the
+service-level one.** This is the result that matters, and it was not obvious in
+advance.
+
+*Pair-weighted (micro):*
+
+| statistic | PRIMARY | SENSITIVITY | move |
+|---|--:|--:|--:|
+| mask-fire % | **56.87** | 90.58 | **+33.71** |
+| f2 co-availability % | 78.39 | 97.17 | +18.77 |
+| f4 co-availability % | 81.29 | 92.34 | +11.05 |
+| f5 co-availability % | 70.36 | 36.09 | **−34.28** |
+| f6 co-availability % | 74.41 | 24.08 | **−50.33** |
+
+*Per-service quartile thresholds (Q1 / median / Q3), largest movement of any
+boundary:* **3.17 points** (f5 co-availability). `operations` Q3 moves 32 → 35;
+mask-fire median moves 38.71 → 40.00; f2, f6, description rate and operationId
+rate move **0.00**. Full table: `results/oversized_thresholds.csv`.
+
+**Reading.** The mega-specs do not merely add noise, they **invert** the
+pair-weighted picture: f6 (description) co-availability reads 24.08% on the full
+corpus but **74.41%** once gateway specs are removed, a 50-point swing produced
+by a handful of documents. Meanwhile every per-service quartile boundary moves by
+at most 3.17 points. The service-level framing is therefore robust to the cap and
+the pair-weighted framing is not — independent confirmation of the standing
+instruction to quote service-level figures.
+
+**Consequence for RQ2, stated plainly.** The mask-fire headline is **56.87%
+(micro, primary)** against 90.58% on the full corpus. The previously reported
+figure was substantially a statement about a few gateway specifications. The
+primary figure is the one to quote; the sensitivity figure is reported beside it,
+never instead of it.
+
+**Duplicates (F-02) do not disturb this.** 20 near-duplicate services survive the
+dedup key, but the only numerically significant one (GitHub v3, 845 operations)
+is itself oversized and therefore excluded here. Residual contamination in the
+primary corpus is 5,666 of 1,828,978 pairs (**0.31%**), so the thresholds above
+did not need re-deriving.
+
+**Still to come.** ILSC scores do not exist yet — the similarity engine is
+pending — so no ILSC quartile thresholds appear above. When they land they must
+be derived under this same primary/sensitivity protocol. D-17 fixes the
+**protocol**, not one table.
+
+**Paper text.**
+
+> Specifications exceeding 200 operations describe API gateways or whole platform
+> surfaces rather than single-capability microservices, and were held out of the
+> primary analysis (70 of 2,206 services, 3.2%); all analyses were repeated on
+> the full corpus as a sensitivity check. The distinction is material: pair-
+> weighted feature co-availability moves by up to 50 percentage points between
+> the two, whereas every per-service quartile boundary moves by at most 3.2.
+> Service-level statistics are reported as the primary result accordingly.

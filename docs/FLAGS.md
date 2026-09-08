@@ -8,7 +8,14 @@ it — the decision belongs to the named owner and goes in `DECISIONS.md`.
 
 ## F-01 · D2 (oversized services) is now urgent — **owner: Mohamed (metric lead)**
 
-Raised 2026-09-07 by the empirical track. **Not decided here.**
+> **✅ RESOLVED 2026-09-07 by D-17** — cap at 200 operations, primary +
+> sensitivity, `oversized` flag in the manifest, nothing deleted. Tasneem took
+> the call rather than leaving it blocked. The evidence below is what prompted
+> it; D-17 carries the decision and its numbers. **No action needed from the
+> metric lead beyond adopting the same primary/sensitivity split for Exp. 1 and
+> for the ILSC quartile thresholds when the engine lands.**
+
+Raised 2026-09-07 by the empirical track.
 
 **What changed.** After D-13 fixed the Microsoft Graph tie-break (beta → stable),
 the pair distribution got *more* concentrated, not less:
