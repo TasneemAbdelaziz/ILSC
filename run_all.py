@@ -63,6 +63,12 @@ STEPS = [
     ("Exp 5    weight + tau sensitivity + Fig 6", [sys.executable, "-u", "src/sensitivity.py"]),
 ]
 
+# Deliberately NOT in STEPS: src/version_tokens_sweep.py (Exp. 5's third knob,
+# D-15) re-parses and re-embeds the whole corpus into parsed_nodrop/ and a second
+# cache, roughly 30 minutes, to answer one sensitivity question. Its result is
+# committed in results/version_tokens_sweep.csv. Run it explicitly:
+#     python src/version_tokens_sweep.py
+
 # Not run here because they need a checkout this repository does not vendor.
 # Documented so the omission is visible rather than silent:
 #   src/entity_extract.py --src <FudanSELab/train-ticket>   (Day 7, empirical)

@@ -77,18 +77,18 @@ in one push.**
 | **10** | Exp. 4 baselines under perturbation, **Fig 7** | ✅ | **Figures restyled to one palette** (`src/figstyle.py`) | ✅ |
 | **11** | **Exp. 3** pair-level ρ, both conditions | ✅ | Replication package + `docs/replication.md` | ✅ |
 | **12** | Exp. 3 service-level ρ; discordance; **Gate 2** | ✅ | Fresh-clone test — **structural done, end-to-end still owed** | ◐ |
-| **13** | **Exp. 5** weights, Kendall's W, **Fig 6** | ✅ | Threats to Validity | ⬚ |
-| **14** | Exp. 5 τ sweep ✅ · **`DROP_VERSION_TOKENS` (D-15)** | ✅ | Experimental Setup + dataset section | ⬚ |
+| **13** | **Exp. 5** weights, Kendall's W, **Fig 6** | ✅ | **Threats to Validity** (`docs/threats_to_validity.md`) | ✅ |
+| **14** | Exp. 5 τ sweep ✅ · **`DROP_VERSION_TOKENS` (D-15)** ✅ | ✅ | **Experimental Setup + dataset** (`docs/experimental_setup.md`) | ✅ |
 
 **Metric track: 14 of 14 days complete.** The `DROP_VERSION_TOKENS` sweep closes
 the last gap, so Exp. 5 is now a **three-knob** sensitivity analysis as the
 proposal specifies.
 
-**Empirical track: 10 of 14 complete, 2 partial.** Everything experimental
-landed; the entity coverage is now 211/211; the figures share one validated
-palette; the package is documented and structurally verified. What is genuinely
-outstanding is **two writing sections** and the two halves of the reliability
-and fresh-clone checks that cannot be self-administered (§3b).
+**Empirical track: 12 of 14 complete, 2 partial.** Everything experimental
+landed; entity coverage is 211/211; the figures share one validated palette; the
+package is documented and structurally verified; both writing sections are
+drafted. What remains is **only** the two halves of the reliability and
+fresh-clone checks that cannot be self-administered (§3b).
 
 **Debt 3 is closed.** The two non-Java Train Ticket services were dug out by
 hand: `ts-avatar-service` (Flask + OpenCV, no persistence) and `ts-news-service`

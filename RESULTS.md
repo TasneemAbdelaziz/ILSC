@@ -902,13 +902,40 @@ sits in the middle of the usable range on both curves**, which is the argument f
 keeping it — not that it optimises anything, but that it is where the statistic
 still varies.
 
-### The third knob is **not** swept, and that is stated rather than glossed
+### The third knob — `DROP_VERSION_TOKENS` (D-15)
 
-`DROP_VERSION_TOKENS` (D-15) changes the tokenizer, therefore `T(Oi)`, therefore
-the **f1 embeddings**. Sweeping it honestly needs a full re-parse and re-embed of
-the corpus — it is not a reweighting — so `src/sensitivity.py` refuses to fold it
-in and the run says so. Until that comparison is run, this is a **two-knob
-sensitivity analysis**, and the paper must not describe it as three.
+[`src/version_tokens_sweep.py`](src/version_tokens_sweep.py) →
+[`results/version_tokens_sweep.csv`](results/version_tokens_sweep.csv). This knob
+cannot be swept by reweighting: it changes the tokenizer, therefore `T(Oi)`,
+therefore the **f1 embeddings**. The corpus was re-parsed and re-embedded with the
+flag off and scored again.
+
+**Its reach is narrower than it looks.** `v1` and `v2` are already pinned
+stopwords, so the flag only affects version tokens outside that pair — `v0`,
+`v3`, `v10`, and date-like versions such as `v20180301`. **74 of 2,136 primary
+services (3.5%)** tokenise differently.
+
+| | whole primary corpus | the 74 services it touches |
+|---|--:|--:|
+| ILSC_mean, pinned (`True`) | 0.4341 | 0.4458 |
+| ILSC_mean, knob off (`False`) | 0.4351 | **0.4730** |
+| mean shift | +0.0010 | **+0.0272** |
+| Spearman | **0.9978** | 0.9482 |
+| Kendall's τ | 0.9889 | — |
+
+**Negligible corpus-wide, real locally.** The ranking is essentially unchanged
+(ρ = 0.998, τ = 0.989), so the pinned setting is not driving any published
+result. But on the services it actually touches the mean moves **+0.027**, and one
+service moves **+0.121** (`text2data.org` 0.4272 → 0.5486). Reporting only the
+corpus-wide figure would understate it.
+
+**The direction confirms why D-15 exists.** Turning the flag off *raises* scores,
+because the letter/digit splitter turns `v3` into `v` + `3` and every versioned
+path in the corpus then shares the token `v` — the inflation D-15 was written to
+prevent, in a smaller form. **The pinned setting is the conservative one.**
+
+Exp. 5 is therefore a **three-knob** sensitivity analysis: weights, τ, and
+tokenisation.
 
 ---
 

@@ -249,5 +249,9 @@ similarity engine (`embed.py`, `similarity.py`, the mask).
 - [x] Exp. 3 — **GATE 2 PASS** (reframed): rho_indep 0.433, rho_derived 0.488
 - [x] Exp. 4 — baselines: ILSC 0% saturated vs SIDC 35.8%, LoCmsg 77.0%
 - [x] Exp. 5 — **Kendall's W 0.9947**; rankings invariant to reasonable weights
-- [ ] `DROP_VERSION_TOKENS` sweep (D-15) — needs a re-parse and re-embed
-- [ ] Two inter-annotator agreement figures (blank sheets written)
+- [x] `DROP_VERSION_TOKENS` sweep (D-15) — rho 0.998 corpus-wide; +0.027 on the 74 services it touches
+- [x] Figures unified on one validated palette (`src/figstyle.py`); Fig 6 rebuilt off a twin axis
+- [x] Replication package documented + fresh clone verified structurally (`docs/replication.md`)
+- [x] Threats to Validity + Experimental Setup drafted (`docs/`)
+- [ ] **Blind** inter-annotator figures — cannot be self-administered
+- [ ] End-to-end reproduction from a fresh clone (~1 h)
