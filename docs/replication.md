@@ -43,6 +43,24 @@ long"*. Untracked in `bc87696`.
 long enough to break the checkout independently of the above, so the clone needs
 `-c core.longpaths=true`. §2 of the README did not say so; it does now.
 
+**3. And the corpus can shrink silently — the worst of the three.** With
+`core.longpaths` set, `git` checks the long-named files out, but **Python's
+`open()` still fails past 260 characters**. Cloned into a deep directory, the
+pipeline produced **2,205 services instead of 2,206**. The difference was not a
+missing service: a dedup tie-break landed on a different file, so 18 services
+were credited to a different source and one API changed identity entirely.
+
+The only trace was a line in `filter_log.csv` reading
+`parse_error: FileNotFoundError`, indistinguishable from an ordinary malformed
+spec. **`load_spec` now separates `unreadable:` from `parse_error:`**, and
+`filter.py` prints a blocking-width warning naming the files when any input
+could not be read. A malformed specification is data and dropping it is
+curation; a file the OS will not open is an environment failure and must never
+pass unremarked.
+
+Verified: 261-character path → `FileNotFoundError`; the same file at 168
+characters → opens. Reviewers should clone into a short directory on Windows.
+
 ---
 
 ## What was NOT tested, stated plainly

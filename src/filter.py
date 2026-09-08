@@ -119,18 +119,60 @@ DOMAIN_KEYWORDS = {
 # ----------------------------------------------------------------------------
 
 def load_spec(path):
-    """Return (spec_dict, None) or (None, reason)."""
+    """Return (spec_dict, None) or (None, reason).
+
+    A file we could not *read* is reported as ``unreadable:``, not
+    ``parse_error:``. The distinction matters more than it looks: a malformed
+    specification is data, and dropping it is a correct curation decision that
+    belongs in the log. A file the operating system would not open is an
+    *environment* failure, and silently dropping it shrinks the corpus without
+    anyone noticing.
+
+    This is not hypothetical. Cloning into a deep directory on Windows puts some
+    RAMA filenames past the 260-character limit; ``git`` checks them out with
+    ``core.longpaths`` but Python's ``open()`` still raises FileNotFoundError.
+    The corpus came out at 2,205 services instead of 2,206, the difference was a
+    dedup tie-break landing on a different file, and the only trace was a line in
+    filter_log.csv reading ``parse_error: FileNotFoundError``. Callers now count
+    these separately and the run says so loudly (see ``report_unreadable``).
+    """
     try:
         with open(path, "r", encoding="utf-8") as fh:
             if path.endswith((".yaml", ".yml")):
                 spec = yaml.load(fh, Loader=_Loader)
             else:
                 spec = json.load(fh)
+    except (FileNotFoundError, PermissionError, OSError) as exc:
+        return None, "unreadable: " + type(exc).__name__
     except Exception as exc:                              # noqa: BLE001
         return None, "parse_error: " + type(exc).__name__
     if not isinstance(spec, dict):
         return None, "parse_error: not_a_mapping"
     return spec, None
+
+
+def report_unreadable(log_rows):
+    """Print a prominent warning if any input file could not be opened.
+
+    Returns the count so a caller can decide to fail. Not fatal by default: a
+    single unreadable file in a 6,757-file corpus should not stop a run, but it
+    must never pass unremarked.
+    """
+    bad = [r for r in log_rows if len(r) > 2 and str(r[2]).startswith("unreadable:")]
+    if not bad:
+        return 0
+    print("\n" + "!" * 72)
+    print("WARNING: %d input file(s) could not be READ - this is an environment"
+          % len(bad))
+    print("failure, not a curation decision, and the corpus below is INCOMPLETE.")
+    print("On Windows this is usually the 260-character path limit: clone into a")
+    print("shorter directory, or enable long paths system-wide.")
+    for r in bad[:5]:
+        print("   %s  (%s)" % (r[0], r[2]))
+    if len(bad) > 5:
+        print("   ... and %d more; see results/filter_log.csv" % (len(bad) - 5))
+    print("!" * 72 + "\n")
+    return len(bad)
 
 
 def spec_version(spec):
@@ -445,6 +487,10 @@ def merge(records, log_rows, out_clean, out_results):
         w = csv.writer(fh)
         w.writerow(["file", "stage", "reason"])
         w.writerows(log_rows)
+
+    # An unreadable input is an environment failure, not curation. Say so before
+    # anything downstream treats this corpus as complete.
+    counts["unreadable_inputs"] = report_unreadable(log_rows)
 
     with open(os.path.join(out_results, "manifest.csv"), "w", newline="",
               encoding="utf-8") as fh:
