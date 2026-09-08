@@ -27,10 +27,10 @@ does data loading at import time.
 
 ---
 
-## Two real defects the fresh-clone test found
+## Three real defects the fresh-clone test found
 
-Both were invisible to every check that ran inside the working tree, which is
-precisely the argument for running the test.
+All three were invisible to every check that ran inside the working tree, which
+is precisely the argument for running the test.
 
 **1. The repository could not be cloned on Windows at all.** `parsed_nodrop/` —
 2,206 regenerable parse files written by the D-15 sweep — had been committed by
@@ -97,12 +97,14 @@ check.
 pip install -r requirements.txt
 npm install                       # swagger2openapi 7.0.8, one step only
 
-git clone --filter=blob:none --sparse \
+# On Windows: clone into a SHORT directory and keep core.longpaths, or the
+# corpus silently comes out one service short — see defect 3 above.
+git clone -c core.longpaths=true --filter=blob:none --sparse \
     https://github.com/restful-ma/thresholds.git rama-thresholds
 cd rama-thresholds && git sparse-checkout set benchmark-repository/openapi \
   && git checkout 5b0b2a3322d3b2b7c0e0f2c0c0ad0e524e67bf82 && cd ..
 
-git clone --filter=blob:none --sparse \
+git clone -c core.longpaths=true --filter=blob:none --sparse \
     https://github.com/APIs-guru/openapi-directory.git openapi-directory
 cd openapi-directory && git sparse-checkout set APIs \
   && git checkout f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49 && cd ..
