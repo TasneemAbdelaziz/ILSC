@@ -55,15 +55,17 @@ pip install -r requirements.txt
 npm install                       # swagger2openapi 7.0.8, used by step (b) only
 
 # 2. Fetch S1 — RAMA threshold benchmark (Bogner et al. 2020), the anchor
-git clone --filter=blob:none --sparse \
+#    core.longpaths is REQUIRED on Windows: several RAMA filenames exceed the
+#    260-character path limit and the clone fails at checkout without it.
+git clone -c core.longpaths=true --filter=blob:none --sparse \
     https://github.com/restful-ma/thresholds.git rama-thresholds
 cd rama-thresholds
 git sparse-checkout set benchmark-repository/openapi
 git checkout 5b0b2a3322d3b2b7c0e0f2c0c0ad0e524e67bf82
-cd ..
+cd ..                                   # expect 2,619 files
 
 # 3. Fetch S2 — APIs.guru current snapshot
-git clone --filter=blob:none --sparse \
+git clone -c core.longpaths=true --filter=blob:none --sparse \
     https://github.com/APIs-guru/openapi-directory.git openapi-directory
 cd openapi-directory
 git sparse-checkout set APIs

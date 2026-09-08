@@ -27,6 +27,24 @@ does data loading at import time.
 
 ---
 
+## Two real defects the fresh-clone test found
+
+Both were invisible to every check that ran inside the working tree, which is
+precisely the argument for running the test.
+
+**1. The repository could not be cloned on Windows at all.** `parsed_nodrop/` —
+2,206 regenerable parse files written by the D-15 sweep — had been committed by
+accident, caught by a `git add -A` that ran while the sweep was mid-write and
+before the `.gitignore` entry existed. Several Azure filenames in it exceed the
+260-character path limit, so `git clone` failed at checkout with *"Filename too
+long"*. Untracked in `bc87696`.
+
+**2. The documented fetch commands fail on Windows.** RAMA's own filenames are
+long enough to break the checkout independently of the above, so the clone needs
+`-c core.longpaths=true`. §2 of the README did not say so; it does now.
+
+---
+
 ## What was NOT tested, stated plainly
 
 **The end-to-end data run has not been executed from a fresh clone.** Doing so
