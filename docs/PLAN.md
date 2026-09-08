@@ -155,7 +155,7 @@ proposal's own division of labour is kept.
 | **4** | Exp. 3 write-up, both conditions, cluster intervals, the D-16 inflation estimate | Discordance prose from `docs/discordance.md` | Gate 2 section |
 | **5** | **Gate 1 as a construct-validity finding** (D-24) — the hardest section to write well | Threats to Validity, drafted jointly | — |
 | **6** | ✅ **Related work drafted** (`docs/related_work.md`) — positioned on discriminating power, with the perturbation claim reported as it fell | ✅ **Figures restyled** (`src/figstyle.py`) | Figs final |
-| **7** | Abstract, intro, contributions | Replication package + **fresh-clone test** (debt 4) | package |
+| **7** | ✅ **Abstract + intro drafted** (`docs/abstract_and_intro.md`) | ◐ Package documented; **end-to-end fresh-clone run in progress** | package |
 | **8–9** | Full assembly and internal review | | **First draft** |
 | **10** | *Slack* | *Slack* | — |
 
