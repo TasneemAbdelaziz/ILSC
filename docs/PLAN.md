@@ -149,8 +149,8 @@ proposal's own division of labour is kept.
 
 | Day | Mohamed — theory half | Tasneem — empirical half | Output |
 |---|---|---|---|
-| **1** | Kick off the `DROP_VERSION_TOKENS` re-run (debt 2), then start Sec. 6 — the metric definition, the mask, C1 | **Reliability figures (debt 1)** — both sheets, with someone who did not do the first pass | agreement numbers |
-| **2** | Sec. 6 cont.: null models, D-18 and D-21, why `ILSC_norm` cannot reorder | Sec. 7 — dataset and multi-source strategy, absorbing D-12's corrections | Setup draft |
+| **1** | ✅ `DROP_VERSION_TOKENS` swept; **Sec. 6 drafted** (`docs/metric_definition.md`) | ◐ **Train Ticket verified** 10/10; blind pass + Sock Shop still owed | agreement numbers |
+| **2** | ✅ Sec. 6 covers the null models, D-18, D-21 and why `ILSC_norm` cannot reorder | ✅ **Sec. 7 drafted** (`docs/experimental_setup.md`) | Setup draft |
 | **3** | Exp. 1 + Exp. 5 results, incl. the `f1_only` ρ = 0.837 discussion | Exp. 2 + Exp. 4 results | Results draft |
 | **4** | Exp. 3 write-up, both conditions, cluster intervals, the D-16 inflation estimate | Discordance prose from `docs/discordance.md` | Gate 2 section |
 | **5** | **Gate 1 as a construct-validity finding** (D-24) — the hardest section to write well | Threats to Validity, drafted jointly | — |
