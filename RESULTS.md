@@ -27,6 +27,7 @@ steps in `README.md` §2.
 | Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
 | Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
 | Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
+| Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.433**, rho_derived **0.488**; inflation +0.054 |
 | Day 7e — Train Ticket extraction | [`src/entity_extract.py`](src/entity_extract.py) | ✅ complete | 209/211 operations joined (99.1%); 0 unexplained empties (D-22); agreement figure still owed |
 
 Reproducibility pins (`config.py`): `SEED = 42`; RAMA commit
@@ -683,6 +684,79 @@ and `src/entity_extract.py --sample 10`. A second pass by the same reader measur
 memory, not reliability, so these need someone who did not do the first pass —
 about an hour each. **F-03** additionally requires that the Train Ticket sample be
 taken from the Java sources, never from `docs/responsibilities.md` §2.
+
+---
+
+## Days 11–12 — Experiment 3, the code correlation: **GATE 2 PASSES**
+
+[`src/bench_prepare.py`](src/bench_prepare.py) (convert → parse → embed the 39
+benchmark services, 238 operations) then
+[`src/code_correlation.py`](src/code_correlation.py) →
+[`results/code_correlation_pairs.csv`](results/code_correlation_pairs.csv),
+[`results/code_correlation_summary.csv`](results/code_correlation_summary.csv),
+[`results/discordance.csv`](results/discordance.csv), Figs 4 and 5.
+
+906 of 916 within-service pairs joined; 2 operations had no code row (the Python
+and Go services). Spearman throughout — `Sim_code` is a 5-to-12 level tied
+variable and Pearson would assume more than it supports.
+
+| | `ρ_independent` | `ρ_derived` |
+|---|--:|--:|
+| system | Sock Shop | Train Ticket |
+| `spec_origin` | hand-written | generated from source |
+| pairs / services | 122 / 4 | 784 / 29 |
+| **services with code-side variance** | **2** | **27** |
+| `Sim_code` levels (largest tie) | 5 (27.9%) | 12 (40.8%) |
+| **Spearman ρ (pair level)** | **0.4332** | **0.4876** |
+| p | 6.2×10⁻⁷ | 4.7×10⁻⁴⁸ |
+| 95% CI, pair bootstrap | [0.268, 0.572] | [0.432, 0.541] |
+| **95% CI, cluster bootstrap** | **[0.318, 0.643]** | **[0.380, 0.584]** |
+| ρ, service level | 0.7379 (n=4, uninterpretable) | 0.4489 (n=29) |
+
+**Gate 2: PASS, under the reframing the proposal itself specifies.** Both
+coefficients land in the 0.4–0.6 band, which Sec. 12 instructs be reported as
+"moderate correlation, complementary signal" — the interface and the code carry
+partly independent information. That is the honest reading and, as the proposal
+notes, arguably the more interesting one.
+
+**Quote the cluster-bootstrap interval, not the pair-bootstrap one.** Pairs
+inside a service share operations and move together, so resampling pairs treats
+122 dependent observations as 122 independent ones and reports a precision the
+design does not have. Resampling whole services is the honest unit. For
+`ρ_independent` the two disagree materially — [0.268, 0.572] against
+[0.318, 0.643] — and **the cluster interval straddles the 0.4 threshold**, so the
+primary condition cannot be said to clear Gate 2's bar with confidence. That is
+F-04 arriving exactly where it was predicted to: only **2 of 4** Sock Shop
+services have any code-side variance.
+
+**The derivation-inflation estimate is +0.054** (0.4876 − 0.4332). It is positive,
+as D-16 predicts — correlating an interface against the code it was generated
+from does read higher — but the effect is **small**. That is a result in its own
+right and the one D-16 argued the two-condition design would buy: specification–
+code derivation inflates this correlation by roughly five points, not by enough
+to manufacture a finding. It also means `ρ_derived`, which is the better-powered
+of the two, is not badly compromised by circularity.
+
+**The coefficients are conservative in one specific respect.** `Sim_code` matches
+entity names exactly, so `Assurance` and `AssuranceType` score 0.00 despite being
+plainly related. Every such case pushes a pair toward "code says unrelated" while
+the interface says related, biasing ρ **downward**. See
+[`docs/discordance.md`](docs/discordance.md) §3 — recorded rather than fixed,
+because changing `Sim_code` after seeing ρ has to be declared, and any change
+must apply identically to both systems or the D-16 comparison breaks.
+
+**Discordance: 102 of 906 pairs (11.3%)**, written up in
+[`docs/discordance.md`](docs/discordance.md). Two kinds were anticipated and both
+appear:
+
+- *Interface high, code zero* — `…/inside_payment/money` vs `…/inside_payment/payment`
+  (interface 0.86, code 0.00): one path prefix, four of five shared path tokens,
+  disjoint entities. Exactly the canonical case Sec. 10 names.
+- *Code complete, interface low* — `GET /customers` vs `POST /register`
+  (interface 0.12, code 1.00): both touch `{User}`, share no lexical signal at
+  all (f2 = f3 = f5 = 0.00), and score above zero **only through f1**. This pair
+  is the study's clearest single piece of evidence that the embedding feature is
+  not redundant with the lexical ones.
 
 ---
 

@@ -235,4 +235,5 @@ similarity engine (`embed.py`, `similarity.py`, the mask).
 - [x] Day 7 — **Exp. 2 perturbation**, three-level provider proximity — H2 POSITIVE
 - [x] Day 8–11 — the code dig (Sock Shop by hand, Train Ticket automated)
 - [ ] **Two reliability figures owed** — blank sample sheets are written (F-03)
-- [ ] Exp. 3 (rho), Exp. 4 (baselines), Exp. 5 (weights, tau)
+- [x] Exp. 3 — **GATE 2 PASS** (reframed): rho_indep 0.433, rho_derived 0.488
+- [ ] Exp. 4 (baselines: SIDC, LoCmsg), Exp. 5 (weight and tau sensitivity)

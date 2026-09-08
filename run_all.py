@@ -1,7 +1,8 @@
 """
 ILSC - one-command reproduction of everything completed so far: the empirical
 track through Day 3 plus benchmark prep and the D-17 cap, and the metric track
-through Day 7 (engine, null models, Gate 1, Exp. 1, Fig 9, perturbation).
+through Exp. 3 (engine, null models, Gate 1, Exp. 1, Fig 9, perturbation,
+and the code correlation that decides Gate 2).
 
     python run_all.py
 
@@ -55,6 +56,9 @@ STEPS = [
     ("Day 4m   GATE 1",                        [sys.executable, "-u", "src/gate1_run.py"]),
     ("Day 6m   feature correlation + Fig 9",   [sys.executable, "-u", "src/feature_corr.py"]),
     ("Day 7m   perturbation + Fig 3",          [sys.executable, "-u", "src/inject.py"]),
+    # --- Exp. 3 / Gate 2 -------------------------------------------------------
+    ("Exp 3    benchmark convert+parse+embed",  [sys.executable, "-u", "src/bench_prepare.py"]),
+    ("Exp 3    GATE 2 - code correlation",      [sys.executable, "-u", "src/code_correlation.py"]),
 ]
 
 # Not run here because they need a checkout this repository does not vendor.
