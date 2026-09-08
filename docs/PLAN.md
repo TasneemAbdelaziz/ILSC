@@ -1,291 +1,241 @@
-# Revised plan — from here to a first draft
+# Plan — from here to a first draft
 
-*Re-baselined **Tue 2026-09-08**. Supersedes the 2026-09-02 revision, which was
-itself a re-baseline of the proposal's Sec. 9 three-week plan.*
+*Re-baselined **Tue 2026-09-08**, after the experimental work completed.
+Supersedes the 09-08 morning revision, which was a forward schedule for work
+that has since been executed.*
 
-The 09-02 revision assumed both tracks starting immediately. One did. Day
-numbers below are **working days from today**; today is **Day 4 of the 09-02
-schedule**, and this document restarts the count at Day 1 tomorrow. The
-proposal's own day numbers are kept in the last column so the three can be
-lined up.
+**All five experiments have run. Both gates have been evaluated. What remains is
+writing, four specific debts, and two open decisions.**
 
 ---
 
-## 0. Status — **all five experiments are done; both gates have been run**
+## 1. Status
 
-*Updated 2026-09-08. Days 1–14 of the schedule below were executed in a single
-push. The day-by-day table in §3 is retained as the record of what was planned,
-not of what remains.*
-
-| Experiment | Result |
-|---|---|
-| **Gate 1** | ⚠ **MARGINAL** — δ +0.680, one discordant service (C1). Weights not tuned (D-24). |
-| **Exp. 1** — corpus run | ✅ 2,206 services; ILSC_mean median 0.436; thresholds per population |
-| **Exp. 2** — perturbation | ✅ **H2 POSITIVE** — 20/20 monotonic, slopes order with distance, p < 1e-6 |
-| **Exp. 3 / Gate 2** | ✅ **PASS, reframed** — ρ_indep 0.433, ρ_derived 0.488, inflation +0.054 |
-| **Exp. 4** — baselines | ◐ **Half supported** — beats SIDC; does *not* beat LoCmsg on the gap |
-| **Exp. 5** — sensitivity | ✅ **H3 holds** — Kendall's W 0.9947; rankings invariant to weights |
-
-**What is left is writing, plus four specific debts:**
-
-1. **Two inter-annotator agreement figures.** Both sample sheets are written and
-   blank; neither can be self-administered (F-03).
-2. **`DROP_VERSION_TOKENS` (D-15) is unswept.** It changes the tokenizer and so
-   the f1 embeddings; it needs a re-parse and re-embed, not a reweighting. The
-   sensitivity analysis is currently **two knobs, not three**, and says so.
-3. **Two Train Ticket services (Python, Go) have no extracted entities**, so no
-   pair from either enters ρ_derived.
-4. **D1 (provider cap) and F-02 (`norm_host`) remain open.**
-
-**Three results did not go the way the proposal expected**, and each is recorded
-as it fell rather than reshaped:
-
-- **Gate 1 is not a pass.** C1 is a construct-validity finding — ILSC measures
-  *resource-level*, not *capability-level*, cohesion (D-24).
-- **Exp. 4's superiority claim is only half available.** ILSC beats SIDC on the
-  perturbation gap but **not LoCmsg**. Its real advantage over both is
-  discriminating power on unperturbed services (0% saturation vs 35.8% and 77.0%).
-- **ρ_independent's cluster-bootstrap interval straddles Gate 2's 0.4 threshold**
-  — [0.318, 0.643] — because only 2 of 4 Sock Shop services have any code-side
-  variance (F-04).
-
-| Day | Metric track | Empirical track |
+| | Result | Artifact |
 |---|---|---|
-| 1 | `embed.py`, `similarity.py`; **D3 resolved (D-18)** ✅ | responsibility one-pagers ✅ (§F-03 caveat) |
-| 2 | 17/17 unit tests incl. R2; `ilsc.py` ✅ | one-pagers cont.; extraction design ✅ |
-| 3 | null models, flatness confirmed (D-21) ✅ | code dig — `user` ✅ |
-| 4 | **GATE 1 — MARGINAL** (D-24) ⚠ | code dig — `carts`, `catalogue` ✅ |
-| 5 | Exp. 1, 2,206 services + thresholds ✅ | code dig — `orders`, `payment` ✅ |
-| 6 | Fig 9, no feature pair above 0.85 ✅ | verification pass, `endpoint_entities.csv` ✅ |
-| 7 | `inject.py`; **H2 contrast POSITIVE** ✅ | Train Ticket automated extraction ✅ |
+| **Gate 1** | ⚠ **MARGINAL** — δ +0.680, no clean separation | `results/gate1_verdict.csv` |
+| **Exp. 1** corpus run | ✅ 2,206 services; ILSC_mean median **0.436** (primary) | `results/ilsc_scores.csv`, `ilsc_thresholds.csv` |
+| **Exp. 2** perturbation | ✅ **H2 POSITIVE** — 20/20 monotonic, p < 1e-6 | `results/perturbation_*.csv`, Fig 3 |
+| **Exp. 3 / Gate 2** | ✅ **PASS, reframed** — ρ_ind **0.433**, ρ_der **0.488** | `results/code_correlation_*.csv`, Figs 4–5 |
+| **Exp. 4** baselines | ◐ **Half supported** — beats SIDC, not LoCmsg | `results/baselines_*.csv`, Fig 7 |
+| **Exp. 5** sensitivity | ✅ **H3 HOLDS** — Kendall's W **0.9947** | `results/kendalls_w.csv`, `tau_sweep.csv`, Fig 6 |
 
-**The engine that was three days late no longer is.** It exists, is tested, and
-every experiment behind it has run.
-
-**Three things did not go to plan, and all three are recorded rather than
-smoothed over:**
-
-1. **Gate 1 is MARGINAL, not a pass** (D-24). One service, Xero Payroll AU,
-   breaks the separation; no weight scheme fixes it and the proposal's own
-   suggested remedy makes it worse. Read as a construct-validity finding.
-2. **`ρ_independent` may not be estimable** (F-04). Sock Shop's code side has
-   five distinct values over two services with any variance.
-3. **Two reliability figures are owed** and cannot be self-administered — both
-   sample sheets are written and blank.
+42 result CSVs, 8 figures, 24 decisions, 4 flags. `python run_all.py` reproduces
+every one of them from the two pinned corpus commits.
 
 ---
 
-## 1. What is banked
+## 2. What is banked
 
-| Track | Item | Artifact | Day |
+**Corpus and curation** (empirical). 2,206 services from 6,757 across two pinned
+sources; 2.0 → 3.x conversion verified operation-set-identical; D-02 strict
+validation 97.5%; field- and pair-level availability studies; the D-17 oversized
+cap with its primary/sensitivity protocol; benchmark corpus of 39 services.
+
+**The metric** (metric track). Parser and tokenizer; embedding cache of 89,852
+`T` and 54,701 description vectors; six similarity functions and the availability
+mask; `ILSC_mean` / `_τ` / `_norm` with connected components; two null models;
+quartile thresholds per population. **17/17 unit tests**, including the R2
+regression that fails on the v2 design.
+
+**The code dig** (empirical). Sock Shop by hand — 27 endpoints, every row
+carrying a `file:line` reference. Train Ticket automated — **209 of 211
+operations joined (99.1%)**, 0 unexplained empty entity sets.
+
+**All five experiments**, above.
+
+**The decision record.** D-01 … D-24 in `DECISIONS.md`, F-01 … F-04 in
+`FLAGS.md`, and `docs/discordance.md`. Several of these are paper material in
+their own right — the two rejected labelling approaches (D-03, D-04) especially,
+because a rejection with a number attached is a methodological result.
+
+---
+
+## 3. What remains
+
+### 3a. The four debts
+
+| # | Debt | Cost | Blocks |
 |---|---|---|---|
-| Empirical | Multi-source curation, S1 + S2, 2,206 services | `results/manifest.csv` | prop. 1–2 |
-| Empirical | 2.0 → 3.x conversion, operation sets verified | `results/convert_verify.csv` | prop. 1–2 |
-| Empirical | D-02 strict validation, 97.5% | `results/strict_validation_sample.csv` | — |
-| Empirical | Field-availability study + Fig 1 | `results/availability*.csv` | prop. 3 |
-| Empirical | Pair-level co-availability (RQ2) + Fig 2 | `results/pair_availability*.csv` | prop. 3 |
-| Empirical | Gate 1 candidates + written expectations | `docs/gate1_expectations.md` | prop. 1–2 |
-| Metric | Parser, tokenizer, path normaliser, `T(Oi)` | `src/parse_spec.py`, `parsed/` | prop. 1–2 |
-| **Empirical** | **Benchmark prep — Sock Shop + Train Ticket, 39 services, 916 pairs** | `src/benchmark_prep.py`, `results/benchmark_manifest.csv` | **09-02 Day 1** |
-| **Empirical** | **D-16 — Train Ticket admitted as a labelled `generated-from-source` condition** | `docs/DECISIONS.md` | *off-plan* |
-| **Empirical** | **D-17 — oversized cap at 200 ops, primary + sensitivity protocol** | `src/oversized.py`, `results/oversized_thresholds.csv` | *off-plan* |
-| **Empirical** | **D-14 corpus gap stated (`clean/` vs `clean3/`, f4 ~5 pts optimistic)** | `docs/DECISIONS.md` | *off-plan* |
-| **Empirical** | **F-01 raised and closed; F-02 raised and quantified** | `docs/FLAGS.md` | *off-plan* |
+| **1** | **Two inter-annotator agreement figures.** Both sample sheets are written and blank. **Cannot be self-administered** — a second pass by the same reader measures memory, not reliability. | ~1 h each, needs a *second person* | Exp. 3's write-up |
+| **2** | **`DROP_VERSION_TOKENS` (D-15) is unswept.** It changes the tokenizer → `T(Oi)` → the f1 embeddings, so it needs a full re-parse and re-embed, not a reweighting. | ~30 min compute, unattended | Exp. 5's write-up |
+| **3** | **Two Train Ticket services have no extracted entities** — `ts-avatar-service` (Python), `ts-news-service` (Go). | ~1 h manual | nothing; ρ_derived already excludes them |
+| **4** | **Figures are not yet restyled to one palette**, and the replication package has not been tested on a fresh clone. | ~1 day | submission, not the draft |
 
-That is roughly **5 of the proposal's 21 days**, plus a substantial amount that
-was never in any plan.
+**Debt 1 is the only one that needs another person.** Everything else is
+schedulable. Until it is paid, every entity set in the study is
+single-annotator and must be described that way — an extraction with no
+agreement figure is a standard reviewer objection and the proposal names it.
 
-**Two of the off-plan items changed the paper's headline numbers**, which is why
-they were worth the two days:
+**Debt 2 has a consequence for how Exp. 5 is described.** Until the sweep runs,
+the sensitivity analysis covers **two knobs, not three**, and
+`src/sensitivity.py` says so on every run. The paper must not describe it as
+three.
 
-- **D-17 resolves D2**, which had blocked Exp. 1 since the proposal. The RQ2
-  mask-fire headline is now **56.87% (micro, primary)** against 90.58% on the
-  full corpus — the earlier figure was substantially a statement about a handful
-  of gateway specifications. Every per-service quartile boundary moves by at most
-  3.17 points, confirming that the service-level framing is the robust one.
-- **D-16 establishes that Exp. 3's independent-spec evidence rests on Sock Shop
-  alone** — 5 services, 122 pairs — because no authored Train Ticket spec exists
-  and Online Boutique is gRPC. That constrains what Exp. 3 can claim, and it is
-  better known now than at Gate 2.
+### 3b. The writing schedule
 
-**Not banked:** the similarity engine. Unchanged from the last revision. Every
-remaining item on **both** tracks still sits behind it.
+Day numbers are working days from tomorrow. Both halves run in parallel; the
+proposal's own division of labour is kept.
 
----
+| Day | Mohamed — theory half | Tasneem — empirical half | Output |
+|---|---|---|---|
+| **1** | Kick off the `DROP_VERSION_TOKENS` re-run (debt 2), then start Sec. 6 — the metric definition, the mask, C1 | **Reliability figures (debt 1)** — both sheets, with someone who did not do the first pass | agreement numbers |
+| **2** | Sec. 6 cont.: null models, D-18 and D-21, why `ILSC_norm` cannot reorder | Sec. 7 — dataset and multi-source strategy, absorbing D-12's corrections | Setup draft |
+| **3** | Exp. 1 + Exp. 5 results, incl. the `f1_only` ρ = 0.837 discussion | Exp. 2 + Exp. 4 results | Results draft |
+| **4** | Exp. 3 write-up, both conditions, cluster intervals, the D-16 inflation estimate | Discordance prose from `docs/discordance.md` | Gate 2 section |
+| **5** | **Gate 1 as a construct-validity finding** (D-24) — the hardest section to write well | Threats to Validity, drafted jointly | — |
+| **6** | Related work, positioning against SIDC/LoCmsg on *discriminating power*, not perturbation | Figures restyled to one palette, vector PDF (debt 4) | Figs final |
+| **7** | Abstract, intro, contributions | Replication package + **fresh-clone test** (debt 4) | package |
+| **8–9** | Full assembly and internal review | | **First draft** |
+| **10** | *Slack* | *Slack* | — |
 
-## 2. The new scope problem — Train Ticket's code dig
-
-**D-16 admits Train Ticket to Exp. 3 as a separate `ρ_derived` condition. Nobody
-has budgeted the work that implies.**
-
-`ρ_derived` correlates interface similarity against **code-level entity
-overlap** — so it needs the same endpoint→entity extraction that the Sock Shop
-code dig produces, over **34 Java services** instead of 5. The 09-02 plan's
-four-day code dig covered Sock Shop only. Train Ticket is roughly seven times
-the service count.
-
-Done the same way, that is a two-week task on its own and the schedule does not
-survive it.
-
-**The way through: extract Train Ticket automatically, verify a sample by hand.**
-Train Ticket is *almost* uniformly Java / Spring Boot — one framework, one
-annotation vocabulary — which is the condition under which a parser beats a
-human reader. **Correction, 2026-09-08:** it is not *entirely* uniform. Of the 34
-specified services, `ts-avatar-service` is Python and `ts-news-service` is Go,
-and the wider repository also contains JavaScript. The automated pass covers
-32 of 34; those two need a manual pass and
-`src/entity_extract.py` now names them explicitly rather than returning empty
-sets that would read as "touches nothing". A pass over `@Entity` / `@Document` classes and
-per-controller DTO imports gives endpoint→entity sets mechanically; a 10-service
-manual sample then measures how good that pass is, and the measured agreement
-gets reported. Sock Shop stays hand-dug: three languages, five services, and it
-carries `ρ_independent`, the coefficient the paper leans on.
-
-Budgeted below as **Days 7–8**, two days, not eight.
-
-**If the automated pass cannot be made to work**, the fallback is to report
-`ρ_independent` from Sock Shop and drop `ρ_derived` — losing the
-derivation-inflation estimate D-16 argues for, but not the experiment. Decide
-that by **Day 8**, not later.
+**Ten working days to a first draft**, against the six the proposal budgeted for
+writing. The extra four are debts 1–4 and the fact that three results need
+careful framing rather than transcription (§5).
 
 ---
 
-## 3. The schedule
+## 4. Decisions still open
 
-| Day | Mohamed — metric | Tasneem — empirical | Milestone | Prop. |
-|---|---|---|---|---|
-| **1** | `embed.py` + `similarity.py`: six similarity functions, availability mask, embedding cache. **Decide D3 today** — it blocks Day 3. | Responsibility one-pagers: Sock Shop 5 by hand; Train Ticket 34 from the FudanSELab *Service Guide* | — | 3 / 5 |
-| **2** | Unit tests incl. the R2 regression test; `ilsc.py` — mean, τ, components | One-pagers cont.; design the Train Ticket entity-extraction pass | — | 3 / 5 |
-| **3** | Null models: global + provider-restricted (**D3**), 1,000 draws per size, cached | Code dig — `user` (15 endpoints, the largest) | — | 5 / 8 |
-| **4** | **Run Gate 1** on the ten candidates → `sanity_check.csv`; joint review | Code dig — `carts` + `catalogue` | **Gate 1** | 4 / 9 |
-| **5** | Exp 1 big run — **primary *and* sensitivity per D-17** — `results.csv`, ILSC quartile thresholds, S1-only thresholds | Code dig — `orders` + `payment` | Figs 7, 8 | 5 / 10 |
-| **6** | Exp 1 cont.: inter-feature correlation matrix (Fig 9) | Code dig verification pass; assemble Sock Shop `endpoint_entities.csv` | Fig 9 | 5 / 11 |
-| **7** | `inject.py` + monotonicity and contrast checker | **Train Ticket entity extraction — automated pass, 34 services** (§2) | — | 7 |
-| **8** | Exp 2: perturbation run, three proximity levels (D-05) | **Train Ticket extraction — manual verification on 10 services; report agreement.** Go/no-go on `ρ_derived`. | Fig 3 | 7 |
-| **9** | Exp 4: implement SIDC + LoCmsg | Reliability check: re-derive 10 Sock Shop endpoints independently, report agreement | — | 8–11 |
-| **10** | Exp 4: baselines under the same perturbation pipeline | Figures — restyle all to one palette, vector PDF | Comparison table | 8–11 |
-| **11** | Exp 3 metric side: pair-level ρ, **the two conditions computed separately** | Replication package: `run_all.py` (**add `oversized.py` + `benchmark_prep.py`, §5**), pins, both exclusion lists | Fig 4 | 13 |
-| **12** | Exp 3: service-level ρ, **`ρ_independent` vs `ρ_derived` reported apart**, discordant pairs *(joint)* | Package tested on a **fresh clone** *(joint)* | **Gate 2**, Fig 5 | 14 |
-| **13** | Exp 5: weight sensitivity ±20/±40%, Kendall's W | Threats to validity, drafted with Mohamed | Fig 6 | 15 |
-| **14** | Exp 5: τ sweep 0.30–0.70, and the `DROP_VERSION_TOKENS` knob (D-15) | Experimental Setup + dataset section | `kendalls_w.csv` | 15 |
-| **15** | *Slack / catch-up* | *Slack / catch-up* | — | 12 |
-| **16–21** | Write theory half | Write empirical half | **First draft** | 16–21 |
+| # | Decision | Owner | Status |
+|---|---|---|---|
+| **D1** | Provider cap — none / 50 / 30 / 20 per provider | Mohamed | **Open, and now cheap.** No longer blocking. |
+| **F-02** | Should `norm_host()` collapse `api.`/`www.` to the registrable domain? | Mohamed | **Open.** Affects the headline corpus count. |
+| ~~D2~~, ~~D3~~, ~~D-14~~ | | | resolved by D-17, D-18, and a stated position |
 
-**What this costs.** Twenty-one working days from tomorrow, against the fifteen
-that were left on 09-02. The four lost days are not recovered anywhere; the one
-mid-plan slack day the last revision carried on Day 7 has been spent absorbing
-the Train Ticket extraction, and the Day 15 slack is now the only float in the
-schedule. **The first draft lands roughly four working days later than the 09-02
-plan projected, and about five weeks after the proposal's start.**
+**D1 has changed character and should be closed quickly.** It was listed as
+blocking Exp. 1; Exp. 1 has now run without it, so the live question is narrower:
+*do the published quartile thresholds change under a provider cap?* AWS, Google
+and Azure hold **46.8%** of the corpus, so the thresholds are drawn from a
+hyperscaler-heavy sample. With the engine built this is a **one-minute re-run**
+of `src/ilsc.py` over a capped population, not a design decision. It should be
+answered with a number before the thresholds are written up — if they move, the
+paper must say which population produced them; if they do not, that is a
+robustness result worth one sentence.
+
+**F-02 costs 0.9% on the corpus count** (2,206 is that much high) and 0.31% of
+pairs in the primary corpus. It affects a number that appears in the abstract, so
+it needs deciding before the dataset section is final — Day 2.
 
 ---
 
-## 4. Decisions
+## 5. Three results need framing, not transcription
 
-| # | Decision | Owner | Due | Status |
-|---|---|---|---|---|
-| **D1** | Provider cap — none / 50 / 30 / 20 per provider | Mohamed | **Day 4** (before Exp 1) | **open** |
-| **D3** | What replaces domain labels in the domain-restricted null model | Both | **Day 1** — *was due 09-02 Day 2, now overdue and blocking* | **open** |
-| **F-02** | Should `norm_host()` collapse `api.`/`www.` to the registrable domain? | Mohamed | **Day 5** (before the corpus count is written up) | **open** |
-| ~~D2~~ | ~~Oversized services > 200 ops~~ | — | — | **resolved — D-17** |
-| ~~D-14~~ | ~~Whether mask statistics get re-derived from `parsed/`~~ | — | — | **position stated** — not re-deriving; the ~5-point f4 gap is a declared limitation, revisited only if Exp. 4 proves sensitive |
+These are the sections most likely to be written badly, and each is a place where
+the honest version is more defensible than the hoped-for one.
 
-**D3 is now the sharpest, and it has slipped.** It was due on 09-02 Day 2 and is
-still open, while the null models it feeds are scheduled for Day 3. D-03 rejected
-keyword labelling and D-04 rejected LLM labelling, so the domain-restricted null
-model has no label source at all. Provider-restricted remains the obvious
-substitute — metadata, no judgement, and consistent with the reasoning already
-accepted for D-05. **It needs deciding on Day 1, not Day 3.**
+**Gate 1 is not a pass, and the write-up must not imply it was.** Cliff's δ
++0.680 with no clean separation; the verdict turns entirely on Xero Payroll AU.
+No weight scheme rescues it and Sec. 10's own suggested remedy makes separation
+*worse*. Exp. 5 then showed why: no weighting moves any ranking materially
+(W = 0.9947), so C1 was never rescuable by tuning. The finding is that **ILSC
+measures resource-level, not capability-level, cohesion** — a service can be one
+business capability spread across ten lexically unrelated resources. That is a
+construct-validity result and belongs in Sec. 6 and in Threats, not buried.
 
-**D1 is the only original decision still untouched by anyone.**
+**Exp. 4's superiority claim is only half available.** ILSC's foreign-vs-control
+gap beats SIDC's, raw and standardised, and it discriminates on 20/20 services
+against SIDC's 16/20. It **does not beat LoCmsg's**. The paper must say so. The
+defensible claim is about **discriminating power**: ILSC saturates for **0.0%**
+of 2,136 services against SIDC's 35.8% and LoCmsg's 77.0%, and LoCmsg's corpus
+IQR is **exactly 0.0000** — at least half the corpus scores identically. A metric
+that cannot rank unperturbed services but moves when foreign operations arrive is
+detecting an intrusion, not measuring cohesion. That argument is strong; the
+perturbation-gap argument is not, and substituting one for the other is the
+temptation to avoid.
 
-**F-02 is new since the last revision.** 20 near-duplicate services survive the
-dedup key (0.91% of the corpus, 1.14% of operations). D-17's cap already removes
-the only group that mattered numerically — GitHub v3, which alone was 98.4% of
-duplicate-added pairs and is itself oversized — so residual contamination in the
-primary corpus is **0.31% of pairs** and the D-17 thresholds did not need
-re-deriving. What it still affects is the **headline corpus count of 2,206**,
-which appears in the paper and is ~0.9% high.
+**Gate 2 passes on a threshold its own confidence interval straddles.**
+ρ_independent = 0.433, but the cluster bootstrap — which resamples *services*,
+the real independent unit — gives **[0.318, 0.643]**. Only 2 of 4 Sock Shop
+services have any code-side variance (F-04). Report the cluster interval, report
+that the primary condition cannot be said to clear 0.4 with confidence, and let
+ρ_derived (0.488, [0.380, 0.584], 27 services with variance) carry the weight it
+has earned — while stating that it is the circular condition D-16 quarantined.
 
-**Note on ownership.** D2 was assigned to Mohamed and was decided by Tasneem, in
-order to unblock the pair-weighted numbers rather than leave them labelled
-indefinitely. That was the right call under the circumstances, but the same
-circumstances now apply to D1, D3 and F-02 — all three sit with the metric
-track, and all three block Exp. 1.
-
----
-
-## 5. Housekeeping
-
-- **`run_all.py` no longer reproduces the repository.** It is missing
-  `src/oversized.py` and `src/benchmark_prep.py`, so a fresh clone reproduces
-  neither the D-17 primary/sensitivity split nor the benchmark corpus. Fixed on
-  Day 11 with the replication package, but note it before quoting
-  reproducibility.
-- **ILSC quartile thresholds must follow the D-17 protocol** when the engine
-  lands — primary and sensitivity, side by side, never one alone. D-17 fixes the
-  protocol, not a single table.
+**One thing that went better than expected, and is worth its own paragraph:** the
+derivation-inflation estimate is **+0.054**. D-16 predicted the direction and got
+it, but the magnitude is small — spec–code derivation inflates this correlation
+by about five points, not enough to manufacture a finding. That is a result a
+single-system design could not have produced, and it is the return on D-16's
+quarantine.
 
 ---
 
-## 6. Risks, honestly
+## 6. Risks now
 
-**The engine has already slipped, and it is still the single point of failure.**
-The last revision called it "one person on one component with everything behind
-it, no parallel path, no slack in front of it." Three days later it has not
-started and Gate 1 has been missed. Nothing about the risk has changed except
-that it is now realised rather than hypothetical. **If Day 1–2 slips again, the
-three-week frame is gone and the honest move is to say so rather than compress
-the code dig.**
+**The single-point-of-failure risk is gone.** The engine existed as a risk for
+six days and no longer does.
 
-**The code dig is now two digs.** Four days for Sock Shop was the proposal's
-largest underestimate (R9) and it is still four days across three languages —
-and D-16 has added 34 Java services on top. §2's automated pass is the only
-version of this that fits. If `user` alone runs past a day, drop `ρ_derived`
-before compressing the Sock Shop verification pass; `ρ_independent` is the
-coefficient the paper actually needs.
+**The remaining risk is writing quality, not results.** Three sections (§5) are
+easy to write in a way a reviewer will attack: claiming Gate 1 passed, claiming
+baseline superiority ILSC does not have, or quoting ρ_independent as a point
+estimate. Each is already documented in `DECISIONS.md` with the honest version;
+the risk is that the manuscript drifts from the decision log.
 
-**Exp. 3 is a single-system result on the independent side.** 5 services, 122
-pairs. That was true before D-16 and D-16 only made it explicit, but it caps
-what Gate 2 can conclude and it should be written that way from the start rather
-than discovered at review.
+**Debt 1 needs a second person and nothing else can substitute.** If no second
+annotator is available, the paper must state that entity extraction is
+single-annotator with no reliability figure. That is a real weakness and it is
+better stated than concealed, but it is worth an hour to avoid.
 
-**Gate 2 can fail.** If pair-level ρ < 0.4, the proposal's instruction stands:
-diagnose before writing — tokenization, weights, or entity-extraction quality.
-Day 15 is the budget for that, and it is now the only slack left.
+**`Sim_code` biases ρ downward** by matching entity names exactly —
+`Assurance` and `AssuranceType` score 0.00 (`discordance.md` §3). The reported
+coefficients are conservative in that specific respect. **Do not "fix" this
+now**: changing `Sim_code` after seeing ρ has to be declared, and any change must
+apply identically to both systems or the D-16 comparison breaks.
 
-**Three weeks was already optimistic; four is the current projection.** The
-proposal said this produces a first draft, not a submission, and that remains
-true. Budget a further week for revision.
+**Three weeks produced the experiments, not the paper.** The proposal said this
+work yields a first draft, not a submission. Ten more working days gets the
+draft; budget a further week for revision.
 
 ---
 
 ## 7. Bringing the paper text in line
 
-Corrections established in `DECISIONS.md` that the manuscript must absorb:
+Corrections established in `DECISIONS.md` that the manuscript must absorb.
+
+**Corpus and dataset**
 
 - **Sec. 7** — S1 is **2,619** OpenAPI files, not 1,737 (D-12).
-- **Sec. 7** — the "400–600 clean services (≥ 300 from S1)" target is
-  superseded: 2,206 and 1,014 (D-12).
-- **Sec. 6 / RQ2** — report the mask's justification **per service (68.4%)**, not
-  as a pair-weighted percentage (D-13, and the caveat at the top of
-  `RESULTS.md`).
-- **Sec. 6 / RQ2** — where a pair-weighted number is quoted it is now
-  **56.87% (primary)** beside 90.58% (sensitivity), never 90.58% alone (D-17).
-- **Sec. 6** — the admin-endpoint list is 12 entries, not 6, and is matched on
-  the whole path (D-07).
-- **Sec. 5 / benchmarks** — Sock Shop is **122** within-service pairs, not 123;
-  the earlier figure counted `payment`'s `/health`, which D-07 strips (D-16).
-- **Sec. 5 / Exp. 3** — Train Ticket's specs are **generated from source**;
-  report `ρ_independent` and `ρ_derived` separately and never pooled, and state
-  that the independent condition rests on Sock Shop alone (D-16).
-- **Sec. 4 / corpus** — every analysis is reported primary (≤ 200 operations) and
-  sensitivity (full corpus), with the scope justification, not a compute one
-  (D-17).
-- **Limitations** — the mask statistics describe `specs/clean/` while the mask
-  runs on `specs/clean3/`; f4 is ~5 points optimistic on the 144 converted 2.0
-  services (D-14).
-- **Limitations** — the corpus count of 2,206 is ~0.9% high pending F-02.
+- **Sec. 7** — the "400–600 clean services (≥ 300 from S1)" target is superseded:
+  **2,206** and **1,014** (D-12).
+- **Sec. 4** — every analysis is reported primary (≤ 200 operations) and
+  sensitivity (full corpus), justified by **scope, not compute** (D-17).
 - **External validity** — S1 is *more* provider-concentrated than S2 (58.1% vs
-  37.4%). Reusing a peer-reviewed corpus buys comparability, not diversity
-  (D-12).
+  37.4%). Reusing a peer-reviewed corpus buys comparability, not diversity (D-12).
+- **Thresholds** — S1-only quartiles are the Bogner-comparable ones; the pooled
+  figures are not. **S1 scores ~0.05 above S2 at every quartile**, so any quoted
+  threshold must name its population.
+
+**The metric**
+
+- **Sec. 6 / RQ2** — quote the mask's justification **per service (68.4%)**, not
+  pair-weighted (D-13). Where a pair-weighted figure is used it is **56.87%
+  (primary)** beside 90.58% (sensitivity), never 90.58% alone (D-17).
+- **Sec. 6** — the admin-endpoint list is 12 entries, matched on the whole path
+  (D-07).
+- **Sec. 6** — the domain-restricted null model is **provider-restricted**
+  (D-18), and is a *conservative approximation* of the intended one.
+- **Sec. 6** — `ILSC_norm` is an affine rescaling of `ILSC_mean` with constant
+  coefficients (D-21), so it **cannot reorder services** and is not independent
+  evidence.
+- **Sec. 6** — a present-but-empty feature set is *unavailable*, not zero (D-19);
+  cosine is clamped to [0,1], which fires on **2.25%** of values (D-20).
+
+**Benchmarks and Exp. 3**
+
+- **Sec. 5** — Sock Shop is **122** within-service pairs, not 123 (D-16).
+- **Sec. 5** — Train Ticket's specs are **generated from source**; report
+  ρ_independent and ρ_derived **separately, never pooled** (D-16).
+- **Sec. 5** — Train Ticket is **not** a single-language system: two of its 34
+  specified services are Python and Go (D-22).
+
+**Limitations**
+
+- Mask statistics describe `specs/clean/` while the mask runs on `specs/clean3/`;
+  f4 is ~5 points optimistic on the 144 converted 2.0 services (D-14).
+- The corpus count of 2,206 is ~0.9% high pending F-02.
+- Entity extraction is **single-annotator with no reliability figure** until
+  debt 1 is paid (F-03).
+- `ρ_independent` rests on **one system and effectively two services** (D-16, F-04).
+- `Sim_code` matches entity names exactly, biasing ρ downward (`discordance.md` §3).
+- The sensitivity analysis covers **two knobs, not three**, until debt 2 is paid.

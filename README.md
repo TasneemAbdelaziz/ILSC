@@ -146,11 +146,20 @@ proposal currently implies both (D-12).
 
 ## 4. Open decisions
 
-| # | Decision | Options | Blocks |
+| # | Decision | Options | Status |
 |---|---|---|---|
-| D1 | Provider cap | none / 50 / 30 / 20 per provider | Exp. 1 |
-| ~~D2~~ | ~~Oversized services (> 200 operations)~~ | **RESOLVED — see D-17** | — |
-| D3 | Domain-restricted null model | what replaces the rejected domain labels? | Exp. 1 |
+| D1 | Provider cap | none / 50 / 30 / 20 per provider | **open** — no longer blocking; now a one-minute re-run, see below |
+| F-02 | `norm_host()` and near-duplicates | collapse `api.`/`www.` to the registrable domain? | **open** — affects the headline corpus count |
+| ~~D2~~ | ~~Oversized services (> 200 operations)~~ | **RESOLVED — D-17** | — |
+| ~~D3~~ | ~~Domain-restricted null model~~ | **RESOLVED — D-18**, provider-restricted | — |
+
+**On D1 — it has changed character.** It was listed as blocking Exp. 1; Exp. 1
+has now run without it, so the live question is narrower: *do the published
+quartile thresholds change under a provider cap?* AWS, Google and Azure hold
+46.8% of the corpus, so the thresholds come from a hyperscaler-heavy sample.
+With the engine built this is a one-minute re-run of `src/ilsc.py`, not a design
+decision, and it should be answered with a number before the thresholds are
+written up.
 
 **On D2 — RESOLVED by D-17.** Services above **200 operations** are flagged
 `oversized` and held out of the *primary* analysis; every analysis is repeated on
@@ -166,12 +175,14 @@ pair-weighted feature co-availability by up to **50 points** (f6: 24.1% → 74.4
 while moving every per-service quartile boundary by at most **3.2**. See D-17 and
 `results/oversized_thresholds.csv`.
 
-**On D3 — raised by this work, not yet in the proposal.** D-05 replaced domain
-labels with provider proximity for the *perturbation control*, which resolves
-Exp. 2. But Sec. 6 also specifies a **domain-restricted null model**, and that
-still has no label source now that D-03 has rejected keyword labelling and D-04
-has rejected LLM labelling. Provider-restricted is the obvious candidate. It
-needs deciding before the Exp. 1 run, not during it.
+**On D3 — RESOLVED by D-18.** Sec. 6 specifies a domain-restricted null model,
+and no label source survived D-03 (keyword labelling rejected) and D-04 (LLM
+labelling rejected). The restriction is now by **provider**, the same
+substitution D-05 already adopted for the perturbation control. It validated:
+E[ILSC_rand] is **0.1011** global against a **0.2370** provider-restricted
+median, with 96 of 97 estimable providers above global — the restricted null is
+genuinely the harder bar. A provider is coarser than a domain, so it is a
+*conservative* approximation and is reported as one.
 
 ---
 
