@@ -37,12 +37,12 @@ report.** Over 2,136 services:
 | | ILSC | SIDC | 1 − LoCmsg |
 |---|--:|--:|--:|
 | services scoring a perfect 1.0 | **0.0%** | 35.8% | **77.0%** |
-| corpus interquartile range | **0.175** | 0.862 | **0.0000** |
+| corpus interquartile range | **0.167** | 0.862 | **0.0000** |
 | distinct values | **1,645** | 681 | 350 |
 
 `LoCmsg`'s interquartile range is **exactly zero**: at least half the corpus
 receives an identical score, so it cannot rank the middle of the distribution at
-all. `SIDC` correlates with ILSC at ρ = **+0.067** (p = 0.25) — the two are close
+all. `SIDC` correlates with ILSC at ρ = **+0.138** (p = 1.8e−10) — the two are close
 to unrelated, so SIDC is not a noisy version of ILSC, it measures something else.
 
 **This is the defensible superiority claim, and it is about discriminating power
@@ -73,9 +73,9 @@ injected operations**:
 
 | metric | gap (cross-provider − same-provider) | in corpus SD |
 |---|--:|--:|
-| **ILSC** | −0.0314 | −0.237 |
-| SIDC | −0.0297 | −0.072 |
-| **LoCmsg** | **−0.0574** | **−0.275** |
+| **ILSC** | −0.0223 | −0.179 |
+| SIDC | −0.0185 | −0.045 |
+| **LoCmsg** | **−0.0535** | **−0.256** |
 
 - **Against SIDC the claim holds** — larger gap raw and standardised, and ILSC
   discriminates on 20/20 services against SIDC's 16/20.
@@ -99,7 +99,7 @@ where they saturate. It is not that it responds more sharply to injection.
 
 **Not a replacement for code-level cohesion metrics.** ILSC is an interface-level
 proxy, and Experiment 3 measures how good a proxy it is rather than assuming it:
-ρ = 0.433 (hand-written specs) and 0.486 (generated), both in the band the
+ρ = 0.409 (hand-written specs) and 0.486 (generated), both in the band the
 proposal designated for the honest reframing *"moderate correlation,
 complementary signal"*. The interface and the code carry **partly independent**
 information. That is a weaker claim than "valid proxy" and a more interesting one.
@@ -107,7 +107,7 @@ information. That is a weaker claim than "valid proxy" and a more interesting on
 **Not a measure of capability-level cohesion.** ILSC measures resource-level
 coherence. A service can serve one business capability through ten unrelated
 resources and score low — Gate 1 found exactly that case, and Exp. 5 showed it is
-not a weighting artefact (Kendall's W 0.9947).
+not a weighting artefact (Kendall's W 0.9949).
 
 **Not "the first" anything unqualified.** Al-Debagy & Martinek (2020) already
 applied embeddings to operation names. The novelty claimed here is narrower and
@@ -142,10 +142,10 @@ term. A regression test enforces the disjointness and fails on the earlier desig
 
 1. **Controlled perturbation with a size-matched control** — 20/20 services
    perfectly monotonic; degradation slopes order with semantic distance
-   (−0.041 / −0.067 / −0.098); the gap is negative for 20/20, p < 1×10⁻⁶.
+   (−0.037 / −0.065 / −0.088); the gap is negative for 20/20, p < 1×10⁻⁶.
 2. **Pair-level code correlation on benchmark systems**, reported separately for
    hand-written and generated specifications and never pooled — which also yields
-   a **+0.053** estimate of how much specification–code derivation inflates such
+   a **+0.078** estimate of how much specification–code derivation inflates such
    a correlation, a quantity a single-system design cannot produce.
 3. **Head-to-head against SIDC and LoCmsg**, qualitatively and under an identical
    perturbation — with the perturbation result reported as it fell (§2).

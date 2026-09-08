@@ -16,10 +16,10 @@ that proxy is not assumed — it is the object of Experiment 3. This is why the
 metric is not called "service cohesion".
 
 **The sharpest construct threat is one the study found rather than predicted.**
-Gate 1 came out **MARGINAL** (Cliff's δ +0.680, no clean separation), and the
-verdict turned entirely on one service: **Xero Payroll AU**, hand-labelled
-*cohesive* before any score existed, which scored 0.2923 — below four of the
-five *mixed* candidates. Its tokens are clean and its features are measuring
+Gate 1 **FAILS** (Cliff's δ +0.200, p 0.36, no clean separation), and one
+candidate is the clearest case: **Xero Payroll AU**, hand-labelled *cohesive*
+before any score existed, which scores 0.2058 — the lowest of the cohesive
+group. Its tokens are clean and its features are measuring
 correctly: f2 = 0.059 and f3 = 0.093 because roughly ten distinct payroll
 resources (`employees`, `leave applications`, `pay runs`, `superfunds`) genuinely
 share no lexical material.
@@ -35,12 +35,17 @@ Two lines of evidence say this is a construct property rather than a defect:
   suggested remedy (upweight path + schema), which made separation *worse*
   (δ +0.600, and it destroyed the clean split that survives without C1).
 - **Exp. 5 explains why.** Kendall's W across the ±20/40% weight family is
-  **0.9947**; no reasonable reweighting moves any ranking, so no reweighting
+  **0.9949**; no reasonable reweighting moves any ranking, so no reweighting
   could have moved C1.
 
-**Mitigation and residual risk.** Gate 1's remaining nine candidates separate
-perfectly (δ +1.000). The corpus-scale face-validity check is independent and
-strong: the lowest-scoring service among all 2,206 is **NeutrinoAPI**, which is
+**The gate failed, and the reason is partly a selection defect (D-27).** Before
+D-26 removed the f4 boilerplate inflation this gate read MARGINAL. The exclusion
+moved the cohesive candidates — three of five are hyperscalers — and left four of
+five mixed ones untouched, so part of the earlier separation was ILSC separating
+*providers*. The candidate set must be re-selected with provider held constant
+before the gate can bear a pass/fail reading; D-27 records the remedies.
+
+**The corpus-scale face-validity check is independent of all that, and stronger:** the lowest-scoring service among all 2,206 is **NeutrinoAPI**, which is
 the Gate 1 candidate labelled *mixed* on the strength of its author declaring six
 unrelated domains. The residual risk is that a reader takes ILSC as a measure of
 capability coherence; the paper must foreclose that reading explicitly.
@@ -50,21 +55,21 @@ capability coherence; the paper must foreclose that reading explicitly.
 ## 2. Internal validity — are the results driven by our choices?
 
 **Weights: answered, not argued.** H3 was tested over 2,136 services and 29
-configurations. Kendall's W = **0.9947** on the ±20/40% family and 0.9707
+configurations. Kendall's W = **0.9949** on the ±20/40% family and 0.9671
 including deliberately extreme schemes; the worst single ±40% perturbation still
-ranks at ρ = 0.9924 against baseline. The equal 1/6 weighting is defensible
+ranks at ρ = 0.9896 against baseline. The equal 1/6 weighting is defensible
 because **the choice barely matters**, not because it was tuned.
 
 **One weight result deserves its own sentence rather than burial.** `f1_only` —
-five features switched off — reaches ρ = **0.8374** against the full metric. f1
+five features switched off — reaches ρ = **0.8083** against the full metric. f1
 carries the largest share of the ranking signal and the remaining five refine it.
 That is a weaker claim than "six equally contributing features" and it is the one
 the data supports. Fig 9 keeps it from collapsing further: no feature pair
-correlates above **0.582**, so the five are not redundant *with* f1, they are
+correlates above **0.558**, so the five are not redundant *with* f1, they are
 simply smaller contributors.
 
 **τ: swept, and 0.50 is a position not an optimum.** Across 0.30–0.70 both edge
-density (0.733 → 0.111) and component count (1.38 → 13.60) move smoothly with no
+density (0.590 → 0.083) and component count (1.58 → 15.38) move smoothly with no
 discontinuity. τ = 0.50 sits mid-range on both, which is the argument for it.
 
 **Tokenisation (D-15): swept, and it is not free.** `DROP_VERSION_TOKENS`
@@ -106,8 +111,8 @@ paper must name the population that produced it; the S1-only quartiles are the
 Bogner-comparable ones.
 
 **D1 is resolved and the answer is a first-order limitation (D-25).** The
-thresholds **do** move under a provider cap — the median falls 0.4358 → 0.3735 at
-a cap of 50, and → 0.3456 at a cap of 5, against 0.0012 of sampling noise. The
+thresholds **do** move under a provider cap — the median falls 0.3658 → 0.3430 at
+a cap of 50, and → 0.3244 at a cap of 5, against 0.0018 of sampling noise. The
 cause is that AWS, Google and Azure services score a median **+0.134** above
 everyone else (Cliff's δ **+0.609**, p ≈ 4×10⁻¹²⁴) while being **48.0%** of the
 primary corpus. The decision is to stratify and report rather than cap, because
@@ -151,7 +156,7 @@ survive the dedup key because the same API is published under sibling hostnames.
 ## 4. Conclusion validity — do the numbers support the claims?
 
 **Gate 2 passes on a threshold its own confidence interval straddles.**
-ρ_independent = **0.433**, but pairs inside a service are not independent
+ρ_independent = **0.409**, but pairs inside a service are not independent
 observations — they share operations. The cluster bootstrap, which resamples
 *services*, gives **[0.318, 0.643]** against the pair bootstrap's [0.268, 0.572].
 The cluster interval **crosses 0.4**, so the primary condition cannot be said to
@@ -231,8 +236,8 @@ that is a direct, quantitative superiority claim."*
 
 - **Against SIDC: supported.** ILSC's gap is larger raw and standardised, and it
   discriminates on 20/20 services against SIDC's 16/20.
-- **Against LoCmsg: not supported.** LoCmsg's gap is larger, raw (−0.0574 vs
-  −0.0314) and standardised (−0.275 vs −0.237).
+- **Against LoCmsg: not supported.** LoCmsg's gap is larger, raw (−0.0535 vs
+  −0.0223) and standardised (−0.256 vs −0.179).
 
 **The defensible claim is about discriminating power instead.** Over 2,136
 services, ILSC saturates at a perfect 1.0 for **0.0%**, SIDC for **35.8%**, and
@@ -253,10 +258,10 @@ Recorded because a study that lists only realised threats looks selective.
 
 - **Feature redundancy.** The obvious objection to a six-feature metric is that
   the features measure the same thing. Maximum inter-feature Spearman is
-  **0.582** (f1–f2), nothing near the 0.85 threshold the proposal set.
+  **0.558** (f1–f3), nothing near the 0.85 threshold the proposal set.
 - **Null-model choice.** Replacing the rejected domain-restricted null with a
   provider-restricted one (D-18) could have produced a weaker bar; it did not.
-  E[ILSC_rand] is 0.1011 global against a **0.2370** provider-restricted median,
+  E[ILSC_rand] is 0.0988 global against a **0.2193** provider-restricted median,
   with 96 of 97 estimable providers above global.
 - **Size dependence of the normalisation.** E[ILSC_rand(n)] is **flat in n**
   (spread 0.00203 across n = 3…200), exactly as exchangeability predicts.
@@ -264,5 +269,5 @@ Recorded because a study that lists only realised threats looks selective.
   services, so it must not be presented as independent evidence.
 - **Perturbation tautology.** H2's v2 form was near-tautological; the
   size-matched control resolves it. All three conditions order as semantic
-  distance predicts (−0.041 / −0.067 / −0.098), the gap is negative for **20 of
+  distance predicts (−0.037 / −0.065 / −0.088), the gap is negative for **20 of
   20** services, and 20 of 20 are perfectly monotonic.

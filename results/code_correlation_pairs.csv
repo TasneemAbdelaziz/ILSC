@@ -1,14 +1,14 @@
 system,service,op_i,op_j,sim_interface,sim_code,entities_i,entities_j,f1,f2,f3,f4,f5,f6
-sockshop,carts,DELETE /carts/{customerId},DELETE /carts/{customerId}/items/{itemId},0.6578240394592285,1.0,Cart|Item,Cart|Item,0.9646294116973877,0.5,0.5,0.6666666865348816,0.0,0.0
-sockshop,carts,DELETE /carts/{customerId},GET /carts/{customerId},0.8131521344184875,1.0,Cart|Item,Cart|Item,0.7526085376739502,0.5,1.0,1.0,0.0,0.0
-sockshop,carts,DELETE /carts/{customerId},PATCH /carts/{customerId}/items,0.5354858636856079,1.0,Cart|Item,Cart|Item,0.6419434547424316,0.0,0.5,1.0,0.0,0.0
-sockshop,carts,DELETE /carts/{customerId},POST /carts/{customerId}/items,0.5855559706687927,1.0,Cart|Item,Cart|Item,0.6993666887283325,0.1428571492433548,0.5,1.0,0.0,0.0
-sockshop,carts,DELETE /carts/{customerId}/items/{itemId},GET /carts/{customerId},0.4638684391975403,1.0,Cart|Item,Cart|Item,0.6888070106506348,0.0,0.5,0.6666666865348816,0.0,0.0
-sockshop,carts,DELETE /carts/{customerId}/items/{itemId},PATCH /carts/{customerId}/items,0.5388955473899841,1.0,Cart|Item,Cart|Item,0.6757920384407043,0.0,1.0,0.6666666865348816,0.0,0.35201889276504517
-sockshop,carts,DELETE /carts/{customerId}/items/{itemId},POST /carts/{customerId}/items,0.5914751291275024,1.0,Cart|Item,Cart|Item,0.699233889579773,0.0,1.0,0.6666666865348816,0.0,0.0
-sockshop,carts,GET /carts/{customerId},PATCH /carts/{customerId}/items,0.5184783935546875,1.0,Cart|Item,Cart|Item,0.57391357421875,0.0,0.5,1.0,0.0,0.0
-sockshop,carts,GET /carts/{customerId},POST /carts/{customerId}/items,0.4816935062408447,1.0,Cart|Item,Cart|Item,0.741800844669342,0.1666666716337204,0.5,1.0,0.0,0.0
-sockshop,carts,PATCH /carts/{customerId}/items,POST /carts/{customerId}/items,0.7072662711143494,1.0,Cart|Item,Cart|Item,0.6862080097198486,0.1428571492433548,1.0,1.0,0.0,0.0
+sockshop,carts,DELETE /carts/{customerId},DELETE /carts/{customerId}/items/{itemId},0.6461167931556702,1.0,Cart|Item,Cart|Item,0.9383503198623657,0.5,0.5,0.0,0.0,0.0
+sockshop,carts,DELETE /carts/{customerId},GET /carts/{customerId},0.743924081325531,1.0,Cart|Item,Cart|Item,0.7317721843719482,0.5,1.0,0.0,0.0,0.0
+sockshop,carts,DELETE /carts/{customerId},PATCH /carts/{customerId}/items,0.3735598623752594,1.0,Cart|Item,Cart|Item,0.6206796169281006,0.0,0.5,0.0,0.0,0.0
+sockshop,carts,DELETE /carts/{customerId},POST /carts/{customerId}/items,0.4389812648296356,1.0,Cart|Item,Cart|Item,0.6740866303443909,0.1428571492433548,0.5,0.0,0.0,0.0
+sockshop,carts,DELETE /carts/{customerId}/items/{itemId},GET /carts/{customerId},0.3842345178127289,1.0,Cart|Item,Cart|Item,0.6527035236358643,0.0,0.5,0.0,0.0,0.0
+sockshop,carts,DELETE /carts/{customerId}/items/{itemId},PATCH /carts/{customerId}/items,0.5004963874816895,1.0,Cart|Item,Cart|Item,0.6499665975570679,0.0,1.0,0.0,0.0,0.35201889276504517
+sockshop,carts,DELETE /carts/{customerId}/items/{itemId},POST /carts/{customerId}/items,0.5534823536872864,1.0,Cart|Item,Cart|Item,0.6604471206665039,0.0,1.0,0.0,0.0,0.0
+sockshop,carts,GET /carts/{customerId},PATCH /carts/{customerId}/items,0.34718096256256104,1.0,Cart|Item,Cart|Item,0.5415428876876831,0.0,0.5,0.0,0.0,0.0
+sockshop,carts,GET /carts/{customerId},POST /carts/{customerId}/items,0.3409299850463867,1.0,Cart|Item,Cart|Item,0.6970533132553101,0.1666666716337204,0.5,0.0,0.0,0.0
+sockshop,carts,PATCH /carts/{customerId}/items,POST /carts/{customerId}/items,0.605146586894989,1.0,Cart|Item,Cart|Item,0.6725825667381287,0.1428571492433548,1.0,0.0,0.0,0.0
 sockshop,catalogue,GET /catalogue,GET /catalogue/size,0.3007378578186035,1.0,Sock|Tag,Sock|Tag,0.7029514312744141,0.0,0.5,0.0,0.0,0.0
 sockshop,catalogue,GET /catalogue,GET /catalogue/{id},0.4614734947681427,1.0,Sock|Tag,Sock|Tag,0.8458939790725708,0.0,1.0,0.0,0.0,0.0
 sockshop,catalogue,GET /catalogue,GET /tags,0.3344658613204956,0.5,Sock|Tag,Tag,0.8378634452819824,0.5,0.0,0.0,0.0,0.0

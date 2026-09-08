@@ -19,18 +19,18 @@ steps in `README.md` §2.
 | Day 1–2 — **parser + feature extraction** | [`src/parse_spec.py`](src/parse_spec.py) | ✅ complete | 2,206 services, 97,912 operations, 0 skipped |
 | Day 4 prep — Gate 1 candidates | [`src/gate1_select.py`](src/gate1_select.py) | ✅ complete | ten services picked, [`docs/gate1_expectations.md`](docs/gate1_expectations.md) |
 | Day 1m — **similarity engine + mask** | [`src/embed.py`](src/embed.py), [`src/similarity.py`](src/similarity.py) | ✅ complete | 89,852 T + 54,701 description vectors; 17/17 unit tests, incl. the R2 regression |
-| Day 3m — null models (D-18, D-21) | [`src/null_models.py`](src/null_models.py) | ✅ complete | E[ILSC_rand] **0.1011** global vs **0.2370** provider-restricted; flat in n |
-| Day 4m — **GATE 1** | [`src/gate1_run.py`](src/gate1_run.py) | ⚠ **MARGINAL** | delta +0.680; one discordant service (C1), weights NOT changed (D-24) |
-| Day 5m — **Exp. 1 big run** | [`src/ilsc.py`](src/ilsc.py) | ✅ complete | 2,206 services; ILSC_mean median **0.436** primary; thresholds incl. S1-only |
-| Day 6m — inter-feature correlation (Fig 9) | [`src/feature_corr.py`](src/feature_corr.py) | ✅ complete | max |rho| **0.582** — no feature pair is redundant |
+| Day 3m — null models (D-18, D-21) | [`src/null_models.py`](src/null_models.py) | ✅ complete | E[ILSC_rand] **0.1011** global vs **0.2193** provider-restricted; flat in n |
+| Day 4m — **GATE 1** | [`src/gate1_run.py`](src/gate1_run.py) | ❌ **FAIL** | delta **+0.200** after D-26; candidate set confounded with provider (D-27) |
+| Day 5m — **Exp. 1 big run** | [`src/ilsc.py`](src/ilsc.py) | ✅ complete | 2,206 services; ILSC_mean median **0.366** primary; thresholds incl. S1-only |
+| Day 6m — inter-feature correlation (Fig 9) | [`src/feature_corr.py`](src/feature_corr.py) | ✅ complete | max |rho| **0.558** — no feature pair is redundant |
 | D2 → oversized cap (D-17) | [`src/oversized.py`](src/oversized.py) | ✅ complete | cap 200; **mask-fire 56.87% primary vs 90.58% full**; quartiles move ≤3.2 |
 | Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
 | Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
 | Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
-| **D1 resolved / F-05** | [`src/provider_cap.py`](src/provider_cap.py), [`src/param_boilerplate.py`](src/param_boilerplate.py) | ⚠ **limitation** | thresholds move up to **0.090** under a cap; hyperscalers +0.134; f4 boilerplate closes 46.6%% of it |
+| **D1 resolved / F-05** | [`src/provider_cap.py`](src/provider_cap.py), [`src/param_boilerplate.py`](src/param_boilerplate.py) | ⚠ **limitation** | thresholds move up to **0.049** under a cap; hyperscalers +0.134; f4 boilerplate closes 46.6%% of it |
 | Days 9-10 — **Exp. 4** baselines | [`src/baselines.py`](src/baselines.py) | ✅ complete | ILSC 0%% saturated vs SIDC 35.8%%, LoCmsg 77.0%%; perturbation claim only half supported |
-| Days 13-14 — **Exp. 5** sensitivity | [`src/sensitivity.py`](src/sensitivity.py) | ✅ complete | **Kendall W 0.9947**; rankings invariant to weights |
-| Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.433**, rho_derived **0.488**; inflation +0.054 |
+| Days 13-14 — **Exp. 5** sensitivity | [`src/sensitivity.py`](src/sensitivity.py) | ✅ complete | **Kendall W 0.9949**; rankings invariant to weights |
+| Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.409**, rho_derived **0.486**; inflation +0.054 |
 | Day 7e — Train Ticket extraction | [`src/entity_extract.py`](src/entity_extract.py) | ✅ complete | 209/211 operations joined (99.1%); 0 unexplained empties (D-22); agreement figure still owed |
 
 Reproducibility pins (`config.py`): `SEED = 42`; RAMA commit
@@ -458,12 +458,12 @@ genuinely the harder bar:
 
 | null model | E[ILSC_rand] |
 |---|--:|
-| global (arbitrary bag of API operations) | **0.1011** (SE 0.0001, 400,000 pairs) |
-| provider-restricted, median over 97 estimable providers | **0.2370** |
-| provider-restricted, range | 0.0931 – 0.6109 |
+| global (arbitrary bag of API operations) | **0.0988** (SE 0.0001, 400,000 pairs) |
+| provider-restricted, median over 97 estimable providers | **0.2193** |
+| provider-restricted, range | 0.0917 – 0.5065 |
 
 **96 of 97 providers sit above the global expectation.** The gap between the two
-normalisations — 0.101 against 0.237 — is itself the reportable finding Sec. 6
+normalisations — 0.099 against 0.219 — is itself the reportable finding Sec. 6
 asks for: a service must clear a much higher bar to look coherent *relative to its
 own provider* than relative to the corpus at large.
 
@@ -487,43 +487,64 @@ on either, and `ILSC_norm` must not be presented as independent evidence.
 
 ---
 
-## Day 4 — GATE 1: **MARGINAL**
+## Day 4 — GATE 1: **FAIL**
 
 [`src/gate1_run.py`](src/gate1_run.py) → [`results/sanity_check.csv`](results/sanity_check.csv),
 [`results/gate1_verdict.csv`](results/gate1_verdict.csv)
 
 | | cohesive | mixed |
 |---|--:|--:|
-| mean ILSC_mean | 0.4545 | 0.3486 |
-| min (cohesive) / max (mixed) | 0.2923 | 0.4288 |
+| mean ILSC_mean | 0.3701 | 0.3432 |
+| min (cohesive) / max (mixed) | 0.2058 | 0.4288 |
 
-Cliff's delta **+0.680**, exact one-sided p **0.0675** over 252 label assignments,
-**no clean separation**.
+Cliff's delta **+0.200**, mean gap **+0.0269**, exact one-sided p **0.3611** over
+252 label assignments, **no clean separation**.
 
-**The verdict turns on one service.** Every cohesive candidate outscores every
-mixed candidate except **C1, Xero Payroll AU (0.2923)**. Exclude C1 and the
-remaining split is **perfect (delta +1.000)**.
+**It did not always fail.** Before D-26 removed the f4 boilerplate inflation this
+gate read MARGINAL (delta +0.680). The exclusion moved the *cohesive* candidates
+and left the mixed ones almost untouched:
 
-C1 is diagnosed, not hand-waved: its tokens are clean (`employees`,
-`leave applications`, `pay runs`, `payroll calendars`, `superfunds`), and it
-covers ~10 *distinct resources* inside one *business capability*. Lexical overlap
-between `employees` and `superfunds` is genuinely zero, so f2 = 0.059 and
-f3 = 0.093 are correct measurements of a real absence. Descriptions exist on 5 of
-29 operations, leaving f6 available on **2% of pairs**.
+| id | expected | provider | before | after | Δ |
+|---|---|---|--:|--:|--:|
+| C2 | cohesive | **googleapis.com** | 0.5031 | 0.3781 | **−0.1250** |
+| C3 | cohesive | **googleapis.com** | 0.4581 | 0.2998 | **−0.1583** |
+| C1 | cohesive | xero.com | 0.2923 | 0.2058 | −0.0865 |
+| C5 | cohesive | **azure.com** | 0.5272 | 0.4937 | −0.0335 |
+| C4 | cohesive | mtaa-api.herokuapp.com | 0.4918 | 0.4730 | −0.0188 |
+| M3 | mixed | paylocity.com | 0.3535 | 0.3267 | −0.0268 |
+| M4 | mixed | yunbi.com | 0.4243 | 0.4288 | +0.0045 |
+| M1, M2, M5 | mixed | — | — | — | **0.0000** |
 
-**The weights were NOT changed, and the proposal's own remedy is worse.**
+**Three of the five *cohesive* candidates are hyperscaler services; none of the
+five *mixed* ones is.** Four of the five mixed candidates lost nothing at all,
+because they had no boilerplate parameters to remove.
 
-| weights | delta (all 10) | delta (C1 excluded) |
-|---|--:|--:|
-| **equal 1/6 (pinned)** | **+0.680** | **+1.000** |
-| "upweight path+schema" (Sec. 10's suggestion) | +0.600 | +0.900 |
-| semantic-heavy (f1, f5, f6) | +0.200 | +0.400 |
-| lexical only (f2, f3, f4) | +0.760 | +1.000 |
+**The candidate set is confounded with provider.** Candidates were selected on
+author-declared tags — one tag and a single stated capability for "cohesive",
+many unrelated tags for "mixed". Hyperscalers publish narrowly-scoped
+single-capability specifications as house style, so that criterion selects them
+into the cohesive group, and before D-26 those were exactly the services whose f4
+was inflated. **A meaningful part of the original +0.680 was ILSC separating
+providers, not cohesion.**
 
-No scheme rescues C1. See **D-24** — this is read as a **construct-validity
-finding** (ILSC measures *resource-level*, not *capability-level*, cohesion), and
-the weight question is left to Exp. 5, which answers it over 2,206 services rather
-than ten.
+**Not fixable by weighting.** Exp. 5 gives Kendall's W = **0.9949** across the
+±20/40% family, so no reasonable reweighting moves any ranking; the proposal's
+own suggested remedy (upweight path + schema) was already shown to make
+separation worse. Nothing was tuned.
+
+**What Gate 1 actually yielded.** Not a verdict but a discovery: it is what
+exposed the large, provider-correlated signal sitting inside f4 (F-05 → D-26).
+See **D-27** for the full diagnosis and the four recommended remedies —
+re-select with provider held constant, enlarge the sample beyond 5-versus-5
+(whose smallest attainable p is 0.0040), use a label source independent of
+specification structure, and report Gate 1 as a diagnostic rather than a gate.
+
+**None of the three hypotheses depends on this comparison.** H2 is a
+within-service contrast (POSITIVE, 20/20 monotonic), H3 is rank stability
+(W 0.9949), and Exp. 3 is a correlation against code (Gate 2 PASS). The
+corpus-scale face-validity check also stands and is the stronger one: the
+lowest-scoring service among all 2,206 remains **NeutrinoAPI**, labelled *mixed*
+before any score existed.
 
 ---
 
@@ -536,12 +557,12 @@ than ten.
 | | PRIMARY (≤ 200 ops) | SENSITIVITY (full) |
 |---|--:|--:|
 | services | 2,136 | 2,206 |
-| ILSC_mean, mean | 0.4341 | 0.4288 |
-| ILSC_mean, Q1 / median / Q3 | 0.339 / **0.436** / 0.515 | 0.332 / 0.430 / 0.512 |
-| ILSC_τ (τ = 0.50), mean | 0.3453 | 0.3370 |
+| ILSC_mean, mean | 0.3794 | 0.3748 |
+| ILSC_mean, Q1 / median / Q3 | 0.285 / **0.366** / 0.453 | 0.281 / 0.363 / 0.449 |
+| ILSC_τ (τ = 0.50), mean | 0.2597 | 0.2532 |
 
 **D-17's prediction holds.** The cap moved pair-weighted co-availability by up to
-50 points; it moves `ILSC_mean`'s median by **0.006**. `ILSC_mean` is a per-service
+50 points; it moves `ILSC_mean`'s median by **0.003**. `ILSC_mean` is a per-service
 statistic, and D-17 established that per-service statistics are robust to the cap.
 The two populations are reported side by side regardless.
 
@@ -550,11 +571,11 @@ The two populations are reported side by side regardless.
 
 | population | n | Q1 | median | Q3 |
 |---|--:|--:|--:|--:|
-| primary, all | 2,136 | 0.3394 | 0.4358 | 0.5149 |
-| **primary, S1 only** | 991 | **0.3635** | **0.4636** | **0.5395** |
-| primary, S2 only | 1,145 | 0.3225 | 0.4149 | 0.4941 |
-| sensitivity, all | 2,206 | 0.3315 | 0.4300 | 0.5120 |
-| sensitivity, S1 only | 1,014 | 0.3555 | 0.4603 | 0.5377 |
+| primary, all | 2,136 | 0.2854 | 0.3657 | 0.4525 |
+| **primary, S1 only** | 991 | **0.3083** | **0.3882** | **0.4833** |
+| primary, S2 only | 1,145 | 0.2722 | 0.3460 | 0.4298 |
+| sensitivity, all | 2,206 | 0.2806 | 0.3630 | 0.4486 |
+| sensitivity, S1 only | 1,014 | 0.3018 | 0.3852 | 0.4798 |
 
 **S1 scores consistently higher than S2** — about 0.05 at every quartile. RAMA's
 corpus is not a neutral sample of APIs.guru; the provenance column earns its keep,
@@ -591,13 +612,13 @@ Spearman ρ:
 
 | | f2 | f3 | f4 | f5 | f6 |
 |---|--:|--:|--:|--:|--:|
-| **f1** | 0.582 | 0.575 | 0.499 | 0.314 | 0.420 |
-| **f2** | | 0.345 | 0.244 | 0.137 | 0.316 |
-| **f3** | | | 0.404 | 0.242 | 0.280 |
-| **f4** | | | | 0.193 | 0.142 |
+| **f1** | 0.515 | 0.558 | 0.409 | 0.359 | 0.460 |
+| **f2** | | 0.345 | 0.250 | 0.137 | 0.316 |
+| **f3** | | | 0.292 | 0.242 | 0.280 |
+| **f4** | | | | 0.194 | 0.276 |
 | **f5** | | | | | 0.219 |
 
-**No feature pair reaches |ρ| ≥ 0.85** — the maximum is f1–f2 at **0.582**. The
+**No feature pair reaches |ρ| ≥ 0.85** — the maximum is f1–f3 at **0.558**. The
 six features are not redundant, and the equal 1/6 weighting is not concealing a
 duplicated signal. This is the empirical answer to "why six features if they
 measure the same thing?".
@@ -608,8 +629,8 @@ discretely. f5 is the most independent of the lexical features (ρ ≤ 0.27 agai
 f2, f3 and f4), which is what justifies keeping it on a different similarity
 function.
 
-Feature availability over sampled pairs: f1 100%, f3 98.9%, f4 83.3%, f2 80.4%,
-f6 77.1%, f5 73.5%.
+Feature availability over sampled pairs: f1 100%, f3 98.9%, f2 80.4%, f6 77.1%,
+f5 73.5%, f4 57.9%.
 
 ---
 
@@ -626,16 +647,16 @@ levels 0/1/2/3/5 × 10 draws × 3 conditions.
 
 | condition (increasing semantic distance) | mean degradation slope per injected operation |
 |---|--:|
-| `same_service` (nearest sibling, same provider) | −0.04046 |
-| `same_provider` | −0.06628 |
-| **`cross_provider` (treatment)** | **−0.09779** |
+| `same_service` (nearest sibling, same provider) | −0.03697 |
+| `same_provider` | −0.06541 |
+| **`cross_provider` (treatment)** | **−0.08778** |
 
 The three slopes **order exactly as semantic distance predicts**, which is a direct
 validation of D-05's provider-proximity proxy: the proxy does not merely label, it
 graduates.
 
-Paired slope gap (`cross_provider` − `same_provider`): mean **−0.0315**, median
-−0.0268, **negative for 20 of 20 services**, exact sign-flip p **< 1 × 10⁻⁶** over
+Paired slope gap (`cross_provider` − `same_provider`): mean **−0.0224**, median
+−0.0140, **negative for 20 of 20 services**, exact sign-flip p **< 1 × 10⁻⁶** over
 all 2²⁰ assignments.
 
 **H2 contrast: POSITIVE.** The size-matched control is what makes this
@@ -707,14 +728,14 @@ variable and Pearson would assume more than it supports.
 |---|--:|--:|
 | system | Sock Shop | Train Ticket |
 | `spec_origin` | hand-written | generated from source |
-| pairs / services | 122 / 4 | 784 / 29 |
-| **services with code-side variance** | **2** | **27** |
-| `Sim_code` levels (largest tie) | 5 (27.9%) | 12 (40.8%) |
-| **Spearman ρ (pair level)** | **0.4332** | **0.4876** |
-| p | 6.2×10⁻⁷ | 4.7×10⁻⁴⁸ |
-| 95% CI, pair bootstrap | [0.268, 0.572] | [0.432, 0.541] |
-| **95% CI, cluster bootstrap** | **[0.318, 0.643]** | **[0.380, 0.584]** |
-| ρ, service level | 0.7379 (n=4, uninterpretable) | 0.4489 (n=29) |
+| pairs / services | 122 / 4 | 790 / 31 |
+| **services with code-side variance** | **2** | **29** |
+| `Sim_code` levels (largest tie) | 5 (27.9%) | 16 (33.2%) |
+| **Spearman ρ (pair level)** | **0.4086** | **0.4863** |
+| p | 3.0×10⁻⁶ | 3.9×10⁻⁴⁸ |
+| 95% CI, pair bootstrap | [0.245, 0.556] | [0.430, 0.539] |
+| **95% CI, cluster bootstrap** | **[0.318, 0.643]** | **[0.387, 0.579]** |
+| ρ, service level | 0.7379 (n=4, uninterpretable) | 0.5131 (n=31) |
 
 **Gate 2: PASS, under the reframing the proposal itself specifies.** Both
 coefficients land in the 0.4–0.6 band, which Sec. 12 instructs be reported as
@@ -732,7 +753,7 @@ primary condition cannot be said to clear Gate 2's bar with confidence. That is
 F-04 arriving exactly where it was predicted to: only **2 of 4** Sock Shop
 services have any code-side variance.
 
-**The derivation-inflation estimate is +0.054** (0.4876 − 0.4332). It is positive,
+**The derivation-inflation estimate is +0.078** (0.4863 − 0.4086). It is positive,
 as D-16 predicts — correlating an interface against the code it was generated
 from does read higher — but the effect is **small**. That is a result in its own
 right and the one D-16 argued the two-condition design would buy: specification–
@@ -787,7 +808,7 @@ exclusions, so the comparison differs in *method*, not in *inputs*.
 
 | metric | mean | Q1 | median | Q3 | **corpus IQR** | distinct values |
 |---|--:|--:|--:|--:|--:|--:|
-| ILSC | 0.4341 | 0.339 | 0.436 | 0.515 | **0.1754** | 1,645 |
+| ILSC | 0.3794 | 0.285 | 0.366 | 0.453 | **0.1671** | 1,645 |
 | SIDC | 0.5475 | 0.000 | 1.000 | 1.000 | 0.8623 | 681 |
 | 1 − LoCmsg | 0.9162 | 1.000 | 1.000 | 1.000 | **0.0000** | 350 |
 
@@ -802,7 +823,7 @@ distinguish anything:**
 receives an identical score. This is the quantitative form of the Gap 2 argument,
 and it is a stronger result than the perturbation comparison below.
 
-Spearman against ILSC: SIDC **+0.067** (p = 0.25, not significant), 1 − LoCmsg
+Spearman against ILSC: SIDC **+0.138** (p = 1.8e−10), 1 − LoCmsg
 **+0.324**. SIDC and ILSC are close to unrelated — they are not noisy versions of
 each other, they measure different things.
 
@@ -814,17 +835,17 @@ identical). Slopes oriented so more negative = degrades faster; LoCmsg sign-flip
 
 | metric | same_service | same_provider | cross_provider | **gap** | gap in corpus SD | p |
 |---|--:|--:|--:|--:|--:|--:|
-| **ILSC** | −0.0410 | −0.0667 | −0.0981 | **−0.0314** | **−0.237** | <1e−6 |
-| SIDC | −0.0603 | −0.0664 | −0.0961 | −0.0297 | −0.072 | 5.1e−4 |
-| LoCmsg | −0.0085 | −0.0104 | −0.0678 | **−0.0574** | **−0.275** | <1e−6 |
+| **ILSC** | −0.0351 | −0.0654 | −0.0877 | **−0.0223** | **−0.179** | <1e−6 |
+| SIDC | −0.0510 | −0.0527 | −0.0712 | −0.0185 | −0.045 | 4.4e−3 |
+| LoCmsg | −0.0024 | −0.0086 | −0.0621 | **−0.0535** | **−0.256** | 1.0e−5 |
 
 Sec. 10 hoped: *"If ILSC's foreign-vs-control gap is larger than theirs, that is a
 direct, quantitative superiority claim."*
 
 - **Against SIDC: supported.** ILSC's gap is larger both raw and standardised, and
   ILSC discriminates on **20/20** services against SIDC's 16/20.
-- **Against LoCmsg: NOT supported.** LoCmsg's gap is larger, raw (−0.0574 vs
-  −0.0314) and standardised (−0.275 vs −0.237). This is reported as it falls; the
+- **Against LoCmsg: NOT supported.** LoCmsg's gap is larger, raw (−0.0535 vs
+  −0.0223) and standardised (−0.256 vs −0.179). This is reported as it falls; the
   superiority claim the proposal wanted is **not** available against this baseline.
 
 **The context that matters, and it is not a rescue.** LoCmsg scores **exactly
@@ -837,7 +858,7 @@ without claiming the perturbation result went the way it did not.
 
 **Where this leaves the head-to-head.** ILSC's demonstrated advantage over these
 baselines is **discriminating power on unperturbed services** — 0% saturation
-against 35.8% and 77.0%, an IQR of 0.175 against 0.862 and 0.000, and 1,645
+against 35.8% and 77.0%, an IQR of 0.167 against 0.862 and 0.000, and 1,645
 distinct values against 681 and 350 — not superior perturbation sensitivity. That
 is a narrower claim than Sec. 10 anticipated and it is the one the data supports.
 
@@ -855,18 +876,18 @@ reweighted, since the weights only change the final weighted average.
 
 | | Kendall's W |
 |---|--:|
-| **±20/±40% perturbations only** — the H3 test | **0.9947** |
-| all 29 configurations, incl. the deliberately extreme Gate 1 schemes | 0.9707 |
+| **±20/±40% perturbations only** — the H3 test | **0.9949** |
+| all 29 configurations, incl. the deliberately extreme Gate 1 schemes | 0.9671 |
 
 Spearman against the pinned baseline, worst configurations first:
 
 | configuration | ρ vs baseline | mean \|ΔILSC\| |
 |---|--:|--:|
-| `f1_only` (five features switched off) | 0.8374 | 0.2455 |
+| `f1_only` (five features switched off) | 0.8083 | 0.2495 |
 | `gate1_lexical` (f2, f3, f4 only) | 0.8880 | 0.0772 |
 | `gate1_semantic` (f1, f5, f6 heavy) | 0.9351 | 0.0507 |
 | `gate1_path_schema` (Sec. 10's suggested remedy) | 0.9669 | 0.0328 |
-| **worst of the ±20/40% family** (`f4−40%`) | **0.9924** | 0.0159 |
+| **worst of the ±20/40% family** (`f3−40%`) | **0.9896** | 0.0170 |
 
 **This answers the question D-24 deferred.** Gate 1 came out MARGINAL and the
 weights were deliberately not tuned. Exp. 5 shows that decision cost nothing:
@@ -880,10 +901,10 @@ It also closes the loop on C1: no weighting rescued Xero Payroll AU at Gate 1
 because no weighting materially changes any ranking. C1's position is a
 construct-validity fact, not a tuning failure.
 
-**The one number worth arguing about is `f1_only` at ρ = 0.8374.** f1 alone
+**The one number worth arguing about is `f1_only` at ρ = 0.8083.** f1 alone
 recovers most of the ranking, which a reviewer will notice. It does not recover
 all of it — 0.84 leaves real reordering — and Fig 9 already shows f1's strongest
-correlation with any single feature is 0.582, so the other five are not
+correlation with any single feature is 0.558, so the other five are not
 redundant with it. But the honest framing is that **f1 carries the largest share
 of the signal and the remaining five refine it**, not that all six contribute
 equally.
@@ -892,8 +913,8 @@ equally.
 
 | τ | 0.30 | 0.35 | 0.40 | 0.45 | **0.50** | 0.55 | 0.60 | 0.65 | 0.70 |
 |---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
-| mean ILSC_τ | 0.733 | 0.644 | 0.547 | 0.441 | **0.345** | 0.267 | 0.203 | 0.152 | 0.111 |
-| mean components | 1.38 | 1.69 | 2.20 | 3.03 | **4.12** | 5.73 | 7.89 | 10.53 | 13.60 |
+| mean ILSC_τ | 0.590 | 0.505 | 0.421 | 0.339 | **0.260** | 0.196 | 0.146 | 0.109 | 0.083 |
+| mean components | 1.58 | 1.99 | 2.61 | 3.62 | **5.19** | 7.30 | 9.85 | 12.61 | 15.38 |
 
 Both curves are smooth — no threshold effect, no discontinuity that would make a
 nearby τ qualitatively different. At the low end the graph is nearly complete
@@ -952,12 +973,12 @@ keeping the top-N would move the quartiles by construction.
 
 | cap | Q1 | median | Q3 | Δmedian | services kept |
 |---|--:|--:|--:|--:|--:|
-| **none** | 0.3395 | **0.4358** | 0.5149 | — | 2,136 |
-| 50 | 0.2889 | 0.3735 | 0.4730 | **−0.062** | 1,250 |
-| 30 | 0.2817 | 0.3654 | 0.4631 | −0.070 | 1,148 |
-| 20 | 0.2779 | 0.3600 | 0.4547 | −0.076 | 1,073 |
-| 10 | 0.2738 | 0.3525 | 0.4426 | −0.083 | 960 |
-| 5 | 0.2676 | 0.3456 | 0.4309 | **−0.090** | 863 |
+| **none** | 0.2854 | **0.3658** | 0.4526 | — | 2,136 |
+| 50 | 0.2619 | 0.3430 | 0.4347 | **−0.023** | 1,250 |
+| 30 | 0.2589 | 0.3391 | 0.4283 | −0.027 | 1,148 |
+| 20 | 0.2565 | 0.3358 | 0.4230 | −0.030 | 1,073 |
+| 10 | 0.2529 | 0.3298 | 0.4129 | −0.036 | 960 |
+| 5 | 0.2498 | 0.3244 | 0.4039 | **−0.041** | 863 |
 
 Sampling noise on the median is **0.0012**, so this is not noise.
 

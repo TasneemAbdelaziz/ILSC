@@ -77,19 +77,31 @@ that the weight vector has exactly six entries.
 
 **Preprocessing exclusions.** Administrative endpoints are stripped (D-07): a
 12-entry list matched on the *whole* path, so `/orders/{id}/status` survives and a
-bare `/status` does not — 62 endpoints across 48 services. Generic schemas are
-excluded from f5: a fixed list (`Error`, `Pagination`, `Status`, …) plus **any
-schema appearing on more than 80% of a service's operations**.
+bare `/status` does not — 62 endpoints across 48 services.
 
-> **An asymmetry the paper must resolve (F-05).** That 80% rule applies to f5 and
-> **not to f4**. Google attaches six identical parameters to 100% of its 10,103
-> operations; AWS attaches seven `X-Amz-*` signing headers to 99% of its 11,843.
-> Nothing in the argument for excluding an infrastructural *schema* depends on it
-> being a schema. Applying the same rule to f4 would affect **67.6%** of all
-> services. It has not been applied, because changing a feature after seeing which
-> services it favours is not a decision this study is willing to make quietly —
-> but the definition is currently inconsistent and the paper must either adopt the
-> exclusion or explain the asymmetry.
+**One infrastructural-exclusion rule, applied to both set features.** A component
+carried by more than **80%** of a service's operations is infrastructural rather
+than domain-bearing, and is excluded:
+
+- from **f5**, any such *schema* — plus a fixed list (`Error`, `Pagination`,
+  `Status`, …);
+- from **f4**, any such *parameter name* (**D-26**).
+
+The rule is applied per service, so `subscriptionId` is boilerplate for Azure and
+could be domain-bearing elsewhere, and both exclusion lists are recorded per
+service in the parsed documents.
+
+> **The f4 half of that rule was added late, and the paper should say so.** The
+> original definition gave f5 the exclusion and f4 nothing. The asymmetry was not
+> harmless: Google attaches `fields`, `oauth_token`, `key`, `prettyPrint`,
+> `quotaUser` and `alt` to **100%** of its 10,103 operations and AWS attaches
+> seven `X-Amz-*` signing parameters to **99%** of its 11,843, so under Jaccard
+> every pair in such a service shared six or seven tokens before any domain
+> content was considered — median f4 **0.82** against **0.42** elsewhere, across
+> **67.6%** of all services. Nothing in the argument for excluding an
+> infrastructural schema depends on it being a schema. See **D-26**, which also
+> records that the gap was found while investigating D-25 and why the fix is a
+> correction rather than a tuning move.
 
 ---
 
@@ -142,7 +154,7 @@ is counted; in practice this never occurs, because f1 is always available.
 `ILSC_norm` is reported **unclipped** — a negative value means the service is
 less coherent than an arbitrary bag of operations, which is informative, not an
 error. (No service in the corpus is: the minimum ILSC_mean is 0.1248 against an
-E[ILSC_rand] of 0.1011.)
+E[ILSC_rand] of 0.0988.)
 
 ---
 
@@ -152,9 +164,9 @@ Two, both reported (Sec. 6), 400,000 Monte-Carlo pairs each.
 
 - **Global** — random operations from the whole corpus. Answers *"is this service
   more coherent than an arbitrary bag of API operations?"*, a weak bar.
-  **E[ILSC_rand] = 0.1011** (SE 0.0001).
+  **E[ILSC_rand] = 0.0988** (SE 0.0001).
 - **Provider-restricted** — random operations from services sharing a provider.
-  **Median 0.2370**, with **96 of 97** estimable providers above the global
+  **Median 0.2193**, with **96 of 97** estimable providers above the global
   figure. The harder question, and the gap between the two normalisations is
   itself the reportable finding Sec. 6 asks for.
 
@@ -190,31 +202,40 @@ n = 3…200 is **0.00203**.
 
 ## 7. What the metric's own validation revealed about it
 
-**Gate 1 is MARGINAL, and the reason is a construct property (D-24).** Five
-hand-picked cohesive services against five mixed, labelled with written reasons
-before any score existed. Cliff's δ **+0.680**, no clean separation — and the
-verdict turns entirely on **Xero Payroll AU**, a *cohesive* candidate scoring
-0.2923, below four of the five mixed. Remove it and the split is perfect
-(δ +1.000).
+**Gate 1 FAILS, and the diagnosis is a selection defect plus a construct
+property (D-27).** Five hand-picked cohesive services against five mixed,
+labelled with written reasons before any score existed. Cliff's δ **+0.200**,
+p 0.36, no clean separation.
+
+It read MARGINAL (δ +0.680) *before* D-26 removed the f4 boilerplate inflation.
+That exclusion moved the cohesive candidates — three of the five are hyperscaler
+services — and left four of the five mixed ones untouched, because they had no
+boilerplate to remove. The candidate labels are therefore **confounded with
+provider**: hyperscalers publish narrowly-scoped single-capability specifications
+as house style, which is exactly the criterion the cohesive label used. A
+meaningful part of the earlier separation was ILSC separating providers.
+
+**Xero Payroll AU** remains the lowest cohesive candidate at 0.2058, and the
+reading of that case is unchanged:
 
 Its tokens are correct. It covers roughly ten distinct resources inside one
 business capability, and the lexical overlap between `employees` and `superfunds`
 is genuinely zero. **No weighting rescues it**, and Sec. 10's own suggested
 remedy — upweight path and schema — makes separation *worse* (δ +0.600).
-Exp. 5 explains why: Kendall's W across the ±20/40% weight family is **0.9947**,
+Exp. 5 explains why: Kendall's W across the ±20/40% weight family is **0.9949**,
 so no reasonable reweighting moves any ranking at all.
 
 This is the evidence for the resource-vs-capability distinction in §1, and it
 belongs in the metric's definition rather than only in Threats to Validity.
 
 **The six features are not redundant.** Maximum inter-feature Spearman is
-**0.582** (f1–f2), well below the 0.85 threshold set in advance. f1 correlates
+**0.558** (f1–f3), well below the 0.85 threshold set in advance. f1 correlates
 most with everything, which is expected — `T(Oᵢ)` is built from the same
 material f2–f5 measure discretely — and f5 is the most independent of the lexical
 features (ρ ≤ 0.27), which is what justifies giving it a different similarity
 function.
 
-**But f1 carries the largest share.** `f1_only` reaches ρ = **0.8374** against
+**But f1 carries the largest share.** `f1_only` reaches ρ = **0.8083** against
 the full metric. The honest framing is *"f1 carries most of the ranking signal
 and the other five refine it"*, not *"six equally contributing features"*.
 
@@ -229,7 +250,7 @@ score existed and the corpus ranking was computed without reference to it.
 
 | | Value | Fixed by |
 |---|---|---|
-| Weights | 1/6 each | Sec. 6; swept in Exp. 5 (W = 0.9947) |
+| Weights | 1/6 each | Sec. 6; swept in Exp. 5 (W = 0.9949) |
 | τ | 0.50, grid 0.30–0.70 | `config.TAU_DEFAULT` |
 | Embedding model | `all-MiniLM-L6-v2` | `config.EMBEDDING_MODEL` |
 | Generic-schema ratio | > 0.80 of a service's operations | `config.FREQUENT_SCHEMA_RATIO` |
@@ -238,6 +259,6 @@ score existed and the corpus ranking was computed without reference to it.
 | Seed | 42 | `config.SEED` |
 
 **Three of these were swept rather than asserted**: the weights (Kendall's W
-0.9947), τ (smooth, no discontinuity), and the tokenisation knob (ρ 0.998
+0.9949), τ (smooth, no discontinuity), and the tokenisation knob (ρ 0.998
 corpus-wide, but **+0.027** on the 74 services it touches — negligible globally,
 real locally, and the pinned setting is the conservative one).

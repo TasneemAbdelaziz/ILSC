@@ -151,15 +151,15 @@ proposal currently implies both (D-12).
 | # | Decision | Options | Status |
 |---|---|---|---|
 | ~~D1~~ | ~~Provider cap~~ | **RESOLVED — D-25**: do not cap, stratify and report | — |
-| **F-05** | f4 has no infrastructural-parameter exclusion, f5 does | adopt / keep + declare / report both | **open** — Sec. 6 owns the rule |
+| ~~F-05~~ | ~~f4 has no infrastructural-parameter exclusion~~ | **RESOLVED — D-26**, the f5 rule now applies to f4 | — |
 | F-02 | `norm_host()` and near-duplicates | collapse `api.`/`www.` to the registrable domain? | **open** — affects the headline corpus count |
 | ~~D2~~ | ~~Oversized services (> 200 operations)~~ | **RESOLVED — D-17** | — |
 | ~~D3~~ | ~~Domain-restricted null model~~ | **RESOLVED — D-18**, provider-restricted | — |
 
 **On D1 — RESOLVED by D-25, and the answer was not the expected one.** The
 question was whether the quartile thresholds move under a provider cap. **They
-do**: the median falls from 0.4358 to 0.3735 at a cap of 50 and to 0.3456 at a
-cap of 5, against sampling noise of 0.0012. The cause is that AWS, Google and
+do**: the median falls from 0.3658 to 0.3430 at a cap of 50 and to 0.3244 at a
+cap of 5, against sampling noise of 0.0018. The cause is that AWS, Google and
 Azure services — **48.0%** of the primary corpus — score a median **+0.134**
 higher than everyone else (Cliff's δ +0.609). The decision is **not to cap**,
 because capping deletes data to hide an effect that is itself a finding, but to
@@ -191,7 +191,7 @@ while moving every per-service quartile boundary by at most **3.2**. See D-17 an
 and no label source survived D-03 (keyword labelling rejected) and D-04 (LLM
 labelling rejected). The restriction is now by **provider**, the same
 substitution D-05 already adopted for the perturbation control. It validated:
-E[ILSC_rand] is **0.1011** global against a **0.2370** provider-restricted
+E[ILSC_rand] is **0.1011** global against a **0.2193** provider-restricted
 median, with 96 of 97 estimable providers above global — the restricted null is
 genuinely the harder bar. A provider is coarser than a domain, so it is a
 *conservative* approximation and is reported as one.
@@ -251,7 +251,7 @@ similarity engine (`embed.py`, `similarity.py`, the mask).
 - [x] Day 4 prep — ten hand-picked services (`docs/gate1_expectations.md`)
 - [x] Day 3 (metric) — embeddings, six similarity functions, availability mask
 - [x] Day 3 (metric) — null models, global + provider-restricted (D-18, D-21)
-- [x] Day 4 — **Gate 1 run — MARGINAL** (`sanity_check.csv`, D-24)
+- [x] Day 4 — **Gate 1 run — FAIL** after D-26 (`sanity_check.csv`, D-27)
 - [x] Day 5 — benchmark preparation, add Train Ticket
 - [x] Day 5 — **Exp. 1 big run**, 2,206 services + quartile thresholds
 - [x] Day 6 — inter-feature correlation, Fig 9 (max |rho| 0.582)
@@ -260,7 +260,7 @@ similarity engine (`embed.py`, `similarity.py`, the mask).
 - [ ] **Two reliability figures owed** — blank sample sheets are written (F-03)
 - [x] Exp. 3 — **GATE 2 PASS** (reframed): rho_indep 0.433, rho_derived 0.488
 - [x] Exp. 4 — baselines: ILSC 0% saturated vs SIDC 35.8%, LoCmsg 77.0%
-- [x] Exp. 5 — **Kendall's W 0.9947**; rankings invariant to reasonable weights
+- [x] Exp. 5 — **Kendall's W 0.9949**; rankings invariant to reasonable weights
 - [x] `DROP_VERSION_TOKENS` sweep (D-15) — rho 0.998 corpus-wide; +0.027 on the 74 services it touches
 - [x] Figures unified on one validated palette (`src/figstyle.py`); Fig 6 rebuilt off a twin axis
 - [x] Replication package documented + fresh clone verified structurally (`docs/replication.md`)

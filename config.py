@@ -107,6 +107,22 @@ DROP_VERSION_TOKENS = os.environ.get("ILSC_DROP_VERSION_TOKENS", "1") not in ("0
 # top of the fixed GENERIC_SCHEMAS list below.
 FREQUENT_SCHEMA_RATIO = 0.80
 
+# f4: the same rule, applied to PARAMETER NAMES (F-05, resolved by D-26).
+#
+# Sec. 6 [v3] gave f5 an infrastructural-exclusion rule and gave f4 nothing, and
+# nothing in the argument for that rule depends on the thing being a schema. The
+# asymmetry was not harmless: Google attaches `fields`, `oauth_token`, `key`,
+# `prettyPrint`, `quotaUser` and `alt` to 100% of its 10,103 operations and AWS
+# attaches seven X-Amz-* signing parameters to 99% of its 11,843, so under
+# Jaccard every pair in such a service shared six or seven tokens before any
+# domain content was considered. Median f4 was 0.82 for those providers against
+# 0.42 for everyone else.
+#
+# Kept as a separate constant rather than reusing FREQUENT_SCHEMA_RATIO so the
+# two can be swept independently in a sensitivity analysis; the default is
+# deliberately the same value, because it is deliberately the same rule.
+FREQUENT_PARAM_RATIO = 0.80
+
 # f5: schemas shared by nearly every operation carry no domain signal
 GENERIC_SCHEMAS = {
     "error", "errorresponse", "problem", "pagination", "pageinfo",

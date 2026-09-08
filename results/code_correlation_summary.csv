@@ -1,3 +1,3 @@
 condition,system,spec_origin,n_pairs,n_services,n_services_with_variance,sim_code_levels,largest_tie_pct,rho_pair,p_pair,ci_pair_lo,ci_pair_hi,ci_cluster_lo,ci_cluster_hi,rho_service,p_service
-independent,sockshop,hand-written specs,122,4,2,5,27.87,0.43324,6.216689765809459e-07,0.2675,0.5717,0.3177,0.6428,0.737865,0.26213521262737816
+independent,sockshop,hand-written specs,122,4,2,5,27.87,0.40861,2.9769518575151064e-06,0.2426,0.5469,0.3177,0.6428,0.737865,0.26213521262737816
 derived,trainticket,specs generated from source,790,31,29,16,33.16,0.486337,3.857365135381039e-48,0.4305,0.5423,0.3866,0.5791,0.513075,0.0031612301099053657

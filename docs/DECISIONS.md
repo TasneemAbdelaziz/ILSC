@@ -748,7 +748,7 @@ figures**, in the same direction for every feature.
 | f1 | 100.00% | — |
 | f2 | 84.89% | 16 (0.019%) |
 | f3 | 99.40% | **587 (0.600%)** |
-| f4 | 90.72% | 2 (0.002%) |
+| f4 | **76.52%** | **13,912 (15.661%)** |
 | f5 | 78.70% | — |
 | f6 | 73.02% | — |
 
@@ -775,7 +775,7 @@ assumes. The aggregation supports only one reading of a negative cosine — "no
 similarity" — because it has no notion of opposition to express.
 
 **The incidence is not negligible, and the first draft of this entry guessed it
-wrong.** `--audit` over services of 2–400 operations: **360,246 of 16,003,558
+wrong.** `--audit` over services of 2–400 operations: **360,276 of 16,003,558
 f1/f6 cosine values were negative — 2.25%**. This entry originally said SBERT
 cosines on short structured text are "rarely" negative; at one value in
 forty-four that wording does not survive contact with the corpus, so the figure
@@ -977,6 +977,13 @@ No figure in the paper changes at the precision it is quoted. The largest move,
 
 ## D-24 · Gate 1 is MARGINAL, the weights are NOT changed, and C1 is the reason
 
+> **⚠ SUPERSEDED 2026-09-08 by D-27.** After D-26 removed the f4 boilerplate
+> inflation, Gate 1 **FAILS** (δ +0.200, p 0.36). Much of the separation recorded
+> below was an artifact of that inflation, and the candidate set is confounded
+> with provider. What survives is this entry's reading of **C1** as a
+> construct-validity finding; what does not is the claim that the remaining nine
+> separate perfectly. Read D-27 first.
+
 **Outcome.** With the pinned 1/6 weights and tau = 0.50:
 
 | | cohesive | mixed |
@@ -1106,3 +1113,186 @@ external-validity limit.
 have understated a 0.13 median difference across half the corpus.
 
 ---
+
+
+---
+
+## D-26 · F-05 resolved: the f5 infrastructural-exclusion rule now applies to f4
+
+**Decision.** A **parameter name** carried by more than
+`config.FREQUENT_PARAM_RATIO` = **0.80** of a service's operations is excluded
+from f4, exactly as a schema on more than 80% of a service's operations is
+already excluded from f5. The rule is applied per service, and the excluded names
+are recorded per service in `parsed/<service>.json` as
+`frequent_params_excluded`, mirroring `frequent_schemas_excluded`.
+
+**Why: the definition was internally inconsistent.** Sec. 6 [v3] justifies the
+f5 exclusion on the grounds that a type present on nearly every operation is
+infrastructural rather than domain-bearing. **Nothing in that argument depends on
+the thing being a schema.** f4 had no equivalent rule, so the metric applied a
+principle to one feature and not to its neighbour, and had no answer to a
+reviewer asking why.
+
+**What the asymmetry admitted.**
+
+| provider | on ~every operation |
+|---|---|
+| googleapis.com, 10,103 ops | `fields`, `oauth_token`, `key`, `prettyPrint`, `quotaUser`, `alt` — **100%** each |
+| amazonaws.com, 11,843 ops | seven `X-Amz-*` signing parameters — **99%** each |
+| azure.com, 5,802 ops | `api-version` 94%, `subscriptionId` 76% |
+
+Under Jaccard, every pair of operations in such a service shared six or seven
+tokens before any domain content was considered. Median f4 was **0.8189** for
+those providers against **0.4213** for everyone else.
+
+**Scale.** **1,444 of 2,136 services (67.6%)** carry at least one such parameter.
+This was never a hyperscaler-only problem: the largest single effects include
+`reloadly.com` (`Accept`), `openbanking.org.uk` (`If-Modified-Since`,
+`If-None-Match`) and `walmart.com` (`WM_CONSUMER.*`).
+
+**Why this is a correction and not a tuning move — stated because the provenance
+demands it.** F-05 was found while investigating **D-25**, i.e. while asking why
+the three largest cloud providers score highly. A change discovered that way must
+answer the question *would we make it if the result had gone the other way?*
+
+Yes, and on three independent grounds:
+
+1. **The rule is Sec. 6's own**, adopted before any of these results existed, and
+   is applied here verbatim rather than invented.
+2. **It is symmetric in the corpus.** Two thirds of all services are affected;
+   the exclusion is not aimed at any provider.
+3. **It cannot flip a hypothesis.** H2 is a *within-service* contrast under
+   perturbation, H3 is *rank stability*, and Exp. 3 is a correlation against code.
+   None of them is the claim "hyperscalers score high", which is the only claim
+   D-25 was about.
+
+**Effect, measured before adopting** (`src/param_boilerplate.csv`, f4-only
+estimate holding f1 fixed):
+
+| | before | after |
+|---|--:|--:|
+| ILSC_mean, median | 0.4358 | 0.3791 |
+| Q1 / Q3 | 0.3395 / 0.5149 | 0.2973 / 0.4638 |
+| hyperscaler gap (median) | +0.1340 | +0.0715 |
+| Spearman, before vs after | — | **0.9413** |
+
+The ranking is largely preserved (ρ 0.94) but this is **not** a cosmetic change —
+it moves more than the entire ±40% weight family did (Kendall's W 0.9949), and
+every published number shifts. The full change is larger still, because `T(Oᵢ)`
+carries the parameter tokens and the **f1 embeddings therefore move too**; the
+corpus was re-parsed and re-embedded rather than re-scored.
+
+**Why not "report both", as D-17 does.** D-17's primary/sensitivity split is the
+right answer to a *scoping* question where reasonable people differ about which
+services belong in the population. F-05 is not that. It is a **consistency
+defect** in the feature definition, and a defect is fixed, not reported twice —
+publishing the metric under two mutually inconsistent definitions of its own
+exclusion rule would be worse than either.
+
+**Cost, stated plainly.** Every figure, threshold and coefficient in the paper is
+regenerated. D-25's hyperscaler finding survives at roughly half its former size
+and remains a reportable external-validity limit.
+
+
+---
+
+## D-27 · Gate 1 FAILS after D-26, and the earlier result was partly an artifact — supersedes D-24
+
+**Outcome.** With the f4 infrastructural-parameter exclusion in place (D-26),
+Gate 1 does not separate the ten hand-picked candidates.
+
+| | before D-26 | after D-26 |
+|---|--:|--:|
+| Cliff's δ | +0.680 | **+0.200** |
+| mean gap | +0.1059 | **+0.0269** |
+| exact one-sided p | 0.0675 | **0.3611** |
+| clean separation | no | **no** |
+| verdict | MARGINAL | **FAIL** |
+
+**This is reported as a failure. It is not tuned away.** Exp. 5 forecloses the
+obvious response: Kendall's W across the ±20/40% weight family is **0.9949**, so
+no reasonable reweighting moves any ranking, and the proposal's own suggested
+remedy (upweight path + schema) was already shown to make separation worse.
+
+### Why it changed: the earlier separation was substantially an f4 artifact
+
+The exclusion did not move the ten candidates evenly. It moved the *cohesive*
+ones:
+
+| id | expected | provider | before | after | Δ |
+|---|---|---|--:|--:|--:|
+| C2 | cohesive | **googleapis.com** | 0.5031 | 0.3781 | **−0.1250** |
+| C3 | cohesive | **googleapis.com** | 0.4581 | 0.2998 | **−0.1583** |
+| C1 | cohesive | xero.com | 0.2923 | 0.2058 | −0.0865 |
+| C5 | cohesive | **azure.com** | 0.5272 | 0.4937 | −0.0335 |
+| C4 | cohesive | mtaa-api.herokuapp.com | 0.4918 | 0.4730 | −0.0188 |
+| M3 | mixed | paylocity.com | 0.3535 | 0.3267 | −0.0268 |
+| M4 | mixed | yunbi.com | 0.4243 | 0.4288 | +0.0045 |
+| M1, M2, M5 | mixed | — | — | — | **0.0000** |
+
+**Three of the five *cohesive* candidates are hyperscaler services. None of the
+five *mixed* candidates is.** The cohesive group lost up to 0.158; four of the
+five mixed candidates lost nothing at all, because they had no boilerplate
+parameters to remove.
+
+**The candidate labels are confounded with provider.** Candidates were selected
+on author-declared tags and stated purpose — one tag and a single stated
+capability for "cohesive", many unrelated tags for "mixed". Hyperscalers publish
+narrowly-scoped, single-capability specifications as a matter of house style, so
+that criterion selects them into the cohesive group; the "mixed" picks are all
+small multi-domain aggregators. Before D-26, those same hyperscalers were also
+the services whose f4 was inflated by six or seven universal parameters.
+
+**So a meaningful part of the original δ +0.680 was ILSC separating *providers*,
+not *cohesion*.** That is an uncomfortable finding and it is the honest reading
+of the two runs together.
+
+### What Gate 1 was for, and what it actually did
+
+The gate exists to catch a problem before the big run. It did — later than
+intended, and only once the f4 artifact was removed. Its real yield was not a
+pass/fail verdict but the discovery that a large, systematic, provider-correlated
+signal was sitting inside f4 (F-05 → D-26), which no amount of looking at
+tokenisation would have surfaced.
+
+### What we recommend, for the Experiments section to detail
+
+**1. Re-select the candidates with provider held constant.** The defect is in the
+*sample*, not the metric. Draw cohesive and mixed candidates from the same
+providers — or explicitly block on provider — so the contrast cannot be satisfied
+by provider style. This is a correction to a selection design, not to the metric,
+and it must be declared as a re-selection with this decision as the reason.
+
+**2. Enlarge the sample.** 5 versus 5 has almost no power: the smallest
+attainable one-sided p is 1/C(10,5) = **0.0040**, so even a perfect split barely
+clears 0.05. Twenty or thirty per group would let the gate distinguish "no
+effect" from "no power". The current p = 0.36 cannot.
+
+**3. Use a label source independent of specification structure.** Author tags are
+a property of how a provider writes specifications, which is exactly the axis the
+metric is being tested on. Labels derived from documentation prose, or from an
+independent annotator reading the service's stated purpose without seeing its
+tag structure, would not carry the confound.
+
+**4. Report Gate 1 as a diagnostic, not a gate.** With ten confounded candidates
+it cannot bear the weight of a pass/fail decision on the metric. Its documented
+value in this study is the artifact it exposed.
+
+### What does **not** change
+
+The three hypotheses are untouched, because none of them depends on this
+comparison: **H2** is a within-service contrast (still POSITIVE, 20/20 monotonic,
+p < 1e-6), **H3** is rank stability (Kendall's W 0.9949), and **Exp. 3** is a
+correlation against code (Gate 2 still PASS in the 0.4–0.6 band). Gate 1 is a
+sanity check on the metric's face validity against ten hand-labelled services; it
+is not an input to any of them.
+
+**The corpus-scale face-validity check also still holds, and it is the stronger
+one:** the lowest-scoring service among all 2,206 remains **NeutrinoAPI**, the
+candidate labelled *mixed* on the strength of its author declaring six unrelated
+domains — a label written before any score existed.
+
+**D-24 is superseded.** Its reading of C1 as a construct-validity finding
+(resource-level vs capability-level cohesion) survives and is unaffected by
+D-26 — C1 still scores lowest of the cohesive group. What no longer holds is
+D-24's claim that the remaining nine separate perfectly.

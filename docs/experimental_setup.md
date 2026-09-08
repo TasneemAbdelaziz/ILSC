@@ -121,9 +121,9 @@ quoted threshold must name its population.
 
 | population | n | Q1 | median | Q3 |
 |---|--:|--:|--:|--:|
-| primary, all | 2,136 | 0.3394 | 0.4358 | 0.5149 |
-| **primary, S1 only** — Bogner-comparable | 991 | **0.3635** | **0.4636** | **0.5395** |
-| primary, S2 only | 1,145 | 0.3225 | 0.4149 | 0.4941 |
+| primary, all | 2,136 | 0.2854 | 0.3657 | 0.4525 |
+| **primary, S1 only** — Bogner-comparable | 991 | **0.3083** | **0.3882** | **0.4833** |
+| primary, S2 only | 1,145 | 0.2722 | 0.3460 | 0.4298 |
 
 ---
 

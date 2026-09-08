@@ -13,12 +13,12 @@ writing, four specific debts, and two open decisions.**
 
 | | Result | Artifact |
 |---|---|---|
-| **Gate 1** | ⚠ **MARGINAL** — δ +0.680, no clean separation | `results/gate1_verdict.csv` |
-| **Exp. 1** corpus run | ✅ 2,206 services; ILSC_mean median **0.436** (primary) | `results/ilsc_scores.csv`, `ilsc_thresholds.csv` |
+| **Gate 1** | ❌ **FAIL** — δ +0.200 after D-26; candidate set confounded with provider (D-27) | `results/gate1_verdict.csv` |
+| **Exp. 1** corpus run | ✅ 2,206 services; ILSC_mean median **0.366** (primary) | `results/ilsc_scores.csv`, `ilsc_thresholds.csv` |
 | **Exp. 2** perturbation | ✅ **H2 POSITIVE** — 20/20 monotonic, p < 1e-6 | `results/perturbation_*.csv`, Fig 3 |
-| **Exp. 3 / Gate 2** | ✅ **PASS, reframed** — ρ_ind **0.433**, ρ_der **0.488** | `results/code_correlation_*.csv`, Figs 4–5 |
+| **Exp. 3 / Gate 2** | ✅ **PASS, reframed** — ρ_ind **0.409**, ρ_der **0.486** | `results/code_correlation_*.csv`, Figs 4–5 |
 | **Exp. 4** baselines | ◐ **Half supported** — beats SIDC, not LoCmsg | `results/baselines_*.csv`, Fig 7 |
-| **Exp. 5** sensitivity | ✅ **H3 HOLDS** — Kendall's W **0.9947** | `results/kendalls_w.csv`, `tau_sweep.csv`, Fig 6 |
+| **Exp. 5** sensitivity | ✅ **H3 HOLDS** — Kendall's W **0.9949** | `results/kendalls_w.csv`, `tau_sweep.csv`, Fig 6 |
 
 42 result CSVs, 8 figures, 24 decisions, 4 flags. `python run_all.py` reproduces
 every one of them from the two pinned corpus commits.
@@ -68,7 +68,7 @@ in one push.**
 | **1** | `embed.py`, `similarity.py`; **D3 decided (D-18)** | ✅ | Responsibility one-pagers, both systems | ◐ |
 | **2** | 17/17 unit tests incl. R2; `ilsc.py` | ✅ | One-pagers cont.; extraction design | ✅ |
 | **3** | Null models, global + provider (**D-21** flatness) | ✅ | Code dig — `user` (15 endpoints) | ✅ |
-| **4** | **Gate 1** → MARGINAL (**D-24**) | ✅ | Code dig — `carts` + `catalogue` | ✅ |
+| **4** | **Gate 1** → **FAIL** after D-26 (**D-27**) | ✅ | Code dig — `carts` + `catalogue` | ✅ |
 | **5** | **Exp. 1** big run + quartile thresholds | ✅ | Code dig — `orders` + `payment` | ✅ |
 | **6** | Inter-feature correlation, **Fig 9** | ✅ | Verification pass; `endpoint_entities.csv` | ✅ |
 | **7** | `inject.py` + monotonicity/contrast checker | ✅ | **Train Ticket automated extraction** (209/211) | ✅ |
@@ -194,14 +194,15 @@ it needs deciding before the dataset section is final — Day 2.
 These are the sections most likely to be written badly, and each is a place where
 the honest version is more defensible than the hoped-for one.
 
-**Gate 1 is not a pass, and the write-up must not imply it was.** Cliff's δ
-+0.680 with no clean separation; the verdict turns entirely on Xero Payroll AU.
-No weight scheme rescues it and Sec. 10's own suggested remedy makes separation
-*worse*. Exp. 5 then showed why: no weighting moves any ranking materially
-(W = 0.9947), so C1 was never rescuable by tuning. The finding is that **ILSC
-measures resource-level, not capability-level, cohesion** — a service can be one
-business capability spread across ten lexically unrelated resources. That is a
-construct-validity result and belongs in Sec. 6 and in Threats, not buried.
+**Gate 1 FAILS and the write-up must say so.** Cliff's δ **+0.200**, p 0.36, no
+clean separation. It read MARGINAL before D-26; removing the f4 boilerplate
+inflation moved the *cohesive* candidates (three of five are hyperscalers) and
+left four of five *mixed* ones untouched, so a meaningful part of the earlier
+separation was ILSC separating **providers, not cohesion**. No weighting rescues
+it (W = 0.9949) and nothing was tuned. Two findings survive: **C1** still shows
+that ILSC measures resource-level rather than capability-level cohesion, and the
+gate's real yield was exposing the f4 artifact itself. See **D-27** for the four
+recommended remedies, which belong in the Experiments section.
 
 **Exp. 4's superiority claim is only half available.** ILSC's foreign-vs-control
 gap beats SIDC's, raw and standardised, and it discriminates on 20/20 services
@@ -215,15 +216,15 @@ perturbation-gap argument is not, and substituting one for the other is the
 temptation to avoid.
 
 **Gate 2 passes on a threshold its own confidence interval straddles.**
-ρ_independent = 0.433, but the cluster bootstrap — which resamples *services*,
+ρ_independent = 0.409, but the cluster bootstrap — which resamples *services*,
 the real independent unit — gives **[0.318, 0.643]**. Only 2 of 4 Sock Shop
 services have any code-side variance (F-04). Report the cluster interval, report
 that the primary condition cannot be said to clear 0.4 with confidence, and let
-ρ_derived (0.488, [0.380, 0.584], 27 services with variance) carry the weight it
+ρ_derived (0.486, [0.387, 0.579], 29 services with variance) carry the weight it
 has earned — while stating that it is the circular condition D-16 quarantined.
 
 **One thing that went better than expected, and is worth its own paragraph:** the
-derivation-inflation estimate is **+0.054**. D-16 predicted the direction and got
+derivation-inflation estimate is **+0.078**. D-16 predicted the direction and got
 it, but the magnitude is small — spec–code derivation inflates this correlation
 by about five points, not enough to manufacture a finding. That is a result a
 single-system design could not have produced, and it is the return on D-16's

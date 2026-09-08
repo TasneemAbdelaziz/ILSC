@@ -15,7 +15,8 @@ and derives:
 
   name_tokens   tokenised operationId          -> feature f2
   path_tokens   normalised, tokenised path     -> feature f3
-  param_tokens  tokenised parameter names      -> feature f4
+  param_tokens  tokenised parameter names,     -> feature f4
+                boilerplate removed (D-26)
   domain_schemas  schema names, generics removed -> feature f5
   T             the embedding text             -> feature f1
   description   kept separate                  -> feature f6
@@ -374,11 +375,26 @@ def parse_service(spec, meta):
     generic_hit = sorted({s for s in freq if s.lower() in config.GENERIC_SCHEMAS})
     excluded = set(frequent) | {s for s in freq if s.lower() in config.GENERIC_SCHEMAS}
 
+    # --- f4 exclusions, the same rule applied to parameter names (D-26) ------
+    # A parameter carried by nearly every operation of a service is
+    # authentication or serialisation boilerplate, not an input-domain signal.
+    # Per service, as f5's rule is: `subscriptionId` is boilerplate for Azure
+    # and could be domain-bearing somewhere else.
+    pfreq = {}
+    for r in records:
+        for p in set(r["param_names"]):
+            pfreq[p] = pfreq.get(p, 0) + 1
+    frequent_params = sorted(p for p, c in pfreq.items()
+                             if n_ops and c / n_ops > config.FREQUENT_PARAM_RATIO)
+    excluded_params = set(frequent_params)
+
     for r in records:
         r["domain_schemas"] = sorted(s for s in r["schema_names"] if s not in excluded)
+        r["domain_params"] = sorted(p for p in r["param_names"]
+                                    if p not in excluded_params)
         r["name_tokens"] = tokenize(r["operation_id"]) if r["operation_id"] else []
         r["path_tokens"] = normalize_path(r["path"])
-        r["param_tokens"] = sorted({t for p in r["param_names"] for t in tokenize(p)})
+        r["param_tokens"] = sorted({t for p in r["domain_params"] for t in tokenize(p)})
         schema_tokens = sorted({t for s in r["domain_schemas"] for t in tokenize(s)})
         r["schema_tokens"] = schema_tokens
         r["T"] = build_T(r["method"], r["name_tokens"], r["path_tokens"],
@@ -394,6 +410,7 @@ def parse_service(spec, meta):
         "n_operations": n_ops,
         "generic_schemas_excluded": generic_hit,
         "frequent_schemas_excluded": frequent,
+        "frequent_params_excluded": frequent_params,
         "external_refs": res.external,
         "unresolved_refs": res.unresolved,
         "operations": records,

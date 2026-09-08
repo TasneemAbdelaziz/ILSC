@@ -220,6 +220,11 @@ asymmetry in precision stated plainly rather than left for a reviewer to notice.
 
 ## F-05 · f5 excludes infrastructural schemas; f4 excludes nothing — **owner: both (Sec. 6 owns the rule)**
 
+> **✅ RESOLVED 2026-09-08 by D-26** — the f5 rule now applies to f4 at the same
+> 0.80 ratio. The evidence below is what prompted it; D-26 carries the decision,
+> the provenance argument, and the cost. The corpus was re-parsed and re-embedded,
+> because `T(Oi)` carries the parameter tokens and the f1 vectors move too.
+
 Raised 2026-09-08 while resolving D1 (**D-25**). This is the largest single
 contributor to the hyperscaler effect that D-25 documents, and unlike the rest
 of that effect it is **a gap in the metric's definition, not a property of the

@@ -30,9 +30,9 @@ systems. Under controlled perturbation with a size-matched control, ILSC degrade
 monotonically for **20 of 20** services and degrades significantly faster when
 the injected operations come from a more distant provider (paired gap negative
 for 20/20, *p* < 10⁻⁶). Against code-level entity overlap, interface similarity
-correlates at **ρ = 0.43** on hand-written specifications and **ρ = 0.49** on
+correlates at **ρ = 0.41** on hand-written specifications and **ρ = 0.49** on
 specifications generated from source — a moderate, complementary signal rather
-than a substitute for code-level analysis, and a **+0.05** estimate of the
+than a substitute for code-level analysis, and a **+0.08** estimate of the
 inflation that specification–code derivation introduces. Service rankings are
 robust to the weighting (Kendall's *W* = **0.99** across ±40% perturbations) and
 to the threshold.
@@ -72,7 +72,7 @@ WSDL. Neither can see that `Customer` and `Client` are the same concept, or that
 "order" (a purchase) and "order" (a sequence) are not.
 
 **They assume complete inputs.** Real specifications are not complete. In our
-corpus, `operationId` is usable on 84.9% of operations, parameters on 90.7%,
+corpus, `operationId` is usable on 84.9% of operations, parameters on 76.5%,
 domain schemas on 78.7%, and a description on **73.0%**. A metric that reads a
 missing description as evidence of dissimilarity is measuring documentation
 quality and calling it cohesion.
@@ -105,22 +105,25 @@ providers, it fires on **100%**.
 **Perturbation behaves as the theory requires, against a control.** "ILSC falls
 when you inject a foreign operation" is close to tautological for a mean-similarity
 score. The evidential content is the *contrast*: degradation slopes order with
-semantic distance (−0.041 same-service, −0.067 same-provider, −0.098
+semantic distance (−0.037 same-service, −0.065 same-provider, −0.088
 cross-provider), and the paired gap is negative for 20 of 20 services.
 
 **The correlation with code is moderate, and we reframe rather than overclaim.**
-ρ = 0.43 against code-level entity overlap on hand-written specifications. Its
+ρ = 0.41 against code-level entity overlap on hand-written specifications. Its
 cluster-bootstrap interval, [0.32, 0.64], straddles the 0.4 threshold we set in
 advance, because only two of four benchmark services have any code-side variance.
 We report the interval rather than the point estimate, and read the result as
 *complementary signal* rather than *validated proxy*.
 
-**Two findings run against the metric and are reported as such.** ILSC measures
-resource-level cohesion, so a payroll service spanning ten unrelated resources
-scores below services we labelled incohesive — no weighting fixes this, and the
-sensitivity analysis shows why. And ILSC does not out-discriminate LoCmsg under
-perturbation, though it out-discriminates both baselines on the corpus by a wide
-margin.
+**Three findings run against the metric and are reported as such.** *(i)* The
+ten-service sanity gate **fails** (Cliff's δ +0.200): its candidates turn out to
+be confounded with provider, and an earlier apparent separation was substantially
+an artifact of authentication boilerplate that we then removed from the metric.
+*(ii)* ILSC measures resource-level cohesion, so a payroll service spanning ten
+unrelated resources scores below services we labelled incohesive — no weighting
+fixes this, and the sensitivity analysis shows why. *(iii)* ILSC does not
+out-discriminate LoCmsg under perturbation, though it out-discriminates both
+baselines on the corpus by a wide margin.
 
 ### 1.4 Contributions
 
