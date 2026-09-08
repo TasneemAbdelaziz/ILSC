@@ -1,0 +1,11 @@
+metric,value
+verdict,MARGINAL
+gap,0.105922
+cliffs_delta,0.680000
+exact_p_one_sided,0.067460
+clean_separation,0
+cohesive_mean,0.454489
+mixed_mean,0.348567
+cohesive_min,0.292333
+mixed_max,0.428805
+tau,0.5

@@ -650,3 +650,387 @@ be derived under this same primary/sensitivity protocol. D-17 fixes the
 > weighted feature co-availability moves by up to 50 percentage points between
 > the two, whereas every per-service quartile boundary moves by at most 3.2.
 > Service-level statistics are reported as the primary result accordingly.
+
+
+---
+
+## D-18 · The domain-restricted null model becomes provider-restricted — D3 resolved
+
+**Decision.** The second null model draws its random operation sets from
+**services sharing a provider**, not from services sharing a domain label. Both
+null models are still computed and both are still reported, exactly as Sec. 6
+specifies; only the restriction changes. This resolves the long-open **D3**
+(`README.md` §4).
+
+**Why it had to change at all.** Sec. 6 asks for a domain-restricted null and
+there is no longer any label source to build one from: **D-03 rejected keyword
+labelling** (validated against a blind sample and it did not hold up) and
+**D-04 rejected LLM labelling** (unreproducible without a pinned model, and the
+proposal's own reproducibility rules forbid it). The null model was therefore
+specified against a labelling scheme that this project has twice decided not to
+use. Leaving it unresolved would have meant either shipping one null model
+instead of two, or reinstating a labelling method already rejected on the record.
+
+**Why provider is the right substitute, and not merely the available one.**
+
+- It is **metadata, not judgement.** The provider is read off the specification's
+  host; no annotator, no model, no keyword list. It reproduces exactly.
+- It is **already the accepted answer to the same question.** D-05 replaced
+  domain labels with provider proximity for the Exp. 2 perturbation control, on
+  the same reasoning. Using a different substitute here would leave the paper
+  arguing two different answers to "what stands in for a domain?".
+- It **preserves what the null model is for.** The global null asks "is this
+  service more coherent than an arbitrary bag of API operations?", which is a
+  weak bar. The restricted null must ask a harder question by drawing from a
+  pool that is already thematically closer. Operations from one provider are
+  closer than operations from the corpus at large — Stripe's operations resemble
+  each other more than they resemble Kubernetes' — so the bar is genuinely
+  raised, which is the whole point of the second variant.
+
+**What it is honestly not.** A provider is not a domain. AWS spans storage,
+compute, machine learning and billing, so a provider-restricted draw over AWS is
+still domain-heterogeneous; conversely two payment providers are in the same
+domain but never pool together. **The provider-restricted null is therefore a
+lower bound on the domain-restricted null's strictness** — it is closer to the
+global null than a true domain null would be, and the gap between the two
+normalisations must be read with that in mind. This is stated rather than
+smoothed over.
+
+**Consequence for the corpus.** Provider concentration is already documented as
+the largest threat to external validity (`README.md` §3): 616 providers over
+2,206 services, and AWS + Google + Azure alone hold 46.8%. Restricting to a
+provider therefore gives a very large pool for the three hyperscalers and a very
+small one elsewhere. `src/null_models.py` records the pool size per provider and
+**falls back to the global null, marked in the output, wherever the provider pool
+cannot supply the requested set size**; a null model estimated from a pool of
+four operations is not an estimate.
+
+**Paper text.**
+
+> Section 6 specifies a domain-restricted null model. Because this study rejects
+> both keyword-based (D-03) and LLM-based (D-04) domain labelling on
+> reproducibility grounds, no domain labels exist for the corpus. We therefore
+> restrict the second null model by *provider*, the same substitution already
+> adopted for the perturbation control, which is read directly from the
+> specification host and requires no annotation. A provider is a coarser
+> grouping than a domain — large providers span many domains — so the
+> provider-restricted null is a conservative approximation of the intended one,
+> and the gap between the global and restricted normalisations should be read as
+> a lower bound.
+
+---
+
+## D-19 · A feature whose set is empty is unavailable, not zero
+
+**Decision.** In the similarity engine, feature k is available for an operation
+only when its **set is non-empty**, not merely when the underlying field is
+present. An `operationId` of `"v1"` — a non-empty string that tokenises to
+nothing under the pinned stopwords — leaves **f2 unavailable**.
+
+**Why.** Jaccard and the overlap coefficient are both `0/0` on an empty set, and
+neither available answer is defensible. Returning **0** would assert
+dissimilarity on the basis of an absence, which is precisely what the
+availability mask exists to prevent and would silently undermine C1. Returning
+**1** would assert that two operations with no tokens are identical. The only
+coherent reading is that there is nothing to compare, which is what the mask
+already means.
+
+**How it differs from the Day 3 study.** `src/pair_availability.py` tests whether
+the *field* is present (plus, for f2, that it is not a code-generator
+signature). The engine additionally requires that the field survives
+tokenisation, so it is **slightly stricter than the published Day 3 availability
+figures**, in the same direction for every feature.
+
+**Measured, not assumed** (`python src/similarity.py --audit`, 97,912 operations):
+
+| feature | available | field present but set empty |
+|---|--:|--:|
+| f1 | 100.00% | — |
+| f2 | 84.89% | 16 (0.019%) |
+| f3 | 99.40% | **587 (0.600%)** |
+| f4 | 90.72% | 2 (0.002%) |
+| f5 | 78.70% | — |
+| f6 | 73.02% | — |
+
+The cost of the stricter rule is **under 0.6% of operations on its worst
+feature**, and f3's 587 cases are paths that normalise to nothing — a bare `/`,
+or a path consisting only of `{parameters}`. Those genuinely have no resource
+tokens to compare.
+
+**Related:** D-08 (f2's three definitions), D-14 (the `clean/` vs `clean3/` gap,
+which is the other reason the engine's mask statistics and Day 3's do not have to
+match exactly). Both gaps run the same way and both are declared.
+
+---
+
+## D-20 · Cosine similarity is clamped to [0,1]
+
+**Decision.** `f1` and `f6` cosines below zero are read as **0**.
+
+**Why.** ILSC is defined on [0,1] and aggregates cosine alongside Jaccard and the
+overlap coefficient, neither of which can be negative. A negative term would
+make `Sim` negative for pairs where the mask leaves only f1 available, putting
+`ILSC_mean` outside the range every threshold, quartile and figure in the paper
+assumes. The aggregation supports only one reading of a negative cosine — "no
+similarity" — because it has no notion of opposition to express.
+
+**The incidence is not negligible, and the first draft of this entry guessed it
+wrong.** `--audit` over services of 2–400 operations: **360,246 of 16,003,558
+f1/f6 cosine values were negative — 2.25%**. This entry originally said SBERT
+cosines on short structured text are "rarely" negative; at one value in
+forty-four that wording does not survive contact with the corpus, so the figure
+replaces it. Each clamped value is a pair the metric records as maximally
+dissimilar rather than actively opposed — a floor effect on `ILSC_mean` that
+belongs in Threats to Validity, not a rounding detail.
+
+
+---
+
+## D-21 · E[ILSC_rand(n)] is estimated from random pairs, not from 1,000 n-sets per size
+
+**Decision.** The null-model expectation is estimated by Monte Carlo over random
+operation **pairs**, and the per-size n-set draws the proposal specifies are run
+as a **verification of flatness** rather than as the estimator.
+
+**Why the substitution is exact, not an approximation.** ILSC_mean of a drawn set
+is the mean over its C(n,2) pairs. When the set is drawn at random from a pool,
+those pairs are exchangeable, so
+
+    E[ILSC_mean(random n-set)] = E[Sim(Oa, Ob)] for a single random pair,
+
+for every n. The quantity the normalisation needs is therefore **constant in n**.
+Estimating it by drawing n-sets is an unbiased but extravagant way of estimating
+the mean of one random pair.
+
+**What it saves.** Following the proposal literally over sizes 3..200 at 1,000
+draws each costs roughly 1.3 x 10^9 pair evaluations. The pair estimator reaches
+a smaller standard error with a few hundred thousand.
+
+**We still run the specified procedure.** `src/null_models.py --verify-sizes`
+does the full 1,000-draw computation at a grid of sizes and prints the spread of
+E[ILSC_rand(n)] across them. If the curve is not flat the exchangeability
+argument is wrong for this corpus and the run says so rather than proceeding.
+The check is cheap because it runs at seven sizes, not two hundred.
+
+**A consequence worth reporting.** If E[ILSC_rand] does not depend on n, then
+
+    ILSC_norm = (ILSC_mean - E) / (1 - E)
+
+is an **affine rescaling of ILSC_mean with constant coefficients**. It therefore
+cannot reorder services, and every rank-based result in the paper - Gate 1,
+Exp. 5's Kendall's W, the quartile thresholds' ordering - is identical whether
+computed on ILSC_mean or ILSC_norm. ILSC_norm remains worth reporting because it
+puts the score on an interpretable scale ("how far above chance"), but it must
+not be presented as independent evidence.
+
+**Same-service pairs are excluded from the draw.** A bag of operations assembled
+by chance would rarely contain two operations from one service; leaving such
+pairs in would import exactly the within-service coherence the null exists to be
+free of. Pairs landing in the same service are resampled.
+
+---
+
+## D-22 · Train Ticket entity extraction: global vocabulary, import scoping, one delegation hop
+
+**Decision.** `src/entity_extract.py` derives endpoint entity sets from the Java
+sources under three rules, each forced by something found in the code:
+
+1. **The entity vocabulary is global.** Train Ticket keeps its domain model in
+   `ts-common/edu/fudan/common/entity/` (43 types); most services declare no
+   entity package at all. A per-service vocabulary returned an empty set for
+   **52% of endpoints**. The vocabulary is the union of `ts-common` and every
+   service-local entity package, 79 types.
+2. **A type counts only for a file that imports it.** A global vocabulary would
+   otherwise let a name from an unrelated service match by coincidence. A
+   wildcard `import ...entity.*` admits the whole shared module - the author's
+   own statement of scope.
+3. **One delegation hop, controller into the service layer.** Deeper tracing on
+   34 services produces more false positives than it removes false negatives.
+   The cost of stopping at one hop is what the manual sample measures.
+
+**A blocklist may not override an entity package.** The generic-name exclusion
+list (the mirror of GENERIC_SCHEMAS) contained `Config`, which is the actual
+domain entity of `ts-config-service`; applying it emptied every one of that
+service's endpoints. Where the author has placed a class in an entity package,
+that designation wins.
+
+**The bug that mattered most, recorded because it was invisible.** Comments and
+string literals were originally stripped in two passes. On the ordinary line
+
+    return "http://" + serviceName;
+
+the comment pass saw the `//` *inside the string*, blanked to end of line and
+took the closing quote with it; the literal pass then matched from the next
+quote in the file and blanked everything up to it. **One line of ordinary Java
+silently erased the remainder of the file**, and with it every method body the
+delegation hop needed. Nothing failed loudly - the extractor simply returned
+smaller entity sets. Comments and literals are now recognised in a single pass.
+Unexplained empty sets fell from 27.3% to **5.9%** of spec-set endpoints on that
+fix alone.
+
+**Three further bugs, found by checking the join rather than the output.** The
+extraction "looked fine" after the lexer fix; testing whether its rows actually
+join to the specification operations is what exposed the rest.
+
+4. **A mapping annotation's argument list is optional.** The regex required
+   parentheses, so a bare `@PostMapping` - which maps a method onto the
+   class-level path, the idiomatic form for a collection root - matched nothing.
+   Four endpoints vanished silently, including `POST /api/v1/auth` and
+   `GET /api/v1/users`. Spec-to-code join rose **97.2% -> 99.1%**.
+5. **Repositories were not traced, only model classes.** Sec. 11 says to trace
+   "which repositories, which model classes"; matching entity *names* in a body
+   finds only the second. A Spring Data method such as
+   `if (repository.findById(id).isPresent()) repository.deleteById(id);` touches
+   its aggregate root without ever naming it - in `ts-train-service`, `TrainType`
+   appears only inside a log string, which the lexer correctly blanks. Resolving
+   each repository's generic parameter (`interface TrainRepository extends
+   CrudRepository<TrainType, String>`) and attributing it to any method that
+   references the repository field recovers them.
+6. **A misspelled package silently removed a service.** `ts-execute-service`
+   spells its package `serivce`; a delegation filter keyed on the `/service/`
+   directory skipped every body in it. The filter now also matches on class name.
+
+**Where it now stands** (209 endpoints across the 34 specified services):
+
+| | |
+|---|--:|
+| spec operations joined to a code row | **209 of 211 (99.1%)** |
+| empty entity set | 40 (19.1%) |
+| - of which `/welcome` or `/hello`, which return a `String` | 32 |
+| - of which in services with **no entity package and no repository** | **8** |
+| - genuinely unexplained | **0** |
+| mean entities per endpoint | 1.24 |
+
+The 8 are `ts-verification-code-service` (stateless captcha),
+`ts-execute-service`, `ts-cancel-service`, `ts-basic-service` and
+`ts-notification-service` - orchestrators that own no data and compose calls to
+other services. An empty entity set is the *correct* answer for them, not a
+failure, and each was confirmed by inspecting the module for an entity package
+and a repository.
+
+**The two unjoined operations are not Java.** `ts-avatar-service` is Python and
+`ts-news-service` is Go, so **Train Ticket is not the single-language system this
+decision originally assumed**. The extractor now lists every service that yields
+no endpoints together with its detected language, so the gap is visible rather
+than indistinguishable from "touches nothing". Those two need a manual pass
+before `rho_derived` is computed.
+
+**This number is not the accuracy.** It is the rate of *visibly* empty results.
+The accuracy is measured against an independent manual re-derivation
+(`--sample`, then `--score`) and must be reported with `rho_derived`. **F-03
+applies**: that sample must be taken from the Java sources, never from
+`docs/responsibilities.md` §2, which was itself written from the specifications.
+
+
+---
+
+## D-23 · The code-generator test also catches the *sanitised* form of a baked-in path
+
+**Decision.** `is_codegen_placeholder` additionally flags an `operationId` that
+carries an **HTTP-verb prefix together with a doubled or trailing separator** -
+`get_reference_files__channel_code__locale_code`,
+`GET--version-addresses--address---format-`, `delete_products__code_`.
+
+**Why the original pattern missed them.** D-08's test looks for `/`, `{` and `}`
+in the id: the *unsanitised* form of "the path is baked into the name". Many
+generators sanitise that punctuation into the separator instead, producing the
+same artefact with the same lack of information, in a form the regex could not
+see. This is a gap in the pattern, not a change of definition.
+
+**Both conditions are required.** A verb prefix alone would flag **7,316 ids
+(8.45%)**, including plainly hand-writable ones like `get_endpoints` and
+`get_assets`. Requiring the doubled or trailing separator as well narrows it to
+**241 ids (0.28%)**, every inspected one of which reproduces a URL template.
+
+**How it was found, stated because provenance matters.** It surfaced while
+diagnosing a MARGINAL Gate 1 (D-24): Yunbi, a *mixed* candidate, was scoring an
+f2 of 0.418 because all 22 of its operations share the tokens `version` and
+`format` from `GET--version-...---format-`. The proposal explicitly authorises
+fixing tokenisation on a weak Gate 1 ("suspect tokenization first... Fix now,
+never after the big run"), so acting on it is sanctioned - but a change found by
+looking at the gate's own data has to be justified independently of whether it
+helps, and this one is: the ids are generator output by the definition D-08
+already adopted.
+
+**It did not, in fact, rescue the gate.** Cliff's delta was +0.680 before the fix
+and +0.680 after; Yunbi moved from 0.4243 to 0.4288. That is worth recording as
+evidence the change was not fitted to the test.
+
+**Consequence for Day 3, measured after regenerating.** `f2_codegen` is the
+*primary* f2 definition, so the published availability figures move.
+`src/pair_availability.py` was re-run and every Day 3 artifact regenerated
+(`pair_availability*.csv`, `pair_maskfire_distribution.csv`, Fig 2). The movement
+is real but small, and in the conservative direction — masking more operations
+raises mask-fire and lowers f2 co-availability:
+
+| statistic | before | after | move |
+|---|--:|--:|--:|
+| mask-fire, micro | 90.583 | 90.587 | +0.004 |
+| mask-fire, macro | 49.518 | 49.624 | +0.106 |
+| f2 co-availability, macro | 83.493 | 83.013 | **−0.480** |
+| f2 co-availability, macro, S1 | 84.633 | 83.871 | −0.762 |
+
+No figure in the paper changes at the precision it is quoted. The largest move,
+0.76 points on S1's f2 co-availability, is worth knowing but not worth a caveat.
+
+---
+
+## D-24 · Gate 1 is MARGINAL, the weights are NOT changed, and C1 is the reason
+
+**Outcome.** With the pinned 1/6 weights and tau = 0.50:
+
+| | cohesive | mixed |
+|---|--:|--:|
+| mean ILSC_mean | 0.4545 | 0.3486 |
+| min / max | 0.2923 | 0.4288 |
+
+Cliff's delta **+0.680**, exact one-sided p **0.0675**, **no clean separation**.
+Verdict **MARGINAL** (`results/gate1_verdict.csv`).
+
+**The verdict rests on exactly one service.** Every cohesive candidate outscores
+every mixed candidate except **C1, Xero Payroll AU (0.2923)**. Remove C1 and the
+remaining 4-versus-5 split is **perfect - Cliff's delta +1.000**.
+
+**C1 is not a tokenisation failure.** Its tokens are clean and correct:
+`employees`, `leave applications`, `pay items`, `pay runs`, `payroll calendars`,
+`payslip`, `superfunds`, `settings`. The service covers roughly ten *distinct
+resources* inside one business capability, and the lexical overlap between
+`employees` and `superfunds` is genuinely zero. Its f2 is 0.059 and its f3 is
+0.093 because those features are measuring something real and finding it absent.
+It is also the corpus's worst case for documentation: descriptions exist on 5 of
+29 operations, so f6 is available on **2% of pairs** and the mask leaves the
+score resting on f1 and f5 alone.
+
+**No weight scheme rescues it - and the proposal's suggested remedy makes things
+worse.** Cliff's delta over the ten candidates:
+
+| weights | delta, all ten | delta, C1 excluded | clean split without C1 |
+|---|--:|--:|---|
+| **equal 1/6 (pinned)** | **+0.680** | **+1.000** | **YES** |
+| proposal's "upweight path+schema" | +0.600 | +0.900 | no |
+| semantic-heavy (f1, f5, f6) | +0.200 | +0.400 | no |
+| f1 alone | +0.680 | +1.000 | YES |
+| lexical only (f2, f3, f4) | +0.760 | +1.000 | YES |
+
+Upweighting path and schema - the fix Sec. 10 names - **lowers** delta from
++0.680 to +0.600 and destroys the clean split that survives without C1. The
+semantic-heavy scheme lifts C1 to 0.3547 but lifts the mixed group to 0.4565,
+making separation worse still. **The pinned weights are already at or near the
+best of the schemes tested, so they stay.** Tuning them on ten services would be
+fitting to the gate.
+
+**What C1 actually shows, and it belongs in the paper.** ILSC measures
+**resource-level** interface coherence. Xero Payroll AU is coherent at the level
+of *business capability* - it is all AU payroll, and Xero ships Files, Assets and
+BankFeeds as separate specifications - while being deliberately heterogeneous at
+the level of *resources*. The two notions of cohesion come apart, and this is the
+service where they do. That is a **construct-validity finding**, not a defect:
+the metric should be described as measuring resource-level cohesion, and C1
+reported as the case that makes the distinction visible.
+
+**Proceeding to Exp. 1 with the pinned weights, on the record.** The gate is not
+a PASS and is not being reported as one. What justifies proceeding is that the
+one discordant case is diagnosed, is not a metric error, and is not fixable by
+any weighting; the weight question goes to Exp. 5, which is designed to answer it
+over 2,206 services rather than ten. If Exp. 5 shows the rankings are unstable
+under reasonable weight variation, that is where it will show.

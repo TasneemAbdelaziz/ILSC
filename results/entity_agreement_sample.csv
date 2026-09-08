@@ -1,0 +1,11 @@
+service,method,path,evidence,entities_manual,entities_automated
+ts-basic-service,POST,/api/v1/basicservice/basic/travel,src/main/java/fdse/microservice/controller/BasicController.java,,Travel
+ts-admin-order-service,GET,/api/v1/adminorderservice/adminorder,src/main/java/adminorder/controller/AdminOrderController.java,,Order
+ts-notification-service,GET,/api/v1/notifyservice/test_send_mq,src/main/java/notification/controller/NotificationController.java,,
+ts-food-service,POST,/api/v1/foodservice/createOrderBatch,src/main/java/foodsearch/controller/FoodController.java,,Delivery|FoodOrder
+ts-food-delivery-service,GET,/api/v1/fooddeliveryservice/orders/all,src/main/java/food_delivery/controller/FoodDeliveryController.java,,FoodDeliveryOrder
+ts-cancel-service,GET,/api/v1/cancelservice/cancel/refound/{orderId},src/main/java/cancel/controller/CancelController.java,,
+ts-auth-service,POST,/api/v1/users/login,src/main/java/auth/controller/UserController.java,,User
+ts-assurance-service,GET,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},src/main/java/assurance/controller/AssuranceController.java,,Assurance
+ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/query,src/main/java/other/controller/OrderOtherController.java,,Order|QueryInfo
+ts-execute-service,GET,/api/v1/executeservice/execute/collected/{orderId},src/main/java/execute/controller/ExecuteControlller.java,,

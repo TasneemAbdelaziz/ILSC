@@ -18,12 +18,16 @@ steps in `README.md` §2.
 | Day 3 — **pair co-availability (RQ2)** | [`src/pair_availability.py`](src/pair_availability.py) | ✅ complete | **mask matters for 68.4% of services**; micro 90.6% but see the caveat |
 | Day 1–2 — **parser + feature extraction** | [`src/parse_spec.py`](src/parse_spec.py) | ✅ complete | 2,206 services, 97,912 operations, 0 skipped |
 | Day 4 prep — Gate 1 candidates | [`src/gate1_select.py`](src/gate1_select.py) | ✅ complete | ten services picked, [`docs/gate1_expectations.md`](docs/gate1_expectations.md) |
-| Day 3 — similarity engine + mask | — | ⏳ pending | next on the metric track |
-| Day 4 — Gate 1 run | — | ⏳ pending | needs `ILSC_mean` from the engine |
+| Day 1m — **similarity engine + mask** | [`src/embed.py`](src/embed.py), [`src/similarity.py`](src/similarity.py) | ✅ complete | 89,852 T + 54,701 description vectors; 17/17 unit tests, incl. the R2 regression |
+| Day 3m — null models (D-18, D-21) | [`src/null_models.py`](src/null_models.py) | ✅ complete | E[ILSC_rand] **0.1011** global vs **0.2370** provider-restricted; flat in n |
+| Day 4m — **GATE 1** | [`src/gate1_run.py`](src/gate1_run.py) | ⚠ **MARGINAL** | delta +0.680; one discordant service (C1), weights NOT changed (D-24) |
+| Day 5m — **Exp. 1 big run** | [`src/ilsc.py`](src/ilsc.py) | ✅ complete | 2,206 services; ILSC_mean median **0.436** primary; thresholds incl. S1-only |
+| Day 6m — inter-feature correlation (Fig 9) | [`src/feature_corr.py`](src/feature_corr.py) | ✅ complete | max |rho| **0.582** — no feature pair is redundant |
 | D2 → oversized cap (D-17) | [`src/oversized.py`](src/oversized.py) | ✅ complete | cap 200; **mask-fire 56.87% primary vs 90.58% full**; quartiles move ≤3.2 |
 | Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
-| Day 7 — perturbation (provider proximity) | — | ⏳ pending | see D-05 |
-| Day 8–11 — code dig | — | ⏳ pending | — |
+| Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
+| Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
+| Day 7e — Train Ticket extraction | [`src/entity_extract.py`](src/entity_extract.py) | ✅ complete | 209/211 operations joined (99.1%); 0 unexplained empties (D-22); agreement figure still owed |
 
 Reproducibility pins (`config.py`): `SEED = 42`; RAMA commit
 `5b0b2a3322d3b2b7c0e0f2c0c0ad0e524e67bf82`; APIs.guru commit
@@ -417,6 +421,268 @@ were not re-derived.
 **Not yet included.** ILSC scores do not exist — the similarity engine is
 pending — so no ILSC quartile thresholds appear above. D-17 fixes the
 **protocol**; the ILSC thresholds must be derived under it once the engine lands.
+
+---
+
+## Day 1–3 (metric track) — The similarity engine
+
+`src/embed.py` + `src/similarity.py` + `src/ilsc.py`. Everything below reads one
+embedding cache, built once: **89,852 unique `T` vectors** (of 97,912 operations)
+and **54,701 unique description vectors** (of 71,493 operations that have one;
+26,419 have none). `python src/embed.py --verify` re-checks the cache against
+`parsed/` without re-embedding and confirms all 2,206 services align.
+
+**Unit tests: 17/17 pass** ([`src/test_similarity.py`](src/test_similarity.py)),
+including the one that matters most — **R2**: deleting one operation's description
+leaves f1 bit-identical (0.662798 both ways) while `m_f6` flips 1 → 0 and `Sim`
+still computes. This test fails on the v2 design and is the reason R2 exists.
+
+Three engine-level judgements are recorded rather than buried: **D-19** (a
+present-but-empty token set is *unavailable*, not zero), **D-20** (cosine clamped
+to [0,1]), and **D-23** (the code-generator test extended to the sanitised form of
+a baked-in path).
+
+---
+
+## Day 3 (metric) — Null models  (D-18, D-21)
+
+[`src/null_models.py`](src/null_models.py) → [`results/null_model.csv`](results/null_model.csv),
+[`results/null_model_bysize.csv`](results/null_model_bysize.csv)
+
+**D-18 is validated, not merely assumed.** The provider-restricted null is
+genuinely the harder bar:
+
+| null model | E[ILSC_rand] |
+|---|--:|
+| global (arbitrary bag of API operations) | **0.1011** (SE 0.0001, 400,000 pairs) |
+| provider-restricted, median over 97 estimable providers | **0.2370** |
+| provider-restricted, range | 0.0931 – 0.6109 |
+
+**96 of 97 providers sit above the global expectation.** The gap between the two
+normalisations — 0.101 against 0.237 — is itself the reportable finding Sec. 6
+asks for: a service must clear a much higher bar to look coherent *relative to its
+own provider* than relative to the corpus at large.
+
+480 of 577 providers fall back to the global expectation, marked in the output:
+either fewer than 50 operations, or (103 of them) **every operation inside a
+single service**, which leaves no cross-service pair to draw. A null estimated
+from nothing is not an estimate.
+
+**E[ILSC_rand(n)] is flat in n, exactly as D-21 predicts.** Full 1,000-draw
+computation at seven sizes:
+
+| n | 3 | 5 | 10 | 25 | 50 | 100 | 200 |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| E | 0.0996 | 0.1016 | 0.1015 | 0.1012 | 0.1016 | 0.1014 | 0.1012 |
+| sd over draws | 0.0370 | 0.0274 | 0.0157 | 0.0091 | 0.0060 | 0.0042 | 0.0029 |
+
+Spread across all sizes: **0.00203**. The pair-sample estimator gives 0.10111.
+**Consequence:** `ILSC_norm` is an affine rescaling of `ILSC_mean` with constant
+coefficients, so it cannot reorder services — every rank-based result is identical
+on either, and `ILSC_norm` must not be presented as independent evidence.
+
+---
+
+## Day 4 — GATE 1: **MARGINAL**
+
+[`src/gate1_run.py`](src/gate1_run.py) → [`results/sanity_check.csv`](results/sanity_check.csv),
+[`results/gate1_verdict.csv`](results/gate1_verdict.csv)
+
+| | cohesive | mixed |
+|---|--:|--:|
+| mean ILSC_mean | 0.4545 | 0.3486 |
+| min (cohesive) / max (mixed) | 0.2923 | 0.4288 |
+
+Cliff's delta **+0.680**, exact one-sided p **0.0675** over 252 label assignments,
+**no clean separation**.
+
+**The verdict turns on one service.** Every cohesive candidate outscores every
+mixed candidate except **C1, Xero Payroll AU (0.2923)**. Exclude C1 and the
+remaining split is **perfect (delta +1.000)**.
+
+C1 is diagnosed, not hand-waved: its tokens are clean (`employees`,
+`leave applications`, `pay runs`, `payroll calendars`, `superfunds`), and it
+covers ~10 *distinct resources* inside one *business capability*. Lexical overlap
+between `employees` and `superfunds` is genuinely zero, so f2 = 0.059 and
+f3 = 0.093 are correct measurements of a real absence. Descriptions exist on 5 of
+29 operations, leaving f6 available on **2% of pairs**.
+
+**The weights were NOT changed, and the proposal's own remedy is worse.**
+
+| weights | delta (all 10) | delta (C1 excluded) |
+|---|--:|--:|
+| **equal 1/6 (pinned)** | **+0.680** | **+1.000** |
+| "upweight path+schema" (Sec. 10's suggestion) | +0.600 | +0.900 |
+| semantic-heavy (f1, f5, f6) | +0.200 | +0.400 |
+| lexical only (f2, f3, f4) | +0.760 | +1.000 |
+
+No scheme rescues C1. See **D-24** — this is read as a **construct-validity
+finding** (ILSC measures *resource-level*, not *capability-level*, cohesion), and
+the weight question is left to Exp. 5, which answers it over 2,206 services rather
+than ten.
+
+---
+
+## Day 5 — Experiment 1, the big run
+
+`python src/ilsc.py --null results/null_model.csv` →
+[`results/ilsc_scores.csv`](results/ilsc_scores.csv),
+[`results/ilsc_thresholds.csv`](results/ilsc_thresholds.csv). 2,206 services in 51 s.
+
+| | PRIMARY (≤ 200 ops) | SENSITIVITY (full) |
+|---|--:|--:|
+| services | 2,136 | 2,206 |
+| ILSC_mean, mean | 0.4341 | 0.4288 |
+| ILSC_mean, Q1 / median / Q3 | 0.339 / **0.436** / 0.515 | 0.332 / 0.430 / 0.512 |
+| ILSC_τ (τ = 0.50), mean | 0.3453 | 0.3370 |
+
+**D-17's prediction holds.** The cap moved pair-weighted co-availability by up to
+50 points; it moves `ILSC_mean`'s median by **0.006**. `ILSC_mean` is a per-service
+statistic, and D-17 established that per-service statistics are robust to the cap.
+The two populations are reported side by side regardless.
+
+**Quartile thresholds** — the S1-only row is the one comparable with Bogner
+(Sec. 7); the pooled figures are not, because S2 is a different population.
+
+| population | n | Q1 | median | Q3 |
+|---|--:|--:|--:|--:|
+| primary, all | 2,136 | 0.3394 | 0.4358 | 0.5149 |
+| **primary, S1 only** | 991 | **0.3635** | **0.4636** | **0.5395** |
+| primary, S2 only | 1,145 | 0.3225 | 0.4149 | 0.4941 |
+| sensitivity, all | 2,206 | 0.3315 | 0.4300 | 0.5120 |
+| sensitivity, S1 only | 1,014 | 0.3555 | 0.4603 | 0.5377 |
+
+**S1 scores consistently higher than S2** — about 0.05 at every quartile. RAMA's
+corpus is not a neutral sample of APIs.guru; the provenance column earns its keep,
+and any threshold quoted in the paper must say which population produced it.
+
+Component counts are omitted for the 2 services above 2,000 operations (both
+already `oversized`, so the primary analysis is unaffected).
+
+**An unplanned face-validity check, worth more than it cost.** `ILSC_mean` spans
+0.1248 – 0.8866 over the corpus, and **the single lowest-scoring service of all
+2,206 is NeutrinoAPI (0.1248)** — which is M1, the Gate 1 candidate Tasneem picked
+as *mixed* on the strength of its author declaring six unrelated domains (Data
+Tools, E-commerce, Geolocation, Imaging, Security and Networking, Telephony). The
+label was written before any score existed and the corpus ranking was computed
+without reference to it. The top of the distribution is equally readable: small,
+single-purpose APIs (import.io at 4 operations, 0.8866; Proxy API at 5, 0.8741).
+
+**No service scores below chance.** `ILSC_norm_global` is positive for all 2,206,
+which is expected given E[ILSC_rand] = 0.1011 against a corpus minimum of 0.1248,
+but it is worth stating that the unclipped negative case Sec. 6 allows for did not
+arise. `ILSC_norm_provider` is filled for 2,162; the remaining 44 belong to
+providers with no estimable pool (D-18) and are left blank rather than defaulted.
+
+---
+
+## Day 6 — Inter-feature correlation (Fig 9)
+
+[`src/feature_corr.py`](src/feature_corr.py) → [`results/feature_correlation.csv`](results/feature_correlation.csv),
+`figures/fig9_feature_correlation.pdf`. 930,936 pairs sampled across 2,136 services,
+capped per service so no single specification dominates; pairwise-complete, so a
+masked feature is absent rather than zero.
+
+Spearman ρ:
+
+| | f2 | f3 | f4 | f5 | f6 |
+|---|--:|--:|--:|--:|--:|
+| **f1** | 0.582 | 0.575 | 0.499 | 0.314 | 0.420 |
+| **f2** | | 0.345 | 0.244 | 0.137 | 0.316 |
+| **f3** | | | 0.404 | 0.242 | 0.280 |
+| **f4** | | | | 0.193 | 0.142 |
+| **f5** | | | | | 0.219 |
+
+**No feature pair reaches |ρ| ≥ 0.85** — the maximum is f1–f2 at **0.582**. The
+six features are not redundant, and the equal 1/6 weighting is not concealing a
+duplicated signal. This is the empirical answer to "why six features if they
+measure the same thing?".
+
+f1 correlates most with everything, which is expected: `T(Oi)` is built from the
+name, path, parameters and schemas, so f1 is a dense summary of what f2–f5 measure
+discretely. f5 is the most independent of the lexical features (ρ ≤ 0.27 against
+f2, f3 and f4), which is what justifies keeping it on a different similarity
+function.
+
+Feature availability over sampled pairs: f1 100%, f3 98.9%, f4 83.3%, f2 80.4%,
+f6 77.1%, f5 73.5%.
+
+---
+
+## Day 7 — Experiment 2, perturbation  (D-05)
+
+[`src/inject.py`](src/inject.py) → [`results/perturbation_raw.csv`](results/perturbation_raw.csv)
+(3,000 rows), [`results/perturbation_summary.csv`](results/perturbation_summary.csv),
+`figures/fig3_perturbation.pdf`. 20 top-quartile services, at most 3 per provider,
+levels 0/1/2/3/5 × 10 draws × 3 conditions.
+
+**Monotonicity: 20 of 20 services perfectly monotonic** under the treatment.
+
+**The contrast — the headline is the gap, not the drop:**
+
+| condition (increasing semantic distance) | mean degradation slope per injected operation |
+|---|--:|
+| `same_service` (nearest sibling, same provider) | −0.04046 |
+| `same_provider` | −0.06628 |
+| **`cross_provider` (treatment)** | **−0.09779** |
+
+The three slopes **order exactly as semantic distance predicts**, which is a direct
+validation of D-05's provider-proximity proxy: the proxy does not merely label, it
+graduates.
+
+Paired slope gap (`cross_provider` − `same_provider`): mean **−0.0315**, median
+−0.0268, **negative for 20 of 20 services**, exact sign-flip p **< 1 × 10⁻⁶** over
+all 2²⁰ assignments.
+
+**H2 contrast: POSITIVE.** The size-matched control is what makes this
+non-tautological — injecting *anything* lowers a mean-similarity score, but
+injecting something semantically further away lowers it measurably faster.
+
+---
+
+## Days 3–7 (empirical) — The code dig
+
+**Sock Shop, by hand.** [`results/endpoint_entities.csv`](results/endpoint_entities.csv):
+27 endpoints, one row each, every row carrying a `file:line` reference. Rules and
+the excluded-type list are in [`docs/responsibilities.md`](docs/responsibilities.md) §4.
+
+**Train Ticket, automated** (D-22). [`src/entity_extract.py`](src/entity_extract.py)
+→ [`results/endpoint_entities_trainticket.csv`](results/endpoint_entities_trainticket.csv):
+**209 of the 211 spec operations join to a code row (99.1%)**. Empty entity sets
+19.1%: 32 are `/welcome` or `/hello` endpoints that genuinely return a `String`,
+and the other 8 are in services with **no entity package and no repository** —
+stateless orchestrators that own no data, for which an empty set is the correct
+answer. **Genuinely unexplained: 0.**
+
+The two unjoined operations belong to `ts-avatar-service` (Python) and
+`ts-news-service` (Go): Train Ticket is not a single-language system, and those
+two need a manual pass. The extractor now names every service it cannot read,
+with its detected language, so the gap cannot be mistaken for an empty result.
+
+**The finding that matters, and it is a problem — see F-04:**
+
+| | Sock Shop (`ρ_independent`) | Train Ticket (`ρ_derived`) |
+|---|--:|--:|
+| services with pairs | 4 | 32 |
+| **services with any code-side variance** | **2** | **27** |
+| within-service pairs | 122 | 794 |
+| **distinct `Sim_code` values** | **5** | **12** |
+| share of pairs at exactly 1.0 | 23.8% | 39.1% |
+
+`carts` (10 pairs) and `orders` (1 pair) are **constant** — every endpoint touches
+the same entity set, correctly — so they cannot contribute to a within-service
+correlation at all. `ρ_independent` is therefore close to a single-service result
+on `user`, against a five-level ordinal variable with heavy ties. The condition
+the paper would most like to lean on is the weaker of the two, and the condition
+quarantined for circularity (D-16) is the better-powered one. This must be stated
+in the paper rather than discovered at review.
+
+**Neither reliability figure exists yet.** Both sample sheets are written and
+blank: [`results/sockshop_reliability_sample.csv`](results/sockshop_reliability_sample.csv)
+and `src/entity_extract.py --sample 10`. A second pass by the same reader measures
+memory, not reliability, so these need someone who did not do the first pass —
+about an hour each. **F-03** additionally requires that the Train Ticket sample be
+taken from the Java sources, never from `docs/responsibilities.md` §2.
 
 ---
 

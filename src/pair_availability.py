@@ -90,6 +90,15 @@ def is_codegen_placeholder(opid):
         return True
     if re.search(r"_\d+$", s):                          # 'fooUsingGET_1' disambig
         return True
+    # D-23: the SANITISED form of "path baked into the id". The tests above catch
+    # generators that leave '/' and '{}' in place; others replace that punctuation
+    # with the separator, giving 'get_reference_files__channel_code__locale_code'
+    # or 'GET--version-addresses--address---format-'. Same artefact, same reason
+    # to mask f2. The signature is an HTTP verb prefix TOGETHER WITH a doubled or
+    # trailing separator - both are required, because a verb prefix alone would
+    # wrongly flag 7,316 plausibly hand-written ids like 'get_endpoints'.
+    if re.match(r"^" + HTTP_VERB_RE + r"[^A-Za-z0-9]", ls) and re.search(r"__|--|[_-]$", s):
+        return True
     return False
 
 

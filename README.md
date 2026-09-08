@@ -220,13 +220,19 @@ Day-by-day schedule with owners, gates and decision deadlines:
 [`docs/PLAN.md`](docs/PLAN.md). The one item everything else waits on is the
 similarity engine (`embed.py`, `similarity.py`, the mask).
 
-- [ ] Resolve D1, D2, D3 and D-14
+- [x] ~~D2~~ resolved (D-17) · ~~D3~~ resolved (D-18) · ~~D-14~~ position stated
+- [ ] **D1 still open** — provider cap · **F-02 still open** — `norm_host()`
 - [x] Day 1–2 — multi-source curation (S1 + S2), conversion, provenance
 - [x] Day 3 — field-availability and pair co-availability studies
 - [x] Day 1–2 (metric) — parser, tokenizer, path normaliser, T(Oi) without description
 - [x] Day 4 prep — ten hand-picked services (`docs/gate1_expectations.md`)
-- [ ] Day 3 (metric) — embeddings, six similarity functions, availability mask
-- [ ] Day 4 — run Gate 1 against those ten (`sanity_check.csv`)
-- [ ] Day 5 — benchmark preparation, add Train Ticket
-- [ ] Day 7 — perturbation, three-level provider-proximity design
-- [ ] Day 8–11 — the code dig
+- [x] Day 3 (metric) — embeddings, six similarity functions, availability mask
+- [x] Day 3 (metric) — null models, global + provider-restricted (D-18, D-21)
+- [x] Day 4 — **Gate 1 run — MARGINAL** (`sanity_check.csv`, D-24)
+- [x] Day 5 — benchmark preparation, add Train Ticket
+- [x] Day 5 — **Exp. 1 big run**, 2,206 services + quartile thresholds
+- [x] Day 6 — inter-feature correlation, Fig 9 (max |rho| 0.582)
+- [x] Day 7 — **Exp. 2 perturbation**, three-level provider proximity — H2 POSITIVE
+- [x] Day 8–11 — the code dig (Sock Shop by hand, Train Ticket automated)
+- [ ] **Two reliability figures owed** — blank sample sheets are written (F-03)
+- [ ] Exp. 3 (rho), Exp. 4 (baselines), Exp. 5 (weights, tau)

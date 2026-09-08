@@ -101,3 +101,116 @@ and 20 services are double-counted in any per-service (macro) statistic.
 **Not urgent for the pair-weighted numbers** — the cap already neutralises the
 only group that mattered — but it does affect the headline corpus count, which
 appears in the paper.
+
+
+---
+
+## F-03 · Train Ticket's responsibility one-pagers are derived from the specs, not the wiki — **owner: Tasneem (empirical lead)**
+
+Raised 2026-09-08 by the empirical track, against its own work.
+
+**What happened.** `docs/responsibilities.md` §2 describes all 34 Train Ticket
+services. The plan called for those descriptions to come from the FudanSELab
+*Service Guide and API Reference*. That wiki was not retrieved, so the entries
+were written from the OpenAPI surface instead — paths, operation names and
+schema names.
+
+**Why that is not a cosmetic difference.** Exp. 3 correlates the interface
+against the code. A "ground truth" restated *from the interface* is not
+independent of one side of that correlation. Using these entries to guide the
+Train Ticket entity extraction would let interface structure leak into the
+code-side variable and inflate `rho_derived` — the exact circularity **D-16**
+admits Train Ticket in order to *measure*, not to import.
+
+**Where it is and is not safe to use.** Safe for orientation, for grouping
+services in the Exp. 2 domain design, and for the paper's system description.
+**Not safe** as the reference for the Day 7-8 entity extraction.
+
+**What is needed, before Day 7.** Either retrieve the FudanSELab Service Guide,
+or rewrite §2 from the Java sources. The second is the more defensible of the
+two and is roughly a day; it can be folded into the Day 7 extraction pass, since
+that pass has to read the same sources anyway.
+
+**Sock Shop is unaffected** — §1 was written from the repositories themselves.
+
+---
+
+## F-04 · Sock Shop's code side has almost no variance — `rho_independent` may not be estimable — **owner: both**
+
+Raised 2026-09-08 by the empirical track on completing the Sock Shop dig
+(`results/endpoint_entities.csv`, 27 endpoints, 122 within-service pairs).
+
+**What was found.** Across all 122 pairs the code-side Jaccard takes **five
+distinct values** — 0.000, 0.333, 0.500, 0.667, 1.000 — and 23.8% of pairs sit
+at exactly 1.000.
+
+| service | ops | pairs | distinct Sim_code values | range |
+|---|--:|--:|--:|---|
+| user | 15 | 105 | 5 | 0.000 - 1.000 |
+| catalogue | 4 | 6 | 2 | 0.500 - 1.000 |
+| **carts** | 5 | **10** | **1** | **constant at 1.000** |
+| **orders** | 2 | **1** | **1** | **constant at 1.000** |
+| payment | 1 | 0 | - | contributes nothing (D-07 leaves one operation) |
+
+**Why `carts` and `orders` are constant.** Both are genuinely single-aggregate
+services. Every `carts` endpoint resolves the cart and its `@DBRef` items, so
+all five touch `{Cart, Item}`. Both `orders` endpoints touch `CustomerOrder` and
+the five types it embeds. This is a correct extraction, not a lazy one — the
+services really are that uniform.
+
+**Why it matters.** A variable that is constant within a service contributes
+nothing to a within-service correlation, and eleven of the 122 pairs are in that
+position. What is left is `user` (105 pairs over five values) and `catalogue`
+(6 pairs over two). **`rho_independent` is therefore close to a single-service
+result on `user`, computed against a five-level ordinal variable with heavy
+ties.** Spearman's rho on five levels with 24% of the mass at one of them has
+wide confidence intervals whatever the interface side does, and Gate 2's
+threshold (rho < 0.4 triggers diagnosis) was not written with that in mind.
+
+**This compounds D-16.** D-16 already established that the independent-spec
+condition rests on Sock Shop alone. F-04 narrows it further: within Sock Shop it
+rests mostly on one service.
+
+**What to decide, and when.**
+
+1. **Report a confidence interval, not a point estimate, for `rho_independent`,
+   and state the tie structure.** Cheap, and it should happen regardless.
+2. **Consider a finer-grained code-side variable** — for example weighting
+   entities by how often the endpoint touches them, or counting distinct
+   repository calls rather than distinct types — which would break some ties.
+   This is a change to the extraction rule and must be decided *before* the
+   Train Ticket pass so both systems are extracted the same way. **Due Day 6.**
+3. **Do not quietly rescue rho by pooling Sock Shop with Train Ticket.** D-16
+   forbids it and F-04 is not a reason to reopen that.
+
+**The upside, stated plainly.** Train Ticket's 34 services and 794 pairs cover
+far more entity diversity than Sock Shop can. F-04 raises the value of
+`rho_derived` as evidence at the same time as it lowers the value of
+`rho_independent` — which makes F-03 (getting the Train Ticket extraction right,
+and independent of the interface) the more urgent of the two flags.
+
+### F-04 update, 2026-09-08 — Train Ticket measured, and it is the stronger side
+
+The Day 7 automated pass (D-22) now gives the comparison F-04 could only predict:
+
+| | Sock Shop (`rho_independent`) | Train Ticket (`rho_derived`) |
+|---|--:|--:|
+| services with pairs | 4 | 32 |
+| **services with any code-side variance** | **2** | **27** |
+| within-service pairs | 122 | 794 |
+| distinct `Sim_code` values | **5** | **12** |
+| share of pairs at exactly 1.0 | 23.8% | 39.1% |
+
+**The imbalance is now quantified and it is large.** The condition the paper
+would most like to lean on - hand-written, code-independent specifications - has
+five distinct values over two services. The condition that must be quarantined
+for circularity (D-16) has twelve over twenty-seven. Train Ticket still carries
+heavy ties (39% at 1.0, 28% at 0.0), so neither side supports a Pearson
+correlation without comment; both should be reported as Spearman with the tie
+structure stated.
+
+**This does not license pooling.** D-16's quarantine stands. What it changes is
+the framing: `rho_independent` should be presented as a *small-sample check on a
+single system*, and the distance between the two coefficients - the
+derivation-inflation estimate D-16 argues for - carries the weight, with the
+asymmetry in precision stated plainly rather than left for a reviewer to notice.

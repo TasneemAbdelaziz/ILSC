@@ -13,3 +13,12 @@ matplotlib==3.8.2
 # the tool named in the proposal. It is a Node package, not a Python one:
 #     npm install            (see package.json, pinned to 7.0.8)
 # Only src/convert.py needs it; every other script is pure Python.
+
+# --- Metric track, Day 1 onward (src/embed.py, similarity.py, ilsc.py) ------
+# The engine was written after this file was first pinned, so these were in use
+# but unpinned - a fresh clone could have silently installed a different SBERT
+# revision and produced different f1/f6 vectors from identical inputs.
+numpy==2.2.1
+scipy==1.17.1                 # sparse token-set intersections in similarity.py
+sentence-transformers==5.6.0  # all-MiniLM-L6-v2, pinned in config.EMBEDDING_MODEL
+torch==2.11.0                 # CPU build is sufficient; no GPU path is used

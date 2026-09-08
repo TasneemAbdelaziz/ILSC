@@ -1,6 +1,7 @@
 """
 ILSC - one-command reproduction of everything completed so far: the empirical
-track through Day 3, and the metric track through Day 1-2 (the parser).
+track through Day 3 plus benchmark prep and the D-17 cap, and the metric track
+through Day 7 (engine, null models, Gate 1, Exp. 1, Fig 9, perturbation).
 
     python run_all.py
 
@@ -35,7 +36,32 @@ STEPS = [
     ("Day 1-2m parser + feature extraction",   [sys.executable, "-u", "src/parse_spec.py"]),
     ("Day 1-2m parser spot-check",             [sys.executable, "-u", "src/parse_spec.py",
                                                 "--spotcheck", "5"]),
+    # --- D-17 and the benchmark corpus. Previously missing from this file, so a
+    #     fresh clone reproduced neither the primary/sensitivity split nor the
+    #     benchmark systems (docs/PLAN.md 5).
+    ("D-17     oversized cap + thresholds",    [sys.executable, "-u", "src/oversized.py"]),
+    ("Day 5    benchmark prep (+ Train Ticket)", [sys.executable, "-u", "src/benchmark_prep.py"]),
+    # --- metric track, Days 1-7 -----------------------------------------------
+    ("Day 1m   embedding cache (f1 + f6)",     [sys.executable, "-u", "src/embed.py"]),
+    ("Day 1m   embedding cache verify",        [sys.executable, "-u", "src/embed.py", "--verify"]),
+    ("Day 1m   similarity engine self-test",   [sys.executable, "-u", "src/similarity.py",
+                                                "--selftest"]),
+    ("Day 2m   unit tests (incl. R2)",         [sys.executable, "-u", "src/test_similarity.py"]),
+    ("Day 2m   mask/clamp audit (D-19, D-20)", [sys.executable, "-u", "src/similarity.py",
+                                                "--audit"]),
+    ("Day 3m   null models (D-18, D-21)",      [sys.executable, "-u", "src/null_models.py"]),
+    ("Day 4m   ILSC over the corpus",          [sys.executable, "-u", "src/ilsc.py",
+                                                "--null", "results/null_model.csv"]),
+    ("Day 4m   GATE 1",                        [sys.executable, "-u", "src/gate1_run.py"]),
+    ("Day 6m   feature correlation + Fig 9",   [sys.executable, "-u", "src/feature_corr.py"]),
+    ("Day 7m   perturbation + Fig 3",          [sys.executable, "-u", "src/inject.py"]),
 ]
+
+# Not run here because they need a checkout this repository does not vendor.
+# Documented so the omission is visible rather than silent:
+#   src/entity_extract.py --src <FudanSELab/train-ticket>   (Day 7, empirical)
+# results/endpoint_entities.csv (Sock Shop) is a MANUAL artifact and is
+# committed, not regenerated - see docs/responsibilities.md.
 
 
 def main():
