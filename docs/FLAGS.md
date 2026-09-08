@@ -43,3 +43,54 @@ as they are.
 
 **Related:** D-13 (the tie-break that surfaced this), and the standing caveat at
 the top of `RESULTS.md`.
+
+---
+
+## F-02 · Near-duplicate survivors escape the dedup key — **owner: Mohamed (metric lead)**
+
+Raised 2026-09-07 by the empirical track. **Quantified, not fixed** — `norm_host()`
+and the dedup key are D-09/D-13, so the change is the metric lead's call.
+
+**What was found.** 20 `(title, version_field, n_operations)` triples occur more
+than once in `results/manifest.csv`. Same API, same declared version, same
+operation count — surviving twice because the hosts differ.
+
+| Measure | Value | Share |
+|---|--:|--:|
+| duplicate triples | 20 | — |
+| services involved | 40 | — |
+| **redundant services** (Σ k−1) | **20** | 0.91% of 2,206 |
+| operations added | 1,113 | 1.14% |
+| **pairs added** | **362,256** | 0.47% |
+
+**Why they escape.** The key is `(title, normalised host)`, and `norm_host()`
+reduces to a bare netloc — correctly refusing to merge two genuinely different
+hostnames. But the same API is routinely published under a prefix or sibling
+subdomain: `github.com` vs `api.github.com`; `ofmpub.epa.gov` vs
+`echodata.epa.gov`; `api.sportsdata.io` vs `azure-api.sportsdata.io`. **15 of the
+20 groups differ only by host prefix or a sibling subdomain of the same
+registrable domain.**
+
+**Two distinct gaps.**
+
+- **19 groups are cross-source (S1+S2)** — the residual D-09 gap: RAMA and
+  APIs.guru publish the same API under different hostnames, so cross-source
+  dedup never fires. All small: **5,666 pairs** between them.
+- **1 group is within-source (both S2): GitHub v3 REST API**, `github.com` vs
+  `api.github.com`, both v1.1.4, both 845 operations — a D-13 gap. It alone
+  contributes **356,590 pairs, 98.4% of all duplicate-added pairs.**
+
+**Interaction with D-17 (the ≤ 200 cap).** GitHub is 845 operations and is
+therefore excluded as `oversized`. After the cap, duplicate contamination in the
+primary corpus is **5,666 of 1,828,978 pairs = 0.31%**, over 19 redundant
+services of 2,136 (0.89%). D-17's thresholds are consequently **not** materially
+affected and were not re-derived.
+
+**The decision needed.** Whether `norm_host()` should collapse a leading
+`api.`/`www.` (or sibling subdomains) to the registrable domain for the dedup
+key. Cost of leaving it: the corpus-size claim of 2,206 services is ~0.9% high,
+and 20 services are double-counted in any per-service (macro) statistic.
+
+**Not urgent for the pair-weighted numbers** — the cap already neutralises the
+only group that mattered — but it does affect the headline corpus count, which
+appears in the paper.
