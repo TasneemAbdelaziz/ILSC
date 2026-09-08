@@ -1,12 +1,12 @@
 metric,value
 verdict,PASS
 n_pairs,16
-mean_delta,0.102535
-median_delta,0.110473
+mean_delta,0.104713
+median_delta,0.114669
 positive_pairs,14
 n_nonzero,16
 rank_biserial,0.750000
 wilcoxon_p_one_sided,0.00056169
 sign_test_p_one_sided,0.00209045
-mixed_min_tags,6
-min_operations,3
+mixed_min_tags,5
+min_operations,5

@@ -45,8 +45,11 @@ receives an identical score, so it cannot rank the middle of the distribution at
 all. `SIDC` correlates with ILSC at ρ = **+0.138** (p = 1.8e−10) — the two are close
 to unrelated, so SIDC is not a noisy version of ILSC, it measures something else.
 
-**This is the defensible superiority claim, and it is about discriminating power
-rather than sensitivity.** See §2 for the claim we do *not* have.
+**Spread is description, not validity.** ILSC is a mean of six continuous
+similarities and the baselines are proportions over pair counts, so a wider spread
+shows ILSC is more *continuous*. The claim that survives is in §2b: on an external
+ground truth, ILSC **predicts code-level relatedness better than both baselines on
+hand-written specifications**. See §2 for the claim we do *not* have.
 
 ### Gap 3 — No unified static metric for OpenAPI
 
@@ -90,8 +93,27 @@ that cannot rank unperturbed services but moves when foreign operations arrive i
 distinction and should be argued on its own terms.
 
 **Positioning, stated as the evidence supports it:** ILSC's demonstrated
-advantage over these baselines is that it *discriminates among real services*,
-where they saturate. It is not that it responds more sharply to injection.
+advantage is not perturbation sensitivity. It is §2b.
+
+### 2b. The claim Experiment 4b *does* support
+
+Against the code dig's entity overlap — an external ground truth neither metric
+saw — which better predicts that two operations are related? Both baselines are
+decomposed to the pair predicate their definition counts; AUC is used because two
+of the three predictors are binary.
+
+| specification origin | **ILSC** | SIDC | LoCmsg |
+|---|--:|--:|--:|
+| hand-written (Sock Shop) | **0.794** [0.767, 0.825] | 0.574 | 0.651 |
+| generated (Train Ticket) | 0.739 | 0.917 | **0.953** |
+
+**On hand-written specifications ILSC wins with separated intervals.** On
+generated specifications the lexical baselines win, because **81%** of such a
+specification's schema vocabulary is the code's own type vocabulary (15% for
+hand-written): a name-matching metric there reads the code through a wrapper.
+Provenance does not merely inflate an interface-versus-code correlation — it
+**inverts which metric looks best**. Train Ticket is a standard benchmark whose
+specifications are code-derived, so this is a reusable warning for the field.
 
 ---
 

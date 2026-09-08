@@ -37,10 +37,16 @@ inflation that specification–code derivation introduces. Service rankings are
 robust to the weighting (Kendall's *W* = **0.99** across ±40% perturbations) and
 to the threshold.
 
-Compared with SIDC and LoCmsg, ILSC's advantage is **discriminating power**: it
-assigns a perfect score to **0.0%** of the corpus where they saturate on 35.8%
-and 77.0%, and LoCmsg's interquartile range is exactly zero. It does **not**
-degrade more sharply than LoCmsg under perturbation, and we report that. We also
+Against SIDC and LoCmsg on an external ground truth — code-level entity overlap
+— ILSC is the better predictor of operation relatedness on **hand-written**
+specifications (AUC **0.79** against 0.57 and 0.65, confidence intervals
+separated). On specifications **generated from source** the lexical baselines
+win instead, and we show why: 81% of a generated specification's schema
+vocabulary is the code's own type vocabulary, so matching names there is reading
+the code through a wrapper. Specification provenance does not merely inflate an
+interface-versus-code correlation; it **inverts which metric appears best**. ILSC
+does **not** degrade more sharply than LoCmsg under perturbation, and we report
+that. We also
 find that ILSC measures *resource-level* rather than *capability-level* cohesion —
 a service spanning one business capability through many unrelated resources
 scores low — and that services from the three largest cloud providers, **48%** of
@@ -116,9 +122,13 @@ We report the interval rather than the point estimate, and read the result as
 *complementary signal* rather than *validated proxy*.
 
 **Three findings run against the metric and are reported as such.** *(i)* The
-ten-service sanity gate **fails** (Cliff's δ +0.200): its candidates turn out to
-be confounded with provider, and an earlier apparent separation was substantially
-an artifact of authentication boilerplate that we then removed from the metric.
+original ten-service sanity gate **fails** (Cliff's δ +0.200): its candidates
+turn out to be confounded with provider, and an earlier apparent separation was
+substantially an artifact of authentication boilerplate that we then removed from
+the metric. Re-run with provider held constant — sixteen publishers each
+contributing one single-capability and one many-capability service — the gate
+**passes** (14 of 16, p = 0.002), robustly across eleven of twelve label
+boundaries; the failure was the sample.
 *(ii)* ILSC measures resource-level cohesion, so a payroll service spanning ten
 unrelated resources scores below services we labelled incohesive — no weighting
 fixes this, and the sensitivity analysis shows why. *(iii)* ILSC does not

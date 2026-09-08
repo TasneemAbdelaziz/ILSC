@@ -60,7 +60,14 @@ STEPS = [
     ("Exp 3    benchmark convert+parse+embed",  [sys.executable, "-u", "src/bench_prepare.py"]),
     ("Exp 3    GATE 2 - code correlation",      [sys.executable, "-u", "src/code_correlation.py"]),
     ("Exp 4    SIDC + LoCmsg baselines + Fig 7", [sys.executable, "-u", "src/baselines.py"]),
+    ("Exp 4b   ground-truth head-to-head + Fig 8 (D-28)",
+                                                [sys.executable, "-u", "src/baseline_correlation.py"]),
     ("Exp 5    weight + tau sensitivity + Fig 6", [sys.executable, "-u", "src/sensitivity.py"]),
+    # --- D-25 / D-27 / D-29 --------------------------------------------------
+    ("D-25     provider cap sensitivity",        [sys.executable, "-u", "src/provider_cap.py"]),
+    ("D-29     Gate 1, provider-matched + Fig 10", [sys.executable, "-u", "src/gate1_matched.py"]),
+    ("D-29     Gate 1 matched, threshold grid",  [sys.executable, "-u", "src/gate1_matched.py",
+                                                "--grid"]),
 ]
 
 # Deliberately NOT in STEPS: src/version_tokens_sweep.py (Exp. 5's third knob,

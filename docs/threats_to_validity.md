@@ -38,12 +38,16 @@ Two lines of evidence say this is a construct property rather than a defect:
   **0.9949**; no reasonable reweighting moves any ranking, so no reweighting
   could have moved C1.
 
-**The gate failed, and the reason is partly a selection defect (D-27).** Before
-D-26 removed the f4 boilerplate inflation this gate read MARGINAL. The exclusion
-moved the cohesive candidates — three of five are hyperscalers — and left four of
-five mixed ones untouched, so part of the earlier separation was ILSC separating
-*providers*. The candidate set must be re-selected with provider held constant
-before the gate can bear a pass/fail reading; D-27 records the remedies.
+**The original gate failed, and the reason is a selection defect (D-27).** Before
+D-26 removed the f4 boilerplate inflation it read MARGINAL. The exclusion moved
+the cohesive candidates — three of five are hyperscalers — and left four of five
+mixed ones untouched, so part of the earlier separation was ILSC separating
+*providers*. **Re-run with provider held constant, it passes (D-29):** sixteen
+publishers each contributing one single-capability and one many-capability
+service, 14 of 16 in the predicted direction, p = 0.002, and 11 of 12 label
+boundaries agree. The residual threat is the label itself — an author's tag
+count is chosen for independence from the metric, not for fidelity to what a
+practitioner means by cohesion — and sixteen providers is a modest sample.
 
 **The corpus-scale face-validity check is independent of all that, and stronger:** the lowest-scoring service among all 2,206 is **NeutrinoAPI**, which is
 the Gate 1 candidate labelled *mixed* on the strength of its author declaring six

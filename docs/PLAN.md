@@ -13,14 +13,16 @@ writing, four specific debts, and two open decisions.**
 
 | | Result | Artifact |
 |---|---|---|
-| **Gate 1** | ❌ **FAIL** — δ +0.200 after D-26; candidate set confounded with provider (D-27) | `results/gate1_verdict.csv` |
+| **Gate 1** (original ten) | ❌ **FAIL** — δ +0.200 after D-26; sample confounded with provider (D-27) | `results/gate1_verdict.csv` |
+| **Gate 1** (provider-matched) | ✅ **PASS** — 14/16 providers, +0.105, p 0.002; 11/12 grid cells (D-29) | `results/gate1_matched*.csv` |
 | **Exp. 1** corpus run | ✅ 2,206 services; ILSC_mean median **0.366** (primary) | `results/ilsc_scores.csv`, `ilsc_thresholds.csv` |
 | **Exp. 2** perturbation | ✅ **H2 POSITIVE** — 20/20 monotonic, p < 1e-6 | `results/perturbation_*.csv`, Fig 3 |
 | **Exp. 3 / Gate 2** | ✅ **PASS, reframed** — ρ_ind **0.409**, ρ_der **0.486** | `results/code_correlation_*.csv`, Figs 4–5 |
-| **Exp. 4** baselines | ◐ **Half supported** — beats SIDC, not LoCmsg | `results/baselines_*.csv`, Fig 7 |
+| **Exp. 4** baselines | ◐ **Half supported** — beats SIDC, not LoCmsg on the perturbation gap | `results/baselines_*.csv`, Fig 7 |
+| **Exp. 4b** ground truth | ✅ **ILSC wins on hand-written specs** — AUC 0.794 vs 0.574/0.651, CI-separated; provenance inverts it (D-28) | `results/baseline_correlation.csv`, Fig 8 |
 | **Exp. 5** sensitivity | ✅ **H3 HOLDS** — Kendall's W **0.9949** | `results/kendalls_w.csv`, `tau_sweep.csv`, Fig 6 |
 
-42 result CSVs, 8 figures, 24 decisions, 4 flags. `python run_all.py` reproduces
+50 result CSVs, 10 figures, 29 decisions, 5 flags. `python run_all.py` reproduces
 every one of them from the two pinned corpus commits.
 
 ---
@@ -44,7 +46,7 @@ operations joined (99.1%)**, 0 unexplained empty entity sets.
 
 **All five experiments**, above.
 
-**The decision record.** D-01 … D-24 in `DECISIONS.md`, F-01 … F-04 in
+**The decision record.** D-01 … D-29 in `DECISIONS.md`, F-01 … F-05 in
 `FLAGS.md`, and `docs/discordance.md`. Several of these are paper material in
 their own right — the two rejected labelling approaches (D-03, D-04) especially,
 because a rejection with a number attached is a methodological result.

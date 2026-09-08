@@ -1397,3 +1397,105 @@ and it belongs in the paper as one.
 - **The comparison is at the pair level.** Both baselines are published as
   service-level metrics; their pair predicates are the correct decomposition, but
   a reader should be told that is what was compared.
+
+
+---
+
+## D-29 · Gate 1 re-run as a provider-matched paired design: PASS, and robust to the label boundary
+
+**What was done.** D-27 diagnosed the original Gate 1's failure as a *sample*
+defect — three of five cohesive candidates were hyperscalers, none of the mixed
+were — and recommended re-selecting with provider held constant. `src/gate1_matched.py`
+does exactly that. For every provider that publishes **both** a single-capability
+and a many-capability service, one of each is taken and compared **within the
+provider**, so house style, documentation conventions, authentication boilerplate
+and specification generator are identical on both sides of every comparison.
+
+**The label is the same non-circular criterion the original shortlist used** —
+the count of distinct OpenAPI `tags` the author attached to their own operations
+(`n_tags == 1` versus `n_tags >= 5`). It is the one structural signal that is not
+an ILSC feature; selecting on paths, names, parameters or schemas and then
+testing whether ILSC separates the result would pass by construction.
+
+**Which member of each side is taken is decided without looking at the score**:
+the service with the most operations, ties broken by filename.
+
+### Result — primary cell, fixed in advance at `tags >= 5, ops >= 5`
+
+| | |
+|---|--:|
+| providers publishing both kinds | **16** |
+| mean ILSC, single-capability | 0.4257 |
+| mean ILSC, many-capability | 0.3210 |
+| mean within-provider difference | **+0.1047** |
+| median difference | +0.1147 |
+| positive differences | **14 of 16 (87.5%)** |
+| rank-biserial (paired) | +0.750 |
+| Wilcoxon signed-rank, one-sided | p = **0.00056** |
+| exact sign test, one-sided | p = **0.0021** |
+
+**Verdict: PASS.** With provider held constant, single-capability services score
+above many-capability services *from the same publisher*. The original gate's
+failure is therefore attributable to its sample, not to the metric — which D-27
+predicted and could not show.
+
+### Robustness — the whole grid, not the best cell
+
+Reporting the best of several label boundaries would be fishing, so every cell
+is reported:
+
+| `tags >=` | `ops >=` | pairs | mean Δ | positive | sign p | |
+|--:|--:|--:|--:|--:|--:|---|
+| 3 | 3 | 20 | +0.117 | 18/20 | 0.0002 | PASS |
+| 3 | 5 | 17 | +0.104 | 15/17 | 0.0012 | PASS |
+| 3 | 10 | 9 | +0.100 | 8/9 | 0.0195 | PASS |
+| 4 | 3 | 19 | +0.118 | 17/19 | 0.0004 | PASS |
+| 4 | 5 | 16 | +0.105 | 14/16 | 0.0021 | PASS |
+| 4 | 10 | 8 | +0.101 | 7/8 | 0.0352 | PASS |
+| **5** | **5** | **16** | **+0.105** | **14/16** | **0.0021** | **PASS** (primary) |
+| 5 | 3 | 19 | +0.118 | 17/19 | 0.0004 | PASS |
+| 5 | 10 | 8 | +0.101 | 7/8 | 0.0352 | PASS |
+| 6 | 3 | 16 | +0.103 | 14/16 | 0.0021 | PASS |
+| 6 | 5 | 15 | +0.101 | 13/15 | 0.0037 | PASS |
+| 6 | 10 | 7 | +0.093 | 6/7 | 0.0625 | FAIL |
+
+**11 of 12 cells pass.** The effect size is stable across every cell — a
+within-provider difference of **+0.093 to +0.118**, with **85.7–90.0%** of
+providers showing the single-capability service above the many-capability one.
+The single FAIL is the cell with n = 7, where 6 of 7 are positive and the sign
+test cannot reach 0.05 below n = 8 with one reversal; it is a power failure at
+that sample size, not a reversal of the effect.
+
+### The two reversals in the primary cell are informative
+
+| provider | single-capability | many-capability | Δ |
+|---|---|---|--:|
+| adyen.com | Fund API (0.285) | Management API (0.313) | −0.028 |
+| xero.com | **Xero Payroll AU** (0.206) | Accounting (0.222) | −0.016 |
+
+Xero Payroll AU is **C1** — the construct-validity case from D-24. It is single-
+capability by business purpose and lexically heterogeneous by resource, and it
+sits below its many-capability sibling here for the same reason it sat below the
+mixed candidates before. The matched design does not rescue it, and should not:
+D-24's reading survives intact.
+
+### What this is and is not — stated so the paper cannot overclaim
+
+**It is complementary to the original gate, not a replacement.** The original ten
+carried hand-written justifications citing each service's stated purpose. This
+design trades that label quality for confound control and a larger sample. **A
+human should validate a random sample of the mechanical labels**, and the paper
+must say whether that was done.
+
+**It is not a human validation study.** Nobody has rated the cohesion of these
+services. `n_tags` is a proxy chosen for its independence from the metric, not
+for its fidelity to what a practitioner means by cohesion. That gap — the one a
+Q1 reviewer will name first — remains open.
+
+**n = 16 is modest.** A paired design with p = 0.002 and a rank-biserial of
++0.75 is respectable, and the grid shows the result is not an artifact of the
+boundary. It is still sixteen providers.
+
+**D-27's four remedies are now three.** Provider blocking is done. Enlarging the
+sample, using a label source independent of specification structure, and
+treating the original ten-service gate as a diagnostic remain.

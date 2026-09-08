@@ -79,8 +79,22 @@ import gate1_select as g1s                       # noqa: E402
 import ilsc as ilsc_mod                          # noqa: E402
 
 
+TAG_CACHE = os.path.join(config.ROOT, ".cache", "author_tags.json")
+
+
 def load_tags(specs_dir, manifest, limit=None):
-    """clean_file -> number of distinct author tags."""
+    """clean_file -> number of distinct author tags, cached.
+
+    Reading 2,206 specifications takes about a minute, and the sensitivity grid
+    needs the same numbers a dozen times over. The cache is keyed on nothing but
+    the corpus, which is pinned, so it is safe to reuse; delete it to rebuild.
+    """
+    if os.path.exists(TAG_CACHE) and not limit:
+        with open(TAG_CACHE, encoding="utf-8") as fh:
+            cached = json.load(fh)
+        if set(cached) >= set(manifest):
+            return {k: v for k, v in cached.items() if k in manifest}
+
     out = {}
     files = sorted(manifest)
     if limit:
@@ -95,6 +109,10 @@ def load_tags(specs_dir, manifest, limit=None):
         if spec is None:
             continue
         out[clean] = len(g1s.op_tags(spec))
+    if not limit:
+        os.makedirs(os.path.dirname(TAG_CACHE), exist_ok=True)
+        with open(TAG_CACHE, "w", encoding="utf-8") as fh:
+            json.dump(out, fh)
     return out
 
 
@@ -294,7 +312,8 @@ def figure(pairs, d):
                  color=fs.INK_SECONDARY)
     ax1.grid()
 
-    ax2.hist(d, bins=24, color=c1, alpha=0.85)
+    # bins sized to the sample: 24 bins over 16 values is a barcode, not a histogram
+    ax2.hist(d, bins=max(5, min(12, len(d) // 2)), color=c1, alpha=0.85)
     ax2.axvline(0, color=fs.INK_MUTED, linewidth=1.0, linestyle=":")
     ax2.set_xlabel("within-provider difference in ILSC")
     ax2.set_ylabel("providers")
@@ -306,6 +325,68 @@ def figure(pairs, d):
     print("wrote %s" % p)
 
 
+def grid(args):
+    """Sweep both labelling thresholds and print every cell.
+
+    Reporting the best of several thresholds would be fishing. The grid is run
+    and reported whole, so a reader can see whether the result depends on where
+    the label boundary was drawn. Its own primary cell is fixed in advance at
+    `--mixed-min-tags 5 --min-operations 5`.
+    """
+    with open(args.scores, newline="", encoding="utf-8") as fh:
+        scores = {}
+        for r in csv.DictReader(fh):
+            if r["ILSC_mean"] in ("", "nan"):
+                continue
+            if str(r.get("oversized", "0")) not in ("0", "", "False", "false"):
+                continue
+            scores[r["clean_file"]] = {
+                "title": r["title"], "provider": r["provider"], "source": r["source"],
+                "n_operations": int(r["n_operations"]),
+                "ILSC_mean": float(r["ILSC_mean"])}
+    tags = load_tags(args.specs_dir, scores)
+    rng = np.random.default_rng(config.SEED)
+
+    rows = []
+    print("\n%-10s %-9s %7s %10s %12s %11s %8s"
+          % ("tags>=", "ops>=", "pairs", "mean d", "positive", "sign p", "verdict"))
+    for mt in [int(x) for x in args.grid_tags.split(",")]:
+        for mo in [int(x) for x in args.grid_ops.split(",")]:
+            a = argparse.Namespace(**vars(args))
+            a.mixed_min_tags, a.min_operations = mt, mo
+            pr = build_pairs(scores, tags, a, rng)
+            if len(pr) < 3:
+                continue
+            d = np.array([x["delta"] for x in pr])
+            p_s, k, n = sign_test(d)
+            ok = "PASS" if (p_s < 0.05 and d.mean() > 0) else "FAIL"
+            print("%-10d %-9d %7d %+10.4f %8d/%-3d %11.5f %8s"
+                  % (mt, mo, len(pr), d.mean(), k, n, p_s, ok))
+            rows.append({"mixed_min_tags": mt, "min_operations": mo,
+                         "n_pairs": len(pr), "mean_delta": round(float(d.mean()), 6),
+                         "positive": k, "n_nonzero": n,
+                         "sign_p_one_sided": round(p_s, 8), "verdict": ok})
+
+    out = os.path.join(config.RESULTS_DIR, "gate1_matched_grid.csv")
+    with open(out, "w", newline="", encoding="utf-8") as fh:
+        w = csv.DictWriter(fh, fieldnames=list(rows[0]))
+        w.writeheader()
+        for r in rows:
+            w.writerow(r)
+    n_pass = sum(1 for r in rows if r["verdict"] == "PASS")
+    deltas = [r["mean_delta"] for r in rows]
+    print("\n  %d of %d cells PASS." % (n_pass, len(rows)))
+    print("  mean within-provider difference across all cells: %+.4f to %+.4f"
+          % (min(deltas), max(deltas)))
+    fails = [r for r in rows if r["verdict"] == "FAIL"]
+    for r in fails:
+        print("  the FAIL at tags>=%d ops>=%d has n=%d (%d/%d positive, p=%.4f):"
+              % (r["mixed_min_tags"], r["min_operations"], r["n_pairs"],
+                 r["positive"], r["n_nonzero"], r["sign_p_one_sided"]))
+        print("    a power failure at that sample size, not a reversal of the effect.")
+    print("\nwrote %s" % out)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description="Gate 1, provider-matched (D-27).")
     ap.add_argument("--scores", default=os.path.join(config.RESULTS_DIR, "ilsc_scores.csv"))
@@ -313,7 +394,13 @@ def main(argv=None):
     ap.add_argument("--mixed-min-tags", type=int, default=5)
     ap.add_argument("--min-operations", type=int, default=5)
     ap.add_argument("--limit", type=int, default=None)
+    ap.add_argument("--grid", action="store_true",
+                    help="sweep both thresholds and report every cell")
+    ap.add_argument("--grid-tags", default="3,4,5,6")
+    ap.add_argument("--grid-ops", default="3,5,10")
     args = ap.parse_args(argv)
+    if args.grid:
+        return grid(args)
     run(args)
 
 

@@ -215,8 +215,13 @@ provider**: hyperscalers publish narrowly-scoped single-capability specification
 as house style, which is exactly the criterion the cohesive label used. A
 meaningful part of the earlier separation was ILSC separating providers.
 
-**Xero Payroll AU** remains the lowest cohesive candidate at 0.2058, and the
-reading of that case is unchanged:
+**Re-run with provider held constant the gate passes (D-29):** 14 of 16 publishers
+rank their single-capability service above their many-capability one, p = 0.002,
+stable across 11 of 12 label boundaries. The failure was the sample.
+
+**Xero Payroll AU** remains the lowest cohesive candidate at 0.2058 — and one of
+the two reversals in the matched design — and the reading of that case is
+unchanged:
 
 Its tokens are correct. It covers roughly ten distinct resources inside one
 business capability, and the lexical overlap between `employees` and `superfunds`

@@ -28,6 +28,8 @@ steps in `README.md` §2.
 | Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
 | Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
 | **D1 resolved / F-05** | [`src/provider_cap.py`](src/provider_cap.py), [`src/param_boilerplate.py`](src/param_boilerplate.py) | ⚠ **limitation** | thresholds move up to **0.049** under a cap; hyperscalers +0.134; f4 boilerplate closes 46.6%% of it |
+| **Gate 1, provider-matched** | [`src/gate1_matched.py`](src/gate1_matched.py) | ✅ **PASS** | 14/16 providers, +0.105, p 0.002; 11/12 grid cells pass (D-29) |
+| **Exp. 4b** ground-truth head-to-head | [`src/baseline_correlation.py`](src/baseline_correlation.py) | ✅ complete | ILSC AUC **0.794** vs 0.574/0.651 on hand-written specs; loses on generated (D-28) |
 | Days 9-10 — **Exp. 4** baselines | [`src/baselines.py`](src/baselines.py) | ✅ complete | ILSC 0%% saturated vs SIDC 35.8%%, LoCmsg 77.0%%; perturbation claim only half supported |
 | Days 13-14 — **Exp. 5** sensitivity | [`src/sensitivity.py`](src/sensitivity.py) | ✅ complete | **Kendall W 0.9949**; rankings invariant to weights |
 | Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.409**, rho_derived **0.486**; inflation +0.054 |
@@ -1040,6 +1042,104 @@ services it favours is the move this study refuses elsewhere — `Sim_code`'s
 exact-name matching is left in place for exactly the same reason
 (`docs/discordance.md` §3). F-05 records the evidence; Sec. 6 owns the rule, and
 the decision is due before the metric definition is written up.
+
+---
+
+## Gate 1, re-run provider-matched — **PASS**, and robust to the label boundary
+
+[`src/gate1_matched.py`](src/gate1_matched.py) → [`results/gate1_matched.csv`](results/gate1_matched.csv),
+[`results/gate1_matched_verdict.csv`](results/gate1_matched_verdict.csv),
+[`results/gate1_matched_grid.csv`](results/gate1_matched_grid.csv), Fig 10.
+
+D-27 diagnosed the original gate's failure as a *sample* defect — three of five
+cohesive candidates were hyperscalers and none of the mixed were — and this is the
+remedy it recommended. For every provider that publishes **both** a
+single-capability and a many-capability service, one of each is compared **within
+the provider**, so house style, boilerplate and specification generator are
+identical on both sides of every pair. The label is the same non-circular criterion
+as before — the author's own `tags` count — and which member of each side is taken
+is decided by operation count, without looking at any score.
+
+| primary cell (`tags ≥ 5`, `ops ≥ 5`, fixed in advance) | |
+|---|--:|
+| providers publishing both kinds | **16** |
+| mean ILSC, single- vs many-capability | 0.4257 vs 0.3210 |
+| mean within-provider difference | **+0.1047** |
+| positive differences | **14 of 16** |
+| rank-biserial (paired) | +0.750 |
+| Wilcoxon signed-rank / exact sign test, one-sided | p = **0.00056** / **0.0021** |
+
+**With provider held constant, single-capability services score above
+many-capability services from the same publisher.** The original failure was the
+sample, not the metric — which D-27 predicted and could not show.
+
+**Every label boundary is reported, not the best one.** Across a 4 × 3 grid of
+thresholds, **11 of 12 cells pass**; the within-provider difference is **+0.093 to
++0.118** throughout, with 86–90% of providers positive. The single FAIL is the
+n = 7 cell (6/7 positive, p = 0.0625) — a power failure below the sign test's
+reach, not a reversal.
+
+**The two reversals are informative.** One is **Xero Payroll AU — C1** — sitting
+below its Accounting sibling for the same reason it sat below the mixed
+candidates: single-capability by purpose, lexically heterogeneous by resource.
+D-24's construct-validity reading survives the matched design intact.
+
+**What this is not.** Not a human validation — `n_tags` is a proxy chosen for
+independence from the metric, not for fidelity to what a practitioner means by
+cohesion. Not a replacement for the original ten, whose labels carried
+hand-written justifications. Sixteen providers is modest. See **D-29**.
+
+---
+
+## Exp. 4b — a ground-truth head-to-head: provenance decides the winner
+
+[`src/baseline_correlation.py`](src/baseline_correlation.py) →
+[`results/baseline_correlation.csv`](results/baseline_correlation.csv), Fig 8.
+
+Exp. 4's fallback claim — discriminating power, 0% saturation against 35.8% and
+77.0% — is contestable: ILSC is a mean of six continuous similarities and the
+baselines are proportions over pair counts, so comparing their spreads shows ILSC
+is more *continuous*, not more *valid*. The test that settles it asks, **against
+the code dig's `Sim_code`, which metric better predicts that two operations are
+related?** Both baselines are decomposed to the pair predicate their published
+definition counts, on their own unfiltered inputs. **AUC is primary**: two of the
+three predictors are binary, and AUC compares a binary and a continuous predictor
+without advantaging either.
+
+| condition | **ILSC** | SIDC_pair | LoCmsg_pair |
+|---|--:|--:|--:|
+| **independent** — Sock Shop, hand-written | **0.794** [0.767, 0.825] | 0.574 | 0.651 |
+| **derived** — Train Ticket, generated | 0.739 [0.687, 0.802] | 0.917 | **0.953** |
+
+**On hand-written specifications ILSC wins outright**, its cluster-bootstrap
+interval clearing both baselines with no overlap. This is the superiority claim
+the paper lacked — better prediction of code-level relatedness on specifications a
+human wrote — and it replaces the interquartile-range argument, which should be
+demoted to description.
+
+**On generated specifications ILSC loses badly, and the reason is measurable:**
+
+| | spec schema names that are also code entity names |
+|---|--:|
+| Train Ticket (Springfox-generated) | **29 of 36 = 81%** |
+| Sock Shop (hand-written) | **3 of 20 = 15%** |
+
+In a generated specification the schema vocabulary very largely *is* the code's
+type vocabulary — Springfox transliterates the Java types into the contract — so a
+metric that matches schema names reads the code's identifiers through a thin
+wrapper, and its accuracy against a code-derived ground truth is near-tautological.
+Sock Shop's authors invented their own contract vocabulary (`Getcartresponse`,
+`CartItem`), and the lexical baselines collapse there.
+
+**This sharpens D-16 considerably.** Derivation does not merely inflate a
+coefficient by +0.078 — it **inverts the ranking of the metrics**. Evaluate
+interface-level metrics on generated specifications and the most superficial
+metric wins, as an artifact of provenance. Train Ticket is a standard benchmark
+whose specifications are code-derived; that is a reusable warning for the field,
+not only a fact about this study. See **D-28**.
+
+**Limits.** The winning condition is 122 pairs over 4 services with 20 unrelated
+pairs; the comparison is at the pair level.
 
 ---
 
