@@ -344,8 +344,17 @@ def _entities_via_repositories(text, fields, repo_map):
     return found
 
 
-def service_layer_bodies(svc_root, repo_map):
-    """method name -> list of (body, repository fields visible in its file)."""
+def service_layer_bodies(svc_root, repo_map, global_vocab=None, local_vocab=None):
+    """method name -> list of (body, repository fields, entity scope of its file).
+
+    The scope travels with the body. A controller often imports one entity while
+    the service it delegates to imports the whole shared module: `BasicController`
+    imports only `entity.Travel`, but `BasicServiceImpl` imports `entity.*` and
+    its body touches `TravelResult`, `TrainType` and `Route`. Scoping the appended
+    text by the *controller's* imports discarded all three. Each body is therefore
+    matched against the scope of the file it came from, unioned with the
+    controller's own.
+    """
     out = {}
     for path in java_files(svc_root):
         # Match on the class name as well as the package. `ts-execute-service`
@@ -362,18 +371,20 @@ def service_layer_bodies(svc_root, repo_map):
             continue
         src = strip_noise(raw)
         fields = _repo_fields(src, repo_map)
+        fscope = (in_scope(raw, global_vocab or set(), local_vocab or set())
+                  if global_vocab is not None else set())
         for m in re.finditer(r"\b(?:public|protected)\s+[\w<>\[\],\s.?]+\s+(\w+)\s*\(", src):
             body = _body_after(src, m.end())
             if body:
-                out.setdefault(m.group(1), []).append((body, fields))
+                out.setdefault(m.group(1), []).append((body, fields, fscope))
     return out
 
 
 def extract_service(svc_name, svc_root, global_vocab):
     local_vocab = entity_vocabulary(svc_root)
     repo_map = repository_map(svc_root)
-    svc_bodies = service_layer_bodies(svc_root, repo_map)
     vocab = set(global_vocab) | local_vocab
+    svc_bodies = service_layer_bodies(svc_root, repo_map, vocab, local_vocab)
     rows = []
 
     for path in java_files(svc_root):
@@ -401,13 +412,16 @@ def extract_service(svc_name, svc_root, global_vocab):
 
             text = sig + " " + body
             via_repo = _entities_via_repositories(body, ctrl_fields, repo_map)
-            # one delegation hop into the service layer
+            # one delegation hop into the service layer; each appended body
+            # carries its own import scope, unioned with the controller's
+            eff_scope = set(scope)
             for called in set(re.findall(r"\.(\w+)\s*\(", body)):
-                for b, fields in svc_bodies.get(called, []):
+                for b, fields, fscope in svc_bodies.get(called, []):
                     text += " " + b
+                    eff_scope |= fscope
                     via_repo |= _entities_via_repositories(b, fields, repo_map)
 
-            found = {v for v in scope
+            found = {v for v in eff_scope
                      if re.search(r"\b%s\b" % re.escape(v), text)}
             # An entity reached only through its repository is still touched.
             found |= (via_repo & vocab)
@@ -420,7 +434,7 @@ def extract_service(svc_name, svc_root, global_vocab):
                 "n_entities": len(found),
                 "extraction": "automated",
                 "evidence": os.path.relpath(path, svc_root).replace("\\", "/"),
-                "notes": "one-hop delegation; %d types in scope" % len(scope),
+                "notes": "one-hop delegation; %d types in scope" % len(eff_scope),
             })
     return rows, vocab
 
@@ -518,11 +532,19 @@ def write_sample(rows, k):
 
 
 def score(path):
-    """Jaccard agreement between the manual and automated sets."""
+    """Jaccard agreement between the manual and automated sets.
+
+    An endpoint whose correct answer is *no entities* must be scorable. Writing
+    it as a blank cell is indistinguishable from "not yet annotated", so the
+    convention is an explicit ``-``. Treating blanks as unannotated silently
+    dropped every genuinely-empty endpoint from the sample and biased the figure
+    toward the cases where the extractor had something to find.
+    """
     with open(path, newline="", encoding="utf-8") as fh:
         rows = [r for r in csv.DictReader(fh) if r["entities_manual"].strip()]
     if not rows:
-        sys.exit("no annotated rows in %s - fill entities_manual first" % path)
+        sys.exit("no annotated rows in %s - fill entities_manual first\n"
+                 "  (use '-' for an endpoint that genuinely touches no entity)" % path)
     js, exact = [], 0
     print("\n  %-30s %-28s %s" % ("endpoint", "manual", "automated"))
     for r in rows:
@@ -539,8 +561,19 @@ def score(path):
     print("  exact set agreement                : %d (%.0f%%)" % (exact, 100.0 * exact / n))
     print("  mean Jaccard agreement             : %.3f" % (sum(js) / n))
     print("  min                                : %.3f" % min(js))
+    n_empty = sum(1 for r in rows
+                  if not {x for x in r["entities_manual"].split("|")
+                          if x and x != "-"})
+    print("  of which the correct answer is 'no entities' : %d" % n_empty)
     print("\n  Report this figure with rho_derived. An extraction without an")
     print("  agreement number is a standard reviewer objection (proposal Sec. 11).")
+    print("\n  STATE WHAT THIS FIGURE IS. If the annotator could see the")
+    print("  entities_automated column while working, this is VERIFICATION of the")
+    print("  extractor against its sources: it reliably catches entities *claimed")
+    print("  but not present*, and is weaker at catching entities *present but")
+    print("  missed*. It is NOT a blind inter-annotator agreement figure, and")
+    print("  reporting it as one would overstate it. A blind figure needs the last")
+    print("  column hidden and a reader who did not build the extractor.")
 
 
 def main(argv=None):

@@ -94,7 +94,13 @@ TOKEN_STOPWORDS = {"get", "post", "api", "v1", "v2"}
 # reasoning applies to each: a version marker is not a domain term. This
 # generalises the pinned list to any ^v<digits>$ token. It is a knob, and the
 # f2/f3 sensitivity analysis should report it.
-DROP_VERSION_TOKENS = True
+#
+# Overridable from the environment so Exp. 5 can sweep it (D-15) without editing
+# this file. Sweeping it needs a full re-parse AND re-embed, because it changes
+# the tokenizer, therefore T(Oi), therefore the f1 vectors - it is not a
+# reweighting. See src/version_tokens_sweep.py.
+#     ILSC_DROP_VERSION_TOKENS=0 python src/parse_spec.py --out-dir parsed_nodrop
+DROP_VERSION_TOKENS = os.environ.get("ILSC_DROP_VERSION_TOKENS", "1") not in ("0", "false", "False")
 
 # f5: a schema on more than this share of a service's operations is
 # infrastructural rather than domain-bearing (Sec. 6). Applied per service, on

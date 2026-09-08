@@ -70,6 +70,8 @@ import matplotlib                                # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                  # noqa: E402
 
+import figstyle as fs                        # noqa: E402
+
 import config                                    # noqa: E402
 import embed as emb_mod                          # noqa: E402
 import similarity as sim                         # noqa: E402
@@ -84,6 +86,12 @@ ENTITY_FILES = {
     "sockshop": "endpoint_entities.csv",
     "trainticket": "endpoint_entities_trainticket.csv",
 }
+
+# Endpoints the automated pass cannot reach, dug out by hand and kept in a
+# separate file so re-running `src/entity_extract.py` cannot silently erase
+# them. Train Ticket is not a pure-Java system (D-22): `ts-avatar-service` is
+# Python and `ts-news-service` is Go. Rows here override the automated file.
+MANUAL_SUPPLEMENTS = ("endpoint_entities_trainticket_manual.csv",)
 
 # A pair is discordant when the two sides disagree strongly. These bounds only
 # select cases for written explanation; no result depends on them.
@@ -107,6 +115,19 @@ def load_entities():
             for r in csv.DictReader(fh):
                 key = (system, r["service"], r["method"].upper(), r["path"])
                 out[key] = {e for e in r["entities"].split("|") if e}
+
+    n_manual = 0
+    for fname in MANUAL_SUPPLEMENTS:
+        path = os.path.join(config.RESULTS_DIR, fname)
+        if not os.path.exists(path):
+            continue
+        with open(path, newline="", encoding="utf-8") as fh:
+            for r in csv.DictReader(fh):
+                key = (r["system"], r["service"], r["method"].upper(), r["path"])
+                out[key] = {e for e in r["entities"].split("|") if e}
+                n_manual += 1
+    if n_manual:
+        print("  %d endpoint(s) supplied by hand (non-Java services, D-22)" % n_manual)
     return out
 
 
@@ -382,7 +403,11 @@ def write_outputs(rows, summary, args):
 
 def figures(rows, summary):
     os.makedirs(config.FIGURES_DIR, exist_ok=True)
-    colours = {"sockshop": "#b2182b", "trainticket": "#2166ac"}
+    fs.use()
+    # One colour per SYSTEM, assigned by its fixed position in CONDITIONS, so a
+    # system wears the same hue in Fig 4 and Fig 5.
+    colours = {sysname: fs.series(i)[0] for i, (_c, sysname, _l) in enumerate(CONDITIONS)}
+    markers = {sysname: fs.series(i)[1] for i, (_c, sysname, _l) in enumerate(CONDITIONS)}
 
     fig, axes = plt.subplots(1, 2, figsize=(9.0, 3.9), sharey=True)
     for ax, (cond, system, label) in zip(axes, CONDITIONS):
@@ -394,8 +419,8 @@ def figures(rows, summary):
         y = np.array([r["sim_code"] for r in sub])
         # jitter y only, so tied code levels are visible as bands
         jitter = (np.random.default_rng(config.SEED).random(len(y)) - 0.5) * 0.035
-        ax.scatter(x, y + jitter, s=11, alpha=0.35, color=colours.get(system, "grey"),
-                   edgecolors="none")
+        ax.scatter(x, y + jitter, s=12, alpha=0.35, marker=markers.get(system, "o"),
+                   color=colours.get(system, fs.INK_MUTED), edgecolors="none")
         s = next((d for d in summary if d["condition"] == cond), None)
         if s:
             ax.set_title(r"$\rho_{%s}$ = %.3f   (n = %d pairs)"
@@ -403,14 +428,11 @@ def figures(rows, summary):
         ax.set_xlabel("interface similarity  Sim$(O_i,O_j)$")
         ax.set_xlim(-0.02, 1.02)
         ax.set_ylim(-0.08, 1.08)
-        ax.grid(alpha=0.25, linewidth=0.6)
+        ax.grid()
     axes[0].set_ylabel("code similarity  Jaccard(entities)")
     fig.suptitle("Interface vs code relatedness, by specification origin (D-16)",
                  fontsize=10)
-    fig.tight_layout()
-    p4 = os.path.join(config.FIGURES_DIR, "fig4_pair_scatter.pdf")
-    fig.savefig(p4, format="pdf", bbox_inches="tight")
-    plt.close(fig)
+    p4 = fs.finish(fig, os.path.join(config.FIGURES_DIR, "fig4_pair_scatter.pdf"))
     print("wrote %s" % p4)
 
     fig, ax = plt.subplots(figsize=(5.0, 3.9))
@@ -423,17 +445,15 @@ def figures(rows, summary):
             by.setdefault(r["service"], []).append(r)
         xs = [np.mean([r["sim_interface"] for r in v]) for v in by.values()]
         ys = [np.mean([r["sim_code"] for r in v]) for v in by.values()]
-        ax.scatter(xs, ys, s=34, alpha=0.8, color=colours.get(system, "grey"),
+        ax.scatter(xs, ys, s=36, alpha=0.85, marker=markers.get(system, "o"),
+                   color=colours.get(system, fs.INK_MUTED),
                    label="%s (n=%d services)" % (system, len(xs)))
     ax.set_xlabel("mean interface similarity")
     ax.set_ylabel("mean code similarity")
-    ax.set_title("Service level", fontsize=10)
-    ax.legend(fontsize=8, frameon=False)
-    ax.grid(alpha=0.25, linewidth=0.6)
-    fig.tight_layout()
-    p5 = os.path.join(config.FIGURES_DIR, "fig5_service_scatter.pdf")
-    fig.savefig(p5, format="pdf", bbox_inches="tight")
-    plt.close(fig)
+    ax.set_title("Service level")
+    ax.legend()
+    ax.grid()
+    p5 = fs.finish(fig, os.path.join(config.FIGURES_DIR, "fig5_service_scatter.pdf"))
     print("wrote %s" % p5)
 
 

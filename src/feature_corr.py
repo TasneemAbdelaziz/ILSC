@@ -55,6 +55,8 @@ import matplotlib                                # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                  # noqa: E402
 
+import figstyle as fs                        # noqa: E402
+
 import config                                    # noqa: E402
 import embed as emb_mod                          # noqa: E402
 import similarity as sim                         # noqa: E402
@@ -156,8 +158,9 @@ def matrices(V, M):
 
 
 def figure(S, N, path):
-    fig, ax = plt.subplots(figsize=(5.6, 4.9))
-    im = ax.imshow(S, cmap="RdBu_r", vmin=-1, vmax=1)
+    fs.use()
+    fig, ax = plt.subplots(figsize=(5.4, 4.7))
+    im = ax.imshow(S, cmap=fs.DIVERGING, vmin=-1, vmax=1)
     ax.set_xticks(range(sim.NF), sim.FEATURES)
     ax.set_yticks(range(sim.NF), sim.FEATURES)
     for a in range(sim.NF):
@@ -166,7 +169,7 @@ def figure(S, N, path):
                 continue
             strong = abs(S[a, b]) > 0.55
             ax.text(b, a, "%.2f" % S[a, b], ha="center", va="center", fontsize=8.5,
-                    color="white" if strong else "black",
+                    color="white" if strong else fs.INK,
                     fontweight="bold" if abs(S[a, b]) >= HIGH and a != b else "normal")
     ax.set_title("Inter-feature rank correlation over within-service pairs",
                  fontsize=9.5, pad=10)

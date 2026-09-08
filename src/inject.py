@@ -64,6 +64,8 @@ import matplotlib                                # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                  # noqa: E402
 
+import figstyle as fs                        # noqa: E402
+
 import config                                    # noqa: E402
 import pool as pool_mod                          # noqa: E402
 import similarity as sim                         # noqa: E402
@@ -316,31 +318,41 @@ def check(rows, out_path, fig_path):
     return summary
 
 
+CONDITION_LABEL = {
+    "same_service": "same-provider nearest sibling",
+    "same_provider": "same-provider (control)",
+    "cross_provider": "cross-provider (treatment)",
+}
+
+
+def condition_style(cond):
+    """Colour, marker and linestyle for a condition - assigned by its fixed
+    position in CONDITIONS, never by rank, so a condition wears the same colour
+    in Fig 3 and Fig 7."""
+    return fs.series(CONDITIONS.index(cond))
+
+
 def figure(summary, path):
+    fs.use()
     fig, ax = plt.subplots(figsize=(5.4, 3.8))
-    style = {"cross_provider": ("o-", "#b2182b", "cross-provider (treatment)"),
-             "same_provider": ("s--", "#2166ac", "same-provider (control)"),
-             "same_service": ("^:", "#4d9221", "same-provider nearest sibling")}
     for c in CONDITIONS:
-        mk, col, lab = style.get(c, ("o-", "black", c))
+        col, mk, ls = condition_style(c)
+        lab = CONDITION_LABEL.get(c, c)
         means, errs = [], []
         for lv in LEVELS:
             vals = [r["%s_L%d" % (c, lv)] for r in summary
                     if np.isfinite(r.get("%s_L%d" % (c, lv), np.nan))]
             means.append(np.mean(vals) if vals else np.nan)
             errs.append(np.std(vals, ddof=1) / np.sqrt(len(vals)) if len(vals) > 1 else 0.0)
-        ax.errorbar(LEVELS, means, yerr=errs, fmt=mk, color=col, label=lab,
-                    capsize=3, markersize=4.5, linewidth=1.4)
+        ax.errorbar(LEVELS, means, yerr=errs, marker=mk, linestyle=ls, color=col,
+                    label=lab, capsize=2.5)
     ax.set_xlabel("injected operations")
     ax.set_ylabel("ILSC$_{mean}$")
-    ax.set_title("Degradation under injection, by provider proximity (D-05)", fontsize=9.5)
+    ax.set_title("Degradation under injection, by provider proximity (D-05)")
     ax.set_xticks(LEVELS)
-    ax.legend(fontsize=8, frameon=False)
-    ax.grid(alpha=0.25, linewidth=0.6)
-    fig.tight_layout()
-    os.makedirs(os.path.dirname(path), exist_ok=True)
-    fig.savefig(path, format="pdf", bbox_inches="tight")
-    plt.close(fig)
+    ax.legend()
+    ax.grid(axis="y")
+    fs.finish(fig, path)
 
 
 def run(args):

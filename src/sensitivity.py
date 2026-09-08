@@ -65,6 +65,8 @@ import matplotlib                                # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                  # noqa: E402
 
+import figstyle as fs                        # noqa: E402
+
 import config                                    # noqa: E402
 import embed as emb_mod                          # noqa: E402
 import similarity as sim                         # noqa: E402
@@ -305,33 +307,45 @@ def write(rows, names, tau_rows, tau_summary, ranks, cfg_names, W_all, W_pm,
 
 
 def figure(tau_summary, taus):
-    fig, ax1 = plt.subplots(figsize=(5.4, 3.8))
+    """Two stacked panels sharing one x-axis - deliberately NOT a twin axis.
+
+    Edge density and component count are different measures on different scales.
+    Putting them on two y-scales in one frame lets whoever draws it decide where
+    the curves cross, which is the most misleading thing a chart can do. Stacked
+    panels keep the shared x-axis that makes them comparable and drop the false
+    crossing point entirely.
+    """
+    fs.use()
     x = [d["tau"] for d in tau_summary]
-    ax1.plot(x, [d["mean_ilsc_tau"] for d in tau_summary], "o-",
-             color="#b2182b", label="mean ILSC$_\\tau$", markersize=4.5)
-    ax1.set_xlabel(r"threshold $\tau$")
-    ax1.set_ylabel(r"mean ILSC$_\tau$ (edge density)", color="#b2182b")
-    ax1.tick_params(axis="y", labelcolor="#b2182b")
-    ax1.grid(alpha=0.25, linewidth=0.6)
+    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(5.2, 4.6), sharex=True,
+                                   gridspec_kw={"hspace": 0.16})
 
-    ax2 = ax1.twinx()
-    ax2.plot(x, [d["mean_components"] for d in tau_summary], "s--",
-             color="#2166ac", label="mean components", markersize=4.5)
-    ax2.set_ylabel("mean connected components", color="#2166ac")
-    ax2.tick_params(axis="y", labelcolor="#2166ac")
+    c, m, ls = fs.series(0)
+    ax1.plot(x, [d["mean_ilsc_tau"] for d in tau_summary], marker=m, linestyle=ls,
+             color=c)
+    ax1.set_ylabel(r"mean ILSC$_\tau$")
+    ax1.set_title(r"Edge density and graph fragmentation across the $\tau$ grid")
+    ax1.grid(axis="y")
 
-    ax1.axvline(config.TAU_DEFAULT, color="grey", linewidth=0.9, linestyle=":")
+    c, m, ls = fs.series(1)
+    ax2.plot(x, [d["mean_components"] for d in tau_summary], marker=m, linestyle=ls,
+             color=c)
+    ax2.set_ylabel("mean components")
+    ax2.set_xlabel(r"threshold $\tau$")
+    ax2.set_xticks(x)
+    ax2.grid(axis="y")
+
+    for ax, lab in ((ax1, "edge density"), (ax2, "connected components")):
+        ax.axvline(config.TAU_DEFAULT, color=fs.INK_MUTED, linewidth=0.9,
+                   linestyle=":", zorder=0)
+        ax.annotate(lab, xy=(0.985, 0.9), xycoords="axes fraction",
+                    ha="right", va="top", fontsize=8, color=fs.INK_SECONDARY)
     ax1.annotate(r"pinned $\tau$ = %.2f" % config.TAU_DEFAULT,
-                 xy=(config.TAU_DEFAULT, ax1.get_ylim()[1]),
-                 xytext=(3, -10), textcoords="offset points",
-                 fontsize=8, color="grey")
-    ax1.set_title("Edge density and graph fragmentation across the $\\tau$ grid",
-                  fontsize=9.5)
-    fig.tight_layout()
-    p = os.path.join(config.FIGURES_DIR, "fig6_tau_sweep.pdf")
-    os.makedirs(config.FIGURES_DIR, exist_ok=True)
-    fig.savefig(p, format="pdf", bbox_inches="tight")
-    plt.close(fig)
+                 xy=(config.TAU_DEFAULT, 1.0), xycoords=("data", "axes fraction"),
+                 xytext=(4, -9), textcoords="offset points",
+                 fontsize=7.5, color=fs.INK_MUTED)
+
+    p = fs.finish(fig, os.path.join(config.FIGURES_DIR, "fig6_tau_sweep.pdf"))
     print("wrote %s" % p)
 
 

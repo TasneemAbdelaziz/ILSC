@@ -68,6 +68,8 @@ import matplotlib                                # noqa: E402
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt                  # noqa: E402
 
+import figstyle as fs                        # noqa: E402
+
 import config                                    # noqa: E402
 import embed as emb_mod                          # noqa: E402
 import similarity as sim                         # noqa: E402
@@ -393,12 +395,11 @@ def compare(rows, args):
 
 
 def figure(rows, levels):
-    fig, axes = plt.subplots(1, 3, figsize=(10.5, 3.6))
-    style = {"cross_provider": ("o-", "#b2182b"), "same_provider": ("s--", "#2166ac"),
-             "same_service": ("^:", "#4d9221")}
+    fs.use()
+    fig, axes = plt.subplots(1, 3, figsize=(10.2, 3.5), sharex=True)
     for ax, metric in zip(axes, METRICS):
         for cond in inject_mod.CONDITIONS:
-            mk, col = style.get(cond, ("o-", "grey"))
+            col, mk, ls = inject_mod.condition_style(cond)
             means, errs = [], []
             for lv in levels:
                 v = [r[metric] for r in rows
@@ -406,22 +407,18 @@ def figure(rows, levels):
                      and np.isfinite(r[metric])]
                 means.append(np.mean(v) if v else np.nan)
                 errs.append(np.std(v, ddof=1) / np.sqrt(len(v)) if len(v) > 1 else 0.0)
-            ax.errorbar(levels, means, yerr=errs, fmt=mk, color=col,
-                        label=cond.replace("_", "-"), capsize=2.5, markersize=4,
-                        linewidth=1.3)
-        ax.set_title(metric + ("  (lower = more cohesive)" if metric == "LoCmsg" else ""),
-                     fontsize=9)
+            ax.errorbar(levels, means, yerr=errs, marker=mk, linestyle=ls,
+                        color=col, label=inject_mod.CONDITION_LABEL.get(cond, cond),
+                        capsize=2.5)
+        ax.set_title(metric + ("  (lower = more cohesive)" if metric == "LoCmsg" else ""))
         ax.set_xlabel("injected operations")
         ax.set_xticks(levels)
-        ax.grid(alpha=0.25, linewidth=0.6)
+        ax.grid(axis="y")
     axes[0].set_ylabel("metric value")
-    axes[0].legend(fontsize=7.5, frameon=False)
+    axes[0].legend()
     fig.suptitle("ILSC and the baselines under an identical perturbation (Exp. 4)",
                  fontsize=10)
-    fig.tight_layout()
-    p = os.path.join(config.FIGURES_DIR, "fig7_baseline_perturbation.pdf")
-    fig.savefig(p, format="pdf", bbox_inches="tight")
-    plt.close(fig)
+    p = fs.finish(fig, os.path.join(config.FIGURES_DIR, "fig7_baseline_perturbation.pdf"))
     print("wrote %s" % p)
 
 
