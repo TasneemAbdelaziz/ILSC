@@ -11,10 +11,43 @@ lined up.
 
 ---
 
-## 0. Status — Days 1–7 of this schedule are complete
+## 0. Status — **all five experiments are done; both gates have been run**
 
-*Updated 2026-09-08, end of day. Both tracks ran Days 1–7 in a single push; the
-day-by-day table in §3 is retained as the record of what was planned.*
+*Updated 2026-09-08. Days 1–14 of the schedule below were executed in a single
+push. The day-by-day table in §3 is retained as the record of what was planned,
+not of what remains.*
+
+| Experiment | Result |
+|---|---|
+| **Gate 1** | ⚠ **MARGINAL** — δ +0.680, one discordant service (C1). Weights not tuned (D-24). |
+| **Exp. 1** — corpus run | ✅ 2,206 services; ILSC_mean median 0.436; thresholds per population |
+| **Exp. 2** — perturbation | ✅ **H2 POSITIVE** — 20/20 monotonic, slopes order with distance, p < 1e-6 |
+| **Exp. 3 / Gate 2** | ✅ **PASS, reframed** — ρ_indep 0.433, ρ_derived 0.488, inflation +0.054 |
+| **Exp. 4** — baselines | ◐ **Half supported** — beats SIDC; does *not* beat LoCmsg on the gap |
+| **Exp. 5** — sensitivity | ✅ **H3 holds** — Kendall's W 0.9947; rankings invariant to weights |
+
+**What is left is writing, plus four specific debts:**
+
+1. **Two inter-annotator agreement figures.** Both sample sheets are written and
+   blank; neither can be self-administered (F-03).
+2. **`DROP_VERSION_TOKENS` (D-15) is unswept.** It changes the tokenizer and so
+   the f1 embeddings; it needs a re-parse and re-embed, not a reweighting. The
+   sensitivity analysis is currently **two knobs, not three**, and says so.
+3. **Two Train Ticket services (Python, Go) have no extracted entities**, so no
+   pair from either enters ρ_derived.
+4. **D1 (provider cap) and F-02 (`norm_host`) remain open.**
+
+**Three results did not go the way the proposal expected**, and each is recorded
+as it fell rather than reshaped:
+
+- **Gate 1 is not a pass.** C1 is a construct-validity finding — ILSC measures
+  *resource-level*, not *capability-level*, cohesion (D-24).
+- **Exp. 4's superiority claim is only half available.** ILSC beats SIDC on the
+  perturbation gap but **not LoCmsg**. Its real advantage over both is
+  discriminating power on unperturbed services (0% saturation vs 35.8% and 77.0%).
+- **ρ_independent's cluster-bootstrap interval straddles Gate 2's 0.4 threshold**
+  — [0.318, 0.643] — because only 2 of 4 Sock Shop services have any code-side
+  variance (F-04).
 
 | Day | Metric track | Empirical track |
 |---|---|---|
