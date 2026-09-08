@@ -1034,3 +1034,75 @@ one discordant case is diagnosed, is not a metric error, and is not fixable by
 any weighting; the weight question goes to Exp. 5, which is designed to answer it
 over 2,206 services rather than ten. If Exp. 5 shows the rankings are unstable
 under reasonable weight variation, that is where it will show.
+
+
+---
+
+## D-25 · D1 resolved: no provider cap, but the thresholds are stratified and the hyperscaler effect is reported
+
+**Decision.** **Do not cap by provider.** Report the quartile thresholds for the
+uncapped corpus *and* stratified — S1-only, S2-only, and hyperscaler vs the rest
+— and state the size of the difference. Capping deletes data to hide an effect
+that is itself a finding; stratifying reports it. This mirrors D-17's
+primary/sensitivity protocol rather than inventing a second convention.
+
+**Why this needed an answer and not an argument.** D1 was carried for weeks as
+"blocks Exp. 1". Exp. 1 has run, so the live question was narrower and
+measurable: *do the published quartile boundaries move under a cap?*
+`src/provider_cap.py` re-derives them over capped populations, with the surviving
+services chosen by **seeded random draw rather than by score** — keeping the
+top-N would move the quartiles by construction and prove nothing.
+
+**They move, and substantially. This contradicts the expectation.**
+
+| cap | Q1 | median | Q3 | ΔQ1 | Δmedian | ΔQ3 | services kept |
+|---|--:|--:|--:|--:|--:|--:|--:|
+| none | 0.3395 | 0.4358 | 0.5149 | — | — | — | 2,136 |
+| 50 | 0.2889 | 0.3735 | 0.4730 | −0.051 | **−0.062** | −0.042 | 1,250 |
+| 30 | 0.2817 | 0.3654 | 0.4631 | −0.058 | −0.070 | −0.052 | 1,148 |
+| 20 | 0.2779 | 0.3600 | 0.4547 | −0.062 | −0.076 | −0.060 | 1,073 |
+| 10 | 0.2738 | 0.3525 | 0.4426 | −0.066 | −0.083 | −0.072 | 960 |
+| 5 | 0.2676 | 0.3456 | 0.4309 | −0.072 | **−0.090** | −0.084 | 863 |
+
+Sampling noise on the median across 200 re-draws is **0.0012**, so a movement of
+0.06–0.09 is not noise by any reading.
+
+**The cause: hyperscaler services score much higher than everyone else.**
+
+| | n | mean | median |
+|---|--:|--:|--:|
+| AWS + Google + Azure | 1,026 | 0.5014 | **0.4902** |
+| everyone else | 1,110 | 0.3720 | **0.3563** |
+
+A median difference of **+0.1340**, Cliff's δ **+0.609**, Mann-Whitney
+p ≈ 4×10⁻¹²⁴. They are **48.0%** of the primary corpus, so the uncapped
+thresholds are close to half a statement about three companies.
+
+**Why they score higher — and this is the part that matters.** Per-feature
+medians, hyperscalers minus everyone else:
+
+| f1 | f2 | f3 | **f4** | f5 | f6 |
+|--:|--:|--:|--:|--:|--:|
+| +0.127 | +0.182 | +0.309 | **+0.398** | +0.065 | −0.022 |
+
+and the mask-fire rate is **12.5%** for hyperscalers against **100%** for
+everyone else. Two distinct things are going on:
+
+1. **Their specifications are near-complete**, so all six features are available
+   and the mask almost never fires, while for the median non-hyperscaler service
+   it fires on *every* pair.
+2. **f4 is inflated by authentication boilerplate** — see **F-05**, which is the
+   single largest contributor and is a defect in the metric's definition rather
+   than a property of the services.
+
+**Consequence for the paper.** The thresholds must never be quoted without
+naming their population. The S1-only quartiles remain the Bogner-comparable
+ones; the hyperscaler split is now a required second stratification, and the
++0.134 median difference belongs in Threats to Validity as a first-order
+external-validity limit.
+
+**What was expected and did not hold.** This was recorded as a probable
+"robustness result worth one sentence". It is not. Writing it up as one would
+have understated a 0.13 median difference across half the corpus.
+
+---

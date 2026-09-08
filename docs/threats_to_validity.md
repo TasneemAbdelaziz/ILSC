@@ -105,10 +105,32 @@ higher than S2 at every quartile** of ILSC_mean. Any threshold quoted in the
 paper must name the population that produced it; the S1-only quartiles are the
 Bogner-comparable ones.
 
-**D1 remains open.** No provider cap has been applied, so the published quartile
-thresholds are drawn from a hyperscaler-heavy sample. This is now a one-minute
-re-run rather than a design decision and should be answered with a number before
-the thresholds are written up.
+**D1 is resolved and the answer is a first-order limitation (D-25).** The
+thresholds **do** move under a provider cap — the median falls 0.4358 → 0.3735 at
+a cap of 50, and → 0.3456 at a cap of 5, against 0.0012 of sampling noise. The
+cause is that AWS, Google and Azure services score a median **+0.134** above
+everyone else (Cliff's δ **+0.609**, p ≈ 4×10⁻¹²⁴) while being **48.0%** of the
+primary corpus. The decision is to stratify and report rather than cap, because
+capping would delete data to hide an effect that is itself a finding — but the
+consequence is that **an uncapped threshold is close to half a statement about
+three companies** and must never be quoted without its population.
+
+**Part of that gap is the metric's fault, not the corpus's (F-05).** Sec. 6
+excludes infrastructural schemas from f5 by an ">80% of operations" rule; f4 has
+no equivalent, so Google's six universal query parameters and AWS's seven signing
+headers inflate f4 to a median of 0.82 against 0.42 elsewhere. Applying f5's own
+rule to f4 closes **46.6%** of the hyperscaler gap and would change **67.6%** of
+all services. The metric has not been changed — changing a feature after seeing
+which services it favours is the move this study refuses elsewhere — but the
+paper must either adopt the exclusion or explain why one feature has the rule and
+its neighbour does not.
+
+**The rest of the gap is real and unfixable.** Hyperscaler specifications are
+near-complete: the mask fires on **12.5%** of their pairs against **100%** for
+the median service elsewhere. A metric that rewards completeness will rank
+well-documented APIs above poorly-documented ones, which is defensible as a
+statement about *interfaces* and indefensible as a statement about the
+*services behind them*.
 
 **The corpus is public API descriptions, not microservices.** This is inherent
 to a static, specification-only method and is the price of the method's main

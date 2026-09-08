@@ -148,18 +148,28 @@ proposal currently implies both (D-12).
 
 | # | Decision | Options | Status |
 |---|---|---|---|
-| D1 | Provider cap | none / 50 / 30 / 20 per provider | **open** — no longer blocking; now a one-minute re-run, see below |
+| ~~D1~~ | ~~Provider cap~~ | **RESOLVED — D-25**: do not cap, stratify and report | — |
+| **F-05** | f4 has no infrastructural-parameter exclusion, f5 does | adopt / keep + declare / report both | **open** — Sec. 6 owns the rule |
 | F-02 | `norm_host()` and near-duplicates | collapse `api.`/`www.` to the registrable domain? | **open** — affects the headline corpus count |
 | ~~D2~~ | ~~Oversized services (> 200 operations)~~ | **RESOLVED — D-17** | — |
 | ~~D3~~ | ~~Domain-restricted null model~~ | **RESOLVED — D-18**, provider-restricted | — |
 
-**On D1 — it has changed character.** It was listed as blocking Exp. 1; Exp. 1
-has now run without it, so the live question is narrower: *do the published
-quartile thresholds change under a provider cap?* AWS, Google and Azure hold
-46.8% of the corpus, so the thresholds come from a hyperscaler-heavy sample.
-With the engine built this is a one-minute re-run of `src/ilsc.py`, not a design
-decision, and it should be answered with a number before the thresholds are
-written up.
+**On D1 — RESOLVED by D-25, and the answer was not the expected one.** The
+question was whether the quartile thresholds move under a provider cap. **They
+do**: the median falls from 0.4358 to 0.3735 at a cap of 50 and to 0.3456 at a
+cap of 5, against sampling noise of 0.0012. The cause is that AWS, Google and
+Azure services — **48.0%** of the primary corpus — score a median **+0.134**
+higher than everyone else (Cliff's δ +0.609). The decision is **not to cap**,
+because capping deletes data to hide an effect that is itself a finding, but to
+**stratify the thresholds and report the difference**.
+
+**On F-05 — raised while answering D1, and it is a defect not a property.**
+Sec. 6 excludes infrastructural schemas from f5 by an ">80% of a service's
+operations" rule; **f4 has no equivalent**. Google attaches six identical
+parameters to 100% of its operations and AWS seven to 99%, which inflates f4 to
+a median of 0.82 against 0.42 elsewhere. Applying f5's own rule to f4 would
+close **46.6%** of the hyperscaler gap and affects **67.6%** of all services.
+The metric has deliberately *not* been changed — see `docs/FLAGS.md` F-05.
 
 **On D2 — RESOLVED by D-17.** Services above **200 operations** are flagged
 `oversized` and held out of the *primary* analysis; every analysis is repeated on

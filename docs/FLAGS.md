@@ -214,3 +214,76 @@ the framing: `rho_independent` should be presented as a *small-sample check on a
 single system*, and the distance between the two coefficients - the
 derivation-inflation estimate D-16 argues for - carries the weight, with the
 asymmetry in precision stated plainly rather than left for a reviewer to notice.
+
+
+---
+
+## F-05 · f5 excludes infrastructural schemas; f4 excludes nothing — **owner: both (Sec. 6 owns the rule)**
+
+Raised 2026-09-08 while resolving D1 (**D-25**). This is the largest single
+contributor to the hyperscaler effect that D-25 documents, and unlike the rest
+of that effect it is **a gap in the metric's definition, not a property of the
+services**.
+
+**The asymmetry.** Sec. 6 [v3] excludes a schema from **f5** when it appears on
+more than 80% of a service's operations — infrastructural, not domain-bearing,
+and the overlap coefficient is especially inflated by it. **f4 has no equivalent
+rule.** Its parameter-name tokens go into a bare Jaccard with nothing removed.
+
+**What that admits.** Per-service parameter frequencies:
+
+| provider | parameters on ~every operation |
+|---|---|
+| googleapis.com (10,103 ops) | `fields`, `oauth_token`, `key`, `prettyPrint`, `quotaUser`, `alt` — **100%** each |
+| amazonaws.com (11,843 ops) | `X-Amz-Signature`, `X-Amz-Algorithm`, `X-Amz-SignedHeaders`, `X-Amz-Credential`, `X-Amz-Date`, `X-Amz-Content-Sha256`, `X-Amz-Security-Token` — **99%** each |
+| azure.com (5,802 ops) | `api-version` 94%, `subscriptionId` 76%, `resourceGroupName` 66% |
+
+These are authentication and serialisation boilerplate. Under Jaccard they make
+every pair of operations in such a service share six or seven tokens before any
+domain content is considered. Median f4 is **0.8189** for hyperscalers against
+**0.4213** for everyone else.
+
+**The argument for excluding them is Sec. 6's own, applied verbatim.** Nothing
+in "a schema on more than 80% of a service's operations carries no domain
+signal" depends on it being a schema.
+
+**Measured, not asserted** (`src/param_boilerplate.py`, applying f5's exact rule
+to f4, over all 2,136 primary services):
+
+| | value |
+|---|--:|
+| services with ≥ 1 boilerplate parameter | **1,444 (67.6%)** |
+| mean change in ILSC_mean, all services | **−0.0448** |
+| mean change, AWS/Google/Azure | −0.0730 |
+| mean change, everyone else | −0.0188 |
+| hyperscaler gap, before → after | **+0.1340 → +0.0715** |
+| **share of the gap this closes** | **46.6%** |
+
+**This is a lower bound.** `T(Oi)` also contains the parameter tokens, so a real
+change would move the **f1 embeddings** as well and requires a re-parse and
+re-embed. The figures above hold f1 fixed and measure the f4-only effect.
+
+**It is not only a hyperscaler problem.** The largest individual drops include
+`reloadly.com` (−0.199, from `Accept`), `walmart.com` (−0.143, from
+`WM_CONSUMER.*` headers) and `openbanking.org.uk` (−0.144, from
+`If-Modified-Since` / `If-None-Match`). Two-thirds of the corpus is affected.
+
+**The metric has NOT been changed.** Altering a feature after seeing which
+services it favours is precisely the move this project refuses elsewhere — see
+`docs/discordance.md` §3, where `Sim_code`'s exact-name matching is left in place
+for the same reason. The evidence is recorded so Sec. 6 can decide.
+
+**What to decide, and when.** Before the metric definition is written up:
+
+1. **Adopt the exclusion** — apply `FREQUENT_SCHEMA_RATIO` to f4 as it already
+   applies to f5, re-parse, re-embed and re-run. Roughly an hour of compute, and
+   **every published number moves**. The most defensible option, because it makes
+   the metric internally consistent.
+2. **Keep f4 as it is and report F-05 as a limitation** — cheaper, and honest if
+   stated, but it leaves the paper explaining why one feature gets an exclusion
+   rule and its neighbour does not.
+3. **Report both** — the option D-17 took for the oversized cap. Most work, most
+   defensible.
+
+**Do not decide this by which produces the better ρ.** The decision is whether
+the rule is right, and the answer to that does not depend on Exp. 3.

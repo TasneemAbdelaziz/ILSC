@@ -27,6 +27,7 @@ steps in `README.md` §2.
 | Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
 | Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
 | Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
+| **D1 resolved / F-05** | [`src/provider_cap.py`](src/provider_cap.py), [`src/param_boilerplate.py`](src/param_boilerplate.py) | ⚠ **limitation** | thresholds move up to **0.090** under a cap; hyperscalers +0.134; f4 boilerplate closes 46.6%% of it |
 | Days 9-10 — **Exp. 4** baselines | [`src/baselines.py`](src/baselines.py) | ✅ complete | ILSC 0%% saturated vs SIDC 35.8%%, LoCmsg 77.0%%; perturbation claim only half supported |
 | Days 13-14 — **Exp. 5** sensitivity | [`src/sensitivity.py`](src/sensitivity.py) | ✅ complete | **Kendall W 0.9947**; rankings invariant to weights |
 | Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.433**, rho_derived **0.488**; inflation +0.054 |
@@ -936,6 +937,88 @@ prevent, in a smaller form. **The pinned setting is the conservative one.**
 
 Exp. 5 is therefore a **three-knob** sensitivity analysis: weights, τ, and
 tokenisation.
+
+---
+
+## D1 resolved — and it is a first-order limitation, not a footnote
+
+[`src/provider_cap.py`](src/provider_cap.py) → [`results/provider_cap.csv`](results/provider_cap.csv)
+
+D1 asked whether the published quartile thresholds move under a provider cap.
+The surviving services are chosen by **seeded random draw, not by score** —
+keeping the top-N would move the quartiles by construction.
+
+**They move.** Median ILSC_mean, 200 re-draws per cap:
+
+| cap | Q1 | median | Q3 | Δmedian | services kept |
+|---|--:|--:|--:|--:|--:|
+| **none** | 0.3395 | **0.4358** | 0.5149 | — | 2,136 |
+| 50 | 0.2889 | 0.3735 | 0.4730 | **−0.062** | 1,250 |
+| 30 | 0.2817 | 0.3654 | 0.4631 | −0.070 | 1,148 |
+| 20 | 0.2779 | 0.3600 | 0.4547 | −0.076 | 1,073 |
+| 10 | 0.2738 | 0.3525 | 0.4426 | −0.083 | 960 |
+| 5 | 0.2676 | 0.3456 | 0.4309 | **−0.090** | 863 |
+
+Sampling noise on the median is **0.0012**, so this is not noise.
+
+**The cause is that hyperscalers score much higher**, and they are half the
+corpus:
+
+| | n | mean | median |
+|---|--:|--:|--:|
+| AWS + Google + Azure | 1,026 (**48.0%**) | 0.5014 | **0.4902** |
+| everyone else | 1,110 | 0.3720 | **0.3563** |
+
+Median difference **+0.1340**, Cliff's δ **+0.609**, Mann-Whitney p ≈ 4×10⁻¹²⁴.
+
+**Decision (D-25): do not cap — stratify and report.** Capping deletes data to
+hide an effect that is itself a finding. The thresholds are reported uncapped,
+S1-only, S2-only, and hyperscaler-vs-rest, and no threshold is ever quoted
+without its population.
+
+**This was expected to be a robustness result worth one sentence. It is not.**
+Writing it up that way would have understated a 0.13 median difference across
+half the corpus.
+
+### F-05 — and about half of that gap is the metric's fault
+
+Per-feature medians, hyperscalers minus everyone else:
+
+| f1 | f2 | f3 | **f4** | f5 | f6 |
+|--:|--:|--:|--:|--:|--:|
+| +0.127 | +0.182 | +0.309 | **+0.398** | +0.065 | −0.022 |
+
+f4 dominates, and the reason is boilerplate. Google attaches `fields`,
+`oauth_token`, `key`, `prettyPrint`, `quotaUser` and `alt` to **100%** of its
+10,103 operations; AWS attaches seven `X-Amz-*` signing parameters to **99%** of
+its 11,843. Under Jaccard every pair in such a service shares six or seven tokens
+before any domain content is considered.
+
+**Sec. 6 already has the rule that would exclude them — it just does not apply it
+to f4.** A schema on more than 80% of a service's operations is dropped from f5
+as infrastructural. Nothing in that argument depends on it being a schema.
+
+Applying f5's own rule to f4 ([`src/param_boilerplate.py`](src/param_boilerplate.py)):
+
+| | value |
+|---|--:|
+| services with ≥ 1 boilerplate parameter | **1,444 of 2,136 (67.6%)** |
+| mean change in ILSC_mean | −0.0448 |
+| hyperscaler gap, before → after | **+0.1340 → +0.0715** |
+| **share of the gap closed** | **46.6%** |
+
+A **lower bound**: `T(Oi)` also contains the parameter tokens, so a real change
+would move the f1 embeddings too.
+
+**Not only a hyperscaler problem** — the largest single drops are `reloadly.com`
+(−0.199, from `Accept`), `openbanking.org.uk` (−0.144, from `If-Modified-Since`)
+and `walmart.com` (−0.143, from `WM_CONSUMER.*`).
+
+**The metric has NOT been changed.** Altering a feature after seeing which
+services it favours is the move this study refuses elsewhere — `Sim_code`'s
+exact-name matching is left in place for exactly the same reason
+(`docs/discordance.md` §3). F-05 records the evidence; Sec. 6 owns the rule, and
+the decision is due before the metric definition is written up.
 
 ---
 
