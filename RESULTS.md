@@ -27,6 +27,8 @@ steps in `README.md` §2.
 | Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
 | Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
 | Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
+| Days 9-10 — **Exp. 4** baselines | [`src/baselines.py`](src/baselines.py) | ✅ complete | ILSC 0%% saturated vs SIDC 35.8%%, LoCmsg 77.0%%; perturbation claim only half supported |
+| Days 13-14 — **Exp. 5** sensitivity | [`src/sensitivity.py`](src/sensitivity.py) | ✅ complete | **Kendall W 0.9947**; rankings invariant to weights |
 | Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.433**, rho_derived **0.488**; inflation +0.054 |
 | Day 7e — Train Ticket extraction | [`src/entity_extract.py`](src/entity_extract.py) | ✅ complete | 209/211 operations joined (99.1%); 0 unexplained empties (D-22); agreement figure still owed |
 
@@ -757,6 +759,156 @@ appear:
   all (f2 = f3 = f5 = 0.00), and score above zero **only through f1**. This pair
   is the study's clearest single piece of evidence that the embedding feature is
   not redundant with the lexical ones.
+
+---
+
+## Days 9–10 — Experiment 4: SIDC and LoCmsg baselines
+
+[`src/baselines.py`](src/baselines.py) → [`results/baselines_corpus.csv`](results/baselines_corpus.csv),
+[`results/baselines_perturbation.csv`](results/baselines_perturbation.csv),
+[`results/baselines_comparison.csv`](results/baselines_comparison.csv),
+`figures/fig7_baseline_perturbation.pdf`.
+
+Both baselines are implemented **faithfully, which means without what ILSC adds** —
+no availability mask, no generic-schema exclusion, no embeddings. The paper's Gap 2
+claim is that these metrics see only structure and lexis, so they are measured
+seeing only structure and lexis. Both read the same parsed corpus and the same D-07
+exclusions, so the comparison differs in *method*, not in *inputs*.
+
+- **SIDC** (Perepletchikov 2007): share of operation pairs with ≥ 1 common data type.
+- **LoCmsg** (Athanasopoulos 2015): share of pairs whose message terms are disjoint.
+  Runs the opposite way — higher is worse — so `1 − LoCmsg` appears where the three
+  are compared, and the raw value is kept in the CSV.
+
+### The corpus comparison — this is where ILSC's advantage is real
+
+2,136 services, D-17 primary population:
+
+| metric | mean | Q1 | median | Q3 | **corpus IQR** | distinct values |
+|---|--:|--:|--:|--:|--:|--:|
+| ILSC | 0.4341 | 0.339 | 0.436 | 0.515 | **0.1754** | 1,645 |
+| SIDC | 0.5475 | 0.000 | 1.000 | 1.000 | 0.8623 | 681 |
+| 1 − LoCmsg | 0.9162 | 1.000 | 1.000 | 1.000 | **0.0000** | 350 |
+
+**Saturation — services scoring a perfect 1.0, where the metric can no longer
+distinguish anything:**
+
+| SIDC | 1 − LoCmsg | **ILSC** |
+|--:|--:|--:|
+| 35.8% | 77.0% | **0.0%** |
+
+`LoCmsg`'s interquartile range is **exactly 0.0000**: at least half the corpus
+receives an identical score. This is the quantitative form of the Gap 2 argument,
+and it is a stronger result than the perturbation comparison below.
+
+Spearman against ILSC: SIDC **+0.067** (p = 0.25, not significant), 1 − LoCmsg
+**+0.324**. SIDC and ILSC are close to unrelated — they are not noisy versions of
+each other, they measure different things.
+
+### The perturbation comparison — **the hoped-for claim is only half supported**
+
+All three metrics scored on the *same* injected operations (the run does its own
+injection loop rather than comparing against stored numbers, so the draws are
+identical). Slopes oriented so more negative = degrades faster; LoCmsg sign-flipped.
+
+| metric | same_service | same_provider | cross_provider | **gap** | gap in corpus SD | p |
+|---|--:|--:|--:|--:|--:|--:|
+| **ILSC** | −0.0410 | −0.0667 | −0.0981 | **−0.0314** | **−0.237** | <1e−6 |
+| SIDC | −0.0603 | −0.0664 | −0.0961 | −0.0297 | −0.072 | 5.1e−4 |
+| LoCmsg | −0.0085 | −0.0104 | −0.0678 | **−0.0574** | **−0.275** | <1e−6 |
+
+Sec. 10 hoped: *"If ILSC's foreign-vs-control gap is larger than theirs, that is a
+direct, quantitative superiority claim."*
+
+- **Against SIDC: supported.** ILSC's gap is larger both raw and standardised, and
+  ILSC discriminates on **20/20** services against SIDC's 16/20.
+- **Against LoCmsg: NOT supported.** LoCmsg's gap is larger, raw (−0.0574 vs
+  −0.0314) and standardised (−0.275 vs −0.237). This is reported as it falls; the
+  superiority claim the proposal wanted is **not** available against this baseline.
+
+**The context that matters, and it is not a rescue.** LoCmsg scores **exactly
+0.000 for all 20 test services before any perturbation** (sd = 0.0000). It cannot
+rank them at all; it can only fall once foreign operations arrive. A large
+degradation gap measured from a saturated floor shows that the metric *detects
+that something foreign was added* — it does not show that it measures how cohesive
+a service is. That distinction should be made in the paper, and it should be made
+without claiming the perturbation result went the way it did not.
+
+**Where this leaves the head-to-head.** ILSC's demonstrated advantage over these
+baselines is **discriminating power on unperturbed services** — 0% saturation
+against 35.8% and 77.0%, an IQR of 0.175 against 0.862 and 0.000, and 1,645
+distinct values against 681 and 350 — not superior perturbation sensitivity. That
+is a narrower claim than Sec. 10 anticipated and it is the one the data supports.
+
+---
+
+## Days 13–14 — Experiment 5: weight and τ sensitivity  (H3)
+
+[`src/sensitivity.py`](src/sensitivity.py) → [`results/weight_sensitivity.csv`](results/weight_sensitivity.csv),
+[`results/kendalls_w.csv`](results/kendalls_w.csv), [`results/tau_sweep.csv`](results/tau_sweep.csv),
+`figures/fig6_tau_sweep.pdf`. 2,136 services (D-17 primary), 29 weight
+configurations, 8 s — per-feature similarities are computed once per service and
+reweighted, since the weights only change the final weighted average.
+
+### Weights — **H3 holds, decisively**
+
+| | Kendall's W |
+|---|--:|
+| **±20/±40% perturbations only** — the H3 test | **0.9947** |
+| all 29 configurations, incl. the deliberately extreme Gate 1 schemes | 0.9707 |
+
+Spearman against the pinned baseline, worst configurations first:
+
+| configuration | ρ vs baseline | mean \|ΔILSC\| |
+|---|--:|--:|
+| `f1_only` (five features switched off) | 0.8374 | 0.2455 |
+| `gate1_lexical` (f2, f3, f4 only) | 0.8880 | 0.0772 |
+| `gate1_semantic` (f1, f5, f6 heavy) | 0.9351 | 0.0507 |
+| `gate1_path_schema` (Sec. 10's suggested remedy) | 0.9669 | 0.0328 |
+| **worst of the ±20/40% family** (`f4−40%`) | **0.9924** | 0.0159 |
+
+**This answers the question D-24 deferred.** Gate 1 came out MARGINAL and the
+weights were deliberately not tuned. Exp. 5 shows that decision cost nothing:
+no reasonable weight variation moves the ranking. Even the extreme schemes —
+switching five of six features off entirely — preserve ρ ≥ 0.84. The metric's
+ordering is a property of the features, not of their relative weights, and the
+equal 1/6 weighting is defensible because **the choice barely matters**, not
+because it was optimised.
+
+It also closes the loop on C1: no weighting rescued Xero Payroll AU at Gate 1
+because no weighting materially changes any ranking. C1's position is a
+construct-validity fact, not a tuning failure.
+
+**The one number worth arguing about is `f1_only` at ρ = 0.8374.** f1 alone
+recovers most of the ranking, which a reviewer will notice. It does not recover
+all of it — 0.84 leaves real reordering — and Fig 9 already shows f1's strongest
+correlation with any single feature is 0.582, so the other five are not
+redundant with it. But the honest framing is that **f1 carries the largest share
+of the signal and the remaining five refine it**, not that all six contribute
+equally.
+
+### τ — the sweep, and why 0.50 is a reasonable pin
+
+| τ | 0.30 | 0.35 | 0.40 | 0.45 | **0.50** | 0.55 | 0.60 | 0.65 | 0.70 |
+|---|--:|--:|--:|--:|--:|--:|--:|--:|--:|
+| mean ILSC_τ | 0.733 | 0.644 | 0.547 | 0.441 | **0.345** | 0.267 | 0.203 | 0.152 | 0.111 |
+| mean components | 1.38 | 1.69 | 2.20 | 3.03 | **4.12** | 5.73 | 7.89 | 10.53 | 13.60 |
+
+Both curves are smooth — no threshold effect, no discontinuity that would make a
+nearby τ qualitatively different. At the low end the graph is nearly complete
+(1.38 components: almost every service is one connected blob, so ILSC_τ
+discriminates little); at the high end it fragments (13.60 components). **τ = 0.50
+sits in the middle of the usable range on both curves**, which is the argument for
+keeping it — not that it optimises anything, but that it is where the statistic
+still varies.
+
+### The third knob is **not** swept, and that is stated rather than glossed
+
+`DROP_VERSION_TOKENS` (D-15) changes the tokenizer, therefore `T(Oi)`, therefore
+the **f1 embeddings**. Sweeping it honestly needs a full re-parse and re-embed of
+the corpus — it is not a reweighting — so `src/sensitivity.py` refuses to fold it
+in and the run says so. Until that comparison is run, this is a **two-knob
+sensitivity analysis**, and the paper must not describe it as three.
 
 ---
 

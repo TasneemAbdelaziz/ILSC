@@ -236,4 +236,7 @@ similarity engine (`embed.py`, `similarity.py`, the mask).
 - [x] Day 8–11 — the code dig (Sock Shop by hand, Train Ticket automated)
 - [ ] **Two reliability figures owed** — blank sample sheets are written (F-03)
 - [x] Exp. 3 — **GATE 2 PASS** (reframed): rho_indep 0.433, rho_derived 0.488
-- [ ] Exp. 4 (baselines: SIDC, LoCmsg), Exp. 5 (weight and tau sensitivity)
+- [x] Exp. 4 — baselines: ILSC 0% saturated vs SIDC 35.8%, LoCmsg 77.0%
+- [x] Exp. 5 — **Kendall's W 0.9947**; rankings invariant to reasonable weights
+- [ ] `DROP_VERSION_TOKENS` sweep (D-15) — needs a re-parse and re-embed
+- [ ] Two inter-annotator agreement figures (blank sheets written)

@@ -59,6 +59,8 @@ STEPS = [
     # --- Exp. 3 / Gate 2 -------------------------------------------------------
     ("Exp 3    benchmark convert+parse+embed",  [sys.executable, "-u", "src/bench_prepare.py"]),
     ("Exp 3    GATE 2 - code correlation",      [sys.executable, "-u", "src/code_correlation.py"]),
+    ("Exp 4    SIDC + LoCmsg baselines + Fig 7", [sys.executable, "-u", "src/baselines.py"]),
+    ("Exp 5    weight + tau sensitivity + Fig 6", [sys.executable, "-u", "src/sensitivity.py"]),
 ]
 
 # Not run here because they need a checkout this repository does not vendor.
