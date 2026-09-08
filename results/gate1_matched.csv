@@ -1,0 +1,17 @@
+provider,single_file,single_title,single_tags,single_ops,single_ilsc,many_file,many_title,many_tags,many_ops,many_ilsc,delta
+adyen.com,S2__adyen.com__FundService__6__openapi.yaml,Fund API,1,8,0.2850085667201451,S2__adyen.com__ManagementService-v3__3__openapi.yaml,Management API,29,132,0.31265471275553725,-0.027646146035392172
+apideck.com,S2__apideck.com__webhook__10.0.0__openapi.yaml,Webhook API,1,10,0.45960744222005206,S2__apideck.com__accounting__10.0.0__openapi.yaml,Accounting API,14,58,0.3603565102985103,0.09925093192154177
+azure.com,S1__azure.com-cosmos-db-2019-08-01-swagger.yaml,Cosmos DB,1,100,0.4191603535353535,S1__azure.com-devtestlabs-DTL-2018-09-15-swagger.yaml,DevTestLabsClient,25,132,0.36346874638561183,0.055691607149741695
+ebay.com,S2__ebay.com__commerce-taxonomy__v1.0.0__swagger.yaml,Taxonomy API,1,8,0.3897275924682617,S2__ebay.com__sell-marketing__v1.15.0__openapi.yaml,Marketing API,13,69,0.3100620539698556,0.07966553849840613
+exavault.com,S1__exavault.com-1.0.0-swagger.yaml,ExaVault,1,35,0.2568494267824317,S2__exavault.com__2.0__openapi.yaml,ExaVault,12,59,0.20888818487794966,0.04796124190448206
+funtranslations.com,S1__funtranslations.com-starwars-2.3-swagger.yaml,Starwars Translations,1,6,0.5728108723958333,S1__funtranslations.com-index-2.3-swagger.yaml,FunTranslations,11,36,0.48017645941840276,0.09263441297743052
+googleapis.com,S2__googleapis.com__healthcare__v1beta1__openapi.yaml,Cloud Healthcare API,1,83,0.3394691092877608,S2__googleapis.com__content__v2.1__openapi.yaml,Content API for Shopping,37,175,0.19788360144704434,0.14158550784071647
+gov.bc.ca,S1__gov.bc.ca-bcdc-3.0.1-openapi.yaml,BC Data Catalogue,1,22,0.37842262565315543,S1__gov.bc.ca-news-1.0-openapi.yaml,BC Gov News API Service 1.0,11,27,0.22201642419537929,0.15640620145777615
+hsbc.com,S2__hsbc.com__branches__2.2.1__swagger.yaml,Branch Locator API,1,6,0.6641853332519532,S1__hsbc.com-1.0.0-swagger.yaml,HSBC UK,6,19,0.5340983965243512,0.13008693672760197
+letmc.com,S1__letmc.com-diary-v3-diary-swagger.yaml,"AgentOS Api V3, diary",1,8,0.4588541303362165,S1__letmc.com-basic-tier-v2-basic-tier-swagger.yaml,"LetMC Api V2, Basic (Tier 2)",11,45,0.3063016332761206,0.15255249706009594
+microsoft.com,S1__microsoft.com-cognitiveservices-Prediction-3.0-swagger.yaml,Custom Vision Prediction Client,1,8,0.48156377247401644,S1__microsoft.com-cognitiveservices-Training-3.1-swagger.yaml,Custom Vision Training Client,7,46,0.2833099217806461,0.19825385069337031
+openbanking.org.uk,S2__openbanking.org.uk__confirmation-funds-openapi__3.1.7__openapi.yaml,Confirmation of Funds API Specification,1,4,0.5262277921040853,S2__openbanking.org.uk__payment-initiation-openapi__3.1.7__openapi.yaml,Payment Initiation API,8,41,0.40453271633241233,0.12169507577167299
+parliament.uk,S2__parliament.uk__commonsvotes__v1__swagger.yaml,Commons Votes API,1,5,0.4969177722930908,S2__parliament.uk__members__v1__openapi.yaml,Members API,6,43,0.2675692367131264,0.22934853557996443
+vtex.local,S2__vtex.local__SKU-Bindings-API__1.0__openapi.yaml,SKU Bindings API,1,12,0.5431209910999645,S2__vtex.local__Catalog-API__1.0__openapi.yaml,Catalog API,35,162,0.37816107912065794,0.16495991197930654
+whapi.com,S1__whapi.com-bets-2.0.0-swagger.yaml,Bets,1,6,0.3082242647806803,S1__whapi.com-accounts-2.0.0-swagger.yaml,Accounts,10,9,0.29432302051120335,0.013901244269476976
+xero.com,S2__xero.com__xero-payroll-au__2.9.4__openapi.yaml,Xero Payroll AU API,1,29,0.2058112045814251,S1__xero.com-2.0-swagger.yaml,Accounting,26,151,0.22159080522213023,-0.015779600640705133
