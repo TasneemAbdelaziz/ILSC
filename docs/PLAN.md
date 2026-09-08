@@ -72,23 +72,28 @@ in one push.**
 | **5** | **Exp. 1** big run + quartile thresholds | ✅ | Code dig — `orders` + `payment` | ✅ |
 | **6** | Inter-feature correlation, **Fig 9** | ✅ | Verification pass; `endpoint_entities.csv` | ✅ |
 | **7** | `inject.py` + monotonicity/contrast checker | ✅ | **Train Ticket automated extraction** (209/211) | ✅ |
-| **8** | **Exp. 2** perturbation run, **Fig 3** | ✅ | TT manual verification; go/no-go on ρ_derived | ⬚ |
-| **9** | **Exp. 4** — SIDC + LoCmsg implemented | ✅ | **Reliability check**, 10 endpoints re-derived | ⬚ |
-| **10** | Exp. 4 baselines under perturbation, **Fig 7** | ✅ | Figures restyled to one palette | ⬚ |
-| **11** | **Exp. 3** pair-level ρ, both conditions | ✅ | Replication package | ◐ |
-| **12** | Exp. 3 service-level ρ; discordance; **Gate 2** | ✅ | Fresh-clone test | ⬚ |
+| **8** | **Exp. 2** perturbation run, **Fig 3** | ✅ | TT verification, 10 endpoints; go/no-go on ρ_derived | ✅ |
+| **9** | **Exp. 4** — SIDC + LoCmsg implemented | ✅ | Reliability check — **verification done, blind figure still owed** | ◐ |
+| **10** | Exp. 4 baselines under perturbation, **Fig 7** | ✅ | **Figures restyled to one palette** (`src/figstyle.py`) | ✅ |
+| **11** | **Exp. 3** pair-level ρ, both conditions | ✅ | Replication package + `docs/replication.md` | ✅ |
+| **12** | Exp. 3 service-level ρ; discordance; **Gate 2** | ✅ | Fresh-clone test — **structural done, end-to-end still owed** | ◐ |
 | **13** | **Exp. 5** weights, Kendall's W, **Fig 6** | ✅ | Threats to Validity | ⬚ |
-| **14** | Exp. 5 τ sweep ✅ · `DROP_VERSION_TOKENS` (D-15) ⬚ | ◐ | Experimental Setup + dataset section | ⬚ |
+| **14** | Exp. 5 τ sweep ✅ · **`DROP_VERSION_TOKENS` (D-15)** | ✅ | Experimental Setup + dataset section | ⬚ |
 
-**Metric track: 13½ of 14 days complete.** The only gap is the second half of
-Day 14 — the `DROP_VERSION_TOKENS` sweep, debt 2 below. The τ sweep it was
-paired with is done.
+**Metric track: 14 of 14 days complete.** The `DROP_VERSION_TOKENS` sweep closes
+the last gap, so Exp. 5 is now a **three-knob** sensitivity analysis as the
+proposal specifies.
 
-**Empirical track: 7 of 14 complete.** Everything *experimental* landed; what is
-outstanding is the two reliability figures, the figure restyling, the
-fresh-clone test and the two writing sections. This is not a track that fell
-behind — the code dig, the hardest single task in the proposal, finished on
-schedule on both systems.
+**Empirical track: 10 of 14 complete, 2 partial.** Everything experimental
+landed; the entity coverage is now 211/211; the figures share one validated
+palette; the package is documented and structurally verified. What is genuinely
+outstanding is **two writing sections** and the two halves of the reliability
+and fresh-clone checks that cannot be self-administered (§3b).
+
+**Debt 3 is closed.** The two non-Java Train Ticket services were dug out by
+hand: `ts-avatar-service` (Flask + OpenCV, no persistence) and `ts-news-service`
+(Go, returns a hardcoded literal with its MongoDB path commented out). Both
+empty entity sets are **correct**, not gaps.
 
 **The two ◐ entries, stated plainly:**
 
@@ -97,29 +102,45 @@ schedule on both systems.
   FudanSELab *Service Guide* which could not be retrieved. That makes them a
   restatement of one side of the Exp. 3 correlation, so they are adequate for
   orientation but **must not** guide the entity extraction (**F-03**).
-- **Day 11, replication package.** `run_all.py` now covers every step including
-  the ones it was missing, and `requirements.txt` pins the previously unpinned
-  metric-track dependencies. What has *not* happened is the fresh-clone test,
-  which is the half that actually proves it (debt 4).
+- **Day 9, reliability.** The Train Ticket extractor was **verified** against its
+  sources — all 10 sampled endpoints re-derived from the Java, 10/10 exact
+  agreement — and that verification caught a real bug (below). But the annotator
+  could see the automated column, so it is *verification*, not a blind
+  inter-annotator figure: reliable at catching entities claimed but not present,
+  weaker at catching entities missed. `src/entity_extract.py --score` now prints
+  that distinction itself. Sock Shop's sheet stays blank.
+- **Day 12, fresh clone.** Structurally verified: 22/22 scripts present, 24/24
+  modules import with no corpus, 17/17 tests pass from the clean tree. The
+  **end-to-end data run** from a fresh clone has not been done, and that is the
+  check the proposal actually asks for — see `docs/replication.md`.
+
+**What the verification pass earned.** Entity names were scoped by the
+*controller's* imports, but a controller often imports one entity while the
+service it delegates to imports the whole shared module — `BasicController`
+imports `entity.Travel` while `BasicServiceImpl` imports `entity.*` and touches
+`TravelResult`, `TrainType` and `Route`. All three were being discarded. Fixing
+it moved entities per endpoint **1.24 → 1.70**, services with code-side variance
+**27 → 29**, and distinct `Sim_code` values **12 → 16**. Gate 2 is robust to the
+change: ρ_derived **0.4876 → 0.4863** on a materially better variable, and
+service-level ρ improved 0.449 → 0.513.
 
 ### 3b. The four debts
 
-| # | Debt | Owner | Cost | Blocks |
-|---|---|---|---|---|
-| **1** | **Two inter-annotator agreement figures.** Both sample sheets are written and blank. **Cannot be self-administered** — a second pass by the same reader measures memory, not reliability. | **Tasneem** (needs a *second* reader) | ~1 h each | Exp. 3's write-up |
-| **2** | **`DROP_VERSION_TOKENS` (D-15) is unswept.** It changes the tokenizer → `T(Oi)` → the f1 embeddings, so it needs a full re-parse and re-embed, not a reweighting. | **Mohamed** | ~30 min, unattended | Exp. 5's write-up |
-| **3** | **Two Train Ticket services have no extracted entities** — `ts-avatar-service` (Python), `ts-news-service` (Go). | **Tasneem** | ~1 h manual | nothing; ρ_derived already excludes them |
-| **4** | **Figures not restyled to one palette**; replication package not fresh-clone tested. | **Tasneem** | ~1 day | submission, not the draft |
+Two of the four are closed. What is left of the other two is precisely the part
+that **cannot be self-administered**.
 
-**Debt 1 is the only one that needs another person.** Everything else is
-schedulable. Until it is paid, every entity set in the study is
-single-annotator and must be described that way — an extraction with no
-agreement figure is a standard reviewer objection and the proposal names it.
+| # | Debt | Owner | Status |
+|---|---|---|---|
+| **1** | Inter-annotator agreement | **Tasneem** | ◐ **Train Ticket verified** (10/10 against source, and it caught a real bug). Still owed: a **blind** pass — the last column hidden, by a reader who did not build the extractor — and **Sock Shop entirely**, where the sets were derived by one reader and a second pass by the same reader measures memory. ~1 h each. |
+| **2** | `DROP_VERSION_TOKENS` (D-15) sweep | **Mohamed** | ✅ **Closed.** Exp. 5 is now three knobs. |
+| **3** | Two non-Java Train Ticket services | **Tasneem** | ✅ **Closed.** Both dug out by hand; both empty sets are correct. Coverage 211/211. |
+| **4** | One figure palette; fresh-clone test | **Tasneem** | ◐ **Palette closed** (`src/figstyle.py`, validated). Still owed: the **end-to-end data run** from a fresh clone, ~1 h of wall time. Structural check passed. |
 
-**Debt 2 has a consequence for how Exp. 5 is described.** Until the sweep runs,
-the sensitivity analysis covers **two knobs, not three**, and
-`src/sensitivity.py` says so on every run. The paper must not describe it as
-three.
+**The residue of debts 1 and 4 is the same shape.** Both are checks whose whole
+value is that *someone other than the author* performs them: a blind annotator
+for the agreement figure, and a clean machine for the reproduction. Doing either
+oneself produces a number that looks like evidence and is not. They stay open,
+and the paper describes the study as single-annotator until debt 1 is paid.
 
 ### 3c. The writing schedule
 
