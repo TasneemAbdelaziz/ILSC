@@ -1,0 +1,338 @@
+% ---------------------------------------------------------------------------
+% ILSC — bibliography
+%
+% VERIFICATION STATUS
+%   [V] verified against a publisher page, DOI or arXiv record during drafting
+%   [P] taken from the project's own proposal, where the authors already cite it
+%   [?] believed correct but NOT verified — check before submission
+%
+% Every entry is marked. IEEE Access requires complete and correct references;
+% do not submit without resolving every [?].
+% ---------------------------------------------------------------------------
+
+% ===================== Cohesion: foundations ==============================
+
+@book{stevens1974structured,          % [P] classic, universally cited
+  author    = {Stevens, W. P. and Myers, G. J. and Constantine, L. L.},
+  title     = {Structured Design},
+  journal   = {IBM Systems Journal},
+  volume    = {13},
+  number    = {2},
+  pages     = {115--139},
+  year      = {1974},
+  publisher = {IBM}
+}
+
+@article{briand1998unified,           % [V] TSE / ESE, widely cited
+  author  = {Briand, Lionel C. and Daly, John W. and W{\"u}st, J{\"u}rgen K.},
+  title   = {A Unified Framework for Cohesion Measurement in Object-Oriented
+             Systems},
+  journal = {Empirical Software Engineering},
+  volume  = {3},
+  number  = {1},
+  pages   = {65--117},
+  year    = {1998},
+  doi     = {10.1023/A:1009783721306}
+}
+
+@article{chidamber1994metrics,        % [V] TSE 20(6)
+  author  = {Chidamber, Shyam R. and Kemerer, Chris F.},
+  title   = {A Metrics Suite for Object Oriented Design},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {20},
+  number  = {6},
+  pages   = {476--493},
+  year    = {1994},
+  doi     = {10.1109/32.295895}
+}
+
+% ===================== Service-oriented cohesion metrics ===================
+
+@inproceedings{perepletchikov2007coupling,   % [P] cited in the proposal as SIDC
+  author    = {Perepletchikov, Mikhail and Ryan, Caspar and Frampton, Keith and
+               Tari, Zahir},
+  title     = {Coupling Metrics for Predicting Maintainability in
+               Service-Oriented Designs},
+  booktitle = {Proc. Australian Software Engineering Conference (ASWEC)},
+  pages     = {329--340},
+  year      = {2007},
+  doi       = {10.1109/ASWEC.2007.17}
+}
+
+@article{athanasopoulos2015cohesion,  % [P] cited in the proposal as LoCmsg
+  author  = {Athanasopoulos, Dionysis and Zarras, Apostolos V. and Miskos,
+             George and Issarny, Val{\'e}rie and Vassiliadis, Panos},
+  title   = {Cohesion-Driven Decomposition of Service Interfaces Without Access
+             to Source Code},
+  journal = {IEEE Transactions on Services Computing},
+  volume  = {8},
+  number  = {4},
+  pages   = {550--562},
+  year    = {2015},
+  doi     = {10.1109/TSC.2014.2310195}
+}
+
+@inproceedings{hirzalla2009metrics,   % [P] proposal notes: cite WSIC to Hirzalla
+  author    = {Hirzalla, Mamoun and Cleland-Huang, Jane and Arsanjani, Ali},
+  title     = {A Metrics Suite for Evaluating Flexibility and Complexity in
+               Service Oriented Architectures},
+  booktitle = {Service-Oriented Computing --- ICSOC 2008 Workshops},
+  series    = {LNCS},
+  volume    = {5472},
+  pages     = {41--52},
+  year      = {2009},
+  doi       = {10.1007/978-3-642-01247-1_5}
+}
+
+% ===================== Interface-level metrics and thresholds ==============
+
+@inproceedings{bogner2020rama,        % [V] ECSA 2020, LNCS 12292; arXiv:2007.10405
+  author    = {Bogner, Justus and Wagner, Stefan and Zimmermann, Alfred},
+  title     = {Collecting Service-Based Maintainability Metrics from {RESTful}
+               {API} Descriptions: Static Analysis and Threshold Derivation},
+  booktitle = {Software Architecture (ECSA 2020)},
+  series    = {LNCS},
+  volume    = {12292},
+  pages     = {215--232},
+  year      = {2020},
+  doi       = {10.1007/978-3-030-59155-7_16}
+}
+
+@inproceedings{bogner2017automatically,   % [?] IWSM Mensura 2017 — verify pages
+  author    = {Bogner, Justus and Wagner, Stefan and Zimmermann, Alfred},
+  title     = {Automatically Measuring the Maintainability of Service- and
+               Microservice-Based Systems: A Literature Review},
+  booktitle = {Proc. 27th Int. Workshop on Software Measurement (IWSM Mensura)},
+  pages     = {107--115},
+  year      = {2017},
+  doi       = {10.1145/3143434.3143443}
+}
+
+@inproceedings{apistic2024,           % [V] MSR 2024, DOI 10.1145/3643991.3644932
+  author    = {Serbout, Souhaila and Pautasso, Cesare},
+  title     = {{APIstic}: A Large Collection of {OpenAPI} Metrics},
+  booktitle = {Proc. 21st Int. Conf. on Mining Software Repositories (MSR)},
+  pages     = {265--269},
+  year      = {2024},
+  doi       = {10.1145/3643991.3644932},
+  note      = {VERIFY author list against the ACM DL record}
+}
+
+% ===================== Semantic / linguistic analysis of REST APIs =========
+
+@inproceedings{palma2015restful,      % [V] ICSOC 2015, LNCS 9435
+  author    = {Palma, Francis and Gonzalez-Huerta, Javier and Moha, Naouel and
+               Gu{\'e}h{\'e}neuc, Yann-Ga{\"e}l and Tremblay, Guy},
+  title     = {Are {RESTful} {APIs} Well-Designed? Detection of their Linguistic
+               (Anti)Patterns},
+  booktitle = {Service-Oriented Computing (ICSOC 2015)},
+  series    = {LNCS},
+  volume    = {9435},
+  pages     = {171--187},
+  year      = {2015},
+  doi       = {10.1007/978-3-662-48616-0_11}
+}
+
+@article{palma2022linguistic,         % [V] JSS 2022; arXiv:2205.06533
+  author  = {Palma, Francis and Olsson, Tobias and Wingkvist, Anna and
+             Gonzalez-Huerta, Javier},
+  title   = {Assessing the Linguistic Quality of {REST} {APIs} for {IoT}
+             Applications},
+  journal = {Journal of Systems and Software},
+  volume  = {191},
+  pages   = {111369},
+  year    = {2022},
+  doi     = {10.1016/j.jss.2022.111369}
+}
+
+@article{aldebagy2021microservice,    % [P] closest prior work; verify venue/volume
+  author  = {Al-Debagy, Omar and Martinek, P{\'e}ter},
+  title   = {A Microservice Decomposition Method Through Using Distributed
+             Representation of Source Code},
+  journal = {Scalable Computing: Practice and Experience},
+  volume  = {22},
+  number  = {1},
+  pages   = {39--52},
+  year    = {2021},
+  note    = {VERIFY volume, number and pages}
+}
+
+% ===================== Decomposition and identification ====================
+
+@inproceedings{mazlami2017extraction, % [V] ICWS 2017
+  author    = {Mazlami, Genc and Cito, J{\"u}rgen and Leitner, Philipp},
+  title     = {Extraction of Microservices from Monolithic Software
+               Architectures},
+  booktitle = {Proc. IEEE Int. Conf. on Web Services (ICWS)},
+  pages     = {524--531},
+  year      = {2017},
+  doi       = {10.1109/ICWS.2017.61}
+}
+
+@inproceedings{gysel2016service,      % [P] ESOCC 2016
+  author    = {Gysel, Michael and K{\"o}lbener, Lukas and Giersche, Wolfgang and
+               Zimmermann, Olaf},
+  title     = {Service Cutter: A Systematic Approach to Service Decomposition},
+  booktitle = {Service-Oriented and Cloud Computing (ESOCC 2016)},
+  series    = {LNCS},
+  volume    = {9846},
+  pages     = {185--200},
+  year      = {2016},
+  doi       = {10.1007/978-3-319-44482-6_12}
+}
+
+@inproceedings{kalia2021mono2micro,   % [V] ESEC/FSE 2021 industry track
+  author    = {Kalia, Anup K. and Xiao, Jin and Krishna, Rahul and Sinha, Saurabh
+               and Vukovic, Maja and Banerjee, Debasish},
+  title     = {{Mono2Micro}: A Practical and Effective Tool for Decomposing
+               Monolithic {Java} Applications to Microservices},
+  booktitle = {Proc. 29th ACM Joint European Software Engineering Conf. and
+               Symp. on the Foundations of Software Engineering (ESEC/FSE)},
+  pages     = {1214--1224},
+  year      = {2021},
+  doi       = {10.1145/3468264.3473915}
+}
+
+@inproceedings{nitin2022cargo,        % [V] ASE 2022
+  author    = {Nitin, Vikram and Asthana, Shubhi and Ray, Baishakhi and Krishna,
+               Rahul},
+  title     = {{CARGO}: {AI}-Guided Dependency Analysis for Migrating Monolithic
+               Applications to Microservices Architecture},
+  booktitle = {Proc. 37th IEEE/ACM Int. Conf. on Automated Software Engineering
+               (ASE)},
+  pages     = {20:1--20:12},
+  year      = {2022},
+  doi       = {10.1145/3551349.3556960}
+}
+
+@article{abgaz2023decomposition,      % [?] TSE 2023 — verify volume/pages
+  author  = {Abgaz, Yalemisew and McCarren, Andrew and Elger, Peter and Solan,
+             David and Lapuz, Neil and Bivol, Marin and Jackson, Glenn and
+             Yilmaz, Murat and Buckley, Jim and Clarke, Paul},
+  title   = {Decomposition of Monolith Applications into Microservices
+             Architectures: A Systematic Review},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {49},
+  number  = {8},
+  pages   = {4213--4242},
+  year    = {2023},
+  doi     = {10.1109/TSE.2023.3287297}
+}
+
+@inproceedings{panichella2021structural,  % [?] CLOSER 2021 — verify pages
+  author    = {Panichella, Sebastiano and Rahman, Mohammad Imranur and Taibi,
+               Davide},
+  title     = {Structural Coupling for Microservices},
+  booktitle = {Proc. 11th Int. Conf. on Cloud Computing and Services Science
+               (CLOSER)},
+  pages     = {280--287},
+  year      = {2021},
+  doi       = {10.5220/0010481902800287}
+}
+
+% ===================== Benchmarks and empirical microservice studies =======
+
+@article{zhou2021fault,               % [V] TSE 2021, the Train Ticket benchmark
+  author  = {Zhou, Xiang and Peng, Xin and Xie, Tao and Sun, Jun and Ji, Chao and
+             Liu, Dewei and Xiang, Qilin and He, Chuan},
+  title   = {Fault Analysis and Debugging of Microservice Systems: Industrial
+             Survey, Benchmark System, and Empirical Study},
+  journal = {IEEE Transactions on Software Engineering},
+  volume  = {47},
+  number  = {2},
+  pages   = {243--260},
+  year    = {2021},
+  doi     = {10.1109/TSE.2018.2887384}
+}
+
+@book{newman2021building,             % [V] O'Reilly, 2nd ed.
+  author    = {Newman, Sam},
+  title     = {Building Microservices: Designing Fine-Grained Systems},
+  edition   = {2nd},
+  publisher = {O'Reilly Media},
+  year      = {2021}
+}
+
+@article{taibi2018processes,          % [?] IEEE Cloud Computing — verify
+  author  = {Taibi, Davide and Lenarduzzi, Valentina and Pahl, Claus},
+  title   = {Architectural Patterns for Microservices: A Systematic Mapping
+             Study},
+  journal = {Proc. 8th Int. Conf. on Cloud Computing and Services Science
+             (CLOSER)},
+  pages   = {221--232},
+  year    = {2018},
+  doi     = {10.5220/0006798302210232}
+}
+
+% ===================== NLP components ======================================
+
+@inproceedings{reimers2019sentencebert,   % [V] EMNLP-IJCNLP 2019
+  author    = {Reimers, Nils and Gurevych, Iryna},
+  title     = {{Sentence-BERT}: Sentence Embeddings using Siamese
+               {BERT}-Networks},
+  booktitle = {Proc. 2019 Conf. on Empirical Methods in Natural Language
+               Processing (EMNLP-IJCNLP)},
+  pages     = {3982--3992},
+  year      = {2019},
+  doi       = {10.18653/v1/D19-1410}
+}
+
+@inproceedings{wang2020minilm,        % [V] NeurIPS 2020
+  author    = {Wang, Wenhui and Wei, Furu and Dong, Li and Bao, Hangbo and Yang,
+               Nan and Zhou, Ming},
+  title     = {{MiniLM}: Deep Self-Attention Distillation for Task-Agnostic
+               Compression of Pre-Trained Transformers},
+  booktitle = {Advances in Neural Information Processing Systems (NeurIPS)},
+  volume    = {33},
+  pages     = {5776--5788},
+  year      = {2020}
+}
+
+% ===================== Statistics ==========================================
+
+@article{cliff1993dominance,          % [V] Psychological Bulletin 114(3)
+  author  = {Cliff, Norman},
+  title   = {Dominance Statistics: Ordinal Analyses to Answer Ordinal
+             Questions},
+  journal = {Psychological Bulletin},
+  volume  = {114},
+  number  = {3},
+  pages   = {494--509},
+  year    = {1993},
+  doi     = {10.1037/0033-2909.114.3.494}
+}
+
+@article{kendall1939problem,          % [V] Annals of Mathematical Statistics
+  author  = {Kendall, M. G. and Babington Smith, B.},
+  title   = {The Problem of $m$ Rankings},
+  journal = {The Annals of Mathematical Statistics},
+  volume  = {10},
+  number  = {3},
+  pages   = {275--287},
+  year    = {1939},
+  doi     = {10.1214/aoms/1177732186}
+}
+
+@article{cameron2011robust,           % [V] Journal of Human Resources 50(2) 2015
+  author  = {Cameron, A. Colin and Miller, Douglas L.},
+  title   = {A Practitioner's Guide to Cluster-Robust Inference},
+  journal = {Journal of Human Resources},
+  volume  = {50},
+  number  = {2},
+  pages   = {317--372},
+  year    = {2015},
+  doi     = {10.3368/jhr.50.2.317}
+}
+
+@article{delong1988comparing,         % [V] Biometrics 44(3)
+  author  = {DeLong, Elizabeth R. and DeLong, David M. and
+             Clarke-Pearson, Daniel L.},
+  title   = {Comparing the Areas under Two or More Correlated Receiver Operating
+             Characteristic Curves: A Nonparametric Approach},
+  journal = {Biometrics},
+  volume  = {44},
+  number  = {3},
+  pages   = {837--845},
+  year    = {1988},
+  doi     = {10.2307/2531595}
+}
