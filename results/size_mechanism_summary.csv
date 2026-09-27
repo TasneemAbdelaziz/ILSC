@@ -1,0 +1,18 @@
+test,value,n_services,note
+"rho(ILSC, size)",-0.5505,2136,the dependence being explained
+"rho(ILSC, n_resources)",-0.6223,2136,
+"rho(n_resources, size)",+0.8869,2136,
+"rho(same_resource_pair_share, size)",-0.2407,2136,
+"partial rho(ILSC, size | n_resources)",+0.0040,2136,~0: size has no effect once resource count is fixed
+"partial rho(ILSC, n_resources | size)",-0.3477,2136,resource count still matters at fixed size
+"partial rho(ILSC, size | same_root_pair_share)",-0.5730,2136,coarse 'root' definition does NOT explain the dependence (negative result)
+"rho(ILSC, n_resources) within size 3-5",-0.4623,380,
+"rho(ILSC, n_resources) within size 6-10",-0.4998,430,
+"rho(ILSC, n_resources) within size 11-20",-0.3567,485,
+"rho(ILSC, n_resources) within size 21-50",-0.2406,528,
+"rho(ILSC, n_resources) within size 51-200",-0.0948,313,
+"rho(ILSC, size) at exactly 1 resource(s)",-0.1996,117,operations range 3-86
+"rho(ILSC, size) at exactly 2 resource(s)",+0.1407,121,operations range 3-27
+"rho(ILSC, size) at exactly 3 resource(s)",+0.0640,208,operations range 3-24
+"rho(ILSC, size) at exactly 5 resource(s)",+0.0737,139,operations range 5-35
+"rho(ILSC, size) at exactly 8 resource(s)",+0.0825,86,operations range 8-48
