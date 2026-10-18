@@ -145,6 +145,17 @@ PERTURBATION_CONDITIONS = ("same_service", "same_provider", "cross_provider")
 MAX_SERVICES_PER_PROVIDER_IN_EXPERIMENT = 3
 
 # ---------------------------------------------------------------------------
+# Graph-structure analysis (src/graph_structure.py) - a SECONDARY, descriptive
+# analysis of the per-service similarity graph. It is not part of ILSC and
+# never changes an ILSC score. Design fixed 2026-10-13 (Tasneem): both a
+# spectral eigengap and Louvain are run and compared; services below the
+# minimum size are not analysed; "same mean" = deciles of ILSC_mean.
+# ---------------------------------------------------------------------------
+GRAPH_MIN_OPERATIONS = 10        # below ~10 nodes community structure is unstable
+GRAPH_LOUVAIN_RESOLUTION = 1.0   # networkx default; not tuned
+GRAPH_MEAN_BINS = 10             # deciles of ILSC_mean for the same-mean analysis
+
+# ---------------------------------------------------------------------------
 # Model, pinned
 # ---------------------------------------------------------------------------
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
