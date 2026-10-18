@@ -132,7 +132,8 @@ resources and score low — Gate 1 found exactly that case, and Exp. 5 showed it
 not a weighting artefact (Kendall's W 0.9949).
 
 **Not "the first" anything unqualified.** Al-Debagy & Martinek (2020) already
-applied embeddings to operation names. The novelty claimed here is narrower and
+applied embeddings to operation names, and Baresi et al. (2017) grouped OpenAPI
+operations by semantic similarity against a reference vocabulary (§6.1). The novelty claimed here is narrower and
 checkable: **a normalised interface-cohesion metric with an availability-aware
 weighting scheme**, motivated by empirically measured specification
 incompleteness and made sound by disjoint feature texts.
@@ -178,3 +179,64 @@ domain labelling rejected at 52% agreement against a blind human sample, LLM
 labelling rejected as circular, and the oversized-specification cap justified by
 a 50-point swing in pair-weighted statistics. A rejection with a measurement
 attached is a reusable methodological result, not project bookkeeping.
+
+---
+
+## 6. Newer work, 2021–2026
+
+*Added 2026-10-01, from a literature search prompted by "RAMA is from 2020".
+Every entry was checked against a primary record (DOI via Crossref, arXiv, or the
+publisher/author page), and the numbers quoted come from the paper's own abstract
+or text. Entries marked † were verified by title, venue and year only; read the
+full text before citing a specific claim from them.*
+
+**Nothing newer replaces RAMA as a threshold anchor.** No 2021–2026 work derives
+thresholds for API-description metrics, and none proposes a static
+interface-cohesion metric with semantic features. The newest large benchmark,
+APIstic (MSR 2024), computes structure, data-model, description and security
+metrics over **1,275,568** valid OpenAPI specifications, and **names cohesion as
+missing**: its related-work section plans to integrate RAMA's LoCmsg and SIDC "as
+a future extension". That is the gap ILSC occupies, stated by the field rather
+than by us. APIstic, RESTRuler and OASQuali are all OpenAPI-only.
+
+### 6.1 Closest to ILSC — must be positioned against
+
+| Work | What it did | Relevance to ILSC |
+|---|---|---|
+| Serbout & Pautasso 2024, **APIstic** (MSR) · doi:10.1145/3643991.3644932 | Pre-computed metrics in four families (structure, data model, NL description, security) over 1,275,568 valid OpenAPI specs from GitHub, SwaggerHub, BigQuery and APIs.guru; a benchmark, but no thresholds | Cite **alongside RAMA** as the current benchmark; its stated lack of cohesion metrics is our gap. Dataset: doi:10.5281/zenodo.20525072 |
+| Bogner et al. 2024, **RESTRuler** (ICSA) · doi:10.1109/ICSA59870.2024.00020 · arXiv:2402.13710 | Static detection of 14 RESTful design-rule violations in OpenAPI, partly NLP-based; >2,300 public descriptions; precision 91%, recall 68% on 111 expert-built violations | The RAMA group's current tool. It flags rule violations; ILSC scores cohesion on a continuous scale. Reviewers will ask for that distinction. Tool: github.com/restful-ma/rest-ruler |
+| Jin et al. 2021, **FoSCI** (TSE 47(5)) · doi:10.1109/TSE.2019.2910531 | Trace-based service-candidate identification, evaluated with an 8-metric suite that uses interface information. The interface-cohesion metrics CHM/CHD are commonly attributed to it† | The most-used interface-cohesion evaluation metrics in decomposition research; **CHD is a candidate additional baseline** (a metric decision, to be raised as a flag, not decided here) |
+| Baresi et al. 2017 (ESOCC) · doi:10.1007/978-3-319-67262-5_2 | Groups OpenAPI operations by semantic similarity against a reference vocabulary to propose microservice candidates; suitable decompositions in ~80% of cases | **An earlier semantic precursor** than Al-Debagy & Martinek 2020 (now named in §3). Decomposition, not a standalone normalised metric (Gap 3) |
+| Bakhtin et al. 2026 (SQJ 34(3)) · doi:10.1007/s11219-026-09773-4 | Eight cohesion metrics on 123 microservices from 25 systems; SIDC correlates weakly-to-moderately negatively with network centrality; "Hub-like ⇒ low cohesion" is not supported | Interface-cohesion metrics (SIDC) are still in Q-journal use in 2026 |
+
+### 6.2 Evidence for our design choices
+
+| Work | Finding | Supports |
+|---|---|---|
+| Decrop et al. 2026, **OASQuali** (ICWE) · doi:10.1007/978-3-032-29372-5_7 | 2,529 public OpenAPI specs, mean quality 67.11%; description/example quality falls from 42.18% to 24.00% as APIs grow; 86.95% lack parameter examples | The **availability mask**: independent evidence that text fields are systematically missing, more so in larger APIs |
+| Yılmaz & Buzluca 2024 (JSS 216) · doi:10.1016/j.jss.2024.112143 · arXiv:2406.14489 | Fuzzy maintainability model; cites RAMA's quartile bands and uses quartiles as fuzzification parameters, so a value can belong to more than one band | Quartile thresholds are still current practice; fuzzy bands are an alternative a reviewer may raise |
+| Bogner et al. 2023 (EMSE 28(6)) · doi:10.1007/s10664-023-10367-y | Controlled experiment, 105 participants: violating 11 of 12 design rules significantly hurt comprehension | Motivation: interface design and naming quality matter to consumers |
+| Kotstein & Bogner 2021 (SummerSOC, CCIS) · doi:10.1007/978-3-030-87568-8_10 | Delphi study, 8 experts, 82 rules; 28 rated high importance | Background to the above |
+| Palma et al. 2022 (JSS 191) · doi:10.1016/j.jss.2022.111369 · arXiv:2205.06533 | SARAv2 / REST-Ling: syntactic and semantic detection of 9 linguistic antipatterns over 19 IoT REST APIs, >80% accuracy | The closest semantic analysis of REST interfaces; small corpus, no thresholds, detects antipatterns rather than scoring cohesion |
+| Palma et al. 2021 (ICSOC) · doi:10.1007/978-3-030-91431-8_11 † | RESTful design quality vs linguistic quality in Google APIs | Background: semantic quality as distinct from structural quality |
+
+### 6.3 Corpora and large-scale OpenAPI studies (background)
+
+| Work | What it did |
+|---|---|
+| Serbout et al. 2022 (ICSA-C) · doi:10.1109/ICSA-C54293.2022.00059 | 42,194 valid OAS specs mined from GitHub (2014–2021); most APIs are small; medium correlation between structure size and data-model size |
+| Di Lauro et al. 2022 (J. Web Eng. 21(6)) · doi:10.13052/jwe1540-9589.2167 | Size (number of operations) over histories of up to 7 years; APIs tend to grow |
+| Di Lauro 2024 (ICWE) · doi:10.1007/978-3-031-62362-2_26 † | GitHub-sourced OpenAPI evolution dataset |
+| Serbout et al. 2022 (ICWS) · doi:10.1109/ICWS55610.2022.00068 | Data-model compatibility across 20,587 APIs (751,390 schemas) |
+| da Rocha Araujo et al. 2021 (Computing & Informatics 40(6)) · doi:10.31577/cai_2021_6_1345 † | Topic exploration over OpenAPI documents |
+| Decrop et al. 2025, **PRAB** (MSR) · doi:10.1109/MSR66628.2025.00072 | Public benchmark of 60 REST APIs with documentation and structural characteristics |
+| Vera-Rivera et al. 2021 (PeerJ CS 7:e695) · doi:10.7717/peerj-cs.695 | Systematic review of 29 papers on microservice granularity; semantic similarity is among the main techniques |
+| Driessen et al. 2024 (LNBIP) · doi:10.1007/978-3-031-54712-6_13 † | Quantitative granularity assessment for maintainability |
+| Lima et al. 2026 · arXiv:2605.14312 | Multi-agent LLM detection of documentation/REST smells: 2,450 smells across ~600 endpoints of 16 industrial APIs. LLM-generated judgements, the approach D-04 rules out for data that feeds a result |
+
+### 6.4 Follow-ups (not yet acted on)
+
+1. Cite APIstic next to RAMA wherever RAMA stands as "the benchmark".
+2. Add a paragraph positioning ILSC against RESTRuler.
+3. CHD as an additional baseline — a metric decision for the metric lead.
+4. `paper/refs.bib` and the paper's related-work section are not updated yet.
