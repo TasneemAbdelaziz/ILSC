@@ -369,3 +369,37 @@ annotation either.
 2. If it does not, rest D-03's rejection on its mechanical evidence — the token
    `api` in the `devtools` list absorbing 64.6% of the corpus — and drop the 52%
    from the paper.
+
+
+---
+
+## F-08 · Exp. 2/4's same-service donor is chosen in hash order, so their draws do not reproduce — **owner: Mohamed (metric lead)**
+
+Raised 2026-10-20 by D-33's reproduction check.
+
+**What is there.** `inject._nearest_sibling` loops over
+`{pool.service_of[i] for i in ...}` — a set — and keeps the first service with
+the best title-token score. When two siblings tie, which one is kept depends on
+string-hash order, and that changes between Python processes unless
+`PYTHONHASHSEED` is fixed.
+- For the 20 Exp. 2/4 services under seeds 0, 1 and 2, **3 get a different
+  sibling**: `azure.com-applicationinsights-componentProactiveDetection`,
+  `apideck.com proxy` and `fungenerators.com barcode`.
+- A different sibling also has a different operation count, which changes how
+  `rng.choice` consumes the generator. So later draws drift as well.
+- Re-running Exp. 4 reproduces level 0 exactly and then differs from level 1
+  (max |ΔILSC| 0.197).
+
+**What it affects.** The stored draws of Exp. 2 (`inject.py`) and Exp. 4
+(`baselines.py`) cannot be regenerated bit for bit. Their *conclusions* may well
+survive — Exp. 4's gap uses cross_provider − same_provider, and every service
+is perturbed the same way within one run — but that has not been checked.
+
+**Options.**
+1. Iterate `sorted(...)` and re-run Exp. 2 and Exp. 4. The numbers move
+   slightly; the conclusions are re-checked.
+2. Pin `PYTHONHASHSEED` in `run_all.py` and in both scripts, and re-run.
+3. Leave the code, and report that the draws are seed-dependent, giving the
+   spread over several seeds.
+
+**Do not choose by which gives the better gap.**

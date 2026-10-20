@@ -1939,3 +1939,95 @@ TUTORIAL, the setup, threats and replication notes, every script's usage text,
     not replaced.
 - The regenerated `benchmark_convert_log.csv` differed only in absolute machine
   paths and was restored.
+
+
+---
+
+## D-33 · The resource baseline joins the perturbation test — fixed before it is run
+
+**Decision (Tasneem, 2026-10-20, under D-30).** D-30 requires every primary
+line to be compared with a resource baseline. Exp. 2/4's perturbation test had
+SIDC and LoCmsg only. It gets the resource baseline here, under these rules,
+written before the script exists.
+
+**Two definitions, both reported, so neither is chosen after the fact.**
+- **RES_leaf** — the share of operation pairs whose paths end in the same leaf
+  resource (`size_mechanism.leaf_resources`). This is the resource count that
+  explains ILSC's size dependence (partial ρ(ILSC, size | resources) = +0.004).
+  It is the strongest resource competitor the corpus has shown.
+- **RES_root** — the same share computed on the root resource
+  (`size_mechanism.root_resources`): the first segment after the operation
+  set's common prefix. This is D-31's family.
+
+Both are oriented like ILSC: a higher value means more cohesive.
+
+**Same draws as Exp. 4.**
+- The same 20 top-quartile services, the same conditions and levels, 10 draws,
+  and the same RNG (seed 42), consumed in the same order. So every metric
+  scores the same injected operations.
+- ILSC is recomputed on each draw and checked against
+  `results/baselines_perturbation.csv`. A mismatch above 1e-5 stops the run.
+
+**Statistic, unchanged from Exp. 4.**
+- Per service, the OLS slope over levels in each condition, and the gap
+  slope(cross_provider) − slope(same_provider).
+- The sign-flip test.
+- The gap in units of the metric's corpus SD. For the two resource baselines
+  that SD comes from `results/size_mechanism.csv` (primary population).
+
+**Reading, fixed now.** A more negative standardised gap means the metric is
+more sensitive to *how foreign* the injected operations are, not only to their
+number. ILSC's Exp. 4 gap is −0.179 SD (20/20 services).
+
+**Outputs.** `results/resource_perturbation.csv` and
+`results/resource_perturbation_comparison.csv`. Exp. 4's files are not touched.
+
+
+**Amendment A1 to D-33, 2026-10-20 — before any gap was computed.** The run
+stopped at the check, as designed. ILSC matched Exp. 4's stored values at level
+0 and differed from level 1 on (max 0.197). The cause is F-08:
+`inject._nearest_sibling` iterates a Python set, so ties are broken by
+string-hash order. That order changes with `PYTHONHASHSEED`, so Exp. 4's draws
+cannot be reproduced. Three of the 20 services get a different sibling under
+seeds 0, 1 and 2.
+
+So "the same draws as Exp. 4" is impossible. The principle behind it — every
+metric scores the same injected operations — is kept another way:
+- The run fixes `PYTHONHASHSEED=0` (the script re-executes itself with it), so
+  it is reproducible.
+- It scores **all five** metrics on its own draws: ILSC, SIDC, LoCmsg,
+  RES_leaf, RES_root.
+- Exp. 4's stored gaps are shown beside them for reference.
+
+Nothing else changes.
+
+
+### Result of D-33 (amended), 2026-10-20 (`results/resource_perturbation_comparison.csv`)
+
+All five metrics were scored on the same 2,960 draws, with `PYTHONHASHSEED=0`.
+
+| metric | gap (cross − same provider) | gap / corpus SD | services with gap < 0 | sign-flip p |
+|---|--:|--:|--:|--:|
+| LoCmsg | −0.0549 | **−0.263** | 19/20 | 7.6e-06 |
+| **ILSC** | −0.0233 | **−0.187** | 19/20 | 1.9e-06 |
+| RES_root | −0.0417 | −0.139 | 20/20 | 9.5e-07 |
+| SIDC | −0.0178 | −0.043 | 12/20 | 0.0066 |
+| RES_leaf | −0.0049 | −0.020 | 16/20 | 1.5e-05 |
+
+**Reading.**
+- ILSC is more sensitive than **both** resource baselines to how foreign the
+  injected operations are: −0.187 SD against −0.139 and −0.020.
+  - **RES_leaf**, the definition that explains ILSC's size dependence, hardly
+    reacts. A foreign leaf resource is a new resource whether it comes from the
+    same provider or another.
+  - **RES_root** reacts more. Part of that is mechanical: cross-provider
+    operations shorten the bag's common path prefix, which relabels the base
+    operations too.
+- The order against Exp. 4's baselines is unchanged: LoCmsg > ILSC > SIDC.
+- No test of the difference *between* two metrics' gaps was pre-registered, so
+  these comparisons are descriptive.
+
+**F-08 does not change Exp. 4's conclusion.** Exp. 4's stored draws gave ILSC
+−0.179 SD (20/20), SIDC −0.045 (13/20) and LoCmsg −0.256 (19/20). These draws
+give −0.187 (19/20), −0.043 (12/20) and −0.263 (19/20). Same ranking, same
+signs.
