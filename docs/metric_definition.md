@@ -47,7 +47,7 @@ earlier design:
 
 With disjoint texts, f1 captures structural semantics, f6 captures documentation
 semantics, and **each missing field is visible to exactly one mask term**. There
-is a regression test for this (`src/test_similarity.py::test_r2_description_isolation`)
+is a regression test for this (`src/metric/test_similarity.py::test_r2_description_isolation`)
 which fails on the previous design: deleting one operation's description leaves
 f1 bit-identical at 0.662798 while `m_f6` flips 1 → 0 and `Sim` still computes.
 

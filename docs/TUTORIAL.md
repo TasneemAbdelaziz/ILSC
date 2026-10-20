@@ -51,7 +51,7 @@ is the apparatus to test whether it works.
 
 Run everything with `python run_all.py`. Each step below is one script.
 
-### Step 1 · The corpus — `src/filter.py`, `src/convert.py`
+### Step 1 · The corpus — `src/pipeline/filter.py`, `src/pipeline/convert.py`
 
 Two pinned sources: **S1**, the RAMA benchmark from Bogner et al. 2020 (2,619
 files, peer-reviewed, reusable so our thresholds are comparable with theirs) and
@@ -63,7 +63,7 @@ every removal logged in `results/filter_log.csv`.
 services above 200 operations are gateway surfaces, not microservices, and are
 held out of the *primary* analysis (D-17).
 
-### Step 2 · Is the mask even needed? — `src/availability.py`, `src/pair_availability.py`
+### Step 2 · Is the mask even needed? — `src/analyses/availability.py`, `src/analyses/pair_availability.py`
 
 Before building the metric, measure how incomplete specifications are.
 
@@ -72,7 +72,7 @@ domain schemas on 78.7%. Per *pair*, at least one feature is missing on
 **56.9%** of comparisons. The mask fires on more than half of all pairs. That is
 the justification for C1, measured rather than assumed.
 
-### Step 3 · Features — `src/parse_spec.py`
+### Step 3 · Features — `src/pipeline/parse_spec.py`
 
 Turns each spec into one JSON per service with the six feature sets. Two design
 constraints matter: the operation text `T(Oᵢ)` **excludes the description**, so
@@ -81,14 +81,14 @@ term (R2 — the earlier design double-counted it and defeated the mask); and
 components on >80% of a service's operations are infrastructural and excluded
 from f5 **and, after D-26, from f4**.
 
-### Step 4 · The engine — `src/embed.py`, `src/similarity.py`, `src/ilsc.py`
+### Step 4 · The engine — `src/pipeline/embed.py`, `src/metric/similarity.py`, `src/metric/ilsc.py`
 
 Embeds every operation once (89,429 unique texts, cached), computes the six
 similarities and the mask, aggregates to `ILSC_mean`, `ILSC_τ` and
 `ILSC_norm`. **17 of 17 unit tests pass**, including the R2 regression: delete
 one operation's description and f1 is bit-identical while `m_f6` flips 1 → 0.
 
-### Step 5 · Null models — `src/null_models.py`
+### Step 5 · Null models — `src/metric/null_models.py`
 
 What does a random bag of operations score? Two variants, both required by the
 proposal. Domain labels were rejected twice (D-03 at 52% agreement, D-04 as
@@ -99,7 +99,7 @@ providers above global — the harder bar works). And a theoretical result:
 E[ILSC_rand] is **flat in n** (D-21), so `ILSC_norm` is an affine rescaling of
 `ILSC_mean` and *cannot reorder services* — it is not independent evidence.
 
-### Step 6 · Gate 1 — `src/gate1_run.py` → **FAIL** → `src/gate1_matched.py` → **PASS**
+### Step 6 · Gate 1 — `src/experiments/gate1_run.py` → **FAIL** → `src/experiments/gate1_matched.py` → **PASS**
 
 Ten services hand-labelled before any score existed.
 
@@ -112,19 +112,19 @@ single-capability service with their many-capability one. **14 of 16** in the
 predicted direction, mean difference **+0.105**, p = **0.002**, and **11 of 12**
 label boundaries agree. The failure was the sample, not the metric.
 
-### Step 7 · Exp. 1 — `src/ilsc.py --null …`
+### Step 7 · Exp. 1 — `src/metric/ilsc.py --null …`
 
 → 2,206 services in ~1 min. Median `ILSC_mean` **0.366** (primary). Quartile
 thresholds per population in `results/ilsc_thresholds.csv`; the **S1-only** row
 (0.308 / 0.388 / 0.483) is the one comparable with Bogner.
 
-### Step 8 · Are six features redundant? — `src/feature_corr.py` (Fig 9)
+### Step 8 · Are six features redundant? — `src/analyses/feature_corr.py` (Fig 9)
 
 → Maximum inter-feature Spearman **0.558** (f1–f3), nowhere near the 0.85
 redundancy threshold set in advance. But `f1_only` still reaches ρ = 0.81
 against the full metric: f1 carries most of the signal and the others refine it.
 
-### Step 9 · Exp. 2 — `src/inject.py` (Fig 3)
+### Step 9 · Exp. 2 — `src/experiments/inject.py` (Fig 3)
 
 Inject 1/2/3/5 foreign operations into 20 top-quartile services, from three
 distances (D-05): same-provider sibling, same provider, different provider.
@@ -134,7 +134,7 @@ distances (D-05): same-provider sibling, same provider, different provider.
 → **20 of 20** perfectly monotonic. Slopes order with distance: −0.037 / −0.065 /
 −0.088. Paired gap negative for **20 of 20**, p < 10⁻⁶. **H2 holds.**
 
-### Step 10 · The code dig — `results/endpoint_entities.csv`, `src/entity_extract.py`
+### Step 10 · The code dig — `results/endpoint_entities.csv`, `src/experiments/entity_extract.py`
 
 Ground truth for Exp. 3: which code-level entities does each endpoint touch?
 
@@ -143,7 +143,7 @@ Ground truth for Exp. 3: which code-level entities does each endpoint touch?
 automated Java extractor, verified 10/10 against source, **211 of 211**
 endpoints covered — including two non-Java services dug out by hand.
 
-### Step 11 · Exp. 3 / Gate 2 — `src/bench_prepare.py`, `src/code_correlation.py` (Figs 4–5)
+### Step 11 · Exp. 3 / Gate 2 — `src/pipeline/bench_prepare.py`, `src/experiments/code_correlation.py` (Figs 4–5)
 
 Correlate interface similarity with code-entity overlap, pair by pair — and
 **never pool the two systems** (D-16), because Train Ticket's specs were
@@ -155,7 +155,7 @@ complementary signal."* **Gate 2 passes, reframed.** The +0.078 gap between the
 two is a measured estimate of derivation inflation — a result a one-system
 design could not produce.
 
-### Step 12 · Exp. 4 — `src/baselines.py` (Fig 7)
+### Step 12 · Exp. 4 — `src/experiments/baselines.py` (Fig 7)
 
 SIDC and LoCmsg, implemented faithfully — *without* the mask or the exclusions.
 
@@ -164,7 +164,7 @@ it fell. On the corpus, ILSC saturates at a perfect 1.0 for **0.0%** of services
 against SIDC's 35.8% and LoCmsg's 77.0% — but that only shows ILSC is more
 *continuous*, which is why Step 13 exists.
 
-### Step 13 · Exp. 4b — `src/baseline_correlation.py` (Fig 8)
+### Step 13 · Exp. 4b — `src/experiments/baseline_correlation.py` (Fig 8)
 
 The test that settles it: **against the code dig's ground truth, which metric
 better predicts that two operations are related?** AUC, because two predictors
@@ -176,13 +176,13 @@ because **81%** of a generated spec's schema vocabulary is the code's own type
 vocabulary (15% for hand-written), so name-matching there reads the code through
 a wrapper. **Provenance inverts which metric looks best** (D-28).
 
-### Step 14 · Exp. 5 — `src/sensitivity.py`, `src/version_tokens_sweep.py` (Fig 6)
+### Step 14 · Exp. 5 — `src/experiments/sensitivity.py`, `src/experiments/version_tokens_sweep.py` (Fig 6)
 
 → Kendall's W = **0.9949** across ±20/40% weight perturbations. τ sweeps smoothly
 with no discontinuity. The tokenisation knob moves the corpus ranking at
 ρ = 0.998. **H3 holds — three knobs, all swept.**
 
-### Step 15 · Two things the data forced on us — `src/provider_cap.py`, `src/param_boilerplate.py`
+### Step 15 · Two things the data forced on us — `src/experiments/provider_cap.py`, `src/analyses/param_boilerplate.py`
 
 → **D-25:** AWS/Google/Azure are **48%** of the corpus and score higher. Report
 thresholds stratified; never quote one without its population.
@@ -283,4 +283,4 @@ JSS/IST paper — or a short paper on the mask alone, which is publishable today
 
 *Prepared 2026-09-08 for Mohamed Elredeny and Tasneem Abdelaziz. Every claim
 above is traceable to a file in `results/`, a decision in `docs/DECISIONS.md`,
-or a test in `src/test_similarity.py`.*
+or a test in `src/metric/test_similarity.py`.*

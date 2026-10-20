@@ -13,7 +13,7 @@ and the disagreements are listed in §3.
 | System | Written from | Strength |
 |---|---|---|
 | Sock Shop | each service's own repository — `README.md`, `service.go` / `*Controller.java`, and the entity types | **Strong.** The source was read directly. |
-| Train Ticket | the OpenAPI surface in `specs/benchmarks/trainticket/` plus the naming conventions of the published system | **Weaker — declared.** See the warning below. |
+| Train Ticket | the OpenAPI surface in `data/benchmarks/specs/trainticket/` plus the naming conventions of the published system | **Weaker — declared.** See the warning below. |
 
 > **The Train Ticket half is derived from the specification surface, not from
 > the FudanSELab *Service Guide*.** The plan called for the wiki; it was not
@@ -230,7 +230,7 @@ carried in the last column so it can be hidden while annotating. It needs about
 an hour from someone who did not do the first pass.
 
 **Train Ticket has the same requirement and its own sheet.** Run
-`python src/entity_extract.py --src <checkout> --sample 10`, fill
+`python src/experiments/entity_extract.py --src <checkout> --sample 10`, fill
 `entities_manual` **from the Java sources**, then `--score` it. F-03 applies:
 `docs/responsibilities.md` §2 was written from the specifications and must not
 be used as the reference.

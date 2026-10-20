@@ -76,7 +76,7 @@ in one push.**
 | **7** | `inject.py` + monotonicity/contrast checker | ✅ | **Train Ticket automated extraction** (209/211) | ✅ |
 | **8** | **Exp. 2** perturbation run, **Fig 3** | ✅ | TT verification, 10 endpoints; go/no-go on ρ_derived | ✅ |
 | **9** | **Exp. 4** — SIDC + LoCmsg implemented | ✅ | Reliability check — **verification done, blind figure still owed** | ◐ |
-| **10** | Exp. 4 baselines under perturbation, **Fig 7** | ✅ | **Figures restyled to one palette** (`src/figstyle.py`) | ✅ |
+| **10** | Exp. 4 baselines under perturbation, **Fig 7** | ✅ | **Figures restyled to one palette** (`src/common/figstyle.py`) | ✅ |
 | **11** | **Exp. 3** pair-level ρ, both conditions | ✅ | Replication package + `docs/replication.md` | ✅ |
 | **12** | Exp. 3 service-level ρ; discordance; **Gate 2** | ✅ | Fresh-clone test — **structural done, end-to-end still owed** | ◐ |
 | **13** | **Exp. 5** weights, Kendall's W, **Fig 6** | ✅ | **Threats to Validity** (`docs/threats_to_validity.md`) | ✅ |
@@ -109,7 +109,7 @@ empty entity sets are **correct**, not gaps.
   agreement — and that verification caught a real bug (below). But the annotator
   could see the automated column, so it is *verification*, not a blind
   inter-annotator figure: reliable at catching entities claimed but not present,
-  weaker at catching entities missed. `src/entity_extract.py --score` now prints
+  weaker at catching entities missed. `src/experiments/entity_extract.py --score` now prints
   that distinction itself. Sock Shop's sheet stays blank.
 - **Day 12, fresh clone.** Structurally verified: 22/22 scripts present, 24/24
   modules import with no corpus, 17/17 tests pass from the clean tree. The
@@ -136,7 +136,7 @@ that **cannot be self-administered**.
 | **1** | Inter-annotator agreement | **Tasneem** | ◐ **Train Ticket verified** (10/10 against source, and it caught a real bug). Still owed: a **blind** pass — the last column hidden, by a reader who did not build the extractor — and **Sock Shop entirely**, where the sets were derived by one reader and a second pass by the same reader measures memory. ~1 h each. |
 | **2** | `DROP_VERSION_TOKENS` (D-15) sweep | **Mohamed** | ✅ **Closed.** Exp. 5 is now three knobs. |
 | **3** | Two non-Java Train Ticket services | **Tasneem** | ✅ **Closed.** Both dug out by hand; both empty sets are correct. Coverage 211/211. |
-| **4** | One figure palette; fresh-clone test | **Tasneem** | ◐ **Palette closed** (`src/figstyle.py`, validated). Still owed: the **end-to-end data run** from a fresh clone, ~1 h of wall time. Structural check passed. |
+| **4** | One figure palette; fresh-clone test | **Tasneem** | ◐ **Palette closed** (`src/common/figstyle.py`, validated). Still owed: the **end-to-end data run** from a fresh clone, ~1 h of wall time. Structural check passed. |
 
 **The residue of debts 1 and 4 is the same shape.** Both are checks whose whole
 value is that *someone other than the author* performs them: a blind annotator
@@ -156,7 +156,7 @@ proposal's own division of labour is kept.
 | **3** | Exp. 1 + Exp. 5 results, incl. the `f1_only` ρ = 0.837 discussion | Exp. 2 + Exp. 4 results | Results draft |
 | **4** | Exp. 3 write-up, both conditions, cluster intervals, the D-16 inflation estimate | Discordance prose from `docs/discordance.md` | Gate 2 section |
 | **5** | **Gate 1 as a construct-validity finding** (D-24) — the hardest section to write well | Threats to Validity, drafted jointly | — |
-| **6** | ✅ **Related work drafted** (`docs/related_work.md`) — positioned on discriminating power, with the perturbation claim reported as it fell | ✅ **Figures restyled** (`src/figstyle.py`) | Figs final |
+| **6** | ✅ **Related work drafted** (`docs/related_work.md`) — positioned on discriminating power, with the perturbation claim reported as it fell | ✅ **Figures restyled** (`src/common/figstyle.py`) | Figs final |
 | **7** | ✅ **Abstract + intro drafted** (`docs/abstract_and_intro.md`) | ◐ Package documented; **end-to-end fresh-clone run in progress** | package |
 | **8–9** | Full assembly and internal review | | **First draft** |
 | **10** | *Slack* | *Slack* | — |
@@ -180,7 +180,7 @@ blocking Exp. 1; Exp. 1 has now run without it, so the live question is narrower
 *do the published quartile thresholds change under a provider cap?* AWS, Google
 and Azure hold **46.8%** of the corpus, so the thresholds are drawn from a
 hyperscaler-heavy sample. With the engine built this is a **one-minute re-run**
-of `src/ilsc.py` over a capped population, not a design decision. It should be
+of `src/metric/ilsc.py` over a capped population, not a design decision. It should be
 answered with a number before the thresholds are written up — if they move, the
 paper must say which population produced them; if they do not, that is a
 robustness result worth one sentence.
@@ -304,7 +304,7 @@ Corrections established in `DECISIONS.md` that the manuscript must absorb.
 
 **Limitations**
 
-- Mask statistics describe `specs/clean/` while the mask runs on `specs/clean3/`;
+- Mask statistics describe `data/corpus/1_clean/` while the mask runs on `data/corpus/2_clean3/`;
   f4 is ~5 points optimistic on the 144 converted 2.0 services (D-14).
 - The corpus count of 2,206 is ~0.9% high pending F-02.
 - Entity extraction is **single-annotator with no reliability figure** until

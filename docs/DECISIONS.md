@@ -1499,3 +1499,443 @@ boundary. It is still sixteen providers.
 **D-27's four remedies are now three.** Provider blocking is done. Enlarging the
 sample, using a label source independent of specification structure, and
 treating the original ten-service gate as a diagnostic remain.
+
+---
+
+## D-30 · Validation rests on references nobody on the team judged — Sock Shop's manual entity sets are retired
+
+**Decision (Tasneem, 2026-10-19).** No reference standard that a result is
+computed against may come from our own judgment or from a language model. This
+extends D-04 from domain labels to every reference standard in the study. A
+reference is admissible only if it is (a) an artifact others authored for their
+own purposes — the developers' service boundaries, an API's release history —
+(b) a formal argument, or (c) a mechanical rule fixed before the data is seen.
+
+### Primary evidence — four lines, each compared with SIDC, LoCmsg and a resource baseline
+
+| line | question | reference | status |
+|---|---|---|---|
+| **Developer-defined service boundaries** | Does pairwise ILSC similarity separate operations the developers placed in one service from operations they placed in different ones? | the system's own service split (Train Ticket; the MsDecomposer applications of Sun et al. 2022) | pre-registration pending (D-31) |
+| **API evolution** | Does a service's ILSC at one version relate to the structural change it undergoes by the next? | release history, diffed with an established tool (oasdiff), not a script of ours | feasibility check pending; needs the S1/S2 raw sources at the pinned commits |
+| **Briand properties** | Does ILSC satisfy the cohesion properties of Briand, Morasca & Basili (IEEE TSE, 1996)? | formal argument | not started |
+| **Perturbation** | Exp. 2 | provider proximity (D-05, D-18) | done; the resource baseline is still to be added |
+
+### Secondary — reported, never the basis of a validity claim
+
+- **Exp. 3 on Train Ticket** (`rho_derived`). The extractor is an instrument,
+  which D-04 allows a language model to help build. Its 10/10 check
+  (`results/entity_agreement_sample.csv`) is verification, not reliability: the
+  reader could see the automated column, and the commit that records it
+  (`cbc776d`) carries an AI co-author trailer, so whether a second person was
+  involved is not recorded.
+- **Gate 1, provider-matched** (D-29). Non-confirmatory.
+
+### Retired as evidence
+
+`results/endpoint_entities.csv` — Sock Shop, 27 endpoints, one reader. With it
+go `rho_independent` (0.409) and Exp. 4b's Sock Shop AUC (ILSC 0.794 against
+SIDC 0.574 and LoCmsg 0.651), which is the superiority claim of **D-28**.
+
+1. It is our own judgment, which this decision excludes.
+2. The commit that added it (`9302260`) carries an AI co-author trailer, and
+   nothing records whether a person or the model read the code. If the model
+   did, D-04 already forbade it.
+
+The file stays in `results/` unchanged, as history. No number in the paper is
+computed from it. Sock Shop comes back, if at all, only through a reference this
+decision admits — MsDecomposer's split of it.
+
+### Dropped rather than paid
+
+The human validation study (`docs/TUTORIAL.md`, gap table), the blind
+inter-annotator figures (`docs/PLAN.md`, debt 1) and D-29's human check of the
+mechanical labels. The paper states their absence as a design choice, with this
+decision as the reason.
+
+**APIs.guru categories** (`x-apisguru-categories`) are used for stratified
+sampling only, never as a reference.
+
+**Raised, not decided here:** F-06 (Train Ticket's operationIds and paths carry
+the service name) and F-07 (D-03's blind sheet holds no labels).
+
+---
+
+## D-31 · Developer-defined service boundaries on Train Ticket — pre-registered before any score
+
+**Fixed 2026-10-19, approved by Tasneem, before the script existed and before any
+number was computed.** This is the first primary line of D-30.
+
+**Question.** If the whole system is read as one API, does ILSC's pairwise
+similarity put the operations Train Ticket's developers placed in one service
+above the operations they placed in different services, and does it do so better
+than SIDC, LoCmsg and a resource baseline?
+
+**Population.** The 34 Train Ticket services in `specs/benchmarks/trainticket/`,
+converted and parsed exactly as for Exp. 3 (`src/bench_prepare.py`: swagger2openapi
+7.0.8, then the corpus parser, D-07 applied). 211 operations, so 22,155 pairs:
+**794 same-service (related)** and **21,361 cross-service (unrelated)**.
+
+**1. Service identity is removed before anything is computed (F-06).**
+- Path: the leading `/api/v1/<segment>` is dropped. Every Train Ticket path
+  begins that way, and the script asserts it.
+- operationId: a leading `ts-<name>-service.` is dropped (regex
+  `^ts-[a-z0-9-]+-service\.`). 203 of 211 are expected to carry it.
+- Tags are read by no predictor.
+- Every removal is logged to `results/dev_boundaries_strip_log.csv`.
+
+**2. Per-service rules are recomputed over the system.** D-26's frequent-schema
+and frequent-parameter exclusions (share > 0.80) and the generic-schema list use
+all 211 operations as the denominator. Computing them per service would feed the
+answer into the predictor.
+
+**3. Embeddings** of the stripped `T(Oᵢ)` and of the descriptions are computed
+live with the pinned model (`config.EMBEDDING_MODEL`). No cache holds these texts.
+
+**4. Predictors, all pair-level.**
+- **ILSC:** `Sim` — six features, the availability mask, weights 1/6.
+- **SIDC_pair and LoCmsg_pair:** exactly as in D-28, on their own unfiltered
+  inputs.
+- **resource_pair:** 1 if both operations share the first non-parameter segment
+  of the stripped path, lowercased.
+
+**5. Primary statistic: AUC**, with "same service" as the positive class.
+- The 95% interval comes from a dyadic cluster bootstrap over services: 2,000
+  resamples, seed 42.
+- Services are drawn with replacement. A within-service pair is weighted by its
+  service's multiplicity, and a cross-service pair by the product of its two
+  services' multiplicities. No pairs are formed between two copies of one service.
+- Each difference `AUC_ILSC − AUC_X` is computed on the same resamples.
+
+**6. Decision rule, fixed now.** ILSC is **better** than a baseline if the 95%
+interval of the difference lies wholly above 0, **worse** if it lies wholly below,
+and **indistinguishable** otherwise. Each baseline is judged separately.
+
+**7. Secondary statistic.** Louvain (seed 42, resolution 1.0) is run on each
+predictor's pair graph and compared with the developer split by ARI and NMI.
+resource_pair's partition is its resource labels. The number of communities is
+reported.
+
+**8. Robustness.** ILSC without f2 and f3: their weights are set to 0, and the
+mask renormalises over the remaining features.
+
+**9. Sensitivity, declared now.** The Train Ticket greeting endpoints are
+excluded — those whose stripped path is `/welcome` or `/hello`. It is known in
+advance that their stripped form is identical across services.
+
+**10. Diagnostic for F-06, not a result.** The same AUC with neither prefix
+removed.
+
+**11. Labelled `derived`** (D-16): Train Ticket's specifications are generated
+from its code.
+
+**12. The MsDecomposer applications** get their own pre-registration once the
+structure of their files has been read. Nothing from them is computed under this
+entry.
+
+Whatever the numbers are, they are reported as they fall.
+
+
+**Addendum, 2026-10-19 — written after reading MsDecomposer's files and before
+any score was computed.** MsDecomposer was fetched at `b3bf400`; the repository
+has no licence. Its `api/*.json` files carry the merged API of each application
+with no tags and no service field. Its `result/*.json` files are Sun et al.'s own
+clusters (`ms_0`, `ms_1`, ...), not the original split. So **the developer split
+is not in that repository**, and item 12 cannot be run from it alone. Recovering
+the split needs each application's own source or deployment configuration. That
+is a new choice, and it is left open here.
+
+
+**Extension, 2026-10-19 — approved by Tasneem, before any score.**
+
+**13. Sock Shop is a second condition, labelled `independent`.** Its five
+specifications were written by its developers, one file per service. The file
+split *is* the developer split, and it is already in the repository.
+- Same pipeline as Exp. 3, with D-07 removing `payment`'s `/health`. That
+  leaves 27 operations, so 351 pairs: **122 same-service, 229 cross-service**.
+- **No identity removal.** Sock Shop's paths and operationIds carry no
+  service-name segment. `/carts` and `/orders` are resources its developers
+  named, not a deployment prefix. Item 1 applies to Train Ticket only.
+- Items 2–8 apply unchanged. With five services the bootstrap interval is
+  expected to be wide, and it is reported as it is.
+
+**14. Sun et al.'s own partition of Sock Shop is a comparison row.** It is read
+from MsDecomposer's `result/SockShop1.json` at `b3bf400`.
+- Its operations are matched to ours by method and path. Unmatched operations
+  are counted and left out.
+- ARI and NMI against the developer split are computed on the matched
+  operations. ILSC's Louvain partition is scored on the same matched set, so the
+  two rows compare like with like.
+
+**15. The other six MsDecomposer applications are deferred.** Recovering their
+split needs their own repositories and a mapping rule, and both are still open.
+
+
+### Result of the pre-registered run, 2026-10-19 (`results/dev_boundaries.csv`)
+
+AUCs were checked against scipy's Mann–Whitney U, and pair counts and SIDC's
+AUC by hand. All agree to 6 decimals.
+
+| system / condition | ILSC | ILSC no f2,f3 | SIDC_pair | LoCmsg_pair | resource_pair |
+|---|--:|--:|--:|--:|--:|
+| Train Ticket, primary | 0.882 [0.845, 0.906] | 0.912 | 0.849 (indist.) | 0.542 (ILSC better) | 0.830 (indist.) |
+| Train Ticket, no greeting (26 endpoints) | 0.989 | 0.981 | 0.929 (ILSC better) | 0.526 (ILSC better) | 0.912 (ILSC better) |
+| Train Ticket, unstripped (diagnostic) | 0.996 | 0.966 | 0.849 | 0.542 | 0.500 |
+| **Sock Shop, primary** | **0.701** [0.651, 1.000] | 0.666 | 0.561 (**ILSC better**) | 0.563 (indist.) | 0.648 (indist.) |
+
+Partitions: on Sock Shop's 26 matched operations, Sun et al.'s partition gives
+ARI 0.250 / NMI 0.609, and ILSC's Louvain partition gives **ARI 0.343 / NMI
+0.685**. On Train Ticket, ILSC's Louvain finds 5 communities for 34 services
+(ARI 0.157). ILSC's graph is complete and weighted, so modularity at resolution
+1.0 merges services. The binary baselines' sparse graphs do not (SIDC: 72
+communities, ARI 0.847).
+
+**Corrections to the entry above.**
+- The operationId prefix was removed from **211 of 211**, not the 203 expected.
+  That expectation came from a faulty count: in `ts-contacts-service`,
+  `replace("ts-", "")` also hit the "ts-" inside "contacts-service".
+- There are **26** greeting endpoints, not the 32 in `MASTER_RECORD.md`.
+
+**The Train Ticket rows are not a valid test, and this is why.** After the run,
+schema names were found to carry the same prefix — `ts-assurance-service.HttpEntity`.
+- There are 75 distinct schema names, **none shared by two services**, and 173 of
+  211 operations carry at least one.
+- So **SIDC_pair cannot fire across services by construction**: its FPR is
+  exactly 0.000.
+- ILSC's f5, and f1 through `[SCHEMA]`, still read the service name.
+- LoCmsg's term sets all share `ts` and `service`, which flattens it.
+
+Item 1 removed the prefix from paths and operationIds only. The amendment —
+remove it from schema names too — is the same rule applied to a field the entry
+missed. It is made after seeing results, so it will be reported as an amendment
+and not as the pre-registered test. **It awaits approval.**
+
+**The Sock Shop rows stand as pre-registered.** Sock Shop has no prefix, and its
+SIDC FPR of 0 reflects services that own their types. With five services the
+bootstrap intervals reach 1.000, so only the ILSC-versus-SIDC verdict excludes 0.
+
+
+### Amendment A1 and sensitivity S1 — 2026-10-19, written before running them
+
+**A1 (amendment, after results were seen).** The `ts-<name>-service.` prefix is
+also removed from **schema names**, with the same regex, for every predictor.
+- A check of all six features, with the three prefixes removed, finds **no**
+  `ts`, `service` or `<name>service` token left in f2–f6, so f1 is clean too.
+- Nothing else changes.
+- Items 7–10 apply to the amended condition as well: Louvain, ILSC without
+  f2/f3, the greeting sensitivity.
+- Reported as an amendment, beside the pre-registered rows, never in place of
+  them.
+
+**S1 (sensitivity).** A schema is treated as a **framework wrapper**, and
+dropped from every operation for **all four predictors**, if its declared
+properties are a non-empty subset of `{body, headers, statusCode,
+statusCodeValue}`.
+- Those are the fields of Spring's `HttpEntity` / `ResponseEntity`, so the rule
+  comes from the framework and not from these data.
+- In Train Ticket it matches `HttpEntity` alone (150 of 211 operations). In
+  Sock Shop it matches nothing, so its S1 rows must equal its primary rows.
+- Train Ticket's own `Response` envelope (`data`, `msg`, `status`; 14
+  operations) is **not** covered. A second rule would be a second fork.
+- S1 is a sensitivity, not a change to the metric. Adopting it corpus-wide would
+  change f5's rule (D-26) and is not decided here.
+- `HttpEntity`'s frequency was seen before the rule was written. No AUC under
+  the rule was.
+
+
+### Result of A1 and S1, 2026-10-19 (`results/dev_boundaries.csv`)
+
+The pre-registered rows reproduced to the last digit. The new rows were
+re-checked with scipy's Mann–Whitney U. resource_pair was checked by hand:
+TPR 0.676, FPR 0.017, so AUC 0.830. No `T(Oᵢ)` text keeps `ts` or `service`.
+
+| Train Ticket | ILSC | SIDC_pair | LoCmsg_pair | resource_pair |
+|---|--:|--:|--:|--:|
+| unstripped (diagnostic) | 0.996 | 0.849 | 0.542 | 0.500 |
+| pre-registered (path + operationId) | 0.882 | 0.849 | 0.542 | 0.830 |
+| **A1, all three prefixes** | **0.795** [0.746, 0.833] | 0.598 (**ILSC better**, +0.198) | 0.596 (**ILSC better**, +0.199) | 0.830 (**indist.**, −0.034 [−0.084, 0.020]) |
+| A1, no greeting | 0.955 | 0.601 (ILSC better) | 0.599 (ILSC better) | 0.912 (indist.) |
+| A1 + S1, no framework wrapper | 0.863 | 0.538 (ILSC better) | 0.600 (ILSC better) | 0.830 (indist.) |
+
+- In A1, the schema prefix was removed 242 times, on 173 operations.
+- S1 matched 28 per-service `HttpEntity` names, on 150 operations. In Sock
+  Shop it matched nothing, and its S1 rows equal its primary rows exactly.
+- In A1-no-greeting, D-26's own 80% rule removed `HttpEntity` by itself
+  (150 of 185 operations).
+
+**Reading, stated so it cannot be overclaimed.**
+- Once the name is gone, ILSC separates Train Ticket's services far better
+  than SIDC and LoCmsg in every variant.
+- It **never beats the resource baseline**: Train Ticket in every variant, and
+  Sock Shop (0.701 against 0.648). 68% of same-service pairs share their first
+  path segment, against 1.7% of cross-service pairs. Services here are built
+  around one resource.
+- ILSC also beats its own no-f2/f3 variant (0.795 against 0.719). The lexical
+  name and path features carry much of its signal.
+- Boundary recovery therefore does **not** show that ILSC adds information
+  beyond resources. That claim has to come from the evolution line, or it is
+  narrowed.
+- ILSC's Louvain partition collapses to 2 communities in A1 (ARI 0.019),
+  because the complete weighted graph merges services. As designed, the
+  partition statistic does not inform about ILSC.
+
+
+### Exploratory E1 and E2 — 2026-10-19, declared after A1/S1 were seen and before these were run
+
+Both are **exploratory**. They answer the question A1 left open: is there signal
+beyond the resource? They are not confirmatory tests.
+
+**E1 — the embedding alone.** A predictor `f1_only` (weight 1 on f1, 0 on
+everything else) is set beside ILSC, SIDC_pair, LoCmsg_pair and resource_pair.
+Its AUC and its differences from each of them are reported.
+
+**E2 — pairs the resource baseline cannot see.** The pairs are split by
+resource_pair:
+- `diff_resource`: different first path segment. resource_pair is 0 for all of
+  them, so it is blind here, at AUC 0.5 by construction.
+- `same_resource`: the same segment.
+
+In each stratum every predictor's AUC is reported, with "above chance" meaning
+the 95% interval lies wholly above 0.5. The differences of ILSC and f1_only from
+SIDC_pair and LoCmsg_pair are reported too.
+
+**Shared settings.**
+- **Conditions:** Train Ticket A1 and A1+S1, and Sock Shop primary.
+- **Bootstrap:** the same dyadic bootstrap (2,000 resamples, seed 42),
+  restricted to the stratum's pairs.
+- **Output:** `results/dev_boundaries_exploratory.csv`. The pre-registered file
+  is not touched.
+
+
+### Result of E1 and E2, 2026-10-19 — exploratory (`results/dev_boundaries_exploratory.csv`)
+
+Key AUCs were re-checked with scipy's Mann–Whitney U and agree to 4 decimals.
+
+**E1 — the embedding alone carries most of the signal.**
+
+| | f1_only | ILSC | resource_pair | f1_only vs resource |
+|---|--:|--:|--:|---|
+| Train Ticket A1 | 0.777 | 0.795 | 0.830 | indist. (−0.053 [−0.116, 0.019]) |
+| Train Ticket A1+S1 | 0.807 | 0.863 | 0.830 | indist. (−0.022 [−0.087, 0.053]) |
+| Sock Shop | 0.716 | 0.701 | 0.648 | indist. (+0.068 [0.000, 0.212]) |
+
+`f1_only` beats SIDC_pair and LoCmsg_pair everywhere on Train Ticket, by 0.18
+to 0.27.
+
+**Correction to the A1 reading above.** It said the lexical name and path
+features carry much of ILSC's signal, because ILSC beat its no-f2/f3 variant.
+That inference was wrong. The no-f2/f3 variant keeps f5, which the per-service
+`HttpEntity` wrapper pollutes. f1 alone scores 0.777, against that variant's
+0.719. f2 and f3 add on top of f1 only under S1, where ILSC is 0.863 against
+f1's 0.807.
+
+**E2 — pairs whose resources differ** (257 same-service, 21,006 cross-service
+on Train Ticket; 86 and 229 on Sock Shop). resource_pair is blind here, at 0.5.
+
+| | ILSC | f1_only | SIDC_pair | LoCmsg_pair |
+|---|--:|--:|--:|--:|
+| Train Ticket A1 | 0.500 (chance) | 0.552 (chance) | 0.417 | 0.409 |
+| **Train Ticket A1+S1** | **0.658** [0.543, 0.732] above chance | **0.651** [0.511, 0.730] above chance | 0.505 | 0.522 |
+| **Sock Shop** | **0.578** [0.519, 0.840] above chance | **0.617** [0.542, 0.980] above chance | 0.570 | 0.525 |
+
+Where the resource cannot tell services apart, ILSC and f1 still can. That holds
+on Sock Shop, and on Train Ticket once the framework wrapper is removed. With the
+wrapper in place, its shared tokens drown the signal.
+
+**The same-resource stratum is below chance for ILSC (0.09), and the reason is
+the reference, not the metric.**
+- 276 of its 355 cross-service pairs are greeting endpoints, identical across
+  services, with ILSC = 1.000.
+- Of the remaining 79, 59 pair `ts-travel-service` with its near-duplicate
+  `ts-travel2-service`: `/trips`, `/routes`, and so on.
+- ILSC calls these operations alike because they are alike. The developer
+  split separates them for deployment reasons. This is the limit of developer
+  boundaries as a cohesion reference that D-30 anticipated.
+
+**Status.** E1 and E2 were declared after A1/S1 were seen. They point to
+semantic signal beyond the resource but do not establish it. A confirmatory
+version must be pre-registered on systems not yet looked at, or come from the
+evolution line.
+
+
+**Data, 2026-10-20.** Every condition's exact inputs are written to
+`results/dev_boundaries_data/` by the same script (`--dataset` writes the folder
+alone).
+- One JSON per condition.
+- `operations.csv`: 238 operations, original beside cleaned.
+- `removed.csv`: 841 removals, one row each — 211 path prefixes, 211
+  operationId prefixes, 242 schema-name prefixes, 150 framework wrappers (S1),
+  26 greeting endpoints, and the 1 D-07 admin endpoint (Sock Shop `payment`'s
+  `/health`).
+
+S1's and the greeting removals were not logged in a CSV before this; they are
+now. Re-running the script after adding the folder left `dev_boundaries.csv`,
+`dev_boundaries_strip_log.csv` and `dev_boundaries_exploratory.csv` unchanged,
+byte for byte.
+
+
+---
+
+## D-32 · Repository reorganised by role — `data/` by stage, `src/<group>/` by job; no result changed
+
+**Decision (Tasneem, 2026-10-20).** Made on branch `reorganize-folders`. The
+merge waits for Mohamed, because every path his branch uses moves.
+
+### What moved
+
+| before | after |
+|---|---|
+| `rama-thresholds/`, `openapi-directory/`, `msdecomposer/` | `data/sources/…` |
+| `specs/clean/` | `data/corpus/1_clean/` |
+| `specs/clean3/` | `data/corpus/2_clean3/` |
+| `parsed/` | `data/corpus/3_parsed/` |
+| `parsed_nodrop/` | `data/corpus/3_parsed_nodrop/` |
+| `.cache/embeddings/`, `.cache/embeddings_nodrop/` | `data/corpus/embeddings/`, `data/corpus/embeddings_nodrop/` |
+| `specs/benchmarks/` | `data/benchmarks/specs/` |
+| `specs/benchmarks3/` | `data/benchmarks/specs3/` |
+| `parsed_bench/` | `data/benchmarks/parsed/` |
+| `.cache/embeddings_bench/` | `data/benchmarks/embeddings/` |
+| `results/dev_boundaries_data/` | `data/benchmarks/d31_cleaned/` |
+| `src/filter.py`, `convert.py`, `convert.js`, `validate_sample.py`, `parse_spec.py`, `embed.py`, `benchmark_prep.py`, `bench_prepare.py` | `src/pipeline/` |
+| `src/similarity.py`, `ilsc.py`, `null_models.py`, `oversized.py`, `pool.py`, `test_similarity.py` | `src/metric/` |
+| `src/gate1_select.py`, `gate1_run.py`, `gate1_matched.py`, `inject.py`, `entity_extract.py`, `code_correlation.py`, `baselines.py`, `baseline_correlation.py`, `sensitivity.py`, `version_tokens_sweep.py`, `provider_cap.py`, `dev_boundaries.py` | `src/experiments/` |
+| `src/availability.py`, `pair_availability.py`, `feature_corr.py`, `size_mechanism.py`, `construct_validity.py`, `param_boilerplate.py`, `graph_structure.py` | `src/analyses/` |
+| `src/figstyle.py`, `domain_label.py` | `src/common/` |
+
+`.cache/` keeps only caches: the filter's scan checkpoints and `author_tags.json`.
+
+### How the scripts still find each other
+
+`srcpath.py`, at the repository root, puts every `src/<group>/` on `sys.path`.
+Each script inserts the root and imports it, so `import similarity` works from
+any group. The path constants in `config.py` and `bench_prepare.py` point to
+the new folders, and so do the defaults in five scripts and `run_all.py`.
+`src/README.md` and `data/README.md` describe every script and every stage.
+
+### What was not rewritten
+
+The entries above this one, `docs/FLAGS.md` and `MASTER_RECORD.md` are records.
+They keep the paths as they were written, and the table above maps them.
+`results/*.csv` is untouched: `benchmark_manifest.csv`, for one, stores the old
+spec paths as data. Living documents were updated: README, RESULTS, PLAN,
+TUTORIAL, the setup, threats and replication notes, every script's usage text,
+`package.json` and `requirements.txt`.
+
+### Verification — nothing changed
+
+- All 34 modules import from their new folders.
+- `test_similarity.py` passes 17/17, and the parser self-test passes.
+- The embedding cache verifies 2,206/2,206 services against
+  `data/corpus/3_parsed/`.
+- `bench_prepare.py` rebuilt 39/39 benchmark services and 238 operations.
+- D-31, re-run, gives byte-identical `dev_boundaries.csv`, strip log and
+  exploratory file, and byte-identical data files in `d31_cleaned/`. Its README
+  differs only in the two paths it quotes.
+- `ilsc.py`, re-run over the corpus, gives the same rows and columns.
+  - Cells differ by at most **9.2e-07**, and only in the embedding-derived
+    columns (`mean_f1`, `mean_f6`, `ILSC_mean`, the two ILSC_norm). That is
+    float32 arithmetic on this machine against the committed run. A move
+    cannot cause it.
+  - The committed `ilsc_scores.csv` and `ilsc_thresholds.csv` were restored,
+    not replaced.
+- The regenerated `benchmark_convert_log.csv` differed only in absolute machine
+  paths and was restored.

@@ -1,0 +1,2435 @@
+{
+ "system": "trainticket",
+ "condition": "A1_no_greeting",
+ "spec_origin": "derived",
+ "strip": "all",
+ "s1_wrappers_removed": [],
+ "d26_excluded_schemas": [
+  "HttpEntity"
+ ],
+ "d26_excluded_params": [],
+ "n_operations": 185,
+ "n_services": 34,
+ "operations": [
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service DELETE /api/v1/assuranceservice/assurances/assuranceid/{assuranceId}",
+   "method": "DELETE",
+   "path": "/assurances/assuranceid/{assuranceId}",
+   "operation_id": "deleteAssuranceUsingDELETE",
+   "param_names": [
+    "assuranceId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service DELETE /api/v1/assuranceservice/assurances/orderid/{orderId}",
+   "method": "DELETE",
+   "path": "/assurances/orderid/{orderId}",
+   "operation_id": "deleteAssuranceByOrderIdUsingDELETE",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service GET /api/v1/assuranceservice/assurance/orderid/{orderId}",
+   "method": "GET",
+   "path": "/assurance/orderid/{orderId}",
+   "operation_id": "findAssuranceByOrderIdUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service GET /api/v1/assuranceservice/assurances",
+   "method": "GET",
+   "path": "/assurances",
+   "operation_id": "getAllAssurancesUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service GET /api/v1/assuranceservice/assurances/assuranceid/{assuranceId}",
+   "method": "GET",
+   "path": "/assurances/assuranceid/{assuranceId}",
+   "operation_id": "getAssuranceByIdUsingGET",
+   "param_names": [
+    "assuranceId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service GET /api/v1/assuranceservice/assurances/types",
+   "method": "GET",
+   "path": "/assurances/types",
+   "operation_id": "getAllAssuranceTypeUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service GET /api/v1/assuranceservice/assurances/{typeIndex}/{orderId}",
+   "method": "GET",
+   "path": "/assurances/{typeIndex}/{orderId}",
+   "operation_id": "createNewAssuranceUsingGET",
+   "param_names": [
+    "orderId",
+    "typeIndex"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-assurance-service",
+   "op_key": "ts-assurance-service PATCH /api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex}",
+   "method": "PATCH",
+   "path": "/assurances/{assuranceId}/{orderId}/{typeIndex}",
+   "operation_id": "modifyAssuranceUsingPATCH",
+   "param_names": [
+    "assuranceId",
+    "orderId",
+    "typeIndex"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-auth-service",
+   "op_key": "ts-auth-service DELETE /api/v1/users/{userId}",
+   "method": "DELETE",
+   "path": "/{userId}",
+   "operation_id": "deleteUserById",
+   "param_names": [
+    "userId"
+   ],
+   "schema_names": [
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-auth-service",
+   "op_key": "ts-auth-service GET /api/v1/users",
+   "method": "GET",
+   "path": "/",
+   "operation_id": "getAllUser",
+   "param_names": [],
+   "schema_names": [
+    "GrantedAuthority",
+    "User"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-auth-service",
+   "op_key": "ts-auth-service POST /api/v1/auth",
+   "method": "POST",
+   "path": "/",
+   "operation_id": "createDefaultUser",
+   "param_names": [],
+   "schema_names": [
+    "AuthDto",
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-auth-service",
+   "op_key": "ts-auth-service POST /api/v1/users/login",
+   "method": "POST",
+   "path": "/login",
+   "operation_id": "getToken",
+   "param_names": [],
+   "schema_names": [
+    "BasicAuthDto",
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-avatar-service",
+   "op_key": "ts-avatar-service POST /api/v1/avatar",
+   "method": "POST",
+   "path": "/",
+   "operation_id": "uploadAvatar",
+   "param_names": [],
+   "schema_names": [],
+   "description": "Accepts a base64-encoded image, detects face, crops it, and returns the cropped face image also in base64 format."
+  },
+  {
+   "service": "ts-basic-service",
+   "op_key": "ts-basic-service GET /api/v1/basicservice/basic/{stationName}",
+   "method": "GET",
+   "path": "/basic/{stationName}",
+   "operation_id": "queryForStationIdUsingGET",
+   "param_names": [
+    "stationName"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-basic-service",
+   "op_key": "ts-basic-service POST /api/v1/basicservice/basic/travel",
+   "method": "POST",
+   "path": "/basic/travel",
+   "operation_id": "queryForTravelUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Travel",
+    "Trip",
+    "TripId"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-basic-service",
+   "op_key": "ts-basic-service POST /api/v1/basicservice/basic/travels",
+   "method": "POST",
+   "path": "/basic/travels",
+   "operation_id": "queryForTravelsUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Travel",
+    "Trip",
+    "TripId"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-cancel-service",
+   "op_key": "ts-cancel-service GET /api/v1/cancelservice/cancel/refound/{orderId}",
+   "method": "GET",
+   "path": "/cancel/refound/{orderId}",
+   "operation_id": "calculateUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-cancel-service",
+   "op_key": "ts-cancel-service GET /api/v1/cancelservice/cancel/{orderId}/{loginId}",
+   "method": "GET",
+   "path": "/cancel/{orderId}/{loginId}",
+   "operation_id": "cancelTicketUsingGET",
+   "param_names": [
+    "loginId",
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-config-service",
+   "op_key": "ts-config-service DELETE /api/v1/configservice/configs/{configName}",
+   "method": "DELETE",
+   "path": "/configs/{configName}",
+   "operation_id": "deleteConfigUsingDELETE",
+   "param_names": [
+    "configName"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-config-service",
+   "op_key": "ts-config-service GET /api/v1/configservice/configs",
+   "method": "GET",
+   "path": "/configs",
+   "operation_id": "queryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-config-service",
+   "op_key": "ts-config-service GET /api/v1/configservice/configs/{configName}",
+   "method": "GET",
+   "path": "/configs/{configName}",
+   "operation_id": "retrieveUsingGET",
+   "param_names": [
+    "configName"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-config-service",
+   "op_key": "ts-config-service POST /api/v1/configservice/configs",
+   "method": "POST",
+   "path": "/configs",
+   "operation_id": "createConfigUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Config"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-config-service",
+   "op_key": "ts-config-service PUT /api/v1/configservice/configs",
+   "method": "PUT",
+   "path": "/configs",
+   "operation_id": "updateConfigUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "Config",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-price-service",
+   "op_key": "ts-consign-price-service GET /api/v1/consignpriceservice/consignprice/config",
+   "method": "GET",
+   "path": "/consignprice/config",
+   "operation_id": "getPriceConfigUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-price-service",
+   "op_key": "ts-consign-price-service GET /api/v1/consignpriceservice/consignprice/price",
+   "method": "GET",
+   "path": "/consignprice/price",
+   "operation_id": "getPriceInfoUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-price-service",
+   "op_key": "ts-consign-price-service GET /api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion}",
+   "method": "GET",
+   "path": "/consignprice/{weight}/{isWithinRegion}",
+   "operation_id": "getPriceByWeightAndRegionUsingGET",
+   "param_names": [
+    "isWithinRegion",
+    "weight"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-price-service",
+   "op_key": "ts-consign-price-service POST /api/v1/consignpriceservice/consignprice",
+   "method": "POST",
+   "path": "/consignprice",
+   "operation_id": "modifyPriceConfigUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "ConsignPrice",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-service",
+   "op_key": "ts-consign-service GET /api/v1/consignservice/consigns/account/{id}",
+   "method": "GET",
+   "path": "/consigns/account/{id}",
+   "operation_id": "findByAccountIdUsingGET",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-service",
+   "op_key": "ts-consign-service GET /api/v1/consignservice/consigns/order/{id}",
+   "method": "GET",
+   "path": "/consigns/order/{id}",
+   "operation_id": "findByOrderIdUsingGET",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-service",
+   "op_key": "ts-consign-service GET /api/v1/consignservice/consigns/{consignee}",
+   "method": "GET",
+   "path": "/consigns/{consignee}",
+   "operation_id": "findByConsigneeUsingGET",
+   "param_names": [
+    "consignee"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-service",
+   "op_key": "ts-consign-service POST /api/v1/consignservice/consigns",
+   "method": "POST",
+   "path": "/consigns",
+   "operation_id": "insertConsignUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Consign",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-consign-service",
+   "op_key": "ts-consign-service PUT /api/v1/consignservice/consigns",
+   "method": "PUT",
+   "path": "/consigns",
+   "operation_id": "updateConsignUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "Consign",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service DELETE /api/v1/contactservice/contacts/{contactsId}",
+   "method": "DELETE",
+   "path": "/contacts/{contactsId}",
+   "operation_id": "deleteContactsUsingDELETE",
+   "param_names": [
+    "contactsId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service GET /api/v1/contactservice/contacts",
+   "method": "GET",
+   "path": "/contacts",
+   "operation_id": "getAllContactsUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service GET /api/v1/contactservice/contacts/account/{accountId}",
+   "method": "GET",
+   "path": "/contacts/account/{accountId}",
+   "operation_id": "findContactsByAccountIdUsingGET",
+   "param_names": [
+    "accountId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service GET /api/v1/contactservice/contacts/welcome",
+   "method": "GET",
+   "path": "/contacts/welcome",
+   "operation_id": "homeUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service GET /api/v1/contactservice/contacts/{id}",
+   "method": "GET",
+   "path": "/contacts/{id}",
+   "operation_id": "getContactsByContactsIdUsingGET",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service POST /api/v1/contactservice/contacts",
+   "method": "POST",
+   "path": "/contacts",
+   "operation_id": "createNewContactsUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Contacts",
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service POST /api/v1/contactservice/contacts/admin",
+   "method": "POST",
+   "path": "/contacts/admin",
+   "operation_id": "createNewContactsAdminUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Contacts",
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-contacts-service",
+   "op_key": "ts-contacts-service PUT /api/v1/contactservice/contacts",
+   "method": "PUT",
+   "path": "/contacts",
+   "operation_id": "modifyContactsUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "Contacts",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-execute-service",
+   "op_key": "ts-execute-service GET /api/v1/executeservice/execute/collected/{orderId}",
+   "method": "GET",
+   "path": "/execute/collected/{orderId}",
+   "operation_id": "collectTicketUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-execute-service",
+   "op_key": "ts-execute-service GET /api/v1/executeservice/execute/execute/{orderId}",
+   "method": "GET",
+   "path": "/execute/execute/{orderId}",
+   "operation_id": "executeTicketUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service DELETE /api/v1/foodservice/orders/{orderId}",
+   "method": "DELETE",
+   "path": "/orders/{orderId}",
+   "operation_id": "deleteFoodOrderUsingDELETE",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service GET /api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId}",
+   "method": "GET",
+   "path": "/foods/{date}/{startStation}/{endStation}/{tripId}",
+   "operation_id": "getAllFoodUsingGET",
+   "param_names": [
+    "date",
+    "endStation",
+    "startStation",
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service GET /api/v1/foodservice/orders",
+   "method": "GET",
+   "path": "/orders",
+   "operation_id": "findAllFoodOrderUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service GET /api/v1/foodservice/orders/{orderId}",
+   "method": "GET",
+   "path": "/orders/{orderId}",
+   "operation_id": "findFoodOrderByOrderIdUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service GET /api/v1/foodservice/test_send_delivery",
+   "method": "GET",
+   "path": "/test_send_delivery",
+   "operation_id": "test_send_deliveryUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service POST /api/v1/foodservice/createOrderBatch",
+   "method": "POST",
+   "path": "/createOrderBatch",
+   "operation_id": "createFoodBatchesUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "FoodOrder",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service POST /api/v1/foodservice/orders",
+   "method": "POST",
+   "path": "/orders",
+   "operation_id": "createFoodOrderUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "FoodOrder",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-food-service",
+   "op_key": "ts-food-service PUT /api/v1/foodservice/orders",
+   "method": "PUT",
+   "path": "/orders",
+   "operation_id": "updateFoodOrderUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "FoodOrder",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service GET /api/v1/inside_pay_service/inside_payment/account",
+   "method": "GET",
+   "path": "/inside_payment/account",
+   "operation_id": "queryAccountUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service GET /api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money}",
+   "method": "GET",
+   "path": "/inside_payment/drawback/{userId}/{money}",
+   "operation_id": "drawBackUsingGET",
+   "param_names": [
+    "money",
+    "userId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service GET /api/v1/inside_pay_service/inside_payment/money",
+   "method": "GET",
+   "path": "/inside_payment/money",
+   "operation_id": "queryAddMoneyUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service GET /api/v1/inside_pay_service/inside_payment/payment",
+   "method": "GET",
+   "path": "/inside_payment/payment",
+   "operation_id": "queryPaymentUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service GET /api/v1/inside_pay_service/inside_payment/{userId}/{money}",
+   "method": "GET",
+   "path": "/inside_payment/{userId}/{money}",
+   "operation_id": "addMoneyUsingGET",
+   "param_names": [
+    "money",
+    "userId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service POST /api/v1/inside_pay_service/inside_payment",
+   "method": "POST",
+   "path": "/inside_payment",
+   "operation_id": "payUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "PaymentInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service POST /api/v1/inside_pay_service/inside_payment/account",
+   "method": "POST",
+   "path": "/inside_payment/account",
+   "operation_id": "createAccountUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "AccountInfo",
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-inside-payment-service",
+   "op_key": "ts-inside-payment-service POST /api/v1/inside_pay_service/inside_payment/difference",
+   "method": "POST",
+   "path": "/inside_payment/difference",
+   "operation_id": "payDifferenceUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "PaymentInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-news-service",
+   "op_key": "ts-news-service GET /api/v1/news",
+   "method": "GET",
+   "path": "/",
+   "operation_id": "getNews",
+   "param_names": [],
+   "schema_names": [
+    "News"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-notification-service",
+   "op_key": "ts-notification-service GET /api/v1/notifyservice/test_send_mail",
+   "method": "GET",
+   "path": "/test_send_mail",
+   "operation_id": "test_send_mailUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-notification-service",
+   "op_key": "ts-notification-service GET /api/v1/notifyservice/test_send_mq",
+   "method": "GET",
+   "path": "/test_send_mq",
+   "operation_id": "test_sendUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-notification-service",
+   "op_key": "ts-notification-service POST /api/v1/notifyservice/notification/order_cancel_success",
+   "method": "POST",
+   "path": "/notification/order_cancel_success",
+   "operation_id": "order_cancel_successUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "NotifyInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-notification-service",
+   "op_key": "ts-notification-service POST /api/v1/notifyservice/notification/order_changed_success",
+   "method": "POST",
+   "path": "/notification/order_changed_success",
+   "operation_id": "order_changed_successUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "NotifyInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-notification-service",
+   "op_key": "ts-notification-service POST /api/v1/notifyservice/notification/order_create_success",
+   "method": "POST",
+   "path": "/notification/order_create_success",
+   "operation_id": "order_create_successUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "NotifyInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-notification-service",
+   "op_key": "ts-notification-service POST /api/v1/notifyservice/notification/preserve_success",
+   "method": "POST",
+   "path": "/notification/preserve_success",
+   "operation_id": "preserve_successUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "NotifyInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service DELETE /api/v1/orderOtherService/orderOther/{orderId}",
+   "method": "DELETE",
+   "path": "/orderOther/{orderId}",
+   "operation_id": "deleteOrderUsingDELETE",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther",
+   "method": "GET",
+   "path": "/orderOther",
+   "operation_id": "findAllOrderUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther/orderPay/{orderId}",
+   "method": "GET",
+   "path": "/orderOther/orderPay/{orderId}",
+   "operation_id": "payOrderUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther/price/{orderId}",
+   "method": "GET",
+   "path": "/orderOther/price/{orderId}",
+   "operation_id": "getOrderPriceUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId}",
+   "method": "GET",
+   "path": "/orderOther/security/{checkDate}/{accountId}",
+   "operation_id": "securityInfoCheckUsingGET",
+   "param_names": [
+    "accountId",
+    "checkDate"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther/status/{orderId}/{status}",
+   "method": "GET",
+   "path": "/orderOther/status/{orderId}/{status}",
+   "operation_id": "modifyOrderUsingGET",
+   "param_names": [
+    "orderId",
+    "status"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther/{orderId}",
+   "method": "GET",
+   "path": "/orderOther/{orderId}",
+   "operation_id": "getOrderByIdUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service GET /api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber}",
+   "method": "GET",
+   "path": "/orderOther/{travelDate}/{trainNumber}",
+   "operation_id": "calculateSoldTicketUsingGET",
+   "param_names": [
+    "trainNumber",
+    "travelDate"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service POST /api/v1/orderOtherService/orderOther",
+   "method": "POST",
+   "path": "/orderOther",
+   "operation_id": "createNewOrderUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service POST /api/v1/orderOtherService/orderOther/admin",
+   "method": "POST",
+   "path": "/orderOther/admin",
+   "operation_id": "addcreateNewOrderUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service POST /api/v1/orderOtherService/orderOther/query",
+   "method": "POST",
+   "path": "/orderOther/query",
+   "operation_id": "queryOrdersUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "QueryInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service POST /api/v1/orderOtherService/orderOther/refresh",
+   "method": "POST",
+   "path": "/orderOther/refresh",
+   "operation_id": "queryOrdersForRefreshUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "QueryInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service POST /api/v1/orderOtherService/orderOther/tickets",
+   "method": "POST",
+   "path": "/orderOther/tickets",
+   "operation_id": "getTicketListByDateAndTripIdUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Seat"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service PUT /api/v1/orderOtherService/orderOther",
+   "method": "PUT",
+   "path": "/orderOther",
+   "operation_id": "saveOrderInfoUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-other-service",
+   "op_key": "ts-order-other-service PUT /api/v1/orderOtherService/orderOther/admin",
+   "method": "PUT",
+   "path": "/orderOther/admin",
+   "operation_id": "updateOrderUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service DELETE /api/v1/orderservice/order/{orderId}",
+   "method": "DELETE",
+   "path": "/order/{orderId}",
+   "operation_id": "deleteOrderUsingDELETE",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order",
+   "method": "GET",
+   "path": "/order",
+   "operation_id": "findAllOrderUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order/orderPay/{orderId}",
+   "method": "GET",
+   "path": "/order/orderPay/{orderId}",
+   "operation_id": "payOrderUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order/price/{orderId}",
+   "method": "GET",
+   "path": "/order/price/{orderId}",
+   "operation_id": "getOrderPriceUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order/security/{checkDate}/{accountId}",
+   "method": "GET",
+   "path": "/order/security/{checkDate}/{accountId}",
+   "operation_id": "securityInfoCheckUsingGET",
+   "param_names": [
+    "accountId",
+    "checkDate"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order/status/{orderId}/{status}",
+   "method": "GET",
+   "path": "/order/status/{orderId}/{status}",
+   "operation_id": "modifyOrderUsingGET",
+   "param_names": [
+    "orderId",
+    "status"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order/{orderId}",
+   "method": "GET",
+   "path": "/order/{orderId}",
+   "operation_id": "getOrderByIdUsingGET",
+   "param_names": [
+    "orderId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service GET /api/v1/orderservice/order/{travelDate}/{trainNumber}",
+   "method": "GET",
+   "path": "/order/{travelDate}/{trainNumber}",
+   "operation_id": "calculateSoldTicketUsingGET",
+   "param_names": [
+    "trainNumber",
+    "travelDate"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service POST /api/v1/orderservice/order",
+   "method": "POST",
+   "path": "/order",
+   "operation_id": "createNewOrderUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service POST /api/v1/orderservice/order/admin",
+   "method": "POST",
+   "path": "/order/admin",
+   "operation_id": "addcreateNewOrderUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service POST /api/v1/orderservice/order/query",
+   "method": "POST",
+   "path": "/order/query",
+   "operation_id": "queryOrdersUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "OrderInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service POST /api/v1/orderservice/order/refresh",
+   "method": "POST",
+   "path": "/order/refresh",
+   "operation_id": "queryOrdersForRefreshUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "OrderInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service POST /api/v1/orderservice/order/tickets",
+   "method": "POST",
+   "path": "/order/tickets",
+   "operation_id": "getTicketListByDateAndTripIdUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Seat"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service PUT /api/v1/orderservice/order",
+   "method": "PUT",
+   "path": "/order",
+   "operation_id": "saveOrderInfoUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-order-service",
+   "op_key": "ts-order-service PUT /api/v1/orderservice/order/admin",
+   "method": "PUT",
+   "path": "/order/admin",
+   "operation_id": "updateOrderUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Order"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-payment-service",
+   "op_key": "ts-payment-service GET /api/v1/paymentservice/payment",
+   "method": "GET",
+   "path": "/payment",
+   "operation_id": "queryUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-payment-service",
+   "op_key": "ts-payment-service POST /api/v1/paymentservice/payment",
+   "method": "POST",
+   "path": "/payment",
+   "operation_id": "payUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Payment"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-payment-service",
+   "op_key": "ts-payment-service POST /api/v1/paymentservice/payment/money",
+   "method": "POST",
+   "path": "/payment/money",
+   "operation_id": "addMoneyUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Payment"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-preserve-other-service",
+   "op_key": "ts-preserve-other-service POST /api/v1/preserveotherservice/preserveOther",
+   "method": "POST",
+   "path": "/preserveOther",
+   "operation_id": "preserveUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "OrderTicketsInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-preserve-service",
+   "op_key": "ts-preserve-service POST /api/v1/preserveservice/preserve",
+   "method": "POST",
+   "path": "/preserve",
+   "operation_id": "preserveUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "OrderTicketsInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service DELETE /api/v1/priceservice/prices/{pricesId}",
+   "method": "DELETE",
+   "path": "/prices/{pricesId}",
+   "operation_id": "deleteUsingDELETE",
+   "param_names": [
+    "pricesId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service GET /api/v1/priceservice/prices",
+   "method": "GET",
+   "path": "/prices",
+   "operation_id": "queryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service GET /api/v1/priceservice/prices/welcome",
+   "method": "GET",
+   "path": "/prices/welcome",
+   "operation_id": "homeUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service GET /api/v1/priceservice/prices/{routeId}/{trainType}",
+   "method": "GET",
+   "path": "/prices/{routeId}/{trainType}",
+   "operation_id": "queryUsingGET",
+   "param_names": [
+    "routeId",
+    "trainType"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service POST /api/v1/priceservice/prices",
+   "method": "POST",
+   "path": "/prices",
+   "operation_id": "createUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "PriceConfig"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service POST /api/v1/priceservice/prices/byRouteIdsAndTrainTypes",
+   "method": "POST",
+   "path": "/prices/byRouteIdsAndTrainTypes",
+   "operation_id": "queryUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-price-service",
+   "op_key": "ts-price-service PUT /api/v1/priceservice/prices",
+   "method": "PUT",
+   "path": "/prices",
+   "operation_id": "updateUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "PriceConfig"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-rebook-service",
+   "op_key": "ts-rebook-service POST /api/v1/rebookservice/rebook",
+   "method": "POST",
+   "path": "/rebook",
+   "operation_id": "rebookUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "RebookInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-rebook-service",
+   "op_key": "ts-rebook-service POST /api/v1/rebookservice/rebook/difference",
+   "method": "POST",
+   "path": "/rebook/difference",
+   "operation_id": "payDifferenceUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "RebookInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-plan-service",
+   "op_key": "ts-route-plan-service POST /api/v1/routeplanservice/routePlan/cheapestRoute",
+   "method": "POST",
+   "path": "/routePlan/cheapestRoute",
+   "operation_id": "getCheapestRoutesUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "RoutePlanInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-plan-service",
+   "op_key": "ts-route-plan-service POST /api/v1/routeplanservice/routePlan/minStopStations",
+   "method": "POST",
+   "path": "/routePlan/minStopStations",
+   "operation_id": "getMinStopStationsUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "RoutePlanInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-plan-service",
+   "op_key": "ts-route-plan-service POST /api/v1/routeplanservice/routePlan/quickestRoute",
+   "method": "POST",
+   "path": "/routePlan/quickestRoute",
+   "operation_id": "getQuickestRoutesUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "RoutePlanInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-service",
+   "op_key": "ts-route-service DELETE /api/v1/routeservice/routes/{routeId}",
+   "method": "DELETE",
+   "path": "/routes/{routeId}",
+   "operation_id": "deleteRouteUsingDELETE",
+   "param_names": [
+    "routeId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-service",
+   "op_key": "ts-route-service GET /api/v1/routeservice/routes",
+   "method": "GET",
+   "path": "/routes",
+   "operation_id": "queryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-service",
+   "op_key": "ts-route-service GET /api/v1/routeservice/routes/{routeId}",
+   "method": "GET",
+   "path": "/routes/{routeId}",
+   "operation_id": "queryByIdUsingGET",
+   "param_names": [
+    "routeId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-service",
+   "op_key": "ts-route-service GET /api/v1/routeservice/routes/{start}/{end}",
+   "method": "GET",
+   "path": "/routes/{start}/{end}",
+   "operation_id": "queryByStartAndTerminalUsingGET",
+   "param_names": [
+    "end",
+    "start"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-service",
+   "op_key": "ts-route-service POST /api/v1/routeservice/routes",
+   "method": "POST",
+   "path": "/routes",
+   "operation_id": "createAndModifyRouteUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Response",
+    "RouteInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-route-service",
+   "op_key": "ts-route-service POST /api/v1/routeservice/routes/byIds",
+   "method": "POST",
+   "path": "/routes/byIds",
+   "operation_id": "queryByIdsUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-seat-service",
+   "op_key": "ts-seat-service POST /api/v1/seatservice/seats",
+   "method": "POST",
+   "path": "/seats",
+   "operation_id": "createUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Seat"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-seat-service",
+   "op_key": "ts-seat-service POST /api/v1/seatservice/seats/left_tickets",
+   "method": "POST",
+   "path": "/seats/left_tickets",
+   "operation_id": "getLeftTicketOfIntervalUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Seat"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-security-service",
+   "op_key": "ts-security-service DELETE /api/v1/securityservice/securityConfigs/{id}",
+   "method": "DELETE",
+   "path": "/securityConfigs/{id}",
+   "operation_id": "deleteUsingDELETE",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-security-service",
+   "op_key": "ts-security-service GET /api/v1/securityservice/securityConfigs",
+   "method": "GET",
+   "path": "/securityConfigs",
+   "operation_id": "findAllSecurityConfigUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-security-service",
+   "op_key": "ts-security-service GET /api/v1/securityservice/securityConfigs/{accountId}",
+   "method": "GET",
+   "path": "/securityConfigs/{accountId}",
+   "operation_id": "checkUsingGET",
+   "param_names": [
+    "accountId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-security-service",
+   "op_key": "ts-security-service POST /api/v1/securityservice/securityConfigs",
+   "method": "POST",
+   "path": "/securityConfigs",
+   "operation_id": "createUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "SecurityConfig"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-security-service",
+   "op_key": "ts-security-service PUT /api/v1/securityservice/securityConfigs",
+   "method": "PUT",
+   "path": "/securityConfigs",
+   "operation_id": "updateUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "SecurityConfig"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-food-service",
+   "op_key": "ts-station-food-service GET /api/v1/stationfoodservice/stationfoodstores",
+   "method": "GET",
+   "path": "/stationfoodstores",
+   "operation_id": "getAllFoodStoresUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-food-service",
+   "op_key": "ts-station-food-service GET /api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId}",
+   "method": "GET",
+   "path": "/stationfoodstores/bystoreid/{stationFoodStoreId}",
+   "operation_id": "getFoodListByStationFoodStoreIdUsingGET",
+   "param_names": [
+    "stationFoodStoreId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-food-service",
+   "op_key": "ts-station-food-service GET /api/v1/stationfoodservice/stationfoodstores/welcome",
+   "method": "GET",
+   "path": "/stationfoodstores/welcome",
+   "operation_id": "homeUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-station-food-service",
+   "op_key": "ts-station-food-service GET /api/v1/stationfoodservice/stationfoodstores/{stationId}",
+   "method": "GET",
+   "path": "/stationfoodstores/{stationId}",
+   "operation_id": "getFoodStoresOfStationUsingGET",
+   "param_names": [
+    "stationId",
+    "stationName"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-food-service",
+   "op_key": "ts-station-food-service POST /api/v1/stationfoodservice/stationfoodstores",
+   "method": "POST",
+   "path": "/stationfoodstores",
+   "operation_id": "getFoodStoresByStationNamesUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service DELETE /api/v1/stationservice/stations/{stationsId}",
+   "method": "DELETE",
+   "path": "/stations/{stationsId}",
+   "operation_id": "deleteUsingDELETE",
+   "param_names": [
+    "stationsId"
+   ],
+   "schema_names": [
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service GET /api/v1/stationservice/stations",
+   "method": "GET",
+   "path": "/stations",
+   "operation_id": "queryUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service GET /api/v1/stationservice/stations/id/{stationNameForId}",
+   "method": "GET",
+   "path": "/stations/id/{stationNameForId}",
+   "operation_id": "queryForStationIdUsingGET",
+   "param_names": [
+    "stationNameForId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service GET /api/v1/stationservice/stations/name/{stationIdForName}",
+   "method": "GET",
+   "path": "/stations/name/{stationIdForName}",
+   "operation_id": "queryByIdUsingGET",
+   "param_names": [
+    "stationIdForName"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service POST /api/v1/stationservice/stations",
+   "method": "POST",
+   "path": "/stations",
+   "operation_id": "createUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Response",
+    "Station"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service POST /api/v1/stationservice/stations/idlist",
+   "method": "POST",
+   "path": "/stations/idlist",
+   "operation_id": "queryForIdBatchUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service POST /api/v1/stationservice/stations/namelist",
+   "method": "POST",
+   "path": "/stations/namelist",
+   "operation_id": "queryForNameBatchUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-station-service",
+   "op_key": "ts-station-service PUT /api/v1/stationservice/stations",
+   "method": "PUT",
+   "path": "/stations",
+   "operation_id": "updateUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "Station"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-food-service",
+   "op_key": "ts-train-food-service GET /api/v1/trainfoodservice/trainfoods",
+   "method": "GET",
+   "path": "/trainfoods",
+   "operation_id": "getAllTrainFoodUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-food-service",
+   "op_key": "ts-train-food-service GET /api/v1/trainfoodservice/trainfoods/welcome",
+   "method": "GET",
+   "path": "/trainfoods/welcome",
+   "operation_id": "homeUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-train-food-service",
+   "op_key": "ts-train-food-service GET /api/v1/trainfoodservice/trainfoods/{tripId}",
+   "method": "GET",
+   "path": "/trainfoods/{tripId}",
+   "operation_id": "getTrainFoodOfTripUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service DELETE /api/v1/trainservice/trains/{id}",
+   "method": "DELETE",
+   "path": "/trains/{id}",
+   "operation_id": "deleteUsingDELETE",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service GET /api/v1/trainservice/trains",
+   "method": "GET",
+   "path": "/trains",
+   "operation_id": "queryUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service GET /api/v1/trainservice/trains/byName/{name}",
+   "method": "GET",
+   "path": "/trains/byName/{name}",
+   "operation_id": "retrieveByNameUsingGET",
+   "param_names": [
+    "name"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service GET /api/v1/trainservice/trains/welcome",
+   "method": "GET",
+   "path": "/trains/welcome",
+   "operation_id": "homeUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service GET /api/v1/trainservice/trains/{id}",
+   "method": "GET",
+   "path": "/trains/{id}",
+   "operation_id": "retrieveUsingGET",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service POST /api/v1/trainservice/trains",
+   "method": "POST",
+   "path": "/trains",
+   "operation_id": "createUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TrainType"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service POST /api/v1/trainservice/trains/byNames",
+   "method": "POST",
+   "path": "/trains/byNames",
+   "operation_id": "retrieveByNameUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-train-service",
+   "op_key": "ts-train-service PUT /api/v1/trainservice/trains",
+   "method": "PUT",
+   "path": "/trains",
+   "operation_id": "updateUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TrainType"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-plan-service",
+   "op_key": "ts-travel-plan-service POST /api/v1/travelplanservice/travelPlan/cheapest",
+   "method": "POST",
+   "path": "/travelPlan/cheapest",
+   "operation_id": "getByCheapestUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-plan-service",
+   "op_key": "ts-travel-plan-service POST /api/v1/travelplanservice/travelPlan/minStation",
+   "method": "POST",
+   "path": "/travelPlan/minStation",
+   "operation_id": "getByMinStationUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-plan-service",
+   "op_key": "ts-travel-plan-service POST /api/v1/travelplanservice/travelPlan/quickest",
+   "method": "POST",
+   "path": "/travelPlan/quickest",
+   "operation_id": "getByQuickestUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-plan-service",
+   "op_key": "ts-travel-plan-service POST /api/v1/travelplanservice/travelPlan/transferResult",
+   "method": "POST",
+   "path": "/travelPlan/transferResult",
+   "operation_id": "getTransferResultUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TransferTravelInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service DELETE /api/v1/travelservice/trips/{tripId}",
+   "method": "DELETE",
+   "path": "/trips/{tripId}",
+   "operation_id": "deleteTripUsingDELETE",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service GET /api/v1/travelservice/admin_trip",
+   "method": "GET",
+   "path": "/admin_trip",
+   "operation_id": "adminQueryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service GET /api/v1/travelservice/routes/{tripId}",
+   "method": "GET",
+   "path": "/routes/{tripId}",
+   "operation_id": "getRouteByTripIdUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service GET /api/v1/travelservice/train_types/{tripId}",
+   "method": "GET",
+   "path": "/train_types/{tripId}",
+   "operation_id": "getTrainTypeByTripIdUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service GET /api/v1/travelservice/trips",
+   "method": "GET",
+   "path": "/trips",
+   "operation_id": "queryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service GET /api/v1/travelservice/trips/{tripId}",
+   "method": "GET",
+   "path": "/trips/{tripId}",
+   "operation_id": "retrieveUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service POST /api/v1/travelservice/trip_detail",
+   "method": "POST",
+   "path": "/trip_detail",
+   "operation_id": "getTripAllDetailInfoUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripAllDetailInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service POST /api/v1/travelservice/trips",
+   "method": "POST",
+   "path": "/trips",
+   "operation_id": "createTripUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TravelInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service POST /api/v1/travelservice/trips/left",
+   "method": "POST",
+   "path": "/trips/left",
+   "operation_id": "queryInfoUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service POST /api/v1/travelservice/trips/left_parallel",
+   "method": "POST",
+   "path": "/trips/left_parallel",
+   "operation_id": "queryInfoInparallelUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service POST /api/v1/travelservice/trips/routes",
+   "method": "POST",
+   "path": "/trips/routes",
+   "operation_id": "getTripsByRouteIdUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel-service",
+   "op_key": "ts-travel-service PUT /api/v1/travelservice/trips",
+   "method": "PUT",
+   "path": "/trips",
+   "operation_id": "updateTripUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TravelInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service DELETE /api/v1/travel2service/trips/{tripId}",
+   "method": "DELETE",
+   "path": "/trips/{tripId}",
+   "operation_id": "deleteTripUsingDELETE",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service GET /api/v1/travel2service/admin_trip",
+   "method": "GET",
+   "path": "/admin_trip",
+   "operation_id": "adminQueryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service GET /api/v1/travel2service/routes/{tripId}",
+   "method": "GET",
+   "path": "/routes/{tripId}",
+   "operation_id": "getRouteByTripIdUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service GET /api/v1/travel2service/train_types/{tripId}",
+   "method": "GET",
+   "path": "/train_types/{tripId}",
+   "operation_id": "getTrainTypeByTripIdUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service GET /api/v1/travel2service/trips",
+   "method": "GET",
+   "path": "/trips",
+   "operation_id": "queryAllUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service GET /api/v1/travel2service/trips/{tripId}",
+   "method": "GET",
+   "path": "/trips/{tripId}",
+   "operation_id": "retrieveUsingGET",
+   "param_names": [
+    "tripId"
+   ],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service POST /api/v1/travel2service/trip_detail",
+   "method": "POST",
+   "path": "/trip_detail",
+   "operation_id": "getTripAllDetailInfoUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripAllDetailInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service POST /api/v1/travel2service/trips",
+   "method": "POST",
+   "path": "/trips",
+   "operation_id": "createTripUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "TravelInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service POST /api/v1/travel2service/trips/left",
+   "method": "POST",
+   "path": "/trips/left",
+   "operation_id": "queryInfoUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TripInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service POST /api/v1/travel2service/trips/routes",
+   "method": "POST",
+   "path": "/trips/routes",
+   "operation_id": "getTripsByRouteIdUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-travel2-service",
+   "op_key": "ts-travel2-service PUT /api/v1/travel2service/trips",
+   "method": "PUT",
+   "path": "/trips",
+   "operation_id": "updateTripUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "HttpEntity",
+    "TravelInfo"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service DELETE /api/v1/userservice/users/{userId}",
+   "method": "DELETE",
+   "path": "/users/{userId}",
+   "operation_id": "deleteUserByIdUsingDELETE",
+   "param_names": [
+    "userId"
+   ],
+   "schema_names": [
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service GET /api/v1/userservice/users",
+   "method": "GET",
+   "path": "/users",
+   "operation_id": "getAllUserUsingGET",
+   "param_names": [],
+   "schema_names": [
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service GET /api/v1/userservice/users/hello",
+   "method": "GET",
+   "path": "/users/hello",
+   "operation_id": "testHelloUsingGET",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service GET /api/v1/userservice/users/id/{userId}",
+   "method": "GET",
+   "path": "/users/id/{userId}",
+   "operation_id": "getUserByUserIdUsingGET",
+   "param_names": [
+    "userId"
+   ],
+   "schema_names": [
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service GET /api/v1/userservice/users/{userName}",
+   "method": "GET",
+   "path": "/users/{userName}",
+   "operation_id": "getUserByUserNameUsingGET",
+   "param_names": [
+    "userName"
+   ],
+   "schema_names": [
+    "Response"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service POST /api/v1/userservice/users/register",
+   "method": "POST",
+   "path": "/users/register",
+   "operation_id": "registerUserUsingPOST",
+   "param_names": [],
+   "schema_names": [
+    "Response",
+    "UserDto"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-user-service",
+   "op_key": "ts-user-service PUT /api/v1/userservice/users",
+   "method": "PUT",
+   "path": "/users",
+   "operation_id": "updateUserUsingPUT",
+   "param_names": [],
+   "schema_names": [
+    "Response",
+    "UserDto"
+   ],
+   "description": null
+  },
+  {
+   "service": "ts-verification-code-service",
+   "op_key": "ts-verification-code-service GET /api/v1/verifycode/generate",
+   "method": "GET",
+   "path": "/generate",
+   "operation_id": "imageCode",
+   "param_names": [],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "ts-verification-code-service",
+   "op_key": "ts-verification-code-service GET /api/v1/verifycode/verify/{verifyCode}",
+   "method": "GET",
+   "path": "/verify/{verifyCode}",
+   "operation_id": "verifyCode",
+   "param_names": [
+    "verifyCode"
+   ],
+   "schema_names": [],
+   "description": null
+  }
+ ]
+}

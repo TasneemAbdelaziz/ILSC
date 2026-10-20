@@ -292,3 +292,80 @@ for the same reason. The evidence is recorded so Sec. 6 can decide.
 
 **Do not decide this by which produces the better ρ.** The decision is whether
 the rule is right, and the answer to that does not depend on Exp. 3.
+
+---
+
+## F-06 · Train Ticket's operationIds and paths carry the service name — **owner: both**
+
+Raised 2026-10-19 while drafting D-31.
+
+**What is there.** 203 of 211 Train Ticket operationIds begin with the owning
+service, e.g. `ts-assurance-service.deleteAssuranceUsingDELETE`, and every path
+begins `/api/v1/<name>service`. After parsing, one operation reads
+
+    name_tokens  ts assurance service delete assurance using delete
+    path_tokens  assuranceservice assurances assuranceid
+
+so f1 (through `T(Oᵢ)`), f2 and f3 all see the service's name.
+
+**Where it comes from.** Not from `src/benchmark_prep.py`, which splits the
+combined file by its `ts-*-service` tag and leaves operationIds untouched. The
+path prefix is Train Ticket's own API. The operationId prefix is most likely
+the upstream authors' merge of per-service Springfox output into one file —
+Springfox's own ids have the form `deleteAssuranceUsingDELETE`. Not yet checked
+against the Zenodo archive.
+
+**Why it matters.**
+1. **Within a service** (Exp. 3 `rho_derived` 0.486; Exp. 4b Train Ticket AUC
+   0.739): every pair shares the same three name tokens and one path token. That
+   is a constant offset which compresses f2 and f3. The direction of its effect
+   on ρ and AUC is unknown until measured. The baselines read parameter and
+   schema names only, so they are untouched by it.
+2. **Across services** (D-30's developer-boundary test): left in, the test
+   passes by construction. D-31 must remove both prefixes before anything is
+   computed.
+
+**Options for (1).**
+1. Strip the upstream operationId prefix for Train Ticket only, as a merge
+   artifact rather than part of the API, and re-run Exp. 3/4b on it.
+2. Keep it and report it as a limitation.
+3. Report both.
+
+**Do not decide this by which gives the better number.**
+
+**Update 2026-10-19 — schema names carry the prefix too** (found by D-31's
+run). Train Ticket's schema names have the form `ts-<name>-service.<Type>`.
+- There are 75 distinct names, none shared across services, and 173 of 211
+  operations carry one. `HttpEntity` alone appears as a per-service name on 150
+  operations.
+- So the prefix reaches **SIDC_pair** (types are equal only within a service),
+  **LoCmsg_pair** (every term set shares `ts` and `service`), **f5**, and **f1**
+  through `[SCHEMA]`.
+- This widens point 1. Exp. 4b's Train Ticket head-to-head (ILSC 0.739, SIDC
+  0.917, LoCmsg 0.953) is affected for **all three** metrics, not only ILSC's.
+
+**Correction:** the operationId prefix is on 211 of 211 operations, not 203. The
+earlier count was faulty — see D-31.
+
+---
+
+## F-07 · D-03's blind sheet holds no labels — **owner: Tasneem (empirical lead)**
+
+Raised 2026-10-19.
+
+**What is there.** `results/domain_validation_BLIND.csv` has an empty
+`your_label` column in all 50 rows, in the only committed version (`88d8bea`,
+2026-09-02). D-03 describes this sheet as carrying the human annotation and
+freezes it as the evidence for the 52% agreement. `docs/abstract_and_intro.md:152`
+quotes the figure.
+
+**Why it matters.** Nothing computed depends on it — D-05 replaced domain labels
+with provider. But the 52%, and D-03's breakdown of the 24 disagreements, cannot
+be checked from the repository. Under D-30 they cannot be re-measured by
+annotation either.
+
+**Options.**
+1. Commit the filled sheet, if it exists.
+2. If it does not, rest D-03's rejection on its mechanical evidence — the token
+   `api` in the `devtools` list absorbing 64.6% of the corpus — and drop the 52%
+   from the paper.

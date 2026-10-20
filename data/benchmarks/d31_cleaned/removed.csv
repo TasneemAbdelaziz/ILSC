@@ -1,0 +1,842 @@
+system,service,method,path,removal,original,after,applies_to
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},path_prefix,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},/assurances/assuranceid/{assuranceId},all except unstripped
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},operation_id_prefix,ts-assurance-service.deleteAssuranceUsingDELETE,deleteAssuranceUsingDELETE,all except unstripped
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/orderid/{orderId},path_prefix,/api/v1/assuranceservice/assurances/orderid/{orderId},/assurances/orderid/{orderId},all except unstripped
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/orderid/{orderId},operation_id_prefix,ts-assurance-service.deleteAssuranceByOrderIdUsingDELETE,deleteAssuranceByOrderIdUsingDELETE,all except unstripped
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/orderid/{orderId},schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,DELETE,/api/v1/assuranceservice/assurances/orderid/{orderId},framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurance/orderid/{orderId},path_prefix,/api/v1/assuranceservice/assurance/orderid/{orderId},/assurance/orderid/{orderId},all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurance/orderid/{orderId},operation_id_prefix,ts-assurance-service.findAssuranceByOrderIdUsingGET,findAssuranceByOrderIdUsingGET,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurance/orderid/{orderId},schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurance/orderid/{orderId},framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances,path_prefix,/api/v1/assuranceservice/assurances,/assurances,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances,operation_id_prefix,ts-assurance-service.getAllAssurancesUsingGET,getAllAssurancesUsingGET,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances,schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances,framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},path_prefix,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},/assurances/assuranceid/{assuranceId},all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},operation_id_prefix,ts-assurance-service.getAssuranceByIdUsingGET,getAssuranceByIdUsingGET,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/assuranceid/{assuranceId},framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/types,path_prefix,/api/v1/assuranceservice/assurances/types,/assurances/types,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/types,operation_id_prefix,ts-assurance-service.getAllAssuranceTypeUsingGET,getAllAssuranceTypeUsingGET,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/types,schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/types,framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/{typeIndex}/{orderId},path_prefix,/api/v1/assuranceservice/assurances/{typeIndex}/{orderId},/assurances/{typeIndex}/{orderId},all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/{typeIndex}/{orderId},operation_id_prefix,ts-assurance-service.createNewAssuranceUsingGET,createNewAssuranceUsingGET,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/{typeIndex}/{orderId},schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/assurances/{typeIndex}/{orderId},framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/welcome,path_prefix,/api/v1/assuranceservice/welcome,/welcome,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/welcome,operation_id_prefix,ts-assurance-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-assurance-service,GET,/api/v1/assuranceservice/welcome,greeting_endpoint,/api/v1/assuranceservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-assurance-service,PATCH,/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex},path_prefix,/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex},/assurances/{assuranceId}/{orderId}/{typeIndex},all except unstripped
+trainticket,ts-assurance-service,PATCH,/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex},operation_id_prefix,ts-assurance-service.modifyAssuranceUsingPATCH,modifyAssuranceUsingPATCH,all except unstripped
+trainticket,ts-assurance-service,PATCH,/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex},schema_name_prefix,ts-assurance-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-assurance-service,PATCH,/api/v1/assuranceservice/assurances/{assuranceId}/{orderId}/{typeIndex},framework_wrapper (S1),ts-assurance-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-auth-service,DELETE,/api/v1/users/{userId},path_prefix,/api/v1/users/{userId},/{userId},all except unstripped
+trainticket,ts-auth-service,DELETE,/api/v1/users/{userId},operation_id_prefix,ts-auth-service.deleteUserById,deleteUserById,all except unstripped
+trainticket,ts-auth-service,DELETE,/api/v1/users/{userId},schema_name_prefix,ts-auth-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-auth-service,GET,/api/v1/auth/hello,path_prefix,/api/v1/auth/hello,/hello,all except unstripped
+trainticket,ts-auth-service,GET,/api/v1/auth/hello,operation_id_prefix,ts-auth-service.getHelloAuth,getHelloAuth,all except unstripped
+trainticket,ts-auth-service,GET,/api/v1/auth/hello,greeting_endpoint,/api/v1/auth/hello,,"no_greeting, A1_no_greeting"
+trainticket,ts-auth-service,GET,/api/v1/users,path_prefix,/api/v1/users,/,all except unstripped
+trainticket,ts-auth-service,GET,/api/v1/users,operation_id_prefix,ts-auth-service.getAllUser,getAllUser,all except unstripped
+trainticket,ts-auth-service,GET,/api/v1/users,schema_name_prefix,ts-auth-service.GrantedAuthority,GrantedAuthority,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-auth-service,GET,/api/v1/users,schema_name_prefix,ts-auth-service.User,User,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-auth-service,GET,/api/v1/users/hello,path_prefix,/api/v1/users/hello,/hello,all except unstripped
+trainticket,ts-auth-service,GET,/api/v1/users/hello,operation_id_prefix,ts-auth-service.getHelloUsers,getHelloUsers,all except unstripped
+trainticket,ts-auth-service,GET,/api/v1/users/hello,greeting_endpoint,/api/v1/users/hello,,"no_greeting, A1_no_greeting"
+trainticket,ts-auth-service,POST,/api/v1/auth,path_prefix,/api/v1/auth,/,all except unstripped
+trainticket,ts-auth-service,POST,/api/v1/auth,operation_id_prefix,ts-auth-service.createDefaultUser,createDefaultUser,all except unstripped
+trainticket,ts-auth-service,POST,/api/v1/auth,schema_name_prefix,ts-auth-service.AuthDto,AuthDto,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-auth-service,POST,/api/v1/auth,schema_name_prefix,ts-auth-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-auth-service,POST,/api/v1/users/login,path_prefix,/api/v1/users/login,/login,all except unstripped
+trainticket,ts-auth-service,POST,/api/v1/users/login,operation_id_prefix,ts-auth-service.getToken,getToken,all except unstripped
+trainticket,ts-auth-service,POST,/api/v1/users/login,schema_name_prefix,ts-auth-service.BasicAuthDto,BasicAuthDto,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-auth-service,POST,/api/v1/users/login,schema_name_prefix,ts-auth-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-avatar-service,POST,/api/v1/avatar,path_prefix,/api/v1/avatar,/,all except unstripped
+trainticket,ts-avatar-service,POST,/api/v1/avatar,operation_id_prefix,ts-avatar-service.uploadAvatar,uploadAvatar,all except unstripped
+trainticket,ts-basic-service,GET,/api/v1/basicservice/basic/{stationName},path_prefix,/api/v1/basicservice/basic/{stationName},/basic/{stationName},all except unstripped
+trainticket,ts-basic-service,GET,/api/v1/basicservice/basic/{stationName},operation_id_prefix,ts-basic-service.queryForStationIdUsingGET,queryForStationIdUsingGET,all except unstripped
+trainticket,ts-basic-service,GET,/api/v1/basicservice/basic/{stationName},schema_name_prefix,ts-basic-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,GET,/api/v1/basicservice/basic/{stationName},framework_wrapper (S1),ts-basic-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-basic-service,GET,/api/v1/basicservice/welcome,path_prefix,/api/v1/basicservice/welcome,/welcome,all except unstripped
+trainticket,ts-basic-service,GET,/api/v1/basicservice/welcome,operation_id_prefix,ts-basic-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-basic-service,GET,/api/v1/basicservice/welcome,greeting_endpoint,/api/v1/basicservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,path_prefix,/api/v1/basicservice/basic/travel,/basic/travel,all except unstripped
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,operation_id_prefix,ts-basic-service.queryForTravelUsingPOST,queryForTravelUsingPOST,all except unstripped
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,schema_name_prefix,ts-basic-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,schema_name_prefix,ts-basic-service.Travel,Travel,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,schema_name_prefix,ts-basic-service.Trip,Trip,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,schema_name_prefix,ts-basic-service.TripId,TripId,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travel,framework_wrapper (S1),ts-basic-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,path_prefix,/api/v1/basicservice/basic/travels,/basic/travels,all except unstripped
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,operation_id_prefix,ts-basic-service.queryForTravelsUsingPOST,queryForTravelsUsingPOST,all except unstripped
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,schema_name_prefix,ts-basic-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,schema_name_prefix,ts-basic-service.Travel,Travel,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,schema_name_prefix,ts-basic-service.Trip,Trip,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,schema_name_prefix,ts-basic-service.TripId,TripId,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-basic-service,POST,/api/v1/basicservice/basic/travels,framework_wrapper (S1),ts-basic-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/refound/{orderId},path_prefix,/api/v1/cancelservice/cancel/refound/{orderId},/cancel/refound/{orderId},all except unstripped
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/refound/{orderId},operation_id_prefix,ts-cancel-service.calculateUsingGET,calculateUsingGET,all except unstripped
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/refound/{orderId},schema_name_prefix,ts-cancel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/refound/{orderId},framework_wrapper (S1),ts-cancel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/{orderId}/{loginId},path_prefix,/api/v1/cancelservice/cancel/{orderId}/{loginId},/cancel/{orderId}/{loginId},all except unstripped
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/{orderId}/{loginId},operation_id_prefix,ts-cancel-service.cancelTicketUsingGET,cancelTicketUsingGET,all except unstripped
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/{orderId}/{loginId},schema_name_prefix,ts-cancel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/cancel/{orderId}/{loginId},framework_wrapper (S1),ts-cancel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/welcome,path_prefix,/api/v1/cancelservice/welcome,/welcome,all except unstripped
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/welcome,operation_id_prefix,ts-cancel-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-cancel-service,GET,/api/v1/cancelservice/welcome,greeting_endpoint,/api/v1/cancelservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-config-service,DELETE,/api/v1/configservice/configs/{configName},path_prefix,/api/v1/configservice/configs/{configName},/configs/{configName},all except unstripped
+trainticket,ts-config-service,DELETE,/api/v1/configservice/configs/{configName},operation_id_prefix,ts-config-service.deleteConfigUsingDELETE,deleteConfigUsingDELETE,all except unstripped
+trainticket,ts-config-service,DELETE,/api/v1/configservice/configs/{configName},schema_name_prefix,ts-config-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-config-service,DELETE,/api/v1/configservice/configs/{configName},framework_wrapper (S1),ts-config-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-config-service,GET,/api/v1/configservice/configs,path_prefix,/api/v1/configservice/configs,/configs,all except unstripped
+trainticket,ts-config-service,GET,/api/v1/configservice/configs,operation_id_prefix,ts-config-service.queryAllUsingGET,queryAllUsingGET,all except unstripped
+trainticket,ts-config-service,GET,/api/v1/configservice/configs,schema_name_prefix,ts-config-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-config-service,GET,/api/v1/configservice/configs,framework_wrapper (S1),ts-config-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-config-service,GET,/api/v1/configservice/configs/{configName},path_prefix,/api/v1/configservice/configs/{configName},/configs/{configName},all except unstripped
+trainticket,ts-config-service,GET,/api/v1/configservice/configs/{configName},operation_id_prefix,ts-config-service.retrieveUsingGET,retrieveUsingGET,all except unstripped
+trainticket,ts-config-service,GET,/api/v1/configservice/configs/{configName},schema_name_prefix,ts-config-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-config-service,GET,/api/v1/configservice/configs/{configName},framework_wrapper (S1),ts-config-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-config-service,GET,/api/v1/configservice/welcome,path_prefix,/api/v1/configservice/welcome,/welcome,all except unstripped
+trainticket,ts-config-service,GET,/api/v1/configservice/welcome,operation_id_prefix,ts-config-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-config-service,GET,/api/v1/configservice/welcome,greeting_endpoint,/api/v1/configservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-config-service,POST,/api/v1/configservice/configs,path_prefix,/api/v1/configservice/configs,/configs,all except unstripped
+trainticket,ts-config-service,POST,/api/v1/configservice/configs,operation_id_prefix,ts-config-service.createConfigUsingPOST,createConfigUsingPOST,all except unstripped
+trainticket,ts-config-service,POST,/api/v1/configservice/configs,schema_name_prefix,ts-config-service.Config,Config,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-config-service,PUT,/api/v1/configservice/configs,path_prefix,/api/v1/configservice/configs,/configs,all except unstripped
+trainticket,ts-config-service,PUT,/api/v1/configservice/configs,operation_id_prefix,ts-config-service.updateConfigUsingPUT,updateConfigUsingPUT,all except unstripped
+trainticket,ts-config-service,PUT,/api/v1/configservice/configs,schema_name_prefix,ts-config-service.Config,Config,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-config-service,PUT,/api/v1/configservice/configs,schema_name_prefix,ts-config-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-config-service,PUT,/api/v1/configservice/configs,framework_wrapper (S1),ts-config-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/config,path_prefix,/api/v1/consignpriceservice/consignprice/config,/consignprice/config,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/config,operation_id_prefix,ts-consign-price-service.getPriceConfigUsingGET,getPriceConfigUsingGET,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/config,schema_name_prefix,ts-consign-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/config,framework_wrapper (S1),ts-consign-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/price,path_prefix,/api/v1/consignpriceservice/consignprice/price,/consignprice/price,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/price,operation_id_prefix,ts-consign-price-service.getPriceInfoUsingGET,getPriceInfoUsingGET,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/price,schema_name_prefix,ts-consign-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/price,framework_wrapper (S1),ts-consign-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion},path_prefix,/api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion},/consignprice/{weight}/{isWithinRegion},all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion},operation_id_prefix,ts-consign-price-service.getPriceByWeightAndRegionUsingGET,getPriceByWeightAndRegionUsingGET,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion},schema_name_prefix,ts-consign-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/consignprice/{weight}/{isWithinRegion},framework_wrapper (S1),ts-consign-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/welcome,path_prefix,/api/v1/consignpriceservice/welcome,/welcome,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/welcome,operation_id_prefix,ts-consign-price-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-consign-price-service,GET,/api/v1/consignpriceservice/welcome,greeting_endpoint,/api/v1/consignpriceservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-consign-price-service,POST,/api/v1/consignpriceservice/consignprice,path_prefix,/api/v1/consignpriceservice/consignprice,/consignprice,all except unstripped
+trainticket,ts-consign-price-service,POST,/api/v1/consignpriceservice/consignprice,operation_id_prefix,ts-consign-price-service.modifyPriceConfigUsingPOST,modifyPriceConfigUsingPOST,all except unstripped
+trainticket,ts-consign-price-service,POST,/api/v1/consignpriceservice/consignprice,schema_name_prefix,ts-consign-price-service.ConsignPrice,ConsignPrice,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-price-service,POST,/api/v1/consignpriceservice/consignprice,schema_name_prefix,ts-consign-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-price-service,POST,/api/v1/consignpriceservice/consignprice,framework_wrapper (S1),ts-consign-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/account/{id},path_prefix,/api/v1/consignservice/consigns/account/{id},/consigns/account/{id},all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/account/{id},operation_id_prefix,ts-consign-service.findByAccountIdUsingGET,findByAccountIdUsingGET,all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/account/{id},schema_name_prefix,ts-consign-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/account/{id},framework_wrapper (S1),ts-consign-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/order/{id},path_prefix,/api/v1/consignservice/consigns/order/{id},/consigns/order/{id},all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/order/{id},operation_id_prefix,ts-consign-service.findByOrderIdUsingGET,findByOrderIdUsingGET,all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/order/{id},schema_name_prefix,ts-consign-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/order/{id},framework_wrapper (S1),ts-consign-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/{consignee},path_prefix,/api/v1/consignservice/consigns/{consignee},/consigns/{consignee},all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/{consignee},operation_id_prefix,ts-consign-service.findByConsigneeUsingGET,findByConsigneeUsingGET,all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/{consignee},schema_name_prefix,ts-consign-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,GET,/api/v1/consignservice/consigns/{consignee},framework_wrapper (S1),ts-consign-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-service,GET,/api/v1/consignservice/welcome,path_prefix,/api/v1/consignservice/welcome,/welcome,all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/welcome,operation_id_prefix,ts-consign-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-consign-service,GET,/api/v1/consignservice/welcome,greeting_endpoint,/api/v1/consignservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-consign-service,POST,/api/v1/consignservice/consigns,path_prefix,/api/v1/consignservice/consigns,/consigns,all except unstripped
+trainticket,ts-consign-service,POST,/api/v1/consignservice/consigns,operation_id_prefix,ts-consign-service.insertConsignUsingPOST,insertConsignUsingPOST,all except unstripped
+trainticket,ts-consign-service,POST,/api/v1/consignservice/consigns,schema_name_prefix,ts-consign-service.Consign,Consign,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,POST,/api/v1/consignservice/consigns,schema_name_prefix,ts-consign-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,POST,/api/v1/consignservice/consigns,framework_wrapper (S1),ts-consign-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-consign-service,PUT,/api/v1/consignservice/consigns,path_prefix,/api/v1/consignservice/consigns,/consigns,all except unstripped
+trainticket,ts-consign-service,PUT,/api/v1/consignservice/consigns,operation_id_prefix,ts-consign-service.updateConsignUsingPUT,updateConsignUsingPUT,all except unstripped
+trainticket,ts-consign-service,PUT,/api/v1/consignservice/consigns,schema_name_prefix,ts-consign-service.Consign,Consign,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,PUT,/api/v1/consignservice/consigns,schema_name_prefix,ts-consign-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-consign-service,PUT,/api/v1/consignservice/consigns,framework_wrapper (S1),ts-consign-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-contacts-service,DELETE,/api/v1/contactservice/contacts/{contactsId},path_prefix,/api/v1/contactservice/contacts/{contactsId},/contacts/{contactsId},all except unstripped
+trainticket,ts-contacts-service,DELETE,/api/v1/contactservice/contacts/{contactsId},operation_id_prefix,ts-contacts-service.deleteContactsUsingDELETE,deleteContactsUsingDELETE,all except unstripped
+trainticket,ts-contacts-service,DELETE,/api/v1/contactservice/contacts/{contactsId},schema_name_prefix,ts-contacts-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,DELETE,/api/v1/contactservice/contacts/{contactsId},framework_wrapper (S1),ts-contacts-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts,path_prefix,/api/v1/contactservice/contacts,/contacts,all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts,operation_id_prefix,ts-contacts-service.getAllContactsUsingGET,getAllContactsUsingGET,all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts,schema_name_prefix,ts-contacts-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts,framework_wrapper (S1),ts-contacts-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/account/{accountId},path_prefix,/api/v1/contactservice/contacts/account/{accountId},/contacts/account/{accountId},all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/account/{accountId},operation_id_prefix,ts-contacts-service.findContactsByAccountIdUsingGET,findContactsByAccountIdUsingGET,all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/account/{accountId},schema_name_prefix,ts-contacts-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/account/{accountId},framework_wrapper (S1),ts-contacts-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/welcome,path_prefix,/api/v1/contactservice/contacts/welcome,/contacts/welcome,all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/welcome,operation_id_prefix,ts-contacts-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/{id},path_prefix,/api/v1/contactservice/contacts/{id},/contacts/{id},all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/{id},operation_id_prefix,ts-contacts-service.getContactsByContactsIdUsingGET,getContactsByContactsIdUsingGET,all except unstripped
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/{id},schema_name_prefix,ts-contacts-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,GET,/api/v1/contactservice/contacts/{id},framework_wrapper (S1),ts-contacts-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts,path_prefix,/api/v1/contactservice/contacts,/contacts,all except unstripped
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts,operation_id_prefix,ts-contacts-service.createNewContactsUsingPOST,createNewContactsUsingPOST,all except unstripped
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts,schema_name_prefix,ts-contacts-service.Contacts,Contacts,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts,schema_name_prefix,ts-contacts-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts/admin,path_prefix,/api/v1/contactservice/contacts/admin,/contacts/admin,all except unstripped
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts/admin,operation_id_prefix,ts-contacts-service.createNewContactsAdminUsingPOST,createNewContactsAdminUsingPOST,all except unstripped
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts/admin,schema_name_prefix,ts-contacts-service.Contacts,Contacts,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,POST,/api/v1/contactservice/contacts/admin,schema_name_prefix,ts-contacts-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,PUT,/api/v1/contactservice/contacts,path_prefix,/api/v1/contactservice/contacts,/contacts,all except unstripped
+trainticket,ts-contacts-service,PUT,/api/v1/contactservice/contacts,operation_id_prefix,ts-contacts-service.modifyContactsUsingPUT,modifyContactsUsingPUT,all except unstripped
+trainticket,ts-contacts-service,PUT,/api/v1/contactservice/contacts,schema_name_prefix,ts-contacts-service.Contacts,Contacts,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,PUT,/api/v1/contactservice/contacts,schema_name_prefix,ts-contacts-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-contacts-service,PUT,/api/v1/contactservice/contacts,framework_wrapper (S1),ts-contacts-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/collected/{orderId},path_prefix,/api/v1/executeservice/execute/collected/{orderId},/execute/collected/{orderId},all except unstripped
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/collected/{orderId},operation_id_prefix,ts-execute-service.collectTicketUsingGET,collectTicketUsingGET,all except unstripped
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/collected/{orderId},schema_name_prefix,ts-execute-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/collected/{orderId},framework_wrapper (S1),ts-execute-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/execute/{orderId},path_prefix,/api/v1/executeservice/execute/execute/{orderId},/execute/execute/{orderId},all except unstripped
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/execute/{orderId},operation_id_prefix,ts-execute-service.executeTicketUsingGET,executeTicketUsingGET,all except unstripped
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/execute/{orderId},schema_name_prefix,ts-execute-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-execute-service,GET,/api/v1/executeservice/execute/execute/{orderId},framework_wrapper (S1),ts-execute-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-execute-service,GET,/api/v1/executeservice/welcome,path_prefix,/api/v1/executeservice/welcome,/welcome,all except unstripped
+trainticket,ts-execute-service,GET,/api/v1/executeservice/welcome,operation_id_prefix,ts-execute-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-execute-service,GET,/api/v1/executeservice/welcome,greeting_endpoint,/api/v1/executeservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-food-service,DELETE,/api/v1/foodservice/orders/{orderId},path_prefix,/api/v1/foodservice/orders/{orderId},/orders/{orderId},all except unstripped
+trainticket,ts-food-service,DELETE,/api/v1/foodservice/orders/{orderId},operation_id_prefix,ts-food-service.deleteFoodOrderUsingDELETE,deleteFoodOrderUsingDELETE,all except unstripped
+trainticket,ts-food-service,DELETE,/api/v1/foodservice/orders/{orderId},schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,DELETE,/api/v1/foodservice/orders/{orderId},framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-food-service,GET,/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId},path_prefix,/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId},/foods/{date}/{startStation}/{endStation}/{tripId},all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId},operation_id_prefix,ts-food-service.getAllFoodUsingGET,getAllFoodUsingGET,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId},schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,GET,/api/v1/foodservice/foods/{date}/{startStation}/{endStation}/{tripId},framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders,path_prefix,/api/v1/foodservice/orders,/orders,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders,operation_id_prefix,ts-food-service.findAllFoodOrderUsingGET,findAllFoodOrderUsingGET,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders,schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders,framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders/{orderId},path_prefix,/api/v1/foodservice/orders/{orderId},/orders/{orderId},all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders/{orderId},operation_id_prefix,ts-food-service.findFoodOrderByOrderIdUsingGET,findFoodOrderByOrderIdUsingGET,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders/{orderId},schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,GET,/api/v1/foodservice/orders/{orderId},framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-food-service,GET,/api/v1/foodservice/test_send_delivery,path_prefix,/api/v1/foodservice/test_send_delivery,/test_send_delivery,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/test_send_delivery,operation_id_prefix,ts-food-service.test_send_deliveryUsingGET,test_send_deliveryUsingGET,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/welcome,path_prefix,/api/v1/foodservice/welcome,/welcome,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/welcome,operation_id_prefix,ts-food-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-food-service,GET,/api/v1/foodservice/welcome,greeting_endpoint,/api/v1/foodservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-food-service,POST,/api/v1/foodservice/createOrderBatch,path_prefix,/api/v1/foodservice/createOrderBatch,/createOrderBatch,all except unstripped
+trainticket,ts-food-service,POST,/api/v1/foodservice/createOrderBatch,operation_id_prefix,ts-food-service.createFoodBatchesUsingPOST,createFoodBatchesUsingPOST,all except unstripped
+trainticket,ts-food-service,POST,/api/v1/foodservice/createOrderBatch,schema_name_prefix,ts-food-service.FoodOrder,FoodOrder,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,POST,/api/v1/foodservice/createOrderBatch,schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,POST,/api/v1/foodservice/createOrderBatch,framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-food-service,POST,/api/v1/foodservice/orders,path_prefix,/api/v1/foodservice/orders,/orders,all except unstripped
+trainticket,ts-food-service,POST,/api/v1/foodservice/orders,operation_id_prefix,ts-food-service.createFoodOrderUsingPOST,createFoodOrderUsingPOST,all except unstripped
+trainticket,ts-food-service,POST,/api/v1/foodservice/orders,schema_name_prefix,ts-food-service.FoodOrder,FoodOrder,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,POST,/api/v1/foodservice/orders,schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,POST,/api/v1/foodservice/orders,framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-food-service,PUT,/api/v1/foodservice/orders,path_prefix,/api/v1/foodservice/orders,/orders,all except unstripped
+trainticket,ts-food-service,PUT,/api/v1/foodservice/orders,operation_id_prefix,ts-food-service.updateFoodOrderUsingPUT,updateFoodOrderUsingPUT,all except unstripped
+trainticket,ts-food-service,PUT,/api/v1/foodservice/orders,schema_name_prefix,ts-food-service.FoodOrder,FoodOrder,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,PUT,/api/v1/foodservice/orders,schema_name_prefix,ts-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-food-service,PUT,/api/v1/foodservice/orders,framework_wrapper (S1),ts-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/account,path_prefix,/api/v1/inside_pay_service/inside_payment/account,/inside_payment/account,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/account,operation_id_prefix,ts-inside-payment-service.queryAccountUsingGET,queryAccountUsingGET,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/account,schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/account,framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money},path_prefix,/api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money},/inside_payment/drawback/{userId}/{money},all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money},operation_id_prefix,ts-inside-payment-service.drawBackUsingGET,drawBackUsingGET,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money},schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/drawback/{userId}/{money},framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/money,path_prefix,/api/v1/inside_pay_service/inside_payment/money,/inside_payment/money,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/money,operation_id_prefix,ts-inside-payment-service.queryAddMoneyUsingGET,queryAddMoneyUsingGET,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/money,schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/money,framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/payment,path_prefix,/api/v1/inside_pay_service/inside_payment/payment,/inside_payment/payment,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/payment,operation_id_prefix,ts-inside-payment-service.queryPaymentUsingGET,queryPaymentUsingGET,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/payment,schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/payment,framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/{userId}/{money},path_prefix,/api/v1/inside_pay_service/inside_payment/{userId}/{money},/inside_payment/{userId}/{money},all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/{userId}/{money},operation_id_prefix,ts-inside-payment-service.addMoneyUsingGET,addMoneyUsingGET,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/{userId}/{money},schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/inside_payment/{userId}/{money},framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/welcome,path_prefix,/api/v1/inside_pay_service/welcome,/welcome,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/welcome,operation_id_prefix,ts-inside-payment-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-inside-payment-service,GET,/api/v1/inside_pay_service/welcome,greeting_endpoint,/api/v1/inside_pay_service/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment,path_prefix,/api/v1/inside_pay_service/inside_payment,/inside_payment,all except unstripped
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment,operation_id_prefix,ts-inside-payment-service.payUsingPOST,payUsingPOST,all except unstripped
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment,schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment,schema_name_prefix,ts-inside-payment-service.PaymentInfo,PaymentInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment,framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/account,path_prefix,/api/v1/inside_pay_service/inside_payment/account,/inside_payment/account,all except unstripped
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/account,operation_id_prefix,ts-inside-payment-service.createAccountUsingPOST,createAccountUsingPOST,all except unstripped
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/account,schema_name_prefix,ts-inside-payment-service.AccountInfo,AccountInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/account,schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/account,framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/difference,path_prefix,/api/v1/inside_pay_service/inside_payment/difference,/inside_payment/difference,all except unstripped
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/difference,operation_id_prefix,ts-inside-payment-service.payDifferenceUsingPOST,payDifferenceUsingPOST,all except unstripped
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/difference,schema_name_prefix,ts-inside-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/difference,schema_name_prefix,ts-inside-payment-service.PaymentInfo,PaymentInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-inside-payment-service,POST,/api/v1/inside_pay_service/inside_payment/difference,framework_wrapper (S1),ts-inside-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-news-service,GET,/api/v1/news,path_prefix,/api/v1/news,/,all except unstripped
+trainticket,ts-news-service,GET,/api/v1/news,operation_id_prefix,ts-news-service.getNews,getNews,all except unstripped
+trainticket,ts-news-service,GET,/api/v1/news,schema_name_prefix,ts-news-service.News,News,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/test_send_mail,path_prefix,/api/v1/notifyservice/test_send_mail,/test_send_mail,all except unstripped
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/test_send_mail,operation_id_prefix,ts-notification-service.test_send_mailUsingGET,test_send_mailUsingGET,all except unstripped
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/test_send_mq,path_prefix,/api/v1/notifyservice/test_send_mq,/test_send_mq,all except unstripped
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/test_send_mq,operation_id_prefix,ts-notification-service.test_sendUsingGET,test_sendUsingGET,all except unstripped
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/welcome,path_prefix,/api/v1/notifyservice/welcome,/welcome,all except unstripped
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/welcome,operation_id_prefix,ts-notification-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-notification-service,GET,/api/v1/notifyservice/welcome,greeting_endpoint,/api/v1/notifyservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_cancel_success,path_prefix,/api/v1/notifyservice/notification/order_cancel_success,/notification/order_cancel_success,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_cancel_success,operation_id_prefix,ts-notification-service.order_cancel_successUsingPOST,order_cancel_successUsingPOST,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_cancel_success,schema_name_prefix,ts-notification-service.NotifyInfo,NotifyInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_changed_success,path_prefix,/api/v1/notifyservice/notification/order_changed_success,/notification/order_changed_success,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_changed_success,operation_id_prefix,ts-notification-service.order_changed_successUsingPOST,order_changed_successUsingPOST,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_changed_success,schema_name_prefix,ts-notification-service.NotifyInfo,NotifyInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_create_success,path_prefix,/api/v1/notifyservice/notification/order_create_success,/notification/order_create_success,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_create_success,operation_id_prefix,ts-notification-service.order_create_successUsingPOST,order_create_successUsingPOST,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/order_create_success,schema_name_prefix,ts-notification-service.NotifyInfo,NotifyInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/preserve_success,path_prefix,/api/v1/notifyservice/notification/preserve_success,/notification/preserve_success,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/preserve_success,operation_id_prefix,ts-notification-service.preserve_successUsingPOST,preserve_successUsingPOST,all except unstripped
+trainticket,ts-notification-service,POST,/api/v1/notifyservice/notification/preserve_success,schema_name_prefix,ts-notification-service.NotifyInfo,NotifyInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,DELETE,/api/v1/orderOtherService/orderOther/{orderId},path_prefix,/api/v1/orderOtherService/orderOther/{orderId},/orderOther/{orderId},all except unstripped
+trainticket,ts-order-other-service,DELETE,/api/v1/orderOtherService/orderOther/{orderId},operation_id_prefix,ts-order-other-service.deleteOrderUsingDELETE,deleteOrderUsingDELETE,all except unstripped
+trainticket,ts-order-other-service,DELETE,/api/v1/orderOtherService/orderOther/{orderId},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,DELETE,/api/v1/orderOtherService/orderOther/{orderId},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther,path_prefix,/api/v1/orderOtherService/orderOther,/orderOther,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther,operation_id_prefix,ts-order-other-service.findAllOrderUsingGET,findAllOrderUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/orderPay/{orderId},path_prefix,/api/v1/orderOtherService/orderOther/orderPay/{orderId},/orderOther/orderPay/{orderId},all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/orderPay/{orderId},operation_id_prefix,ts-order-other-service.payOrderUsingGET,payOrderUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/orderPay/{orderId},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/orderPay/{orderId},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/price/{orderId},path_prefix,/api/v1/orderOtherService/orderOther/price/{orderId},/orderOther/price/{orderId},all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/price/{orderId},operation_id_prefix,ts-order-other-service.getOrderPriceUsingGET,getOrderPriceUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/price/{orderId},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/price/{orderId},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId},path_prefix,/api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId},/orderOther/security/{checkDate}/{accountId},all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId},operation_id_prefix,ts-order-other-service.securityInfoCheckUsingGET,securityInfoCheckUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/security/{checkDate}/{accountId},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/status/{orderId}/{status},path_prefix,/api/v1/orderOtherService/orderOther/status/{orderId}/{status},/orderOther/status/{orderId}/{status},all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/status/{orderId}/{status},operation_id_prefix,ts-order-other-service.modifyOrderUsingGET,modifyOrderUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/status/{orderId}/{status},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/status/{orderId}/{status},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{orderId},path_prefix,/api/v1/orderOtherService/orderOther/{orderId},/orderOther/{orderId},all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{orderId},operation_id_prefix,ts-order-other-service.getOrderByIdUsingGET,getOrderByIdUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{orderId},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{orderId},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber},path_prefix,/api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber},/orderOther/{travelDate}/{trainNumber},all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber},operation_id_prefix,ts-order-other-service.calculateSoldTicketUsingGET,calculateSoldTicketUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber},schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/orderOther/{travelDate}/{trainNumber},framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/welcome,path_prefix,/api/v1/orderOtherService/welcome,/welcome,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/welcome,operation_id_prefix,ts-order-other-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-order-other-service,GET,/api/v1/orderOtherService/welcome,greeting_endpoint,/api/v1/orderOtherService/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther,path_prefix,/api/v1/orderOtherService/orderOther,/orderOther,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther,operation_id_prefix,ts-order-other-service.createNewOrderUsingPOST,createNewOrderUsingPOST,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther,schema_name_prefix,ts-order-other-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/admin,path_prefix,/api/v1/orderOtherService/orderOther/admin,/orderOther/admin,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/admin,operation_id_prefix,ts-order-other-service.addcreateNewOrderUsingPOST,addcreateNewOrderUsingPOST,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/admin,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/admin,schema_name_prefix,ts-order-other-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/admin,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/query,path_prefix,/api/v1/orderOtherService/orderOther/query,/orderOther/query,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/query,operation_id_prefix,ts-order-other-service.queryOrdersUsingPOST,queryOrdersUsingPOST,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/query,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/query,schema_name_prefix,ts-order-other-service.QueryInfo,QueryInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/query,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/refresh,path_prefix,/api/v1/orderOtherService/orderOther/refresh,/orderOther/refresh,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/refresh,operation_id_prefix,ts-order-other-service.queryOrdersForRefreshUsingPOST,queryOrdersForRefreshUsingPOST,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/refresh,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/refresh,schema_name_prefix,ts-order-other-service.QueryInfo,QueryInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/refresh,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/tickets,path_prefix,/api/v1/orderOtherService/orderOther/tickets,/orderOther/tickets,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/tickets,operation_id_prefix,ts-order-other-service.getTicketListByDateAndTripIdUsingPOST,getTicketListByDateAndTripIdUsingPOST,all except unstripped
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/tickets,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/tickets,schema_name_prefix,ts-order-other-service.Seat,Seat,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,POST,/api/v1/orderOtherService/orderOther/tickets,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther,path_prefix,/api/v1/orderOtherService/orderOther,/orderOther,all except unstripped
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther,operation_id_prefix,ts-order-other-service.saveOrderInfoUsingPUT,saveOrderInfoUsingPUT,all except unstripped
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther,schema_name_prefix,ts-order-other-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther/admin,path_prefix,/api/v1/orderOtherService/orderOther/admin,/orderOther/admin,all except unstripped
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther/admin,operation_id_prefix,ts-order-other-service.updateOrderUsingPUT,updateOrderUsingPUT,all except unstripped
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther/admin,schema_name_prefix,ts-order-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther/admin,schema_name_prefix,ts-order-other-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-other-service,PUT,/api/v1/orderOtherService/orderOther/admin,framework_wrapper (S1),ts-order-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,DELETE,/api/v1/orderservice/order/{orderId},path_prefix,/api/v1/orderservice/order/{orderId},/order/{orderId},all except unstripped
+trainticket,ts-order-service,DELETE,/api/v1/orderservice/order/{orderId},operation_id_prefix,ts-order-service.deleteOrderUsingDELETE,deleteOrderUsingDELETE,all except unstripped
+trainticket,ts-order-service,DELETE,/api/v1/orderservice/order/{orderId},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,DELETE,/api/v1/orderservice/order/{orderId},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order,path_prefix,/api/v1/orderservice/order,/order,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order,operation_id_prefix,ts-order-service.findAllOrderUsingGET,findAllOrderUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/orderPay/{orderId},path_prefix,/api/v1/orderservice/order/orderPay/{orderId},/order/orderPay/{orderId},all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/orderPay/{orderId},operation_id_prefix,ts-order-service.payOrderUsingGET,payOrderUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/orderPay/{orderId},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/orderPay/{orderId},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/price/{orderId},path_prefix,/api/v1/orderservice/order/price/{orderId},/order/price/{orderId},all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/price/{orderId},operation_id_prefix,ts-order-service.getOrderPriceUsingGET,getOrderPriceUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/price/{orderId},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/price/{orderId},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/security/{checkDate}/{accountId},path_prefix,/api/v1/orderservice/order/security/{checkDate}/{accountId},/order/security/{checkDate}/{accountId},all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/security/{checkDate}/{accountId},operation_id_prefix,ts-order-service.securityInfoCheckUsingGET,securityInfoCheckUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/security/{checkDate}/{accountId},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/security/{checkDate}/{accountId},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/status/{orderId}/{status},path_prefix,/api/v1/orderservice/order/status/{orderId}/{status},/order/status/{orderId}/{status},all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/status/{orderId}/{status},operation_id_prefix,ts-order-service.modifyOrderUsingGET,modifyOrderUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/status/{orderId}/{status},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/status/{orderId}/{status},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{orderId},path_prefix,/api/v1/orderservice/order/{orderId},/order/{orderId},all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{orderId},operation_id_prefix,ts-order-service.getOrderByIdUsingGET,getOrderByIdUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{orderId},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{orderId},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{travelDate}/{trainNumber},path_prefix,/api/v1/orderservice/order/{travelDate}/{trainNumber},/order/{travelDate}/{trainNumber},all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{travelDate}/{trainNumber},operation_id_prefix,ts-order-service.calculateSoldTicketUsingGET,calculateSoldTicketUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{travelDate}/{trainNumber},schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,GET,/api/v1/orderservice/order/{travelDate}/{trainNumber},framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,GET,/api/v1/orderservice/welcome,path_prefix,/api/v1/orderservice/welcome,/welcome,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/welcome,operation_id_prefix,ts-order-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-order-service,GET,/api/v1/orderservice/welcome,greeting_endpoint,/api/v1/orderservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order,path_prefix,/api/v1/orderservice/order,/order,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order,operation_id_prefix,ts-order-service.createNewOrderUsingPOST,createNewOrderUsingPOST,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order,schema_name_prefix,ts-order-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/admin,path_prefix,/api/v1/orderservice/order/admin,/order/admin,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/admin,operation_id_prefix,ts-order-service.addcreateNewOrderUsingPOST,addcreateNewOrderUsingPOST,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/admin,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/admin,schema_name_prefix,ts-order-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/admin,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/query,path_prefix,/api/v1/orderservice/order/query,/order/query,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/query,operation_id_prefix,ts-order-service.queryOrdersUsingPOST,queryOrdersUsingPOST,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/query,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/query,schema_name_prefix,ts-order-service.OrderInfo,OrderInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/query,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/refresh,path_prefix,/api/v1/orderservice/order/refresh,/order/refresh,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/refresh,operation_id_prefix,ts-order-service.queryOrdersForRefreshUsingPOST,queryOrdersForRefreshUsingPOST,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/refresh,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/refresh,schema_name_prefix,ts-order-service.OrderInfo,OrderInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/refresh,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/tickets,path_prefix,/api/v1/orderservice/order/tickets,/order/tickets,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/tickets,operation_id_prefix,ts-order-service.getTicketListByDateAndTripIdUsingPOST,getTicketListByDateAndTripIdUsingPOST,all except unstripped
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/tickets,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/tickets,schema_name_prefix,ts-order-service.Seat,Seat,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,POST,/api/v1/orderservice/order/tickets,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order,path_prefix,/api/v1/orderservice/order,/order,all except unstripped
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order,operation_id_prefix,ts-order-service.saveOrderInfoUsingPUT,saveOrderInfoUsingPUT,all except unstripped
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order,schema_name_prefix,ts-order-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order/admin,path_prefix,/api/v1/orderservice/order/admin,/order/admin,all except unstripped
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order/admin,operation_id_prefix,ts-order-service.updateOrderUsingPUT,updateOrderUsingPUT,all except unstripped
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order/admin,schema_name_prefix,ts-order-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order/admin,schema_name_prefix,ts-order-service.Order,Order,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-order-service,PUT,/api/v1/orderservice/order/admin,framework_wrapper (S1),ts-order-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/payment,path_prefix,/api/v1/paymentservice/payment,/payment,all except unstripped
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/payment,operation_id_prefix,ts-payment-service.queryUsingGET,queryUsingGET,all except unstripped
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/payment,schema_name_prefix,ts-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/payment,framework_wrapper (S1),ts-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/welcome,path_prefix,/api/v1/paymentservice/welcome,/welcome,all except unstripped
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/welcome,operation_id_prefix,ts-payment-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-payment-service,GET,/api/v1/paymentservice/welcome,greeting_endpoint,/api/v1/paymentservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment,path_prefix,/api/v1/paymentservice/payment,/payment,all except unstripped
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment,operation_id_prefix,ts-payment-service.payUsingPOST,payUsingPOST,all except unstripped
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment,schema_name_prefix,ts-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment,schema_name_prefix,ts-payment-service.Payment,Payment,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment,framework_wrapper (S1),ts-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment/money,path_prefix,/api/v1/paymentservice/payment/money,/payment/money,all except unstripped
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment/money,operation_id_prefix,ts-payment-service.addMoneyUsingPOST,addMoneyUsingPOST,all except unstripped
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment/money,schema_name_prefix,ts-payment-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment/money,schema_name_prefix,ts-payment-service.Payment,Payment,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-payment-service,POST,/api/v1/paymentservice/payment/money,framework_wrapper (S1),ts-payment-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-preserve-other-service,GET,/api/v1/preserveotherservice/welcome,path_prefix,/api/v1/preserveotherservice/welcome,/welcome,all except unstripped
+trainticket,ts-preserve-other-service,GET,/api/v1/preserveotherservice/welcome,operation_id_prefix,ts-preserve-other-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-preserve-other-service,GET,/api/v1/preserveotherservice/welcome,greeting_endpoint,/api/v1/preserveotherservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-preserve-other-service,POST,/api/v1/preserveotherservice/preserveOther,path_prefix,/api/v1/preserveotherservice/preserveOther,/preserveOther,all except unstripped
+trainticket,ts-preserve-other-service,POST,/api/v1/preserveotherservice/preserveOther,operation_id_prefix,ts-preserve-other-service.preserveUsingPOST,preserveUsingPOST,all except unstripped
+trainticket,ts-preserve-other-service,POST,/api/v1/preserveotherservice/preserveOther,schema_name_prefix,ts-preserve-other-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-preserve-other-service,POST,/api/v1/preserveotherservice/preserveOther,schema_name_prefix,ts-preserve-other-service.OrderTicketsInfo,OrderTicketsInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-preserve-other-service,POST,/api/v1/preserveotherservice/preserveOther,framework_wrapper (S1),ts-preserve-other-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-preserve-service,GET,/api/v1/preserveservice/welcome,path_prefix,/api/v1/preserveservice/welcome,/welcome,all except unstripped
+trainticket,ts-preserve-service,GET,/api/v1/preserveservice/welcome,operation_id_prefix,ts-preserve-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-preserve-service,GET,/api/v1/preserveservice/welcome,greeting_endpoint,/api/v1/preserveservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-preserve-service,POST,/api/v1/preserveservice/preserve,path_prefix,/api/v1/preserveservice/preserve,/preserve,all except unstripped
+trainticket,ts-preserve-service,POST,/api/v1/preserveservice/preserve,operation_id_prefix,ts-preserve-service.preserveUsingPOST,preserveUsingPOST,all except unstripped
+trainticket,ts-preserve-service,POST,/api/v1/preserveservice/preserve,schema_name_prefix,ts-preserve-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-preserve-service,POST,/api/v1/preserveservice/preserve,schema_name_prefix,ts-preserve-service.OrderTicketsInfo,OrderTicketsInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-preserve-service,POST,/api/v1/preserveservice/preserve,framework_wrapper (S1),ts-preserve-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-price-service,DELETE,/api/v1/priceservice/prices/{pricesId},path_prefix,/api/v1/priceservice/prices/{pricesId},/prices/{pricesId},all except unstripped
+trainticket,ts-price-service,DELETE,/api/v1/priceservice/prices/{pricesId},operation_id_prefix,ts-price-service.deleteUsingDELETE,deleteUsingDELETE,all except unstripped
+trainticket,ts-price-service,DELETE,/api/v1/priceservice/prices/{pricesId},schema_name_prefix,ts-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,DELETE,/api/v1/priceservice/prices/{pricesId},framework_wrapper (S1),ts-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices,path_prefix,/api/v1/priceservice/prices,/prices,all except unstripped
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices,operation_id_prefix,ts-price-service.queryAllUsingGET,queryAllUsingGET,all except unstripped
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices,schema_name_prefix,ts-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices,framework_wrapper (S1),ts-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices/welcome,path_prefix,/api/v1/priceservice/prices/welcome,/prices/welcome,all except unstripped
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices/welcome,operation_id_prefix,ts-price-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices/{routeId}/{trainType},path_prefix,/api/v1/priceservice/prices/{routeId}/{trainType},/prices/{routeId}/{trainType},all except unstripped
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices/{routeId}/{trainType},operation_id_prefix,ts-price-service.queryUsingGET,queryUsingGET,all except unstripped
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices/{routeId}/{trainType},schema_name_prefix,ts-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,GET,/api/v1/priceservice/prices/{routeId}/{trainType},framework_wrapper (S1),ts-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices,path_prefix,/api/v1/priceservice/prices,/prices,all except unstripped
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices,operation_id_prefix,ts-price-service.createUsingPOST,createUsingPOST,all except unstripped
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices,schema_name_prefix,ts-price-service.PriceConfig,PriceConfig,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices/byRouteIdsAndTrainTypes,path_prefix,/api/v1/priceservice/prices/byRouteIdsAndTrainTypes,/prices/byRouteIdsAndTrainTypes,all except unstripped
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices/byRouteIdsAndTrainTypes,operation_id_prefix,ts-price-service.queryUsingPOST,queryUsingPOST,all except unstripped
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices/byRouteIdsAndTrainTypes,schema_name_prefix,ts-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,POST,/api/v1/priceservice/prices/byRouteIdsAndTrainTypes,framework_wrapper (S1),ts-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-price-service,PUT,/api/v1/priceservice/prices,path_prefix,/api/v1/priceservice/prices,/prices,all except unstripped
+trainticket,ts-price-service,PUT,/api/v1/priceservice/prices,operation_id_prefix,ts-price-service.updateUsingPUT,updateUsingPUT,all except unstripped
+trainticket,ts-price-service,PUT,/api/v1/priceservice/prices,schema_name_prefix,ts-price-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,PUT,/api/v1/priceservice/prices,schema_name_prefix,ts-price-service.PriceConfig,PriceConfig,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-price-service,PUT,/api/v1/priceservice/prices,framework_wrapper (S1),ts-price-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-rebook-service,GET,/api/v1/rebookservice/welcome,path_prefix,/api/v1/rebookservice/welcome,/welcome,all except unstripped
+trainticket,ts-rebook-service,GET,/api/v1/rebookservice/welcome,operation_id_prefix,ts-rebook-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-rebook-service,GET,/api/v1/rebookservice/welcome,greeting_endpoint,/api/v1/rebookservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook,path_prefix,/api/v1/rebookservice/rebook,/rebook,all except unstripped
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook,operation_id_prefix,ts-rebook-service.rebookUsingPOST,rebookUsingPOST,all except unstripped
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook,schema_name_prefix,ts-rebook-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook,schema_name_prefix,ts-rebook-service.RebookInfo,RebookInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook,framework_wrapper (S1),ts-rebook-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook/difference,path_prefix,/api/v1/rebookservice/rebook/difference,/rebook/difference,all except unstripped
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook/difference,operation_id_prefix,ts-rebook-service.payDifferenceUsingPOST,payDifferenceUsingPOST,all except unstripped
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook/difference,schema_name_prefix,ts-rebook-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook/difference,schema_name_prefix,ts-rebook-service.RebookInfo,RebookInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-rebook-service,POST,/api/v1/rebookservice/rebook/difference,framework_wrapper (S1),ts-rebook-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-plan-service,GET,/api/v1/routeplanservice/welcome,path_prefix,/api/v1/routeplanservice/welcome,/welcome,all except unstripped
+trainticket,ts-route-plan-service,GET,/api/v1/routeplanservice/welcome,operation_id_prefix,ts-route-plan-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-route-plan-service,GET,/api/v1/routeplanservice/welcome,greeting_endpoint,/api/v1/routeplanservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/cheapestRoute,path_prefix,/api/v1/routeplanservice/routePlan/cheapestRoute,/routePlan/cheapestRoute,all except unstripped
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/cheapestRoute,operation_id_prefix,ts-route-plan-service.getCheapestRoutesUsingPOST,getCheapestRoutesUsingPOST,all except unstripped
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/cheapestRoute,schema_name_prefix,ts-route-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/cheapestRoute,schema_name_prefix,ts-route-plan-service.RoutePlanInfo,RoutePlanInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/cheapestRoute,framework_wrapper (S1),ts-route-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/minStopStations,path_prefix,/api/v1/routeplanservice/routePlan/minStopStations,/routePlan/minStopStations,all except unstripped
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/minStopStations,operation_id_prefix,ts-route-plan-service.getMinStopStationsUsingPOST,getMinStopStationsUsingPOST,all except unstripped
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/minStopStations,schema_name_prefix,ts-route-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/minStopStations,schema_name_prefix,ts-route-plan-service.RoutePlanInfo,RoutePlanInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/minStopStations,framework_wrapper (S1),ts-route-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/quickestRoute,path_prefix,/api/v1/routeplanservice/routePlan/quickestRoute,/routePlan/quickestRoute,all except unstripped
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/quickestRoute,operation_id_prefix,ts-route-plan-service.getQuickestRoutesUsingPOST,getQuickestRoutesUsingPOST,all except unstripped
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/quickestRoute,schema_name_prefix,ts-route-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/quickestRoute,schema_name_prefix,ts-route-plan-service.RoutePlanInfo,RoutePlanInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-plan-service,POST,/api/v1/routeplanservice/routePlan/quickestRoute,framework_wrapper (S1),ts-route-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-service,DELETE,/api/v1/routeservice/routes/{routeId},path_prefix,/api/v1/routeservice/routes/{routeId},/routes/{routeId},all except unstripped
+trainticket,ts-route-service,DELETE,/api/v1/routeservice/routes/{routeId},operation_id_prefix,ts-route-service.deleteRouteUsingDELETE,deleteRouteUsingDELETE,all except unstripped
+trainticket,ts-route-service,DELETE,/api/v1/routeservice/routes/{routeId},schema_name_prefix,ts-route-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,DELETE,/api/v1/routeservice/routes/{routeId},framework_wrapper (S1),ts-route-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes,path_prefix,/api/v1/routeservice/routes,/routes,all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes,operation_id_prefix,ts-route-service.queryAllUsingGET,queryAllUsingGET,all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes,schema_name_prefix,ts-route-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes,framework_wrapper (S1),ts-route-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{routeId},path_prefix,/api/v1/routeservice/routes/{routeId},/routes/{routeId},all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{routeId},operation_id_prefix,ts-route-service.queryByIdUsingGET,queryByIdUsingGET,all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{routeId},schema_name_prefix,ts-route-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{routeId},framework_wrapper (S1),ts-route-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{start}/{end},path_prefix,/api/v1/routeservice/routes/{start}/{end},/routes/{start}/{end},all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{start}/{end},operation_id_prefix,ts-route-service.queryByStartAndTerminalUsingGET,queryByStartAndTerminalUsingGET,all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{start}/{end},schema_name_prefix,ts-route-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,GET,/api/v1/routeservice/routes/{start}/{end},framework_wrapper (S1),ts-route-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-route-service,GET,/api/v1/routeservice/welcome,path_prefix,/api/v1/routeservice/welcome,/welcome,all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/welcome,operation_id_prefix,ts-route-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-route-service,GET,/api/v1/routeservice/welcome,greeting_endpoint,/api/v1/routeservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes,path_prefix,/api/v1/routeservice/routes,/routes,all except unstripped
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes,operation_id_prefix,ts-route-service.createAndModifyRouteUsingPOST,createAndModifyRouteUsingPOST,all except unstripped
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes,schema_name_prefix,ts-route-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes,schema_name_prefix,ts-route-service.RouteInfo,RouteInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes/byIds,path_prefix,/api/v1/routeservice/routes/byIds,/routes/byIds,all except unstripped
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes/byIds,operation_id_prefix,ts-route-service.queryByIdsUsingPOST,queryByIdsUsingPOST,all except unstripped
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes/byIds,schema_name_prefix,ts-route-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-route-service,POST,/api/v1/routeservice/routes/byIds,framework_wrapper (S1),ts-route-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-seat-service,GET,/api/v1/seatservice/welcome,path_prefix,/api/v1/seatservice/welcome,/welcome,all except unstripped
+trainticket,ts-seat-service,GET,/api/v1/seatservice/welcome,operation_id_prefix,ts-seat-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-seat-service,GET,/api/v1/seatservice/welcome,greeting_endpoint,/api/v1/seatservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats,path_prefix,/api/v1/seatservice/seats,/seats,all except unstripped
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats,operation_id_prefix,ts-seat-service.createUsingPOST,createUsingPOST,all except unstripped
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats,schema_name_prefix,ts-seat-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats,schema_name_prefix,ts-seat-service.Seat,Seat,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats,framework_wrapper (S1),ts-seat-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats/left_tickets,path_prefix,/api/v1/seatservice/seats/left_tickets,/seats/left_tickets,all except unstripped
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats/left_tickets,operation_id_prefix,ts-seat-service.getLeftTicketOfIntervalUsingPOST,getLeftTicketOfIntervalUsingPOST,all except unstripped
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats/left_tickets,schema_name_prefix,ts-seat-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats/left_tickets,schema_name_prefix,ts-seat-service.Seat,Seat,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-seat-service,POST,/api/v1/seatservice/seats/left_tickets,framework_wrapper (S1),ts-seat-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-security-service,DELETE,/api/v1/securityservice/securityConfigs/{id},path_prefix,/api/v1/securityservice/securityConfigs/{id},/securityConfigs/{id},all except unstripped
+trainticket,ts-security-service,DELETE,/api/v1/securityservice/securityConfigs/{id},operation_id_prefix,ts-security-service.deleteUsingDELETE,deleteUsingDELETE,all except unstripped
+trainticket,ts-security-service,DELETE,/api/v1/securityservice/securityConfigs/{id},schema_name_prefix,ts-security-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,DELETE,/api/v1/securityservice/securityConfigs/{id},framework_wrapper (S1),ts-security-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs,path_prefix,/api/v1/securityservice/securityConfigs,/securityConfigs,all except unstripped
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs,operation_id_prefix,ts-security-service.findAllSecurityConfigUsingGET,findAllSecurityConfigUsingGET,all except unstripped
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs,schema_name_prefix,ts-security-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs,framework_wrapper (S1),ts-security-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs/{accountId},path_prefix,/api/v1/securityservice/securityConfigs/{accountId},/securityConfigs/{accountId},all except unstripped
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs/{accountId},operation_id_prefix,ts-security-service.checkUsingGET,checkUsingGET,all except unstripped
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs/{accountId},schema_name_prefix,ts-security-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,GET,/api/v1/securityservice/securityConfigs/{accountId},framework_wrapper (S1),ts-security-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-security-service,GET,/api/v1/securityservice/welcome,path_prefix,/api/v1/securityservice/welcome,/welcome,all except unstripped
+trainticket,ts-security-service,GET,/api/v1/securityservice/welcome,operation_id_prefix,ts-security-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-security-service,GET,/api/v1/securityservice/welcome,greeting_endpoint,/api/v1/securityservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-security-service,POST,/api/v1/securityservice/securityConfigs,path_prefix,/api/v1/securityservice/securityConfigs,/securityConfigs,all except unstripped
+trainticket,ts-security-service,POST,/api/v1/securityservice/securityConfigs,operation_id_prefix,ts-security-service.createUsingPOST,createUsingPOST,all except unstripped
+trainticket,ts-security-service,POST,/api/v1/securityservice/securityConfigs,schema_name_prefix,ts-security-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,POST,/api/v1/securityservice/securityConfigs,schema_name_prefix,ts-security-service.SecurityConfig,SecurityConfig,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,POST,/api/v1/securityservice/securityConfigs,framework_wrapper (S1),ts-security-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-security-service,PUT,/api/v1/securityservice/securityConfigs,path_prefix,/api/v1/securityservice/securityConfigs,/securityConfigs,all except unstripped
+trainticket,ts-security-service,PUT,/api/v1/securityservice/securityConfigs,operation_id_prefix,ts-security-service.updateUsingPUT,updateUsingPUT,all except unstripped
+trainticket,ts-security-service,PUT,/api/v1/securityservice/securityConfigs,schema_name_prefix,ts-security-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,PUT,/api/v1/securityservice/securityConfigs,schema_name_prefix,ts-security-service.SecurityConfig,SecurityConfig,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-security-service,PUT,/api/v1/securityservice/securityConfigs,framework_wrapper (S1),ts-security-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores,path_prefix,/api/v1/stationfoodservice/stationfoodstores,/stationfoodstores,all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores,operation_id_prefix,ts-station-food-service.getAllFoodStoresUsingGET,getAllFoodStoresUsingGET,all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores,schema_name_prefix,ts-station-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores,framework_wrapper (S1),ts-station-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId},path_prefix,/api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId},/stationfoodstores/bystoreid/{stationFoodStoreId},all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId},operation_id_prefix,ts-station-food-service.getFoodListByStationFoodStoreIdUsingGET,getFoodListByStationFoodStoreIdUsingGET,all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId},schema_name_prefix,ts-station-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/bystoreid/{stationFoodStoreId},framework_wrapper (S1),ts-station-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/welcome,path_prefix,/api/v1/stationfoodservice/stationfoodstores/welcome,/stationfoodstores/welcome,all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/welcome,operation_id_prefix,ts-station-food-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/{stationId},path_prefix,/api/v1/stationfoodservice/stationfoodstores/{stationId},/stationfoodstores/{stationId},all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/{stationId},operation_id_prefix,ts-station-food-service.getFoodStoresOfStationUsingGET,getFoodStoresOfStationUsingGET,all except unstripped
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/{stationId},schema_name_prefix,ts-station-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-food-service,GET,/api/v1/stationfoodservice/stationfoodstores/{stationId},framework_wrapper (S1),ts-station-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-food-service,POST,/api/v1/stationfoodservice/stationfoodstores,path_prefix,/api/v1/stationfoodservice/stationfoodstores,/stationfoodstores,all except unstripped
+trainticket,ts-station-food-service,POST,/api/v1/stationfoodservice/stationfoodstores,operation_id_prefix,ts-station-food-service.getFoodStoresByStationNamesUsingPOST,getFoodStoresByStationNamesUsingPOST,all except unstripped
+trainticket,ts-station-food-service,POST,/api/v1/stationfoodservice/stationfoodstores,schema_name_prefix,ts-station-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-food-service,POST,/api/v1/stationfoodservice/stationfoodstores,framework_wrapper (S1),ts-station-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-service,DELETE,/api/v1/stationservice/stations/{stationsId},path_prefix,/api/v1/stationservice/stations/{stationsId},/stations/{stationsId},all except unstripped
+trainticket,ts-station-service,DELETE,/api/v1/stationservice/stations/{stationsId},operation_id_prefix,ts-station-service.deleteUsingDELETE,deleteUsingDELETE,all except unstripped
+trainticket,ts-station-service,DELETE,/api/v1/stationservice/stations/{stationsId},schema_name_prefix,ts-station-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations,path_prefix,/api/v1/stationservice/stations,/stations,all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations,operation_id_prefix,ts-station-service.queryUsingGET,queryUsingGET,all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations,schema_name_prefix,ts-station-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations,framework_wrapper (S1),ts-station-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/id/{stationNameForId},path_prefix,/api/v1/stationservice/stations/id/{stationNameForId},/stations/id/{stationNameForId},all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/id/{stationNameForId},operation_id_prefix,ts-station-service.queryForStationIdUsingGET,queryForStationIdUsingGET,all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/id/{stationNameForId},schema_name_prefix,ts-station-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/id/{stationNameForId},framework_wrapper (S1),ts-station-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/name/{stationIdForName},path_prefix,/api/v1/stationservice/stations/name/{stationIdForName},/stations/name/{stationIdForName},all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/name/{stationIdForName},operation_id_prefix,ts-station-service.queryByIdUsingGET,queryByIdUsingGET,all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/name/{stationIdForName},schema_name_prefix,ts-station-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,GET,/api/v1/stationservice/stations/name/{stationIdForName},framework_wrapper (S1),ts-station-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-service,GET,/api/v1/stationservice/welcome,path_prefix,/api/v1/stationservice/welcome,/welcome,all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/welcome,operation_id_prefix,ts-station-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-station-service,GET,/api/v1/stationservice/welcome,greeting_endpoint,/api/v1/stationservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations,path_prefix,/api/v1/stationservice/stations,/stations,all except unstripped
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations,operation_id_prefix,ts-station-service.createUsingPOST,createUsingPOST,all except unstripped
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations,schema_name_prefix,ts-station-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations,schema_name_prefix,ts-station-service.Station,Station,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/idlist,path_prefix,/api/v1/stationservice/stations/idlist,/stations/idlist,all except unstripped
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/idlist,operation_id_prefix,ts-station-service.queryForIdBatchUsingPOST,queryForIdBatchUsingPOST,all except unstripped
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/idlist,schema_name_prefix,ts-station-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/idlist,framework_wrapper (S1),ts-station-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/namelist,path_prefix,/api/v1/stationservice/stations/namelist,/stations/namelist,all except unstripped
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/namelist,operation_id_prefix,ts-station-service.queryForNameBatchUsingPOST,queryForNameBatchUsingPOST,all except unstripped
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/namelist,schema_name_prefix,ts-station-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,POST,/api/v1/stationservice/stations/namelist,framework_wrapper (S1),ts-station-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-station-service,PUT,/api/v1/stationservice/stations,path_prefix,/api/v1/stationservice/stations,/stations,all except unstripped
+trainticket,ts-station-service,PUT,/api/v1/stationservice/stations,operation_id_prefix,ts-station-service.updateUsingPUT,updateUsingPUT,all except unstripped
+trainticket,ts-station-service,PUT,/api/v1/stationservice/stations,schema_name_prefix,ts-station-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,PUT,/api/v1/stationservice/stations,schema_name_prefix,ts-station-service.Station,Station,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-station-service,PUT,/api/v1/stationservice/stations,framework_wrapper (S1),ts-station-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods,path_prefix,/api/v1/trainfoodservice/trainfoods,/trainfoods,all except unstripped
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods,operation_id_prefix,ts-train-food-service.getAllTrainFoodUsingGET,getAllTrainFoodUsingGET,all except unstripped
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods,schema_name_prefix,ts-train-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods,framework_wrapper (S1),ts-train-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods/welcome,path_prefix,/api/v1/trainfoodservice/trainfoods/welcome,/trainfoods/welcome,all except unstripped
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods/welcome,operation_id_prefix,ts-train-food-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods/{tripId},path_prefix,/api/v1/trainfoodservice/trainfoods/{tripId},/trainfoods/{tripId},all except unstripped
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods/{tripId},operation_id_prefix,ts-train-food-service.getTrainFoodOfTripUsingGET,getTrainFoodOfTripUsingGET,all except unstripped
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods/{tripId},schema_name_prefix,ts-train-food-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-food-service,GET,/api/v1/trainfoodservice/trainfoods/{tripId},framework_wrapper (S1),ts-train-food-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,DELETE,/api/v1/trainservice/trains/{id},path_prefix,/api/v1/trainservice/trains/{id},/trains/{id},all except unstripped
+trainticket,ts-train-service,DELETE,/api/v1/trainservice/trains/{id},operation_id_prefix,ts-train-service.deleteUsingDELETE,deleteUsingDELETE,all except unstripped
+trainticket,ts-train-service,DELETE,/api/v1/trainservice/trains/{id},schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,DELETE,/api/v1/trainservice/trains/{id},framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains,path_prefix,/api/v1/trainservice/trains,/trains,all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains,operation_id_prefix,ts-train-service.queryUsingGET,queryUsingGET,all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains,schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains,framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/byName/{name},path_prefix,/api/v1/trainservice/trains/byName/{name},/trains/byName/{name},all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/byName/{name},operation_id_prefix,ts-train-service.retrieveByNameUsingGET,retrieveByNameUsingGET,all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/byName/{name},schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/byName/{name},framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/welcome,path_prefix,/api/v1/trainservice/trains/welcome,/trains/welcome,all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/welcome,operation_id_prefix,ts-train-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/{id},path_prefix,/api/v1/trainservice/trains/{id},/trains/{id},all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/{id},operation_id_prefix,ts-train-service.retrieveUsingGET,retrieveUsingGET,all except unstripped
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/{id},schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,GET,/api/v1/trainservice/trains/{id},framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains,path_prefix,/api/v1/trainservice/trains,/trains,all except unstripped
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains,operation_id_prefix,ts-train-service.createUsingPOST,createUsingPOST,all except unstripped
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains,schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains,schema_name_prefix,ts-train-service.TrainType,TrainType,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains,framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains/byNames,path_prefix,/api/v1/trainservice/trains/byNames,/trains/byNames,all except unstripped
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains/byNames,operation_id_prefix,ts-train-service.retrieveByNameUsingPOST,retrieveByNameUsingPOST,all except unstripped
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains/byNames,schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,POST,/api/v1/trainservice/trains/byNames,framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-train-service,PUT,/api/v1/trainservice/trains,path_prefix,/api/v1/trainservice/trains,/trains,all except unstripped
+trainticket,ts-train-service,PUT,/api/v1/trainservice/trains,operation_id_prefix,ts-train-service.updateUsingPUT,updateUsingPUT,all except unstripped
+trainticket,ts-train-service,PUT,/api/v1/trainservice/trains,schema_name_prefix,ts-train-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,PUT,/api/v1/trainservice/trains,schema_name_prefix,ts-train-service.TrainType,TrainType,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-train-service,PUT,/api/v1/trainservice/trains,framework_wrapper (S1),ts-train-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-plan-service,GET,/api/v1/travelplanservice/welcome,path_prefix,/api/v1/travelplanservice/welcome,/welcome,all except unstripped
+trainticket,ts-travel-plan-service,GET,/api/v1/travelplanservice/welcome,operation_id_prefix,ts-travel-plan-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-travel-plan-service,GET,/api/v1/travelplanservice/welcome,greeting_endpoint,/api/v1/travelplanservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/cheapest,path_prefix,/api/v1/travelplanservice/travelPlan/cheapest,/travelPlan/cheapest,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/cheapest,operation_id_prefix,ts-travel-plan-service.getByCheapestUsingPOST,getByCheapestUsingPOST,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/cheapest,schema_name_prefix,ts-travel-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/cheapest,schema_name_prefix,ts-travel-plan-service.TripInfo,TripInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/cheapest,framework_wrapper (S1),ts-travel-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/minStation,path_prefix,/api/v1/travelplanservice/travelPlan/minStation,/travelPlan/minStation,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/minStation,operation_id_prefix,ts-travel-plan-service.getByMinStationUsingPOST,getByMinStationUsingPOST,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/minStation,schema_name_prefix,ts-travel-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/minStation,schema_name_prefix,ts-travel-plan-service.TripInfo,TripInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/minStation,framework_wrapper (S1),ts-travel-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/quickest,path_prefix,/api/v1/travelplanservice/travelPlan/quickest,/travelPlan/quickest,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/quickest,operation_id_prefix,ts-travel-plan-service.getByQuickestUsingPOST,getByQuickestUsingPOST,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/quickest,schema_name_prefix,ts-travel-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/quickest,schema_name_prefix,ts-travel-plan-service.TripInfo,TripInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/quickest,framework_wrapper (S1),ts-travel-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/transferResult,path_prefix,/api/v1/travelplanservice/travelPlan/transferResult,/travelPlan/transferResult,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/transferResult,operation_id_prefix,ts-travel-plan-service.getTransferResultUsingPOST,getTransferResultUsingPOST,all except unstripped
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/transferResult,schema_name_prefix,ts-travel-plan-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/transferResult,schema_name_prefix,ts-travel-plan-service.TransferTravelInfo,TransferTravelInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-plan-service,POST,/api/v1/travelplanservice/travelPlan/transferResult,framework_wrapper (S1),ts-travel-plan-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,DELETE,/api/v1/travelservice/trips/{tripId},path_prefix,/api/v1/travelservice/trips/{tripId},/trips/{tripId},all except unstripped
+trainticket,ts-travel-service,DELETE,/api/v1/travelservice/trips/{tripId},operation_id_prefix,ts-travel-service.deleteTripUsingDELETE,deleteTripUsingDELETE,all except unstripped
+trainticket,ts-travel-service,DELETE,/api/v1/travelservice/trips/{tripId},schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,DELETE,/api/v1/travelservice/trips/{tripId},framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,GET,/api/v1/travelservice/admin_trip,path_prefix,/api/v1/travelservice/admin_trip,/admin_trip,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/admin_trip,operation_id_prefix,ts-travel-service.adminQueryAllUsingGET,adminQueryAllUsingGET,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/admin_trip,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,GET,/api/v1/travelservice/admin_trip,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,GET,/api/v1/travelservice/routes/{tripId},path_prefix,/api/v1/travelservice/routes/{tripId},/routes/{tripId},all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/routes/{tripId},operation_id_prefix,ts-travel-service.getRouteByTripIdUsingGET,getRouteByTripIdUsingGET,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/routes/{tripId},schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,GET,/api/v1/travelservice/routes/{tripId},framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,GET,/api/v1/travelservice/train_types/{tripId},path_prefix,/api/v1/travelservice/train_types/{tripId},/train_types/{tripId},all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/train_types/{tripId},operation_id_prefix,ts-travel-service.getTrainTypeByTripIdUsingGET,getTrainTypeByTripIdUsingGET,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/train_types/{tripId},schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,GET,/api/v1/travelservice/train_types/{tripId},framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips,path_prefix,/api/v1/travelservice/trips,/trips,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips,operation_id_prefix,ts-travel-service.queryAllUsingGET,queryAllUsingGET,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips/{tripId},path_prefix,/api/v1/travelservice/trips/{tripId},/trips/{tripId},all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips/{tripId},operation_id_prefix,ts-travel-service.retrieveUsingGET,retrieveUsingGET,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips/{tripId},schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,GET,/api/v1/travelservice/trips/{tripId},framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,GET,/api/v1/travelservice/welcome,path_prefix,/api/v1/travelservice/welcome,/welcome,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/welcome,operation_id_prefix,ts-travel-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-travel-service,GET,/api/v1/travelservice/welcome,greeting_endpoint,/api/v1/travelservice/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trip_detail,path_prefix,/api/v1/travelservice/trip_detail,/trip_detail,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trip_detail,operation_id_prefix,ts-travel-service.getTripAllDetailInfoUsingPOST,getTripAllDetailInfoUsingPOST,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trip_detail,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trip_detail,schema_name_prefix,ts-travel-service.TripAllDetailInfo,TripAllDetailInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trip_detail,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips,path_prefix,/api/v1/travelservice/trips,/trips,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips,operation_id_prefix,ts-travel-service.createTripUsingPOST,createTripUsingPOST,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips,schema_name_prefix,ts-travel-service.TravelInfo,TravelInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left,path_prefix,/api/v1/travelservice/trips/left,/trips/left,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left,operation_id_prefix,ts-travel-service.queryInfoUsingPOST,queryInfoUsingPOST,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left,schema_name_prefix,ts-travel-service.TripInfo,TripInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left_parallel,path_prefix,/api/v1/travelservice/trips/left_parallel,/trips/left_parallel,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left_parallel,operation_id_prefix,ts-travel-service.queryInfoInparallelUsingPOST,queryInfoInparallelUsingPOST,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left_parallel,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left_parallel,schema_name_prefix,ts-travel-service.TripInfo,TripInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/left_parallel,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/routes,path_prefix,/api/v1/travelservice/trips/routes,/trips/routes,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/routes,operation_id_prefix,ts-travel-service.getTripsByRouteIdUsingPOST,getTripsByRouteIdUsingPOST,all except unstripped
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/routes,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,POST,/api/v1/travelservice/trips/routes,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel-service,PUT,/api/v1/travelservice/trips,path_prefix,/api/v1/travelservice/trips,/trips,all except unstripped
+trainticket,ts-travel-service,PUT,/api/v1/travelservice/trips,operation_id_prefix,ts-travel-service.updateTripUsingPUT,updateTripUsingPUT,all except unstripped
+trainticket,ts-travel-service,PUT,/api/v1/travelservice/trips,schema_name_prefix,ts-travel-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,PUT,/api/v1/travelservice/trips,schema_name_prefix,ts-travel-service.TravelInfo,TravelInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel-service,PUT,/api/v1/travelservice/trips,framework_wrapper (S1),ts-travel-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,DELETE,/api/v1/travel2service/trips/{tripId},path_prefix,/api/v1/travel2service/trips/{tripId},/trips/{tripId},all except unstripped
+trainticket,ts-travel2-service,DELETE,/api/v1/travel2service/trips/{tripId},operation_id_prefix,ts-travel2-service.deleteTripUsingDELETE,deleteTripUsingDELETE,all except unstripped
+trainticket,ts-travel2-service,DELETE,/api/v1/travel2service/trips/{tripId},schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,DELETE,/api/v1/travel2service/trips/{tripId},framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/admin_trip,path_prefix,/api/v1/travel2service/admin_trip,/admin_trip,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/admin_trip,operation_id_prefix,ts-travel2-service.adminQueryAllUsingGET,adminQueryAllUsingGET,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/admin_trip,schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/admin_trip,framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/routes/{tripId},path_prefix,/api/v1/travel2service/routes/{tripId},/routes/{tripId},all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/routes/{tripId},operation_id_prefix,ts-travel2-service.getRouteByTripIdUsingGET,getRouteByTripIdUsingGET,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/routes/{tripId},schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/routes/{tripId},framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/train_types/{tripId},path_prefix,/api/v1/travel2service/train_types/{tripId},/train_types/{tripId},all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/train_types/{tripId},operation_id_prefix,ts-travel2-service.getTrainTypeByTripIdUsingGET,getTrainTypeByTripIdUsingGET,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/train_types/{tripId},schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/train_types/{tripId},framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips,path_prefix,/api/v1/travel2service/trips,/trips,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips,operation_id_prefix,ts-travel2-service.queryAllUsingGET,queryAllUsingGET,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips,schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips,framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips/{tripId},path_prefix,/api/v1/travel2service/trips/{tripId},/trips/{tripId},all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips/{tripId},operation_id_prefix,ts-travel2-service.retrieveUsingGET,retrieveUsingGET,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips/{tripId},schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/trips/{tripId},framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/welcome,path_prefix,/api/v1/travel2service/welcome,/welcome,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/welcome,operation_id_prefix,ts-travel2-service.homeUsingGET,homeUsingGET,all except unstripped
+trainticket,ts-travel2-service,GET,/api/v1/travel2service/welcome,greeting_endpoint,/api/v1/travel2service/welcome,,"no_greeting, A1_no_greeting"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trip_detail,path_prefix,/api/v1/travel2service/trip_detail,/trip_detail,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trip_detail,operation_id_prefix,ts-travel2-service.getTripAllDetailInfoUsingPOST,getTripAllDetailInfoUsingPOST,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trip_detail,schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trip_detail,schema_name_prefix,ts-travel2-service.TripAllDetailInfo,TripAllDetailInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trip_detail,framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips,path_prefix,/api/v1/travel2service/trips,/trips,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips,operation_id_prefix,ts-travel2-service.createTripUsingPOST,createTripUsingPOST,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips,schema_name_prefix,ts-travel2-service.TravelInfo,TravelInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/left,path_prefix,/api/v1/travel2service/trips/left,/trips/left,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/left,operation_id_prefix,ts-travel2-service.queryInfoUsingPOST,queryInfoUsingPOST,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/left,schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/left,schema_name_prefix,ts-travel2-service.TripInfo,TripInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/left,framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/routes,path_prefix,/api/v1/travel2service/trips/routes,/trips/routes,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/routes,operation_id_prefix,ts-travel2-service.getTripsByRouteIdUsingPOST,getTripsByRouteIdUsingPOST,all except unstripped
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/routes,schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,POST,/api/v1/travel2service/trips/routes,framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-travel2-service,PUT,/api/v1/travel2service/trips,path_prefix,/api/v1/travel2service/trips,/trips,all except unstripped
+trainticket,ts-travel2-service,PUT,/api/v1/travel2service/trips,operation_id_prefix,ts-travel2-service.updateTripUsingPUT,updateTripUsingPUT,all except unstripped
+trainticket,ts-travel2-service,PUT,/api/v1/travel2service/trips,schema_name_prefix,ts-travel2-service.HttpEntity,HttpEntity,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,PUT,/api/v1/travel2service/trips,schema_name_prefix,ts-travel2-service.TravelInfo,TravelInfo,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-travel2-service,PUT,/api/v1/travel2service/trips,framework_wrapper (S1),ts-travel2-service.HttpEntity,,A1_S1_no_wrapper
+trainticket,ts-user-service,DELETE,/api/v1/userservice/users/{userId},path_prefix,/api/v1/userservice/users/{userId},/users/{userId},all except unstripped
+trainticket,ts-user-service,DELETE,/api/v1/userservice/users/{userId},operation_id_prefix,ts-user-service.deleteUserByIdUsingDELETE,deleteUserByIdUsingDELETE,all except unstripped
+trainticket,ts-user-service,DELETE,/api/v1/userservice/users/{userId},schema_name_prefix,ts-user-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,GET,/api/v1/userservice/users,path_prefix,/api/v1/userservice/users,/users,all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users,operation_id_prefix,ts-user-service.getAllUserUsingGET,getAllUserUsingGET,all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users,schema_name_prefix,ts-user-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,GET,/api/v1/userservice/users/hello,path_prefix,/api/v1/userservice/users/hello,/users/hello,all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users/hello,operation_id_prefix,ts-user-service.testHelloUsingGET,testHelloUsingGET,all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users/id/{userId},path_prefix,/api/v1/userservice/users/id/{userId},/users/id/{userId},all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users/id/{userId},operation_id_prefix,ts-user-service.getUserByUserIdUsingGET,getUserByUserIdUsingGET,all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users/id/{userId},schema_name_prefix,ts-user-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,GET,/api/v1/userservice/users/{userName},path_prefix,/api/v1/userservice/users/{userName},/users/{userName},all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users/{userName},operation_id_prefix,ts-user-service.getUserByUserNameUsingGET,getUserByUserNameUsingGET,all except unstripped
+trainticket,ts-user-service,GET,/api/v1/userservice/users/{userName},schema_name_prefix,ts-user-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,POST,/api/v1/userservice/users/register,path_prefix,/api/v1/userservice/users/register,/users/register,all except unstripped
+trainticket,ts-user-service,POST,/api/v1/userservice/users/register,operation_id_prefix,ts-user-service.registerUserUsingPOST,registerUserUsingPOST,all except unstripped
+trainticket,ts-user-service,POST,/api/v1/userservice/users/register,schema_name_prefix,ts-user-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,POST,/api/v1/userservice/users/register,schema_name_prefix,ts-user-service.UserDto,UserDto,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,PUT,/api/v1/userservice/users,path_prefix,/api/v1/userservice/users,/users,all except unstripped
+trainticket,ts-user-service,PUT,/api/v1/userservice/users,operation_id_prefix,ts-user-service.updateUserUsingPUT,updateUserUsingPUT,all except unstripped
+trainticket,ts-user-service,PUT,/api/v1/userservice/users,schema_name_prefix,ts-user-service.Response,Response,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-user-service,PUT,/api/v1/userservice/users,schema_name_prefix,ts-user-service.UserDto,UserDto,"A1_amended, A1_no_greeting, A1_S1_no_wrapper"
+trainticket,ts-verification-code-service,GET,/api/v1/verifycode/generate,path_prefix,/api/v1/verifycode/generate,/generate,all except unstripped
+trainticket,ts-verification-code-service,GET,/api/v1/verifycode/generate,operation_id_prefix,ts-verification-code-service.imageCode,imageCode,all except unstripped
+trainticket,ts-verification-code-service,GET,/api/v1/verifycode/verify/{verifyCode},path_prefix,/api/v1/verifycode/verify/{verifyCode},/verify/{verifyCode},all except unstripped
+trainticket,ts-verification-code-service,GET,/api/v1/verifycode/verify/{verifyCode},operation_id_prefix,ts-verification-code-service.verifyCode,verifyCode,all except unstripped
+sockshop,payment,GET,/health,admin_endpoint (D-07),/health,,all conditions

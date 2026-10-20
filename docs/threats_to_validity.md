@@ -93,8 +93,8 @@ services tokenise differently.** See §7 for the outcome.
   prevent. Cost: under **0.6%** of operations on its worst feature (f3).
 
 **A declared inconsistency between two corpora (D-14).** The Day 3 availability
-statistics describe `specs/clean/` (as published) while the mask runs on
-`specs/clean3/` (converted). The gap is **f4 96.41% vs 91.04%** across the 144
+statistics describe `data/corpus/1_clean/` (as published) while the mask runs on
+`data/corpus/2_clean3/` (converted). The gap is **f4 96.41% vs 91.04%** across the 144
 converted 2.0 services, making the reported pair-level f4 co-availability about
 five points optimistic. A stated five-point discrepancy on one feature is a
 limitation; an unstated one would be a defect.

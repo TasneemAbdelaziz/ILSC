@@ -53,9 +53,9 @@ byte-identical `(METHOD, path)` operation set before and after. A conversion tha
 added or dropped an operation would silently move every pairwise count
 downstream, so a mismatch is a hard failure rather than a warning.
 
-**Two corpora are kept deliberately (D-11).** `specs/clean/` is as published and
+**Two corpora are kept deliberately (D-11).** `data/corpus/1_clean/` is as published and
 is what the availability study measures — the 2.0-vs-3.x contrast in its results
-is a finding, and measuring converted files would erase it. `specs/clean3/` is
+is a finding, and measuring converted files would erase it. `data/corpus/2_clean3/` is
 uniformly OpenAPI 3.x JSON and is what the metric consumes.
 
 **Administrative endpoints are stripped (D-07).** A 12-entry list (`/health`,
@@ -129,7 +129,7 @@ quoted threshold must name its population.
 
 ## 5. Benchmark systems
 
-`specs/benchmarks/<system>/`, catalogued with provenance in
+`data/benchmarks/specs/<system>/`, catalogued with provenance in
 `results/benchmark_manifest.csv`.
 
 | System | `spec_origin` | Services | Operations | Within-service pairs |
@@ -173,8 +173,8 @@ selected for the code-correlation study, not sampled from a population.
 | Token stopwords | `get, post, api, v1, v2` | Sec. 8, pinned |
 | `DROP_VERSION_TOKENS` | `True` | D-15; swept in Exp. 5 |
 | Perturbation levels / draws | 0,1,2,3,5 × 10 | `config.PERTURBATION_*` |
-| Null-model pair samples | 400,000 | `src/null_models.py` |
-| Bootstrap resamples | 2,000 | `src/code_correlation.py` |
+| Null-model pair samples | 400,000 | `src/metric/null_models.py` |
+| Bootstrap resamples | 2,000 | `src/experiments/code_correlation.py` |
 
 **The six features and their similarity functions (Sec. 6, D2):**
 

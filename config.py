@@ -22,11 +22,11 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 #   OpenAPI 3 upstream (src/convert-openapi-v2.js), so S1 is 100% 3.x and its
 #   spec_version is a post-conversion property. See DECISIONS.md D-10.
 RAMA_COMMIT = "5b0b2a3322d3b2b7c0e0f2c0c0ad0e524e67bf82"
-RAMA_DIR = os.path.join(ROOT, "rama-thresholds", "benchmark-repository", "openapi")
+RAMA_DIR = os.path.join(ROOT, "data", "sources", "rama-thresholds", "benchmark-repository", "openapi")
 
 # S2 - APIs.guru current snapshot. 4,138 spec files at this commit.
 APIS_GURU_COMMIT = "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49"
-APIS_GURU_DIR = os.path.join(ROOT, "openapi-directory", "APIs")
+APIS_GURU_DIR = os.path.join(ROOT, "data", "sources", "openapi-directory", "APIs")
 
 # Processing order matters: S1 is processed first so that a service present in
 # both corpora is credited to S1 (Sec. 7, cross-source dedup). See D-09.
@@ -35,13 +35,26 @@ SOURCES = (
     ("S2", APIS_GURU_DIR, "tree"),  # provider is the top-level directory
 )
 
+# Sun et al. 2022 replication data (MsDecomposer), used by D-31 for their own
+# Sock Shop partition. The repository has no licence: fetched at this commit,
+# gitignored, never redistributed.
+#   github.com/HduDBSI/MsDecomposer
+MSDECOMPOSER_COMMIT = "b3bf400a5bb8de494efde639b5fdab7ec338ce20"
+MSDECOMPOSER_DIR = os.path.join(ROOT, "data", "sources", "msdecomposer")
+
+# D-31 sensitivity S1 only - NOT part of the metric. A schema whose declared
+# properties are a non-empty subset of these is a framework HTTP wrapper: the
+# fields of Spring's HttpEntity / ResponseEntity, taken from the framework, not
+# from the data.
+FRAMEWORK_WRAPPER_FIELDS = {"body", "headers", "statuscode", "statuscodevalue"}
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
 
-SPECS_CLEAN = os.path.join(ROOT, "specs", "clean")    # as published (2.0 + 3.x)
-SPECS_CLEAN3 = os.path.join(ROOT, "specs", "clean3")  # all 3.x, for the parser
-PARSED_DIR = os.path.join(ROOT, "parsed")             # src/parse_spec.py output
+SPECS_CLEAN = os.path.join(ROOT, "data", "corpus", "1_clean")    # as published (2.0 + 3.x)
+SPECS_CLEAN3 = os.path.join(ROOT, "data", "corpus", "2_clean3")  # all 3.x, for the parser
+PARSED_DIR = os.path.join(ROOT, "data", "corpus", "3_parsed")    # src/pipeline/parse_spec.py output
 RESULTS_DIR = os.path.join(ROOT, "results")
 FIGURES_DIR = os.path.join(ROOT, "figures")
 
@@ -98,8 +111,8 @@ TOKEN_STOPWORDS = {"get", "post", "api", "v1", "v2"}
 # Overridable from the environment so Exp. 5 can sweep it (D-15) without editing
 # this file. Sweeping it needs a full re-parse AND re-embed, because it changes
 # the tokenizer, therefore T(Oi), therefore the f1 vectors - it is not a
-# reweighting. See src/version_tokens_sweep.py.
-#     ILSC_DROP_VERSION_TOKENS=0 python src/parse_spec.py --out-dir parsed_nodrop
+# reweighting. See src/experiments/version_tokens_sweep.py.
+#     ILSC_DROP_VERSION_TOKENS=0 python src/pipeline/parse_spec.py --out-dir data/corpus/3_parsed_nodrop
 DROP_VERSION_TOKENS = os.environ.get("ILSC_DROP_VERSION_TOKENS", "1") not in ("0", "false", "False")
 
 # f5: a schema on more than this share of a service's operations is
@@ -145,7 +158,7 @@ PERTURBATION_CONDITIONS = ("same_service", "same_provider", "cross_provider")
 MAX_SERVICES_PER_PROVIDER_IN_EXPERIMENT = 3
 
 # ---------------------------------------------------------------------------
-# Graph-structure analysis (src/graph_structure.py) - a SECONDARY, descriptive
+# Graph-structure analysis (src/analyses/graph_structure.py) - a SECONDARY, descriptive
 # analysis of the per-service similarity graph. It is not part of ILSC and
 # never changes an ILSC score. Design fixed 2026-10-13 (Tasneem): both a
 # spectral eigengap and Louvain are run and compared; services below the

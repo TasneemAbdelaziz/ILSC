@@ -1,0 +1,369 @@
+{
+ "system": "sockshop",
+ "condition": "S1_no_wrapper",
+ "spec_origin": "independent",
+ "strip": "none",
+ "s1_wrappers_removed": [],
+ "d26_excluded_schemas": [],
+ "d26_excluded_params": [],
+ "n_operations": 27,
+ "n_services": 5,
+ "operations": [
+  {
+   "service": "carts",
+   "op_key": "carts DELETE /carts/{customerId}",
+   "method": "DELETE",
+   "path": "/carts/{customerId}",
+   "operation_id": "Delete cart",
+   "param_names": [
+    "customerId"
+   ],
+   "schema_names": [],
+   "description": null
+  },
+  {
+   "service": "carts",
+   "op_key": "carts DELETE /carts/{customerId}/items/{itemId}",
+   "method": "DELETE",
+   "path": "/carts/{customerId}/items/{itemId}",
+   "operation_id": "delete",
+   "param_names": [
+    "customerId",
+    "itemId"
+   ],
+   "schema_names": [],
+   "description": "Delete cart item"
+  },
+  {
+   "service": "carts",
+   "op_key": "carts GET /carts/{customerId}",
+   "method": "GET",
+   "path": "/carts/{customerId}",
+   "operation_id": "Get cart",
+   "param_names": [
+    "customerId"
+   ],
+   "schema_names": [
+    "Getcartresponse"
+   ],
+   "description": null
+  },
+  {
+   "service": "carts",
+   "op_key": "carts PATCH /carts/{customerId}/items",
+   "method": "PATCH",
+   "path": "/carts/{customerId}/items",
+   "operation_id": "Update item",
+   "param_names": [
+    "customerId"
+   ],
+   "schema_names": [],
+   "description": "Update an item"
+  },
+  {
+   "service": "carts",
+   "op_key": "carts POST /carts/{customerId}/items",
+   "method": "POST",
+   "path": "/carts/{customerId}/items",
+   "operation_id": "Add an item to the cart",
+   "param_names": [
+    "customerId"
+   ],
+   "schema_names": [
+    "CartItem"
+   ],
+   "description": null
+  },
+  {
+   "service": "catalogue",
+   "op_key": "catalogue GET /catalogue",
+   "method": "GET",
+   "path": "/catalogue",
+   "operation_id": "List catalogue",
+   "param_names": [],
+   "schema_names": [
+    "Listresponse"
+   ],
+   "description": "Catalogue API"
+  },
+  {
+   "service": "catalogue",
+   "op_key": "catalogue GET /catalogue/size",
+   "method": "GET",
+   "path": "/catalogue/size",
+   "operation_id": "Get size",
+   "param_names": [],
+   "schema_names": [
+    "Getsizeresponse"
+   ],
+   "description": null
+  },
+  {
+   "service": "catalogue",
+   "op_key": "catalogue GET /catalogue/{id}",
+   "method": "GET",
+   "path": "/catalogue/{id}",
+   "operation_id": "Get an item",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Getanitemresponse"
+   ],
+   "description": null
+  },
+  {
+   "service": "catalogue",
+   "op_key": "catalogue GET /tags",
+   "method": "GET",
+   "path": "/tags",
+   "operation_id": "List_",
+   "param_names": [],
+   "schema_names": [
+    "Listresponse3"
+   ],
+   "description": null
+  },
+  {
+   "service": "orders",
+   "op_key": "orders GET /orders",
+   "method": "GET",
+   "path": "/orders",
+   "operation_id": "/orders GET",
+   "param_names": [],
+   "schema_names": [
+    "OrdersList"
+   ],
+   "description": "Get orders"
+  },
+  {
+   "service": "orders",
+   "op_key": "orders POST /orders",
+   "method": "POST",
+   "path": "/orders",
+   "operation_id": "/orders POST",
+   "param_names": [],
+   "schema_names": [
+    "Order"
+   ],
+   "description": "Create an order"
+  },
+  {
+   "service": "payment",
+   "op_key": "payment POST /paymentAuth",
+   "method": "POST",
+   "path": "/paymentAuth",
+   "operation_id": "/paymentAuth > POST",
+   "param_names": [],
+   "schema_names": [
+    "paymentAuth"
+   ],
+   "description": "Payment authorisation"
+  },
+  {
+   "service": "user",
+   "op_key": "user DELETE /addresses/{id}",
+   "method": "DELETE",
+   "path": "/addresses/{id}",
+   "operation_id": "Delete address",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Deleteresponse"
+   ],
+   "description": "Delete address"
+  },
+  {
+   "service": "user",
+   "op_key": "user DELETE /cards/{id}",
+   "method": "DELETE",
+   "path": "/cards/{id}",
+   "operation_id": "Delete card",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Deleteresponse"
+   ],
+   "description": "Delete card"
+  },
+  {
+   "service": "user",
+   "op_key": "user DELETE /customers/{id}",
+   "method": "DELETE",
+   "path": "/customers/{id}",
+   "operation_id": "Delete customer",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Deleteresponse"
+   ],
+   "description": "Delete customer"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /addresses",
+   "method": "GET",
+   "path": "/addresses",
+   "operation_id": "Get addresses",
+   "param_names": [],
+   "schema_names": [
+    "Address",
+    "Listaddressresponse"
+   ],
+   "description": "Returns all addresses"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /addresses/{id}",
+   "method": "GET",
+   "path": "/addresses/{id}",
+   "operation_id": "Get address",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Address"
+   ],
+   "description": "Returns an address"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /cards",
+   "method": "GET",
+   "path": "/cards",
+   "operation_id": "Get cards",
+   "param_names": [],
+   "schema_names": [
+    "Card",
+    "Getcardsresponse"
+   ],
+   "description": "Return all cards"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /cards/{id}",
+   "method": "GET",
+   "path": "/cards/{id}",
+   "operation_id": "Get card",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Card"
+   ],
+   "description": "Returns a card"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /customers",
+   "method": "GET",
+   "path": "/customers",
+   "operation_id": "Get customers",
+   "param_names": [],
+   "schema_names": [
+    "Customer",
+    "Getcustomersresponse"
+   ],
+   "description": "Returns all customers"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /customers/{id}",
+   "method": "GET",
+   "path": "/customers/{id}",
+   "operation_id": "Get customer",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Customer"
+   ],
+   "description": "Returns a customer"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /customers/{id}/addresses",
+   "method": "GET",
+   "path": "/customers/{id}/addresses",
+   "operation_id": "Get customer addresses",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Address",
+    "Listaddressresponse"
+   ],
+   "description": "Returns an address"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /customers/{id}/cards",
+   "method": "GET",
+   "path": "/customers/{id}/cards",
+   "operation_id": "Get customer cards",
+   "param_names": [
+    "id"
+   ],
+   "schema_names": [
+    "Card",
+    "Getcardsresponse"
+   ],
+   "description": "Returns a customer"
+  },
+  {
+   "service": "user",
+   "op_key": "user GET /login",
+   "method": "GET",
+   "path": "/login",
+   "operation_id": "Get Login",
+   "param_names": [],
+   "schema_names": [
+    "Customer",
+    "Getcustomersresponse"
+   ],
+   "description": "Return logged in user"
+  },
+  {
+   "service": "user",
+   "op_key": "user POST /addresses",
+   "method": "POST",
+   "path": "/addresses",
+   "operation_id": "Set Address",
+   "param_names": [],
+   "schema_names": [
+    "Postaddress",
+    "Statusresponse"
+   ],
+   "description": "Create new address"
+  },
+  {
+   "service": "user",
+   "op_key": "user POST /cards",
+   "method": "POST",
+   "path": "/cards",
+   "operation_id": "Set Card",
+   "param_names": [],
+   "schema_names": [
+    "Postcard",
+    "Statusresponse"
+   ],
+   "description": "Create new card"
+  },
+  {
+   "service": "user",
+   "op_key": "user POST /register",
+   "method": "POST",
+   "path": "/register",
+   "operation_id": "Set User",
+   "param_names": [],
+   "schema_names": [
+    "Register",
+    "Statusresponse"
+   ],
+   "description": "Register new user"
+  }
+ ]
+}

@@ -16,9 +16,9 @@ This file exists so the claim "it reproduces" is bounded rather than asserted.
 | Every script `run_all.py` invokes exists in the committed tree | **22 of 22** |
 | Every module in `src/` imports with **no corpus present** | **24 of 24** |
 | Unit tests run from the clean tree | **17 of 17 pass** |
-| `src/convert.js` committed and its Node dependency declared in `package.json` | ✅ |
-| Regenerable artifacts correctly *absent* (`specs/clean*`, `parsed*`, `.cache/`) | ✅ |
-| Committed artifacts present (`results/`, `figures/`, `specs/benchmarks/`) | ✅ |
+| `src/pipeline/convert.js` committed and its Node dependency declared in `package.json` | ✅ |
+| Regenerable artifacts correctly *absent* (`data/corpus/1_clean*`, `parsed*`, `.cache/`) | ✅ |
+| Committed artifacts present (`results/`, `figures/`, `data/benchmarks/specs/`) | ✅ |
 
 That the modules import with no corpus present matters more than it looks: it
 means a reviewer who clones the repository can read, lint and unit-test the
@@ -32,7 +32,7 @@ does data loading at import time.
 All three were invisible to every check that ran inside the working tree, which
 is precisely the argument for running the test.
 
-**1. The repository could not be cloned on Windows at all.** `parsed_nodrop/` —
+**1. The repository could not be cloned on Windows at all.** `data/corpus/3_parsed_nodrop/` —
 2,206 regenerable parse files written by the D-15 sweep — had been committed by
 accident, caught by a `git add -A` that ran while the sweep was mid-write and
 before the `.gitignore` entry existed. Several Azure filenames in it exceed the
@@ -80,7 +80,7 @@ check.
 
 **Two further gaps in reproducibility, both already recorded:**
 
-- `src/entity_extract.py` needs a **FudanSELab/train-ticket checkout**, which
+- `src/experiments/entity_extract.py` needs a **FudanSELab/train-ticket checkout**, which
   this repository does not vendor and `run_all.py` therefore does not invoke.
   The commented block at the foot of `run_all.py` says so rather than leaving
   the omission silent. `results/endpoint_entities_trainticket.csv` is committed,
@@ -128,7 +128,7 @@ model weights are fetched from Hugging Face by name. The name is pinned in
 ## Figures
 
 All eight figures share one palette and one set of rcParams, defined in
-[`src/figstyle.py`](../src/figstyle.py) and applied by every figure-producing
+[`src/common/figstyle.py`](../src/figstyle.py) and applied by every figure-producing
 script. Vector PDF throughout, with TrueType embedding (`pdf.fonttype = 42`)
 rather than Type 3, which journals ask for.
 

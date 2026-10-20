@@ -11,29 +11,29 @@ steps in `README.md` §2.
 
 | Task | Script | Status | Headline |
 |---|---|---|---|
-| Day 1–2 — multi-source curation | [`src/filter.py`](src/filter.py) | ✅ complete | 2,206 services survive from 6,757; 1,014 from S1 |
-| Day 1–2 — 2.0 → 3.x conversion | [`src/convert.py`](src/convert.py) | ✅ complete | 144/144 converted, 0 operation-set changes |
-| Day 1–2 — strict validation (D-02) | [`src/validate_sample.py`](src/validate_sample.py) | ✅ complete | 97.5% strictly valid (S1 100%, S2 94.9%) |
-| Day 3 — field availability (per-op) | [`src/availability.py`](src/availability.py) | ✅ complete | description on 73.0% of ops (micro); micro↔macro reverses by field |
-| Day 3 — **pair co-availability (RQ2)** | [`src/pair_availability.py`](src/pair_availability.py) | ✅ complete | **mask matters for 68.4% of services**; micro 90.6% but see the caveat |
-| Day 1–2 — **parser + feature extraction** | [`src/parse_spec.py`](src/parse_spec.py) | ✅ complete | 2,206 services, 97,912 operations, 0 skipped |
-| Day 4 prep — Gate 1 candidates | [`src/gate1_select.py`](src/gate1_select.py) | ✅ complete | ten services picked, [`docs/gate1_expectations.md`](docs/gate1_expectations.md) |
-| Day 1m — **similarity engine + mask** | [`src/embed.py`](src/embed.py), [`src/similarity.py`](src/similarity.py) | ✅ complete | 89,852 T + 54,701 description vectors; 17/17 unit tests, incl. the R2 regression |
-| Day 3m — null models (D-18, D-21) | [`src/null_models.py`](src/null_models.py) | ✅ complete | E[ILSC_rand] **0.1011** global vs **0.2193** provider-restricted; flat in n |
-| Day 4m — **GATE 1** | [`src/gate1_run.py`](src/gate1_run.py) | ❌ **FAIL** | delta **+0.200** after D-26; candidate set confounded with provider (D-27) |
-| Day 5m — **Exp. 1 big run** | [`src/ilsc.py`](src/ilsc.py) | ✅ complete | 2,206 services; ILSC_mean median **0.366** primary; thresholds incl. S1-only |
-| Day 6m — inter-feature correlation (Fig 9) | [`src/feature_corr.py`](src/feature_corr.py) | ✅ complete | max |rho| **0.558** — no feature pair is redundant |
-| D2 → oversized cap (D-17) | [`src/oversized.py`](src/oversized.py) | ✅ complete | cap 200; **mask-fire 56.87% primary vs 90.58% full**; quartiles move ≤3.2 |
-| Day 5 — benchmark prep (+ Train Ticket) | [`src/benchmark_prep.py`](src/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
-| Day 7m — perturbation + checker | [`src/inject.py`](src/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
+| Day 1–2 — multi-source curation | [`src/pipeline/filter.py`](src/pipeline/filter.py) | ✅ complete | 2,206 services survive from 6,757; 1,014 from S1 |
+| Day 1–2 — 2.0 → 3.x conversion | [`src/pipeline/convert.py`](src/pipeline/convert.py) | ✅ complete | 144/144 converted, 0 operation-set changes |
+| Day 1–2 — strict validation (D-02) | [`src/pipeline/validate_sample.py`](src/pipeline/validate_sample.py) | ✅ complete | 97.5% strictly valid (S1 100%, S2 94.9%) |
+| Day 3 — field availability (per-op) | [`src/analyses/availability.py`](src/analyses/availability.py) | ✅ complete | description on 73.0% of ops (micro); micro↔macro reverses by field |
+| Day 3 — **pair co-availability (RQ2)** | [`src/analyses/pair_availability.py`](src/analyses/pair_availability.py) | ✅ complete | **mask matters for 68.4% of services**; micro 90.6% but see the caveat |
+| Day 1–2 — **parser + feature extraction** | [`src/pipeline/parse_spec.py`](src/pipeline/parse_spec.py) | ✅ complete | 2,206 services, 97,912 operations, 0 skipped |
+| Day 4 prep — Gate 1 candidates | [`src/experiments/gate1_select.py`](src/experiments/gate1_select.py) | ✅ complete | ten services picked, [`docs/gate1_expectations.md`](docs/gate1_expectations.md) |
+| Day 1m — **similarity engine + mask** | [`src/pipeline/embed.py`](src/pipeline/embed.py), [`src/metric/similarity.py`](src/metric/similarity.py) | ✅ complete | 89,852 T + 54,701 description vectors; 17/17 unit tests, incl. the R2 regression |
+| Day 3m — null models (D-18, D-21) | [`src/metric/null_models.py`](src/metric/null_models.py) | ✅ complete | E[ILSC_rand] **0.1011** global vs **0.2193** provider-restricted; flat in n |
+| Day 4m — **GATE 1** | [`src/experiments/gate1_run.py`](src/experiments/gate1_run.py) | ❌ **FAIL** | delta **+0.200** after D-26; candidate set confounded with provider (D-27) |
+| Day 5m — **Exp. 1 big run** | [`src/metric/ilsc.py`](src/metric/ilsc.py) | ✅ complete | 2,206 services; ILSC_mean median **0.366** primary; thresholds incl. S1-only |
+| Day 6m — inter-feature correlation (Fig 9) | [`src/analyses/feature_corr.py`](src/analyses/feature_corr.py) | ✅ complete | max |rho| **0.558** — no feature pair is redundant |
+| D2 → oversized cap (D-17) | [`src/metric/oversized.py`](src/metric/oversized.py) | ✅ complete | cap 200; **mask-fire 56.87% primary vs 90.58% full**; quartiles move ≤3.2 |
+| Day 5 — benchmark prep (+ Train Ticket) | [`src/pipeline/benchmark_prep.py`](src/pipeline/benchmark_prep.py) | ✅ complete | 39 services, **916 within-service pairs**; 122 independent vs 794 derived (D-16) |
+| Day 7m — perturbation + checker | [`src/experiments/inject.py`](src/experiments/inject.py) | ✅ complete | three conditions (D-05); see the Exp. 2 section |
 | Day 3–6e — **code dig, Sock Shop** | manual | ✅ complete | 27 endpoints, [`results/endpoint_entities.csv`](results/endpoint_entities.csv); **5 distinct Sim_code values** (F-04) |
-| **D1 resolved / F-05** | [`src/provider_cap.py`](src/provider_cap.py), [`src/param_boilerplate.py`](src/param_boilerplate.py) | ⚠ **limitation** | thresholds move up to **0.049** under a cap; hyperscalers +0.134; f4 boilerplate closes 46.6%% of it |
-| **Gate 1, provider-matched** | [`src/gate1_matched.py`](src/gate1_matched.py) | ✅ **PASS** | 14/16 providers, +0.105, p 0.002; 11/12 grid cells pass (D-29) |
-| **Exp. 4b** ground-truth head-to-head | [`src/baseline_correlation.py`](src/baseline_correlation.py) | ✅ complete | ILSC AUC **0.794** vs 0.574/0.651 on hand-written specs; loses on generated (D-28) |
-| Days 9-10 — **Exp. 4** baselines | [`src/baselines.py`](src/baselines.py) | ✅ complete | ILSC 0%% saturated vs SIDC 35.8%%, LoCmsg 77.0%%; perturbation claim only half supported |
-| Days 13-14 — **Exp. 5** sensitivity | [`src/sensitivity.py`](src/sensitivity.py) | ✅ complete | **Kendall W 0.9949**; rankings invariant to weights |
-| Days 11-12 — **Exp. 3 / GATE 2** | [`src/code_correlation.py`](src/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.409**, rho_derived **0.486**; inflation +0.054 |
-| Day 7e — Train Ticket extraction | [`src/entity_extract.py`](src/entity_extract.py) | ✅ complete | 209/211 operations joined (99.1%); 0 unexplained empties (D-22); agreement figure still owed |
+| **D1 resolved / F-05** | [`src/experiments/provider_cap.py`](src/experiments/provider_cap.py), [`src/analyses/param_boilerplate.py`](src/analyses/param_boilerplate.py) | ⚠ **limitation** | thresholds move up to **0.049** under a cap; hyperscalers +0.134; f4 boilerplate closes 46.6%% of it |
+| **Gate 1, provider-matched** | [`src/experiments/gate1_matched.py`](src/experiments/gate1_matched.py) | ✅ **PASS** | 14/16 providers, +0.105, p 0.002; 11/12 grid cells pass (D-29) |
+| **Exp. 4b** ground-truth head-to-head | [`src/experiments/baseline_correlation.py`](src/experiments/baseline_correlation.py) | ✅ complete | ILSC AUC **0.794** vs 0.574/0.651 on hand-written specs; loses on generated (D-28) |
+| Days 9-10 — **Exp. 4** baselines | [`src/experiments/baselines.py`](src/experiments/baselines.py) | ✅ complete | ILSC 0%% saturated vs SIDC 35.8%%, LoCmsg 77.0%%; perturbation claim only half supported |
+| Days 13-14 — **Exp. 5** sensitivity | [`src/experiments/sensitivity.py`](src/experiments/sensitivity.py) | ✅ complete | **Kendall W 0.9949**; rankings invariant to weights |
+| Days 11-12 — **Exp. 3 / GATE 2** | [`src/experiments/code_correlation.py`](src/experiments/code_correlation.py) | ✅ **PASS** (reframed) | rho_indep **0.409**, rho_derived **0.486**; inflation +0.054 |
+| Day 7e — Train Ticket extraction | [`src/experiments/entity_extract.py`](src/experiments/entity_extract.py) | ✅ complete | 209/211 operations joined (99.1%); 0 unexplained empties (D-22); agreement figure still owed |
 
 Reproducibility pins (`config.py`): `SEED = 42`; RAMA commit
 `5b0b2a3322d3b2b7c0e0f2c0c0ad0e524e67bf82`; APIs.guru commit
@@ -66,7 +66,7 @@ This is not hypothetical: until D-13, *which* Microsoft Graph spec occupied that
 
 ## Day 1–2 — Multi-source corpus curation
 
-**Script:** [`src/filter.py`](src/filter.py) · **Governed by:** D-01, D-02, D-06,
+**Script:** [`src/pipeline/filter.py`](src/pipeline/filter.py) · **Governed by:** D-01, D-02, D-06,
 D-07, D-09, D-10, D-12, D-13 (`docs/DECISIONS.md`)
 
 **Inputs (both pinned, regenerated locally, not committed):**
@@ -82,11 +82,11 @@ D-07, D-09, D-10, D-12, D-13 (`docs/DECISIONS.md`)
 |---|---|---|
 | [`results/manifest.csv`](results/manifest.csv) | 2,206 | survivors + metadata + provenance |
 | [`results/filter_log.csv`](results/filter_log.csv) | 4,551 | every removed spec + reason |
-| [`results/convert_verify.csv`](results/convert_verify.csv) | 2,206 | operation-set proof for `specs/clean3/` |
+| [`results/convert_verify.csv`](results/convert_verify.csv) | 2,206 | operation-set proof for `data/corpus/2_clean3/` |
 | [`results/strict_validation_sample.csv`](results/strict_validation_sample.csv) | 200 | D-02 strict pass/fail |
 | [`results/manifest_labelled.csv`](results/manifest_labelled.csv) | 2,206 | manifest + **rejected** domain labels |
-| `specs/clean/` | 2,206 files | as published (regenerated) |
-| `specs/clean3/` | 2,206 files | uniform 3.x JSON, for the parser (D-11) |
+| `data/corpus/1_clean/` | 2,206 files | as published (regenerated) |
+| `data/corpus/2_clean3/` | 2,206 files | uniform 3.x JSON, for the parser (D-11) |
 
 **Headline numbers** (recomputed from the artifacts):
 
@@ -126,15 +126,15 @@ Two layers. **(A) per-operation** availability is descriptive; **(B) pair-level
 co-availability** is the actual RQ2 number, because the mask evaluates
 `m_ij,k = 1` only when *both* operations of a within-service pair carry feature
 `k`. Both take the operation set from `filter.py` with a per-spec assertion that
-it equals `filter.operations()`. Input `specs/clean/` (2,206 services);
+it equals `filter.operations()`. Input `data/corpus/1_clean/` (2,206 services);
 **manifest cross-check: 0 mismatches**. Both are now stratified **by source as
 well as by version**, which Sec. 7 requires and which turns out to matter a great
 deal.
 
 > **Which corpus these figures describe (D-14).** Every number in A and B, and
-> both **Fig 1 and Fig 2**, are measured on **`specs/clean/` (as published)** —
-> not on the corpus the similarity engine reads, which is **`specs/clean3/`
-> (converted)** via `src/parse_spec.py`. The two diverge for the **144 converted
+> both **Fig 1 and Fig 2**, are measured on **`data/corpus/1_clean/` (as published)** —
+> not on the corpus the similarity engine reads, which is **`data/corpus/2_clean3/`
+> (converted)** via `src/pipeline/parse_spec.py`. The two diverge for the **144 converted
 > 2.0 services**, because conversion moves an `in: body` parameter into
 > `requestBody`: **f4 (parameters) is 96.41% on `clean/` against 91.04% on
 > `clean3/`**, so B's pair-level mask figures are **~5 points optimistic on f4**
@@ -143,7 +143,7 @@ deal.
 
 ### A. Per-operation availability (descriptive)
 
-**Script:** [`src/availability.py`](src/availability.py) · **Scope:** 97,912
+**Script:** [`src/analyses/availability.py`](src/analyses/availability.py) · **Scope:** 97,912
 operations (admin excluded, matching filter.py).
 
 **Outputs:** [`results/availability.csv`](results/availability.csv) (2,206) ·
@@ -182,7 +182,7 @@ micro/macro × grouped-by-source/grouped-by-version.
 
 ### B. Pair-level co-availability — the RQ2 number
 
-**Script:** [`src/pair_availability.py`](src/pair_availability.py) · **Scope:**
+**Script:** [`src/analyses/pair_availability.py`](src/analyses/pair_availability.py) · **Scope:**
 **77,611,030** within-service pairs. The mask can fire only on **f2** (name),
 **f4** (parameters), **f5** (schemas — domain schema names *after* removing
 `config.GENERIC_SCHEMAS`; empty ⇒ unavailable), **f6** (description); **f1**
@@ -256,10 +256,10 @@ Threats-to-Validity caveat, not a headline mover.
 
 ## Day 1–2 (metric track) — Parser + feature extraction
 
-**Script:** [`src/parse_spec.py`](src/parse_spec.py) · **Governed by:** D-11,
-D-14, D-15 · **Input:** `specs/clean3/` (2,206 uniform 3.x JSON specs)
+**Script:** [`src/pipeline/parse_spec.py`](src/pipeline/parse_spec.py) · **Governed by:** D-11,
+D-14, D-15 · **Input:** `data/corpus/2_clean3/` (2,206 uniform 3.x JSON specs)
 
-**Output:** `parsed/<service>.json`, one document per service (regenerated, not
+**Output:** `data/corpus/3_parsed/<service>.json`, one document per service (regenerated, not
 committed). **2,206 services, 97,912 operations, 0 skipped** — the operation
 count matches `manifest.csv` exactly, and every service asserts its operation
 set equals `filter.operations()`.
@@ -307,7 +307,7 @@ source specs — 5/5 pass.
 
 ## Day 4 preparation — the Gate 1 ten
 
-**Script:** [`src/gate1_select.py`](src/gate1_select.py) ·
+**Script:** [`src/experiments/gate1_select.py`](src/experiments/gate1_select.py) ·
 **Deliverable:** [`docs/gate1_expectations.md`](docs/gate1_expectations.md) ·
 [`results/gate1_candidates.csv`](results/gate1_candidates.csv) (10) ·
 [`results/gate1_shortlist.csv`](results/gate1_shortlist.csv) (80, browsing aid)
@@ -326,12 +326,12 @@ Gate 1 itself is pending — it needs `ILSC_mean`, which is Mohamed's engine.
 
 ## Day 5 — Benchmark preparation  (Exp. 3 sample size, fixed in advance)
 
-**Script:** [`src/benchmark_prep.py`](src/benchmark_prep.py) · **Governed by:**
+**Script:** [`src/pipeline/benchmark_prep.py`](src/pipeline/benchmark_prep.py) · **Governed by:**
 D-06 (no `<3 ops` filter), D-07 (admin stripping), **D-16** (provenance split).
 
 **Outputs:** [`results/benchmark_manifest.csv`](results/benchmark_manifest.csv)
 (39) · [`results/benchmark_split_log.csv`](results/benchmark_split_log.csv) (34) ·
-`specs/benchmarks/{sockshop,trainticket}/`.
+`data/benchmarks/specs/{sockshop,trainticket}/`.
 
 **Exp. 3's sample size is now known before the code dig starts:**
 
@@ -360,7 +360,7 @@ guessed — with `definitions` pruned to each service's transitive `$ref` closur
 and the (METHOD, path) multiset asserted unchanged. Measuring the combined
 document instead would have produced C(211,2) = 22,155 fabricated cross-service
 pairs in place of the 794 real ones. Attribution (CC-BY-4.0) in
-[`specs/benchmarks/trainticket/README.md`](specs/benchmarks/trainticket/README.md).
+[`data/benchmarks/specs/trainticket/README.md`](data/benchmarks/specs/trainticket/README.md).
 
 **Known gap.** Sock Shop's five specs predate this pipeline and carry
 `spec_pin = UNPINNED` — no upstream commit was recorded for them. Train Ticket is
@@ -370,7 +370,7 @@ pinned by DOI + archive sha256. Pinning Sock Shop is outstanding.
 
 ## D2 resolved — the oversized cap (D-17)
 
-**Script:** [`src/oversized.py`](src/oversized.py) · **Cap:**
+**Script:** [`src/metric/oversized.py`](src/metric/oversized.py) · **Cap:**
 `config.OVERSIZED_MAX_OPERATIONS = 200` · **Governed by:** D-17.
 
 Every analysis is run **twice** and both are always reported: **PRIMARY**
@@ -432,13 +432,13 @@ pending — so no ILSC quartile thresholds appear above. D-17 fixes the
 
 ## Day 1–3 (metric track) — The similarity engine
 
-`src/embed.py` + `src/similarity.py` + `src/ilsc.py`. Everything below reads one
+`src/pipeline/embed.py` + `src/metric/similarity.py` + `src/metric/ilsc.py`. Everything below reads one
 embedding cache, built once: **89,852 unique `T` vectors** (of 97,912 operations)
 and **54,701 unique description vectors** (of 71,493 operations that have one;
-26,419 have none). `python src/embed.py --verify` re-checks the cache against
-`parsed/` without re-embedding and confirms all 2,206 services align.
+26,419 have none). `python src/pipeline/embed.py --verify` re-checks the cache against
+`data/corpus/3_parsed/` without re-embedding and confirms all 2,206 services align.
 
-**Unit tests: 17/17 pass** ([`src/test_similarity.py`](src/test_similarity.py)),
+**Unit tests: 17/17 pass** ([`src/metric/test_similarity.py`](src/metric/test_similarity.py)),
 including the one that matters most — **R2**: deleting one operation's description
 leaves f1 bit-identical (0.662798 both ways) while `m_f6` flips 1 → 0 and `Sim`
 still computes. This test fails on the v2 design and is the reason R2 exists.
@@ -452,7 +452,7 @@ a baked-in path).
 
 ## Day 3 (metric) — Null models  (D-18, D-21)
 
-[`src/null_models.py`](src/null_models.py) → [`results/null_model.csv`](results/null_model.csv),
+[`src/metric/null_models.py`](src/metric/null_models.py) → [`results/null_model.csv`](results/null_model.csv),
 [`results/null_model_bysize.csv`](results/null_model_bysize.csv)
 
 **D-18 is validated, not merely assumed.** The provider-restricted null is
@@ -491,7 +491,7 @@ on either, and `ILSC_norm` must not be presented as independent evidence.
 
 ## Day 4 — GATE 1: **FAIL**
 
-[`src/gate1_run.py`](src/gate1_run.py) → [`results/sanity_check.csv`](results/sanity_check.csv),
+[`src/experiments/gate1_run.py`](src/experiments/gate1_run.py) → [`results/sanity_check.csv`](results/sanity_check.csv),
 [`results/gate1_verdict.csv`](results/gate1_verdict.csv)
 
 | | cohesive | mixed |
@@ -552,7 +552,7 @@ before any score existed.
 
 ## Day 5 — Experiment 1, the big run
 
-`python src/ilsc.py --null results/null_model.csv` →
+`python src/metric/ilsc.py --null results/null_model.csv` →
 [`results/ilsc_scores.csv`](results/ilsc_scores.csv),
 [`results/ilsc_thresholds.csv`](results/ilsc_thresholds.csv). 2,206 services in 51 s.
 
@@ -605,7 +605,7 @@ providers with no estimable pool (D-18) and are left blank rather than defaulted
 
 ## Day 6 — Inter-feature correlation (Fig 9)
 
-[`src/feature_corr.py`](src/feature_corr.py) → [`results/feature_correlation.csv`](results/feature_correlation.csv),
+[`src/analyses/feature_corr.py`](src/analyses/feature_corr.py) → [`results/feature_correlation.csv`](results/feature_correlation.csv),
 `figures/fig9_feature_correlation.pdf`. 930,936 pairs sampled across 2,136 services,
 capped per service so no single specification dominates; pairwise-complete, so a
 masked feature is absent rather than zero.
@@ -638,7 +638,7 @@ f5 73.5%, f4 57.9%.
 
 ## Day 7 — Experiment 2, perturbation  (D-05)
 
-[`src/inject.py`](src/inject.py) → [`results/perturbation_raw.csv`](results/perturbation_raw.csv)
+[`src/experiments/inject.py`](src/experiments/inject.py) → [`results/perturbation_raw.csv`](results/perturbation_raw.csv)
 (3,000 rows), [`results/perturbation_summary.csv`](results/perturbation_summary.csv),
 `figures/fig3_perturbation.pdf`. 20 top-quartile services, at most 3 per provider,
 levels 0/1/2/3/5 × 10 draws × 3 conditions.
@@ -673,7 +673,7 @@ injecting something semantically further away lowers it measurably faster.
 27 endpoints, one row each, every row carrying a `file:line` reference. Rules and
 the excluded-type list are in [`docs/responsibilities.md`](docs/responsibilities.md) §4.
 
-**Train Ticket, automated** (D-22). [`src/entity_extract.py`](src/entity_extract.py)
+**Train Ticket, automated** (D-22). [`src/experiments/entity_extract.py`](src/experiments/entity_extract.py)
 → [`results/endpoint_entities_trainticket.csv`](results/endpoint_entities_trainticket.csv):
 **209 of the 211 spec operations join to a code row (99.1%)**. Empty entity sets
 19.1%: 32 are `/welcome` or `/hello` endpoints that genuinely return a `String`,
@@ -706,7 +706,7 @@ in the paper rather than discovered at review.
 
 **Neither reliability figure exists yet.** Both sample sheets are written and
 blank: [`results/sockshop_reliability_sample.csv`](results/sockshop_reliability_sample.csv)
-and `src/entity_extract.py --sample 10`. A second pass by the same reader measures
+and `src/experiments/entity_extract.py --sample 10`. A second pass by the same reader measures
 memory, not reliability, so these need someone who did not do the first pass —
 about an hour each. **F-03** additionally requires that the Train Ticket sample be
 taken from the Java sources, never from `docs/responsibilities.md` §2.
@@ -715,9 +715,9 @@ taken from the Java sources, never from `docs/responsibilities.md` §2.
 
 ## Days 11–12 — Experiment 3, the code correlation: **GATE 2 PASSES**
 
-[`src/bench_prepare.py`](src/bench_prepare.py) (convert → parse → embed the 39
+[`src/pipeline/bench_prepare.py`](src/pipeline/bench_prepare.py) (convert → parse → embed the 39
 benchmark services, 238 operations) then
-[`src/code_correlation.py`](src/code_correlation.py) →
+[`src/experiments/code_correlation.py`](src/experiments/code_correlation.py) →
 [`results/code_correlation_pairs.csv`](results/code_correlation_pairs.csv),
 [`results/code_correlation_summary.csv`](results/code_correlation_summary.csv),
 [`results/discordance.csv`](results/discordance.csv), Figs 4 and 5.
@@ -788,7 +788,7 @@ appear:
 
 ## Days 9–10 — Experiment 4: SIDC and LoCmsg baselines
 
-[`src/baselines.py`](src/baselines.py) → [`results/baselines_corpus.csv`](results/baselines_corpus.csv),
+[`src/experiments/baselines.py`](src/experiments/baselines.py) → [`results/baselines_corpus.csv`](results/baselines_corpus.csv),
 [`results/baselines_perturbation.csv`](results/baselines_perturbation.csv),
 [`results/baselines_comparison.csv`](results/baselines_comparison.csv),
 `figures/fig7_baseline_perturbation.pdf`.
@@ -868,7 +868,7 @@ is a narrower claim than Sec. 10 anticipated and it is the one the data supports
 
 ## Days 13–14 — Experiment 5: weight and τ sensitivity  (H3)
 
-[`src/sensitivity.py`](src/sensitivity.py) → [`results/weight_sensitivity.csv`](results/weight_sensitivity.csv),
+[`src/experiments/sensitivity.py`](src/experiments/sensitivity.py) → [`results/weight_sensitivity.csv`](results/weight_sensitivity.csv),
 [`results/kendalls_w.csv`](results/kendalls_w.csv), [`results/tau_sweep.csv`](results/tau_sweep.csv),
 `figures/fig6_tau_sweep.pdf`. 2,136 services (D-17 primary), 29 weight
 configurations, 8 s — per-feature similarities are computed once per service and
@@ -928,7 +928,7 @@ still varies.
 
 ### The third knob — `DROP_VERSION_TOKENS` (D-15)
 
-[`src/version_tokens_sweep.py`](src/version_tokens_sweep.py) →
+[`src/experiments/version_tokens_sweep.py`](src/experiments/version_tokens_sweep.py) →
 [`results/version_tokens_sweep.csv`](results/version_tokens_sweep.csv). This knob
 cannot be swept by reweighting: it changes the tokenizer, therefore `T(Oi)`,
 therefore the **f1 embeddings**. The corpus was re-parsed and re-embedded with the
@@ -965,7 +965,7 @@ tokenisation.
 
 ## D1 resolved — and it is a first-order limitation, not a footnote
 
-[`src/provider_cap.py`](src/provider_cap.py) → [`results/provider_cap.csv`](results/provider_cap.csv)
+[`src/experiments/provider_cap.py`](src/experiments/provider_cap.py) → [`results/provider_cap.csv`](results/provider_cap.csv)
 
 D1 asked whether the published quartile thresholds move under a provider cap.
 The surviving services are chosen by **seeded random draw, not by score** —
@@ -1021,7 +1021,7 @@ before any domain content is considered.
 to f4.** A schema on more than 80% of a service's operations is dropped from f5
 as infrastructural. Nothing in that argument depends on it being a schema.
 
-Applying f5's own rule to f4 ([`src/param_boilerplate.py`](src/param_boilerplate.py)):
+Applying f5's own rule to f4 ([`src/analyses/param_boilerplate.py`](src/analyses/param_boilerplate.py)):
 
 | | value |
 |---|--:|
@@ -1047,7 +1047,7 @@ the decision is due before the metric definition is written up.
 
 ## Gate 1, re-run provider-matched — **PASS**, and robust to the label boundary
 
-[`src/gate1_matched.py`](src/gate1_matched.py) → [`results/gate1_matched.csv`](results/gate1_matched.csv),
+[`src/experiments/gate1_matched.py`](src/experiments/gate1_matched.py) → [`results/gate1_matched.csv`](results/gate1_matched.csv),
 [`results/gate1_matched_verdict.csv`](results/gate1_matched_verdict.csv),
 [`results/gate1_matched_grid.csv`](results/gate1_matched_grid.csv), Fig 10.
 
@@ -1093,7 +1093,7 @@ hand-written justifications. Sixteen providers is modest. See **D-29**.
 
 ## Exp. 4b — a ground-truth head-to-head: provenance decides the winner
 
-[`src/baseline_correlation.py`](src/baseline_correlation.py) →
+[`src/experiments/baseline_correlation.py`](src/experiments/baseline_correlation.py) →
 [`results/baseline_correlation.csv`](results/baseline_correlation.csv), Fig 8.
 
 Exp. 4's fallback claim — discriminating power, 0% saturation against 35.8% and
