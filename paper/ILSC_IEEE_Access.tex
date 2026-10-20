@@ -154,7 +154,7 @@ workloads, and contaminated by health checks. Worse, the absence of an operation
 from a trace is not evidence that it is unused---only that it was not observed
 in the window.
 
-\textbf{They ignore meaning.} SIDC~\cite{perepletchikov2007coupling} counts
+\textbf{They ignore meaning.} SIDC~\cite{perepletchikov2007cohesion} counts
 shared data types; LoCmsg~\cite{athanasopoulos2015cohesion} matches terms on
 WSDL messages. Neither can see that \code{Customer} and \code{Client} name the
 same concept, or that ``order'' (a purchase) and ``order'' (a sequence) do not.
@@ -264,7 +264,7 @@ a cohesion measure should satisfy---non-negativity, monotonicity, and
 insensitivity to the addition of unrelated elements outside the module.
 
 Two service-era metrics are our direct baselines. \textbf{SIDC} (Service
-Interface Data Cohesion)~\cite{perepletchikov2007coupling} measures the
+Interface Data Cohesion)~\cite{perepletchikov2007cohesion} measures the
 proportion of operation pairs that share at least one data type.
 \textbf{LoCmsg} (Lack of Cohesion in
 messages)~\cite{athanasopoulos2015cohesion} measures the proportion of operation
@@ -303,7 +303,7 @@ they are frequently degraded---the second point is why \ilsc{} must tolerate
 poor and missing fields rather than assume clean ones.
 
 The closest prior work is Al-Debagy and
-Martinek~\cite{aldebagy2021microservice}, who apply distributed representations
+Martinek~\cite{aldebagy2020extracting}, who apply distributed representations
 to operation names for microservice identification. We differentiate on three
 points and claim novelty on these alone, never on ``using embeddings'':
 \emph{(i)} we produce a \emph{metric} with a defined range, normalisation and
@@ -341,13 +341,13 @@ means validated against a signal the method does not itself optimise.}
 \textbf{Work} & \textbf{Artifact} & \textbf{Input} & \textbf{Semantics} &
 \textbf{Handles gaps} & \textbf{Ext.\ validation} & \textbf{Relation to \ilsc{}} \\
 \midrule
-Perepletchikov \emph{et al.}~\cite{perepletchikov2007coupling} (SIDC) & metric & interface & no & no & no & baseline \\
+Perepletchikov \emph{et al.}~\cite{perepletchikov2007cohesion} (SIDC) & metric & interface & no & no & no & baseline \\
 Athanasopoulos \emph{et al.}~\cite{athanasopoulos2015cohesion} (LoCmsg) & metric + decomposition & interface & no & no & no & baseline \\
 Hirzalla \emph{et al.}~\cite{hirzalla2009metrics} (WSIC) & metric & interface & no & n/a & no & size, not cohesion \\
 Bogner \emph{et al.}~\cite{bogner2020rama} (RAMA) & tool + thresholds & interface & no & no & no & threshold method, corpus S1 \\
 Serbout and Pautasso~\cite{apistic2024} (APIstic) & dataset & interface & no & n/a & n/a & corpus-scale evidence \\
 Palma \emph{et al.}~\cite{palma2015restful,palma2022linguistic} & detector & interface & yes & no & manual oracle & semantics of API vocabulary \\
-Al-Debagy and Martinek~\cite{aldebagy2021microservice} & clustering & interface & yes & no & no & closest prior work \\
+Al-Debagy and Martinek~\cite{aldebagy2020extracting} & clustering & interface & yes & no & no & closest prior work \\
 Mazlami \emph{et al.}~\cite{mazlami2017extraction} & decomposition & code + VCS & no & n/a & no & different artifact \\
 Gysel \emph{et al.}~\cite{gysel2016service} (Service Cutter) & decomposition & models & no & n/a & manual & different artifact \\
 Kalia \emph{et al.}~\cite{kalia2021mono2micro} & decomposition & runtime traces & no & n/a & partial & needs runtime \\

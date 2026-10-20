@@ -48,16 +48,18 @@
 
 % ===================== Service-oriented cohesion metrics ===================
 
-@inproceedings{perepletchikov2007coupling,   % [P] cited in the proposal as SIDC
-  author    = {Perepletchikov, Mikhail and Ryan, Caspar and Frampton, Keith and
-               Tari, Zahir},
-  title     = {Coupling Metrics for Predicting Maintainability in
-               Service-Oriented Designs},
-  booktitle = {Proc. Australian Software Engineering Conference (ASWEC)},
-  pages     = {329--340},
+@inproceedings{perepletchikov2007cohesion,   % [V] Crossref 2026-10-20. SIDC is defined HERE
+  author    = {Perepletchikov, Mikhail and Ryan, Caspar and Frampton, Keith},
+  title     = {Cohesion Metrics for Predicting Maintainability of
+               Service-Oriented Software},
+  booktitle = {Proc. 7th International Conference on Quality Software (QSIC)},
+  pages     = {328--335},
   year      = {2007},
-  doi       = {10.1109/ASWEC.2007.17}
+  doi       = {10.1109/QSIC.2007.4385516}
 }
+% The entry formerly cited for SIDC was the same group's ASWEC 2007 COUPLING
+% paper (10.1109/ASWEC.2007.17), which does not define SIDC. Replaced, and every
+% cite key in the paper updated.
 
 @article{athanasopoulos2015cohesion,  % [P] cited in the proposal as LoCmsg
   author  = {Athanasopoulos, Dionysis and Zarras, Apostolos V. and Miskos,
@@ -86,14 +88,15 @@
 
 % ===================== Interface-level metrics and thresholds ==============
 
-@inproceedings{bogner2020rama,        % [V] ECSA 2020, LNCS 12292; arXiv:2007.10405
+@inproceedings{bogner2020rama,        % [V] Crossref 2026-10-20; arXiv:2007.10405
   author    = {Bogner, Justus and Wagner, Stefan and Zimmermann, Alfred},
   title     = {Collecting Service-Based Maintainability Metrics from {RESTful}
                {API} Descriptions: Static Analysis and Threshold Derivation},
-  booktitle = {Software Architecture (ECSA 2020)},
-  series    = {LNCS},
-  volume    = {12292},
-  pages     = {215--232},
+  booktitle = {Software Architecture: ECSA 2020 Tracks and Workshops},
+  series    = {Communications in Computer and Information Science},
+  % [?] CCIS volume number not given by Crossref - check before submission.
+  %     The earlier "LNCS 12292, pp. 215-232" was wrong on series and pages.
+  pages     = {215--227},
   year      = {2020},
   doi       = {10.1007/978-3-030-59155-7_16}
 }
@@ -145,16 +148,28 @@
   doi     = {10.1016/j.jss.2022.111369}
 }
 
-@article{aldebagy2021microservice,    % [P] closest prior work; verify venue/volume
-  author  = {Al-Debagy, Omar and Martinek, P{\'e}ter},
-  title   = {A Microservice Decomposition Method Through Using Distributed
-             Representation of Source Code},
-  journal = {Scalable Computing: Practice and Experience},
-  volume  = {22},
-  number  = {1},
-  pages   = {39--52},
-  year    = {2021},
-  note    = {VERIFY volume, number and pages}
+@inproceedings{aldebagy2020extracting,   % [V] Crossref 2026-10-20. Closest prior work
+  author    = {Al-Debagy, Omar and Martinek, P{\'e}ter},
+  title     = {Extracting Microservices' Candidates from Monolithic Applications:
+               Interface Analysis and Evaluation Metrics Approach},
+  booktitle = {Proc. 15th IEEE International Conference of System of Systems
+               Engineering (SoSE)},
+  pages     = {289--294},
+  year      = {2020},
+  doi       = {10.1109/SOSE50414.2020.9130466}
+}
+% The entry formerly here was the same authors' SCPE 2021 code2vec paper, which
+% works on source code, not on interfaces. Replaced, and every cite key updated.
+
+@article{rojasperez2025cohesion,   % [V] Crossref 2026-10-20; name order normalised
+  author  = {Rojas-P{\'e}rez, Juan C. and Fragoso-D{\'i}az, Olivia G. and
+             S{\'a}nchez-Gonz{\'a}lez, Guadalupe A.},
+  title   = {Cohesion Metrics for Microservices},
+  journal = {IEEE Access},
+  volume  = {13},
+  pages   = {128532--128540},
+  year    = {2025},
+  doi     = {10.1109/ACCESS.2025.3589789}
 }
 
 % ===================== Decomposition and identification ====================

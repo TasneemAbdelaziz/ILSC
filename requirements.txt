@@ -3,7 +3,10 @@ pyyaml==6.0.2
 openapi-spec-validator==0.7.2
 # Day 3 field-availability study (src/analyses/availability.py) only: vector PDF figure.
 # No stdlib path to a publication-quality vector chart; used for figures/ output.
-matplotlib==3.8.2
+# 3.8.2 was pinned first, but it requires numpy<2 and numpy 2.2.1 is pinned
+# below, so a fresh install failed. 3.10.9 is the version every figure and the
+# 2026-10 reproduction ran on.
+matplotlib==3.10.9
 
 # D-02 strict-validation sample (src/pipeline/validate_sample.py). Pinned but previously
 # unused: the strict pass rate D-02 promises now has a script that produces it.
