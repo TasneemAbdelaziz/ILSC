@@ -370,6 +370,28 @@ annotation either.
    `api` in the `devtools` list absorbing 64.6% of the corpus — and drop the 52%
    from the paper.
 
+> **✅ RESOLVED 2026-10-21 by Tasneem — the labels are not used (D-30).** A
+> labelled copy was found outside the repository (`D:\Downloads\domain_validation_BLIND.csv`,
+> dated 2026-09-01). It reproduces D-03's figures exactly: 26/50, 19/30 where
+> both sides labelled, 8 versus 19 UNLABELLED. One label carries the wrong row
+> number: row 12 is written "13,UNLABELLED". It is **not** added to the
+> repository. D-30 admits no reference that the team labelled, and that
+> includes evidence for a rejection.
+>
+> **Consequence.** The 52% figure is withdrawn as evidence. Domain labels need
+> no rejection argument any more: no analysis uses them, and proximity is
+> defined by provider metadata, which needs no annotation (D-05, D-18). The
+> places that still cite 52%:
+> - `paper/ILSC_IEEE_Access.tex:242`
+> - `docs/abstract_and_intro.md:152`
+> - `docs/metric_definition.md:174`
+> - `docs/related_work.md:178`
+> - `docs/TUTORIAL.md:94`, `:256`
+> - `RESULTS.md:115`
+> - `src/common/domain_label.py:172`
+>
+> They are to be reworded, not deleted silently.
+
 
 ---
 

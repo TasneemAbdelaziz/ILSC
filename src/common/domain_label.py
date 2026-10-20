@@ -169,7 +169,7 @@ def main(argv=None):
     for k, v in c.most_common():
         print("  %-15s %5d  (%5.1f%%)" % (k, v, v / total * 100))
     print("\nwritten: %s" % args.out)
-    print("NOTE: these labels are inert. D-03 rejected them at 52%% agreement;")
+    print("NOTE: these labels are inert. Keyword labelling was rejected (D-03);")
     print("      the perturbation control uses provider proximity instead (D-05).")
 
 

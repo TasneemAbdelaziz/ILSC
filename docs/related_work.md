@@ -174,8 +174,7 @@ term. A regression test enforces the disjointness and fails on the earlier desig
    perturbation — with the perturbation result reported as it fell (§2).
 
 **C3 (methodological), added because the study produced it.** A decision record
-of 25 entries and 5 open flags in which the **rejections carry numbers**: keyword
-domain labelling rejected at 52% agreement against a blind human sample, LLM
+of 25 entries and 5 open flags in which the **rejections carry numbers**: LLM
 labelling rejected as circular, and the oversized-specification cap justified by
 a 50-point swing in pair-weighted statistics. A rejection with a measurement
 attached is a reusable methodological result, not project bookkeeping.

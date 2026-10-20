@@ -91,8 +91,9 @@ one operation's description and f1 is bit-identical while `m_f6` flips 1 → 0.
 ### Step 5 · Null models — `src/metric/null_models.py`
 
 What does a random bag of operations score? Two variants, both required by the
-proposal. Domain labels were rejected twice (D-03 at 52% agreement, D-04 as
-circular), so the second variant restricts by **provider** (D-18).
+proposal. No domain labels are used - a label set would need either the
+team's own judgment or a language model, and D-30 and D-04 admit neither - so
+the second variant restricts by **provider** (D-18).
 
 → **E[ILSC_rand] = 0.0988** globally, **0.2193** provider-restricted (96 of 97
 providers above global — the harder bar works). And a theoretical result:
@@ -252,8 +253,8 @@ specifications the most superficial metric wins, because 81% of the vocabulary
 *is* the code. Train Ticket is a standard benchmark. Any study evaluating
 interface metrics against code on generated specs inherits this artifact.
 
-**C4 — A decision record whose rejections carry numbers.** Keyword labelling
-rejected at 52% agreement; LLM labelling rejected as circular; the oversized cap
+**C4 — A decision record whose rejections carry numbers.** LLM labelling
+rejected as circular; the oversized cap
 justified by a 50-point swing. A rejection with a measurement attached is a
 reusable methodological result.
 

@@ -148,9 +148,8 @@ baselines on the corpus by a wide margin.
    theirs, reported per source population — together with the finding that the
    three largest cloud providers score 0.13 higher at the median, which any user
    of such thresholds needs.
-4. **A decision record whose rejections carry numbers** — keyword domain
-   labelling rejected at 52% agreement against a blind human sample, LLM
-   labelling rejected as circular with the metric under test, and oversized
+4. **A decision record whose rejections carry numbers** — LLM labelling
+   rejected as circular with the metric under test, and oversized
    specifications capped on a scope argument that moves pair-weighted statistics
    by up to 50 points.
 

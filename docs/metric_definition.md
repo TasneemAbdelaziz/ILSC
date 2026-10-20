@@ -171,9 +171,9 @@ Two, both reported (Sec. 6), 400,000 Monte-Carlo pairs each.
   itself the reportable finding Sec. 6 asks for.
 
 **Provider replaces the specified *domain* restriction (D-18)** because no domain
-labels survive: keyword labelling was rejected at 52% agreement with a blind
-human sample (D-03) and LLM labelling was rejected as circular and unpinnable
-(D-04). Provider is metadata, needs no annotator, and is the same substitution
+labels are used: a label set would need either the team's own judgment, which
+D-30 does not admit as a reference, or a language model, rejected as circular
+and unpinnable (D-04). Provider is metadata, needs no annotator, and is the same substitution
 already accepted for the perturbation control (D-05). **It is a conservative
 approximation**: a provider is coarser than a domain — AWS spans storage,
 compute and billing — so the provider-restricted null is closer to the global one
