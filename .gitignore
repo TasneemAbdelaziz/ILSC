@@ -32,3 +32,6 @@ data/benchmarks/specs3/
 data/benchmarks/parsed/
 data/benchmarks/embeddings/
 
+# API evolution: Swagger 2.0 sides converted for oasdiff by
+# src/experiments/evolution_feasibility.py (regenerable).
+data/evolution/

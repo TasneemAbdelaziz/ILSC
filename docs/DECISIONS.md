@@ -2031,3 +2031,59 @@ All five metrics were scored on the same 2,960 draws, with `PYTHONHASHSEED=0`.
 −0.179 SD (20/20), SIDC −0.045 (13/20) and LoCmsg −0.256 (19/20). These draws
 give −0.187 (19/20), −0.043 (12/20) and −0.263 (19/20). Same ranking, same
 signs.
+
+
+---
+
+## D-34 · API evolution, step 0: what the data can support — counts only, no ILSC value read
+
+**What was done (2026-10-20).** `src/experiments/evolution_feasibility.py`
+pairs versions of the same API: same (title, host) key as the corpus dedup,
+from the filter's own scan. It measures their structural difference with
+oasdiff 1.33.0:
+- documentation excluded;
+- external `$ref`s never fetched;
+- all 886 Swagger 2.0 sides first converted by the pipeline's own converter,
+  0 failures.
+
+The script never opens `ilsc_scores.csv`, so the outcome can still be fixed
+blind. Outputs: `results/evolution_feasibility_pairs.csv` (one row per pair,
+every error kept) and `results/evolution_feasibility_summary.csv`.
+
+| pairs | n | diffed | base has an ILSC score | endpoints added or deleted | full replacement (≥90% deleted and ≥90% added) |
+|---|--:|--:|--:|--:|--:|
+| **cross**: RAMA 2019-12 → APIs.guru 2026-04, same API | 589 | 584 | 575 | 222 | 20 |
+| within_S1: consecutive versions inside RAMA | 519 | 514 | 0 | 341 | 125 |
+| within_S2: consecutive versions inside APIs.guru | 742 | 687 | 0 | 473 | 226 |
+
+**What it shows.**
+1. **Cross pairs are the usable design.**
+   - They are ordered in **time**: two snapshots 6.3 years apart, the same
+     interval for every pair.
+   - Their 2019 side is the version kept in the corpus, so it already has an
+     ILSC score.
+   - Within-source pairs are ordered by version number only, their older side
+     has no score, and their full replacements show they need version-segment
+     normalisation first.
+2. **The version string is no guide to change.** Of the 222 cross pairs whose
+   endpoints changed, 156 kept the same `info.version`. Change has to be read
+   from content, which is what oasdiff does.
+3. **Full replacements are path-versioning artifacts, not restructuring.**
+   Amazon CloudFront, for example, has all 45 endpoints deleted and 106 added:
+   the API version sits in the path. They have to be excluded or normalised.
+4. **The signal is thin and concentrated.** Primary-population cross pairs
+   without full replacement number 551. Of those:
+   - 195 changed;
+   - **only 34 lost any endpoint**;
+   - 127 of the 195 changes are amazonaws.com and 41 are azure.com, across 26
+     providers.
+
+   An outcome built on deletions ("restructuring") has too little power. An
+   outcome built on growth or overall change has some, but is dominated by
+   AWS, so it needs provider-level inference and a sensitivity run without
+   AWS.
+5. Errors: 41 specs oasdiff could not load, and 4 with duplicate endpoints.
+   All are kept in the pairs file.
+
+**Not decided here: the outcome and the hypothesis.** They will be
+pre-registered in their own entry before any ILSC value is joined to these pairs.
