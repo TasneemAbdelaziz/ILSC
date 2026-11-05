@@ -1,0 +1,6 @@
+size_band,n_services,median_n_resources,median_same_resource_pair_share,median_ops_per_resource,path_jaccard_same_resource,path_jaccard_diff_resource,pairs_sampled_same,pairs_sampled_diff,median_ILSC_mean
+3-5,380,3.0,0.1667,1.333,0.7583,0.2801,654,1617,0.4695
+6-10,430,4.0,0.2,1.8,0.7473,0.2716,2768,8647,0.4298
+11-20,485,8,0.1091,1.833,0.7034,0.3008,7458,46114,0.381
+21-50,528,16.0,0.0651,2.0,0.6798,0.2633,20502,252219,0.3266
+51-200,313,39,0.0289,2.25,0.6773,0.185,18456,445778,0.2664

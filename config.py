@@ -22,11 +22,11 @@ ROOT = os.path.dirname(os.path.abspath(__file__))
 #   OpenAPI 3 upstream (src/convert-openapi-v2.js), so S1 is 100% 3.x and its
 #   spec_version is a post-conversion property. See DECISIONS.md D-10.
 RAMA_COMMIT = "5b0b2a3322d3b2b7c0e0f2c0c0ad0e524e67bf82"
-RAMA_DIR = os.path.join(ROOT, "rama-thresholds", "benchmark-repository", "openapi")
+RAMA_DIR = os.path.join(ROOT, "data", "sources", "rama-thresholds", "benchmark-repository", "openapi")
 
 # S2 - APIs.guru current snapshot. 4,138 spec files at this commit.
 APIS_GURU_COMMIT = "f04b8d0bcd39c52e1cf3ad7a5fe744709832ae49"
-APIS_GURU_DIR = os.path.join(ROOT, "openapi-directory", "APIs")
+APIS_GURU_DIR = os.path.join(ROOT, "data", "sources", "openapi-directory", "APIs")
 
 # Processing order matters: S1 is processed first so that a service present in
 # both corpora is credited to S1 (Sec. 7, cross-source dedup). See D-09.
@@ -35,13 +35,35 @@ SOURCES = (
     ("S2", APIS_GURU_DIR, "tree"),  # provider is the top-level directory
 )
 
+# Sun et al. 2022 replication data (MsDecomposer), used by D-31 for their own
+# Sock Shop partition. The repository has no licence: fetched at this commit,
+# gitignored, never redistributed.
+#   github.com/HduDBSI/MsDecomposer
+MSDECOMPOSER_COMMIT = "b3bf400a5bb8de494efde639b5fdab7ec338ce20"
+MSDECOMPOSER_DIR = os.path.join(ROOT, "data", "sources", "msdecomposer")
+
+# D-31 sensitivity S1 only - NOT part of the metric. A schema whose declared
+# properties are a non-empty subset of these is a framework HTTP wrapper: the
+# fields of Spring's HttpEntity / ResponseEntity, taken from the framework, not
+# from the data.
+FRAMEWORK_WRAPPER_FIELDS = {"body", "headers", "statuscode", "statuscodevalue"}
+
+# D-35 only - NOT part of the metric. Action terms removed from operation terms
+# when porting CHD and LoCdom to OpenAPI (LoCdom Def. 11 keeps domain terms only).
+# `using` is the suffix Springfox appends (deleteOrderUsingDELETE, see D-08).
+BASELINE_ACTION_TERMS = {
+    "get", "set", "list", "create", "update", "delete", "add", "remove", "put", "post",
+    "patch", "find", "search", "fetch", "query", "retrieve", "save", "insert", "replace",
+    "modify", "using",
+}
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
 
-SPECS_CLEAN = os.path.join(ROOT, "specs", "clean")    # as published (2.0 + 3.x)
-SPECS_CLEAN3 = os.path.join(ROOT, "specs", "clean3")  # all 3.x, for the parser
-PARSED_DIR = os.path.join(ROOT, "parsed")             # src/parse_spec.py output
+SPECS_CLEAN = os.path.join(ROOT, "data", "corpus", "1_clean")    # as published (2.0 + 3.x)
+SPECS_CLEAN3 = os.path.join(ROOT, "data", "corpus", "2_clean3")  # all 3.x, for the parser
+PARSED_DIR = os.path.join(ROOT, "data", "corpus", "3_parsed")    # src/pipeline/parse_spec.py output
 RESULTS_DIR = os.path.join(ROOT, "results")
 FIGURES_DIR = os.path.join(ROOT, "figures")
 
@@ -94,12 +116,34 @@ TOKEN_STOPWORDS = {"get", "post", "api", "v1", "v2"}
 # reasoning applies to each: a version marker is not a domain term. This
 # generalises the pinned list to any ^v<digits>$ token. It is a knob, and the
 # f2/f3 sensitivity analysis should report it.
-DROP_VERSION_TOKENS = True
+#
+# Overridable from the environment so Exp. 5 can sweep it (D-15) without editing
+# this file. Sweeping it needs a full re-parse AND re-embed, because it changes
+# the tokenizer, therefore T(Oi), therefore the f1 vectors - it is not a
+# reweighting. See src/experiments/version_tokens_sweep.py.
+#     ILSC_DROP_VERSION_TOKENS=0 python src/pipeline/parse_spec.py --out-dir data/corpus/3_parsed_nodrop
+DROP_VERSION_TOKENS = os.environ.get("ILSC_DROP_VERSION_TOKENS", "1") not in ("0", "false", "False")
 
 # f5: a schema on more than this share of a service's operations is
 # infrastructural rather than domain-bearing (Sec. 6). Applied per service, on
 # top of the fixed GENERIC_SCHEMAS list below.
 FREQUENT_SCHEMA_RATIO = 0.80
+
+# f4: the same rule, applied to PARAMETER NAMES (F-05, resolved by D-26).
+#
+# Sec. 6 [v3] gave f5 an infrastructural-exclusion rule and gave f4 nothing, and
+# nothing in the argument for that rule depends on the thing being a schema. The
+# asymmetry was not harmless: Google attaches `fields`, `oauth_token`, `key`,
+# `prettyPrint`, `quotaUser` and `alt` to 100% of its 10,103 operations and AWS
+# attaches seven X-Amz-* signing parameters to 99% of its 11,843, so under
+# Jaccard every pair in such a service shared six or seven tokens before any
+# domain content was considered. Median f4 was 0.82 for those providers against
+# 0.42 for everyone else.
+#
+# Kept as a separate constant rather than reusing FREQUENT_SCHEMA_RATIO so the
+# two can be swept independently in a sensitivity analysis; the default is
+# deliberately the same value, because it is deliberately the same rule.
+FREQUENT_PARAM_RATIO = 0.80
 
 # f5: schemas shared by nearly every operation carry no domain signal
 GENERIC_SCHEMAS = {
@@ -121,6 +165,17 @@ PERTURBATION_LEVELS = (0, 1, 2, 3, 5)
 PERTURBATION_DRAWS = 10
 PERTURBATION_CONDITIONS = ("same_service", "same_provider", "cross_provider")
 MAX_SERVICES_PER_PROVIDER_IN_EXPERIMENT = 3
+
+# ---------------------------------------------------------------------------
+# Graph-structure analysis (src/analyses/graph_structure.py) - a SECONDARY, descriptive
+# analysis of the per-service similarity graph. It is not part of ILSC and
+# never changes an ILSC score. Design fixed 2026-10-13 (Tasneem): both a
+# spectral eigengap and Louvain are run and compared; services below the
+# minimum size are not analysed; "same mean" = deciles of ILSC_mean.
+# ---------------------------------------------------------------------------
+GRAPH_MIN_OPERATIONS = 10        # below ~10 nodes community structure is unstable
+GRAPH_LOUVAIN_RESOLUTION = 1.0   # networkx default; not tuned
+GRAPH_MEAN_BINS = 10             # deciles of ILSC_mean for the same-mean analysis
 
 # ---------------------------------------------------------------------------
 # Model, pinned

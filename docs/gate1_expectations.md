@@ -7,7 +7,7 @@ Gate 1, at the end of Day 4, requires the five cohesive services to score
 
 Machine-readable copy: [`results/gate1_candidates.csv`](../results/gate1_candidates.csv).
 Browsing sheet these came from: [`results/gate1_shortlist.csv`](../results/gate1_shortlist.csv)
-(regenerate with `python src/gate1_select.py`).
+(regenerate with `python src/experiments/gate1_select.py`).
 
 ---
 

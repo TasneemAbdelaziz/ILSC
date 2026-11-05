@@ -1,0 +1,11 @@
+service,method,path,evidence,entities_annotator2,entities_annotator1
+carts,POST,/carts/{customerId}/items,controllers/ItemsController.java:45-61,,Cart|Item
+catalogue,GET,/catalogue,service.go:71-98; service.go:55,,Sock|Tag
+catalogue,GET,/catalogue/{id},service.go:150-160,,Sock|Tag
+catalogue,GET,/tags,service.go:184-190,,Tag
+orders,GET,/orders,repositories/CustomerOrderRepository.java:11; entities/CustomerOrder.java:23-39,,Address|Card|Customer|CustomerOrder|Item|Shipment
+user,POST,/cards,db/mongodb/mongodb.go:319-340,,Card|User
+user,GET,/cards,api/service.go:112-124,,Card
+user,GET,/customers/{id},api/endpoints.go:97-109,,Address|Card|User
+user,DELETE,/customers/{id},db/mongodb/mongodb.go:401-429,,Address|Card|User
+user,GET,/login,api/service.go:47-58,,Address|Card|User

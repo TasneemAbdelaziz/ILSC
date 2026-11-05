@@ -1,0 +1,7 @@
+condition,system,predictor,n_pairs,n_services,auc,auc_ci_lo,auc_ci_hi,spearman_vs_sim_code,mean_when_related,mean_when_unrelated
+independent,sockshop,ILSC,122,4,0.794118,0.7674,0.8248,0.40861,0.340011,0.154491
+independent,sockshop,SIDC_pair,122,4,0.573529,0.5676,0.5879,-0.002542,0.147059,0.0
+independent,sockshop,LoCmsg_pair,122,4,0.65049,0.6138,0.6844,0.283625,0.45098,0.15
+derived,trainticket,ILSC,790,31,0.739284,0.687,0.8022,0.486337,0.70249,0.569327
+derived,trainticket,SIDC_pair,790,31,0.916524,0.8664,0.9632,0.572522,0.916382,0.083333
+derived,trainticket,LoCmsg_pair,790,31,0.953214,0.9137,0.9908,0.713945,0.989761,0.083333

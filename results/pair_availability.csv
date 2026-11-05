@@ -13,7 +13,7 @@ S1__adyen.com-PayoutService-30-openapi.yaml,Adyen Payout Service,adyen.com,S1,3.
 S1__afterbanks.com-3.0.0-swagger.yaml,Afterbanks,afterbanks.com,S1,3.x,3,3,0,0,0,3,3,3,0,0,0,0.000,100.000,100.000,100.000,100.000,100.000,100.000
 S1__agco-ats.com-v1-swagger.yaml,AGCO API,agco-ats.com,S1,3.x,191,18145,169,169,135,150,184,191,123,123,103,78.236,61.587,92.786,100.000,58.650,58.650,71.050
 S1__aiception.com-1.0.0-swagger.yaml,AIception Interactive,aiception.com,S1,3.x,10,45,0,0,0,5,10,10,0,0,0,0.000,22.222,100.000,100.000,100.000,100.000,100.000
-S1__akeneo.com-1.0.0-swagger.yaml,Akeneo PIM,akeneo.com,S1,3.x,103,5253,103,103,14,81,0,103,0,0,0,100.000,61.679,0.000,100.000,100.000,100.000,100.000
+S1__akeneo.com-1.0.0-swagger.yaml,Akeneo PIM,akeneo.com,S1,3.x,103,5253,52,103,14,81,0,103,0,0,0,25.243,61.679,0.000,100.000,100.000,100.000,100.000
 S1__amazonaws.com-AWSMigrationHub-2017-05-31-swagger.yaml,AWS Migration Hub,amazonaws.com,S1,3.x,16,120,16,16,0,16,16,16,16,16,0,100.000,100.000,100.000,100.000,0.000,0.000,100.000
 S1__amazonaws.com-acm-2015-12-08-swagger.yaml,AWS Certificate Manager,amazonaws.com,S1,3.x,13,78,13,13,0,13,13,13,13,13,0,100.000,100.000,100.000,100.000,0.000,0.000,100.000
 S1__amazonaws.com-acm-pca-2017-08-22-swagger.yaml,AWS Certificate Manager Private Certificate Authority,amazonaws.com,S1,3.x,20,190,20,20,0,20,20,20,20,20,0,100.000,100.000,100.000,100.000,0.000,0.000,100.000
@@ -449,13 +449,13 @@ S1__azure.com-windowsiot-WindowsIotServices-2019-06-01-swagger.yaml,DeviceServic
 S1__azure.com-workloadmonitor-Microsoft.WorkloadMonitor-2018-08-31-preview-swagger.yaml,Workload Monitor,azure.com,S1,3.x,13,78,13,13,9,13,13,0,0,0,0,100.000,100.000,100.000,0.000,100.000,100.000,100.000
 S1__bbc.co.uk-1.0.0-swagger.yaml,Radio & Music Services,bbc.co.uk,S1,3.x,75,2775,64,64,64,75,75,70,64,64,64,72.649,100.000,100.000,87.027,27.351,27.351,27.351
 S1__bbc.com-1.0.0-openapi.yaml,BBC Nitro,bbc.com,S1,3.x,25,300,25,25,25,23,25,25,23,23,23,100.000,84.333,100.000,100.000,15.667,15.667,15.667
-S1__bbci.co.uk-1.0-openapi.yaml,BBC iPlayer Business Layer,bbci.co.uk,S1,3.x,29,406,29,29,21,28,29,29,28,28,21,100.000,93.103,100.000,100.000,6.897,6.897,48.276
+S1__bbci.co.uk-1.0-openapi.yaml,BBC iPlayer Business Layer,bbci.co.uk,S1,3.x,29,406,4,29,21,28,29,29,4,28,21,1.478,93.103,100.000,100.000,98.522,6.897,48.276
 S1__bclaws.ca-bclaws-1.0.0-openapi.yaml,BC Laws,bclaws.ca,S1,3.x,7,21,0,0,0,7,0,4,0,0,0,0.000,100.000,0.000,28.571,100.000,100.000,100.000
 S1__beanstream.com-1.0.1-swagger.yaml,Beanstream Payments,beanstream.com,S1,3.x,15,105,0,0,0,11,15,15,0,0,0,0.000,52.381,100.000,100.000,100.000,100.000,100.000
 S1__beezup.com-2.0-swagger.yaml,BeezUP  API- DEV,beezup.com,S1,3.x,199,19701,199,199,189,161,189,39,20,20,20,100.000,65.377,90.178,3.761,99.036,99.036,99.036
 S1__bhagavadgita.io-1.0-swagger.yaml,Bhagavad Gita,bhagavadgita.io,S1,3.x,6,15,0,0,0,5,5,5,0,0,0,0.000,66.667,66.667,66.667,100.000,100.000,100.000
 S1__bigoven.com-partner-swagger.yaml,BigOven,bigoven.com,S1,3.x,68,2278,61,61,36,47,63,0,0,0,0,80.334,47.454,85.733,0.000,100.000,100.000,100.000
-S1__bikewise.org-v2-swagger.yaml,BikeWise API v2,bikewise.org,S1,3.x,4,6,4,4,4,4,0,3,0,0,0,100.000,100.000,0.000,50.000,100.000,100.000,100.000
+S1__bikewise.org-v2-swagger.yaml,BikeWise API v2,bikewise.org,S1,3.x,4,6,0,4,4,4,0,3,0,0,0,0.000,100.000,0.000,50.000,100.000,100.000,100.000
 S1__billbee.io-v1-swagger.yaml,Billbee,billbee.io,S1,3.x,67,2211,67,67,65,42,45,7,5,5,5,100.000,38.942,44.776,0.950,99.548,99.548,99.548
 S1__bitbucket.org-2.0-swagger.yaml,Bitbucket,bitbucket.org,S1,3.x,182,16471,32,32,31,175,104,160,25,25,25,3.011,92.435,32.518,77.227,98.179,98.179,98.179
 S1__blazemeter.com-4-swagger.yaml,Blazemeter API Explorer,blazemeter.com,S1,3.x,14,91,11,11,8,4,12,0,0,0,0,60.440,6.593,72.527,0.000,100.000,100.000,100.000
@@ -732,7 +732,7 @@ S1__gov.bc.ca-open511-1.0.0-openapi.yaml,DriveBC's Open511,gov.bc.ca,S1,3.x,4,6,
 S1__gov.bc.ca-router-2.0.0-openapi.yaml,BC Route Planner,gov.bc.ca,S1,3.x,24,276,0,0,0,24,0,24,0,0,0,0.000,100.000,0.000,100.000,100.000,100.000,100.000
 S1__greenpeace.org-1.0.0-swagger.yaml,Greenwire Public,greenpeace.org,S1,3.x,6,15,0,0,0,6,6,6,0,0,0,0.000,100.000,100.000,100.000,100.000,100.000,100.000
 S1__gsa.gov-0.1-swagger.yaml,Discovery Market Research,gsa.gov,S1,3.x,5,10,5,5,3,3,0,5,0,0,0,100.000,30.000,0.000,100.000,100.000,100.000,100.000
-S1__hackathonwatch.com-0.1-swagger.yaml,HackathonWatch,hackathonwatch.com,S1,3.x,4,6,4,4,4,3,0,0,0,0,0,100.000,50.000,0.000,0.000,100.000,100.000,100.000
+S1__hackathonwatch.com-0.1-swagger.yaml,HackathonWatch,hackathonwatch.com,S1,3.x,4,6,0,4,4,3,0,0,0,0,0,0.000,50.000,0.000,0.000,100.000,100.000,100.000
 S1__haloapi.com-metadata-1.0-swagger.yaml,Metadata,haloapi.com,S1,3.x,37,666,37,37,37,37,0,37,0,0,0,100.000,100.000,0.000,100.000,100.000,100.000,100.000
 S1__haloapi.com-profile-1.0-swagger.yaml,Profile,haloapi.com,S1,3.x,3,3,3,3,3,3,0,3,0,0,0,100.000,100.000,0.000,100.000,100.000,100.000,100.000
 S1__haloapi.com-stats-1.0-swagger.yaml,Stats,haloapi.com,S1,3.x,28,378,28,28,28,28,0,28,0,0,0,100.000,100.000,0.000,100.000,100.000,100.000,100.000
@@ -869,7 +869,7 @@ S1__pims.io-1.0-swagger.yaml,Pims,pims.io,S1,3.x,28,378,28,28,28,28,22,0,0,0,0,1
 S1__polygon.io-1.0.0-swagger.yaml,Polygon,polygon.io,S1,3.x,10,45,0,0,0,9,9,10,0,0,0,0.000,80.000,80.000,100.000,100.000,100.000,100.000
 S1__postmarkapp.com-account-0.9.0-swagger.yaml,Postmark Account-level,postmarkapp.com,S1,3.x,23,253,23,23,23,23,22,2,2,2,2,100.000,100.000,91.304,0.395,99.605,99.605,99.605
 S1__postmarkapp.com-server-1.0.0-swagger.yaml,Postmark,postmarkapp.com,S1,3.x,49,1176,47,47,47,49,37,0,0,0,0,91.922,100.000,56.633,0.000,100.000,100.000,100.000
-S1__posty-api.herokuapp.com-v1-swagger.yaml,posty_API,posty-api.herokuapp.com,S1,3.x,28,378,28,28,28,22,0,0,0,0,0,100.000,61.111,0.000,0.000,100.000,100.000,100.000
+S1__posty-api.herokuapp.com-v1-swagger.yaml,posty_API,posty-api.herokuapp.com,S1,3.x,28,378,0,28,28,22,0,0,0,0,0,0.000,61.111,0.000,0.000,100.000,100.000,100.000
 S1__ptv.vic.gov.au-v3-swagger.yaml,PTV Timetable API - Version 3,ptv.vic.gov.au,S1,3.x,25,300,25,25,24,25,25,0,0,0,0,100.000,100.000,100.000,0.000,100.000,100.000,100.000
 S1__qualpay.com-1.7.0-swagger.yaml,Qualpay Payment Gateway,qualpay.com,S1,3.x,16,120,12,16,8,5,12,12,4,4,1,55.000,8.333,55.000,55.000,95.000,95.000,100.000
 S1__quotes.rest-2.1-swagger.yaml,They Said So Quotes,quotes.rest,S1,3.x,22,231,0,0,0,22,4,22,0,0,0,0.000,100.000,2.597,100.000,100.000,100.000,100.000
@@ -889,7 +889,7 @@ S1__rummblelabs.com-1.0.0-swagger.yaml,Seldon,rummblelabs.com,S1,3.x,15,105,15,1
 S1__runscope.com-1.0.0-swagger.yaml,Runscope,runscope.com,S1,3.x,29,406,0,0,0,26,16,4,0,0,0,0.000,80.049,29.557,1.478,100.000,100.000,100.000
 S1__salesloft.com-v2-swagger.yaml,SalesLoft Platform,salesloft.com,S1,3.x,60,1770,0,0,0,51,54,59,0,0,0,0.000,72.034,80.847,96.667,100.000,100.000,100.000
 S1__schooldigger.com-v1-swagger.yaml,SchoolDigger API V1,schooldigger.com,S1,3.x,6,15,6,6,6,6,6,4,4,4,4,100.000,100.000,100.000,40.000,60.000,60.000,60.000
-S1__scrapewebsite.email-0.1-swagger.yaml,Scrape Website Email API,scrapewebsite.email,S1,3.x,3,3,3,3,3,2,0,1,0,0,0,100.000,33.333,0.000,0.000,100.000,100.000,100.000
+S1__scrapewebsite.email-0.1-swagger.yaml,Scrape Website Email API,scrapewebsite.email,S1,3.x,3,3,0,3,3,2,0,1,0,0,0,0.000,33.333,0.000,0.000,100.000,100.000,100.000
 S1__semantria.com-4.0-swagger.yaml,Semantria,semantria.com,S1,3.x,41,820,41,41,41,41,31,41,31,31,31,100.000,100.000,56.707,100.000,43.293,43.293,43.293
 S1__setlist.fm-1.0-swagger.yaml,setlist.fm,setlist.fm,S1,3.x,15,105,15,15,15,14,15,15,14,14,14,100.000,86.667,100.000,100.000,13.333,13.333,13.333
 S1__sheerseo.com-0.0.1-swagger.yaml,SheerSEO,sheerseo.com,S1,3.x,4,6,4,4,4,0,4,4,0,0,0,100.000,0.000,100.000,100.000,100.000,100.000,100.000
@@ -979,7 +979,7 @@ S1__vocadb.net-v1-swagger.yaml,VocaDB,vocadb.net,S1,3.x,117,6786,117,117,117,115
 S1__vonage.com-account-1.11.7-openapi.yaml,Account,vonage.com,S1,3.x,3,3,3,3,3,3,3,0,0,0,0,100.000,100.000,100.000,0.000,100.000,100.000,100.000
 S1__vonage.com-vgis-1.0.1-openapi.yaml,Vonage Integration Suite,vonage.com,S1,3.x,20,190,20,20,20,15,19,1,1,1,1,100.000,55.263,90.000,0.000,100.000,100.000,100.000
 S1__voodoomfg.com-2.0.0-swagger.yaml,Voodoo Manufacturing 3D Print,voodoomfg.com,S1,3.x,11,55,0,0,0,4,11,11,0,0,0,0.000,10.909,100.000,100.000,100.000,100.000,100.000
-S1__waag.org-v1-swagger.yaml,CitySDK Linked Data,waag.org,S1,3.x,47,1081,47,47,47,36,0,0,0,0,0,100.000,58.279,0.000,0.000,100.000,100.000,100.000
+S1__waag.org-v1-swagger.yaml,CitySDK Linked Data,waag.org,S1,3.x,47,1081,0,47,47,36,0,0,0,0,0,0.000,58.279,0.000,0.000,100.000,100.000,100.000
 S1__walmart.com-inventory-3.0.1-swagger.yaml,Inventory,walmart.com,S1,3.x,4,6,0,0,0,4,0,4,0,0,0,0.000,100.000,0.000,100.000,100.000,100.000,100.000
 S1__walmart.com-item-3.0.1-swagger.yaml,Item,walmart.com,S1,3.x,6,15,6,6,6,6,0,6,0,0,0,100.000,100.000,0.000,100.000,100.000,100.000,100.000
 S1__walmart.com-order-3.0.1-swagger.yaml,Orders,walmart.com,S1,3.x,9,36,9,9,9,9,0,9,0,0,0,100.000,100.000,0.000,100.000,100.000,100.000,100.000
@@ -1008,7 +1008,7 @@ S1__wordnik.com-4.0-swagger.yaml,Wordnik,wordnik.com,S1,3.x,28,378,28,28,26,28,2
 S1__wowza.com-1-swagger.yaml,Wowza Streaming Cloud REST API Reference Documentation,wowza.com,S1,3.x,104,5356,104,104,103,96,104,104,96,96,96,100.000,85.138,100.000,100.000,14.862,14.862,14.862
 S1__xero.com-2.0-swagger.yaml,Accounting,xero.com,S1,3.x,151,11325,0,0,0,143,3,29,0,0,0,0.000,89.651,0.026,3.585,100.000,100.000,100.000
 S1__youneedabudget.com-1.0.0-swagger.yaml,YNAB API Endpoints,youneedabudget.com,S1,3.x,28,378,28,28,28,26,28,28,26,26,26,100.000,85.979,100.000,100.000,14.021,14.021,14.021
-S1__yunbi.com-v2-swagger.yaml,Yunbi,yunbi.com,S1,3.x,22,231,22,22,22,15,0,0,0,0,0,100.000,45.455,0.000,0.000,100.000,100.000,100.000
+S1__yunbi.com-v2-swagger.yaml,Yunbi,yunbi.com,S1,3.x,22,231,0,22,22,15,0,0,0,0,0,0.000,45.455,0.000,0.000,100.000,100.000,100.000
 S1__zappiti.com-4.15.174-swagger.yaml,Zappiti Player,zappiti.com,S1,3.x,7,21,0,0,0,0,7,2,0,0,0,0.000,0.000,100.000,4.762,100.000,100.000,100.000
 S1__zoom.us-2.0.0-swagger.yaml,Zoom,zoom.us,S1,3.x,114,6441,114,114,107,104,66,114,61,61,57,100.000,83.155,33.302,100.000,71.588,71.588,75.221
 S1__zoomconnect.com-1-swagger.yaml,www.zoomconnect.com,zoomconnect.com,S1,3.x,54,1431,13,13,4,35,32,54,4,4,3,5.451,41.579,34.661,100.000,99.581,99.581,99.790
@@ -1397,7 +1397,7 @@ S2__docker.com__engine__1.33__openapi.yaml,Docker Engine API,docker.com,S2,3.x,1
 S2__docker.com__hub__beta__openapi.yaml,Docker HUB API,docker.com,S2,3.x,26,325,8,8,8,19,14,24,6,6,6,8.615,52.615,28.000,84.923,95.385,95.385,95.385
 S2__dodo.ac__1.6.0__openapi.yaml,Nookipedia,dodo.ac,S2,3.x,30,435,0,0,0,30,30,30,0,0,0,0.000,100.000,100.000,100.000,100.000,100.000,100.000
 S2__domainsdb.info__1.0__openapi.yaml,Domains-Index API,domainsdb.info,S2,3.x,14,91,5,5,5,13,11,0,0,0,0,10.989,85.714,60.440,0.000,100.000,100.000,100.000
-S2__doqs.dev__1.0__openapi.yaml,doqs.dev | PDF filling API,doqs.dev,S2,3.x,14,91,14,14,8,11,14,0,0,0,0,100.000,60.440,100.000,0.000,100.000,100.000,100.000
+S2__doqs.dev__1.0__openapi.yaml,doqs.dev | PDF filling API,doqs.dev,S2,3.x,14,91,11,14,8,11,14,0,0,0,0,60.440,60.440,100.000,0.000,100.000,100.000,100.000
 S2__dracoon.team__4.42.3__openapi.yaml,DRACOON API,dracoon.team,S2,3.x,294,43071,292,294,291,288,251,294,244,246,246,98.642,95.953,72.845,100.000,31.169,30.034,30.034
 S2__drchrono.com__v4 (Hunt Valley)__openapi.yaml,,drchrono.com,S2,3.x,263,34453,263,263,240,262,167,226,142,142,141,100.000,99.240,40.232,73.796,70.943,70.943,71.352
 S2__e-conomic.com__v20.0.0__openapi.yaml,Visma e-conomic OpenAPI,e-conomic.com,S2,3.x,98,4753,98,98,98,76,75,98,53,53,53,100.000,59.962,58.384,100.000,71.008,71.008,71.008
@@ -1415,7 +1415,7 @@ S2__ebay.com__sell-marketing__v1.15.0__openapi.yaml,Marketing API,ebay.com,S2,3.
 S2__ebay.com__sell-metadata__v1.6.0__openapi.yaml,Metadata API,ebay.com,S2,3.x,8,28,8,8,8,8,8,8,8,8,8,100.000,100.000,100.000,100.000,0.000,0.000,0.000
 S2__ebi.ac.uk__1.0__swagger.yaml,CROssBAR Data API,ebi.ac.uk,S2,2.0,13,78,0,13,13,13,13,0,0,0,0,0.000,100.000,100.000,0.000,100.000,100.000,100.000
 S2__edrv.io__v1__openapi.yaml,eDRV API,edrv.io,S2,3.x,57,1596,57,57,51,43,2,57,1,1,1,100.000,56.579,0.063,100.000,100.000,100.000,100.000
-S2__elevenlabs.io__1.0__openapi.yaml,ElevenLabs API Documentation,elevenlabs.io,S2,3.x,19,171,19,19,9,18,19,19,18,18,8,100.000,89.474,100.000,100.000,10.526,10.526,83.626
+S2__elevenlabs.io__1.0__openapi.yaml,ElevenLabs API Documentation,elevenlabs.io,S2,3.x,19,171,11,19,9,18,19,19,11,18,8,32.164,89.474,100.000,100.000,67.836,10.526,83.626
 S2__elmah.io__v3__openapi.yaml,elmah.io API,elmah.io,S2,3.x,22,231,22,22,12,17,12,22,7,7,4,100.000,58.874,28.571,100.000,90.909,90.909,97.403
 S2__enode.io__1.3.10__openapi.yaml,Enode API,enode.io,S2,3.x,28,378,28,28,28,21,0,16,0,0,0,100.000,55.556,0.000,31.746,100.000,100.000,100.000
 S2__eos.local__1.0.0__openapi.yaml,Net API,eos.local,S2,3.x,4,6,4,4,0,0,0,4,0,0,0,100.000,0.000,0.000,100.000,100.000,100.000,100.000
@@ -1893,7 +1893,7 @@ S2__onsched.com__setup__v1__openapi.yaml,OnSched Setup API,onsched.com,S2,3.x,13
 S2__openai.com__1.2.0__openapi.yaml,OpenAI API,openai.com,S2,3.x,28,378,28,28,28,10,27,0,0,0,0,100.000,11.905,92.857,0.000,100.000,100.000,100.000
 S2__openalpr.com__3.0.1__swagger.yaml,OpenALPR CarCheck API,openalpr.com,S2,2.0,4,6,4,4,4,3,0,4,0,0,0,100.000,50.000,0.000,100.000,100.000,100.000,100.000
 S2__openapi-generator.tech__6.5.0__openapi.yaml,OpenAPI Generator Online,openapi-generator.tech,S2,3.x,7,21,7,7,7,5,4,3,2,2,2,100.000,47.619,28.571,14.286,95.238,95.238,95.238
-S2__openaq.local__2.0.0__openapi.yaml,OpenAQ,openaq.local,S2,3.x,35,595,35,35,15,27,33,0,0,0,0,100.000,58.992,88.739,0.000,100.000,100.000,100.000
+S2__openaq.local__2.0.0__openapi.yaml,OpenAQ,openaq.local,S2,3.x,35,595,32,35,15,27,33,0,0,0,0,83.361,58.992,88.739,0.000,100.000,100.000,100.000
 S2__openbanking.org.uk__account-info-openapi__3.1.7__openapi.yaml,Account and Transaction API Specification,openbanking.org.uk,S2,3.x,29,406,29,29,29,29,1,0,0,0,0,100.000,100.000,0.000,0.000,100.000,100.000,100.000
 S2__openbanking.org.uk__confirmation-funds-openapi__3.1.7__openapi.yaml,Confirmation of Funds API Specification,openbanking.org.uk,S2,3.x,4,6,4,4,4,4,2,0,0,0,0,100.000,100.000,16.667,0.000,100.000,100.000,100.000
 S2__openbanking.org.uk__payment-initiation-openapi__3.1.7__openapi.yaml,Payment Initiation API,openbanking.org.uk,S2,3.x,41,820,41,41,41,41,15,0,0,0,0,100.000,100.000,12.805,0.000,100.000,100.000,100.000
@@ -1907,7 +1907,7 @@ S2__opensuse.org__obs__2.10.50__openapi.yaml,Open Build Service API,opensuse.org
 S2__opentargets.io__19.02.1__openapi.yaml,Open Targets Platform REST API,opentargets.io,S2,3.x,31,465,31,31,31,14,0,31,0,0,0,100.000,19.570,0.000,100.000,100.000,100.000,100.000
 S2__opentrials.local__0.0.1__swagger.yaml,OpenTrials API,opentrials.local,S2,2.0,17,136,17,17,16,15,17,17,15,15,14,100.000,77.206,100.000,100.000,22.794,22.794,33.088
 S2__openuv.io__v1__openapi.yaml,OpenUV - Global Real-Time UV Index Forecast API,openuv.io,S2,3.x,3,3,0,0,0,3,3,3,0,0,0,0.000,100.000,100.000,100.000,100.000,100.000,100.000
-S2__optimade.local__1.1.0~develop__openapi.yaml,OPTIMADE API,optimade.local,S2,3.x,8,28,8,8,2,6,7,1,0,0,0,100.000,53.571,75.000,0.000,100.000,100.000,100.000
+S2__optimade.local__1.1.0~develop__openapi.yaml,OPTIMADE API,optimade.local,S2,3.x,8,28,5,8,2,6,7,1,0,0,0,35.714,53.571,75.000,0.000,100.000,100.000,100.000
 S2__opto22.com__groov__R4.2a__swagger.yaml,groov View Public API,opto22.com,S2,2.0,10,45,10,10,9,6,8,10,4,4,4,100.000,33.333,62.222,100.000,86.667,86.667,86.667
 S2__opto22.com__pac__R1.0a__swagger.yaml,PAC Control REST API,opto22.com,S2,2.0,55,1485,55,55,55,38,55,55,38,38,38,100.000,47.340,100.000,100.000,52.660,52.660,52.660
 S2__orbit.love__v1__openapi.yaml,Orbit API,orbit.love,S2,3.x,33,528,0,0,0,31,12,3,0,0,0,0.000,88.068,12.500,0.568,100.000,100.000,100.000
@@ -2044,7 +2044,7 @@ S2__stripe.com__2022-11-15__openapi.yaml,Stripe API,stripe.com,S2,3.x,452,101926
 S2__superset.apache.local__superset__v1__openapi.yaml,Superset,superset.apache.local,S2,3.x,120,7140,0,0,0,97,72,105,0,0,0,0.000,65.210,35.798,76.471,100.000,100.000,100.000
 S2__surevoip.co.uk__9dcb0dc8__openapi.yaml,The SureVoIP RESTful API,surevoip.co.uk,S2,3.x,28,378,1,1,1,6,0,1,0,0,0,0.000,3.968,0.000,0.000,100.000,100.000,100.000
 S2__surrey.ca__open511__0.1__swagger.yaml,City of Surrey Open511 API,surrey.ca,S2,2.0,4,6,0,0,0,4,0,4,0,0,0,0.000,100.000,0.000,100.000,100.000,100.000,100.000
-S2__svix.com__1.4__openapi.yaml,Svix API,svix.com,S2,3.x,53,1378,53,53,34,53,53,53,53,53,34,100.000,100.000,100.000,100.000,0.000,0.000,59.289
+S2__svix.com__1.4__openapi.yaml,Svix API,svix.com,S2,3.x,53,1378,34,53,34,53,53,53,34,53,34,40.711,100.000,100.000,100.000,59.289,0.000,59.289
 S2__swaggerhub.com__1.0.66__swagger.yaml,SwaggerHub Registry API,swaggerhub.com,S2,2.0,87,3741,87,87,87,87,45,24,9,9,9,100.000,100.000,26.464,7.378,99.038,99.038,99.038
 S2__symanto.net__1.0__openapi.yaml,Psycholinguistic Text Analytics,symanto.net,S2,3.x,7,21,7,7,0,6,7,6,5,5,0,100.000,71.429,100.000,71.429,52.381,52.381,100.000
 S2__taggun.io__1.15.0__swagger.yaml,TAGGUN Receipt OCR Scanning API,taggun.io,S2,2.0,18,153,18,18,18,18,18,0,0,0,0,100.000,100.000,100.000,0.000,100.000,100.000,100.000
@@ -2061,7 +2061,7 @@ S2__thebluealliance.com__3.8.2__openapi.yaml,The Blue Alliance API v3,theblueall
 S2__theracingapi.com__1.0.0__openapi.yaml,The Racing API,theracingapi.com,S2,3.x,51,1275,51,51,32,50,51,51,50,50,31,100.000,96.078,100.000,100.000,3.922,3.922,63.529
 S2__thesmsworks.co.uk__1.8.0__swagger.yaml,The SMS Works API,thesmsworks.co.uk,S2,2.0,18,153,1,1,1,15,18,18,1,1,1,0.000,68.627,100.000,100.000,100.000,100.000,100.000
 S2__thetvdb.com__3.0.0__swagger.yaml,TheTVDB API v3,thetvdb.com,S2,2.0,31,465,0,0,0,23,31,31,0,0,0,0.000,54.409,100.000,100.000,100.000,100.000,100.000
-S2__threatjammer.com__1.2.27__openapi.yaml,ThreatJammer.com User API,threatjammer.com,S2,3.x,97,4656,97,97,91,68,96,97,68,68,65,100.000,48.926,97.938,100.000,51.074,51.074,55.326
+S2__threatjammer.com__1.2.27__openapi.yaml,ThreatJammer.com User API,threatjammer.com,S2,3.x,97,4656,76,97,91,68,96,97,47,68,65,61.211,48.926,97.938,100.000,76.783,51.074,55.326
 S2__ticketmaster.com__discovery__v2__openapi.yaml,Discovery API,ticketmaster.com,S2,3.x,13,78,6,6,5,13,12,13,6,6,5,19.231,100.000,84.615,100.000,80.769,80.769,87.179
 S2__ticketmaster.com__publish__v2__openapi.yaml,ticketmaster publish api,ticketmaster.com,S2,3.x,10,45,10,10,10,10,10,10,10,10,10,100.000,100.000,100.000,100.000,0.000,0.000,0.000
 S2__tisane.ai__1.0.0__openapi.yaml,Tisane API Documentation,tisane.ai,S2,3.x,6,15,6,6,6,6,0,6,0,0,0,100.000,100.000,0.000,100.000,100.000,100.000,100.000

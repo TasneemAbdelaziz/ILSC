@@ -1,15 +1,33 @@
 # Pinned for reproducibility. Regenerate with: pip freeze > requirements.txt
 pyyaml==6.0.2
 openapi-spec-validator==0.7.2
-# Day 3 field-availability study (src/availability.py) only: vector PDF figure.
+# Day 3 field-availability study (src/analyses/availability.py) only: vector PDF figure.
 # No stdlib path to a publication-quality vector chart; used for figures/ output.
-matplotlib==3.8.2
+# 3.8.2 was pinned first, but it requires numpy<2 and numpy 2.2.1 is pinned
+# below, so a fresh install failed. 3.10.9 is the version every figure and the
+# 2026-10 reproduction ran on.
+matplotlib==3.10.9
 
-# D-02 strict-validation sample (src/validate_sample.py). Pinned but previously
+# D-02 strict-validation sample (src/pipeline/validate_sample.py). Pinned but previously
 # unused: the strict pass rate D-02 promises now has a script that produces it.
 
 # --- Node dependency -------------------------------------------------------
 # Step (b) of the Sec. 7 pipeline converts Swagger 2.0 with swagger2openapi,
 # the tool named in the proposal. It is a Node package, not a Python one:
 #     npm install            (see package.json, pinned to 7.0.8)
-# Only src/convert.py needs it; every other script is pure Python.
+# Only src/pipeline/convert.py needs it; every other script is pure Python.
+
+# --- Metric track, Day 1 onward (src/pipeline/embed.py, similarity.py, ilsc.py) ------
+# The engine was written after this file was first pinned, so these were in use
+# but unpinned - a fresh clone could have silently installed a different SBERT
+# revision and produced different f1/f6 vectors from identical inputs.
+numpy==2.2.1
+scipy==1.17.1                 # sparse token-set intersections in similarity.py
+sentence-transformers==5.6.0  # all-MiniLM-L6-v2, pinned in config.EMBEDDING_MODEL
+torch==2.11.0                 # CPU build is sufficient; no GPU path is used
+
+# --- Similarity-graph structure (src/analyses/graph_structure.py) only ---------------
+# Louvain community detection with a fixed seed. The spectral eigengap is run
+# beside it with numpy/scipy; Louvain was chosen (2026-10-13) so the two methods
+# can be compared, and networkx is the reference implementation of it.
+networkx==3.5

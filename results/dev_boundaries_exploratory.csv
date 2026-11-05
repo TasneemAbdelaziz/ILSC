@@ -1,0 +1,105 @@
+system,condition,stratum,n_pos,n_neg,kind,predictor,value,lo,hi,reading
+trainticket,A1_amended,all,794,21361,auc,ILSC,0.795363,0.746314,0.832895,above chance
+trainticket,A1_amended,all,794,21361,auc,ILSC_no_f2f3,0.719202,0.671661,0.765631,above chance
+trainticket,A1_amended,all,794,21361,auc,SIDC_pair,0.597801,0.54808,0.650059,above chance
+trainticket,A1_amended,all,794,21361,auc,LoCmsg_pair,0.596227,0.553675,0.641341,above chance
+trainticket,A1_amended,all,794,21361,auc,resource_pair,0.829852,0.751703,0.893128,above chance
+trainticket,A1_amended,all,794,21361,auc,f1_only,0.777218,0.744009,0.805782,above chance
+trainticket,A1_amended,all,794,21361,diff,ILSC - SIDC_pair,0.197561,0.147809,0.240015,ILSC better
+trainticket,A1_amended,all,794,21361,diff,ILSC - LoCmsg_pair,0.199136,0.152765,0.238242,ILSC better
+trainticket,A1_amended,all,794,21361,diff,ILSC - resource_pair,-0.034489,-0.084377,0.019868,indistinguishable
+trainticket,A1_amended,all,794,21361,diff,f1_only - SIDC_pair,0.179416,0.133487,0.223812,f1_only better
+trainticket,A1_amended,all,794,21361,diff,f1_only - LoCmsg_pair,0.180991,0.140546,0.220615,f1_only better
+trainticket,A1_amended,all,794,21361,diff,f1_only - resource_pair,-0.052634,-0.115506,0.01947,indistinguishable
+trainticket,A1_amended,all,794,21361,diff,f1_only - ILSC,-0.018145,-0.045723,0.013867,indistinguishable
+trainticket,A1_amended,diff_resource,257,21006,auc,ILSC,0.500393,0.320523,0.616196,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,ILSC_no_f2f3,0.537702,0.36174,0.648146,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,SIDC_pair,0.417422,0.280481,0.513383,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,LoCmsg_pair,0.409489,0.272566,0.50235,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,f1_only,0.5519,0.356791,0.661218,chance
+trainticket,A1_amended,diff_resource,257,21006,diff,ILSC - SIDC_pair,0.082971,0.028864,0.116431,ILSC better
+trainticket,A1_amended,diff_resource,257,21006,diff,ILSC - LoCmsg_pair,0.090904,0.035087,0.124207,ILSC better
+trainticket,A1_amended,diff_resource,257,21006,diff,ILSC - resource_pair,0.000393,-0.179477,0.116196,indistinguishable
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - SIDC_pair,0.134478,0.062768,0.176751,f1_only better
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - LoCmsg_pair,0.142411,0.071473,0.179843,f1_only better
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - resource_pair,0.0519,-0.143209,0.161218,indistinguishable
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - ILSC,0.051507,0.001829,0.089942,f1_only better
+trainticket,A1_amended,same_resource,537,355,auc,ILSC,0.093057,0.0,0.223437,below chance
+trainticket,A1_amended,same_resource,537,355,auc,ILSC_no_f2f3,0.092942,0.0,0.221198,below chance
+trainticket,A1_amended,same_resource,537,355,auc,SIDC_pair,0.843751,0.685128,0.965993,above chance
+trainticket,A1_amended,same_resource,537,355,auc,LoCmsg_pair,0.852107,0.689899,0.972187,above chance
+trainticket,A1_amended,same_resource,537,355,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_amended,same_resource,537,355,auc,f1_only,0.077656,0.0,0.195679,below chance
+trainticket,A1_amended,same_resource,537,355,diff,ILSC - SIDC_pair,-0.750694,-0.957322,-0.473124,ILSC worse
+trainticket,A1_amended,same_resource,537,355,diff,ILSC - LoCmsg_pair,-0.75905,-0.963247,-0.476154,ILSC worse
+trainticket,A1_amended,same_resource,537,355,diff,ILSC - resource_pair,-0.406943,-0.5,-0.276563,ILSC worse
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - SIDC_pair,-0.766095,-0.957585,-0.505169,f1_only worse
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - LoCmsg_pair,-0.774451,-0.96392,-0.508483,f1_only worse
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - resource_pair,-0.422344,-0.5,-0.304321,f1_only worse
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - ILSC,-0.015401,-0.038057,0.0,indistinguishable
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,ILSC,0.862973,0.821768,0.891518,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,ILSC_no_f2f3,0.786444,0.749519,0.828238,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,SIDC_pair,0.538381,0.524123,0.564201,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,LoCmsg_pair,0.600039,0.570458,0.630687,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,resource_pair,0.829852,0.751703,0.893128,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,f1_only,0.807441,0.77596,0.838406,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,ILSC - SIDC_pair,0.324593,0.275442,0.356858,ILSC better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,ILSC - LoCmsg_pair,0.262934,0.218414,0.305334,ILSC better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,ILSC - resource_pair,0.033122,-0.016476,0.086693,indistinguishable
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - SIDC_pair,0.26906,0.231335,0.303087,f1_only better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - LoCmsg_pair,0.207402,0.166459,0.254996,f1_only better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - resource_pair,-0.022411,-0.08735,0.053478,indistinguishable
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - ILSC,-0.055532,-0.080356,-0.019369,f1_only worse
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,ILSC,0.658249,0.542967,0.73168,above chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,ILSC_no_f2f3,0.704923,0.606692,0.759684,above chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,SIDC_pair,0.505354,0.497251,0.518346,chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,LoCmsg_pair,0.522169,0.464213,0.558998,chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,f1_only,0.650639,0.511004,0.729781,above chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,ILSC - SIDC_pair,0.152895,0.034088,0.23136,ILSC better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,ILSC - LoCmsg_pair,0.13608,0.066425,0.182973,ILSC better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,ILSC - resource_pair,0.158249,0.042967,0.23168,ILSC better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - SIDC_pair,0.145284,0.004948,0.225493,f1_only better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - LoCmsg_pair,0.12847,0.040942,0.179305,f1_only better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - resource_pair,0.150639,0.011004,0.229781,f1_only better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - ILSC,-0.007611,-0.050372,0.033767,indistinguishable
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,ILSC,0.089488,0.0,0.22226,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,ILSC_no_f2f3,0.092966,0.0,0.228135,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,SIDC_pair,0.546938,0.517631,0.596739,above chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,LoCmsg_pair,0.659341,0.56588,0.738592,above chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,f1_only,0.076075,0.0,0.194313,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,ILSC - SIDC_pair,-0.45745,-0.581432,-0.30914,ILSC worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,ILSC - LoCmsg_pair,-0.569853,-0.727495,-0.354639,ILSC worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,ILSC - resource_pair,-0.410512,-0.5,-0.27774,ILSC worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - SIDC_pair,-0.470863,-0.581483,-0.331582,f1_only worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - LoCmsg_pair,-0.583266,-0.728532,-0.385562,f1_only worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - resource_pair,-0.423925,-0.5,-0.305687,f1_only worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - ILSC,-0.013413,-0.036142,0.0,indistinguishable
+sockshop,primary,all,122,229,auc,ILSC,0.700838,0.650946,1.0,above chance
+sockshop,primary,all,122,229,auc,ILSC_no_f2f3,0.66601,0.585627,1.0,above chance
+sockshop,primary,all,122,229,auc,SIDC_pair,0.561475,0.5,0.570755,chance
+sockshop,primary,all,122,229,auc,LoCmsg_pair,0.563265,0.418042,0.97619,chance
+sockshop,primary,all,122,229,auc,resource_pair,0.647541,0.607256,1.0,above chance
+sockshop,primary,all,122,229,auc,f1_only,0.715907,0.635742,1.0,above chance
+sockshop,primary,all,122,229,diff,ILSC - SIDC_pair,0.139362,0.083411,0.5,ILSC better
+sockshop,primary,all,122,229,diff,ILSC - LoCmsg_pair,0.137572,-0.005733,0.336601,indistinguishable
+sockshop,primary,all,122,229,diff,ILSC - resource_pair,0.053297,0.0,0.124654,indistinguishable
+sockshop,primary,all,122,229,diff,f1_only - SIDC_pair,0.154431,0.067766,0.5,f1_only better
+sockshop,primary,all,122,229,diff,f1_only - LoCmsg_pair,0.152642,0.00519,0.421875,f1_only better
+sockshop,primary,all,122,229,diff,f1_only - resource_pair,0.068366,0.0,0.211911,indistinguishable
+sockshop,primary,all,122,229,diff,f1_only - ILSC,0.015069,-0.069243,0.09375,indistinguishable
+sockshop,primary,diff_resource,86,229,auc,ILSC,0.577689,0.518781,0.839827,above chance
+sockshop,primary,diff_resource,86,229,auc,ILSC_no_f2f3,0.551945,0.459391,0.962963,chance
+sockshop,primary,diff_resource,86,229,auc,SIDC_pair,0.569767,0.5,0.572289,chance
+sockshop,primary,diff_resource,86,229,auc,LoCmsg_pair,0.525236,0.368533,0.666667,chance
+sockshop,primary,diff_resource,86,229,auc,resource_pair,0.5,0.5,0.5,chance
+sockshop,primary,diff_resource,86,229,auc,f1_only,0.617295,0.541589,0.980392,above chance
+sockshop,primary,diff_resource,86,229,diff,ILSC - SIDC_pair,0.007921,-0.053508,0.339827,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,ILSC - LoCmsg_pair,0.052453,-0.084091,0.270563,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,ILSC - resource_pair,0.077689,0.018781,0.339827,ILSC better
+sockshop,primary,diff_resource,86,229,diff,f1_only - SIDC_pair,0.047527,-0.029839,0.480392,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,f1_only - LoCmsg_pair,0.092058,-0.066421,0.404762,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,f1_only - resource_pair,0.117295,0.041589,0.480392,f1_only better
+sockshop,primary,diff_resource,86,229,diff,f1_only - ILSC,0.039606,-0.080346,0.2657,indistinguishable
