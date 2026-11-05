@@ -48,6 +48,15 @@ MSDECOMPOSER_DIR = os.path.join(ROOT, "data", "sources", "msdecomposer")
 # from the data.
 FRAMEWORK_WRAPPER_FIELDS = {"body", "headers", "statuscode", "statuscodevalue"}
 
+# D-35 only - NOT part of the metric. Action terms removed from operation terms
+# when porting CHD and LoCdom to OpenAPI (LoCdom Def. 11 keeps domain terms only).
+# `using` is the suffix Springfox appends (deleteOrderUsingDELETE, see D-08).
+BASELINE_ACTION_TERMS = {
+    "get", "set", "list", "create", "update", "delete", "add", "remove", "put", "post",
+    "patch", "find", "search", "fetch", "query", "retrieve", "save", "insert", "replace",
+    "modify", "using",
+}
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------

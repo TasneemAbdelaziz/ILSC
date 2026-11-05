@@ -2087,3 +2087,139 @@ every error kept) and `results/evolution_feasibility_summary.csv`.
 
 **Not decided here: the outcome and the hypothesis.** They will be
 pre-registered in their own entry before any ILSC value is joined to these pairs.
+
+
+---
+
+## D-35 · Newer baselines join the comparison — CHM, CHD and LoCdom, ported to OpenAPI before any value is computed
+
+**Decision (Tasneem, 2026-10-30).** The literature review of 2026-10-21 found no
+spec-only cohesion *score* newer than LoCdom (2015) that works on meaning: newer
+work partitions services. So the comparison set grows in two ways:
+- **The metrics of that family that recent work actually uses:** CHM and CHD
+  (Jin et al., TSE 2021, Eq. 7–11), and their source LoCdom (Athanasopoulos et
+  al., TSC 2015, Def. 11). This entry covers these three.
+- **The pairwise similarity functions of newer partitioning papers:** Al-Debagy
+  & Martinek 2020, Sun et al. 2022, Oberle & Bauernhansl 2024. Each gets its own
+  entry when implemented, because two of them need pretrained word vectors.
+
+ODAM (SBCARS 2025) and CHILECON 2025 are **not** run: both need an LLM to write
+missing descriptions, which D-04 and D-30 rule out, and their output could not
+be reproduced. They stay in the related work as the opposite design choice to
+the availability mask. SIM-Ssem is optional and not scheduled.
+
+### The port, fixed now
+
+Jin defines, over a service's operations O:
+
+    chm = mean over pairs of fmsg(k, m),  fmsg = ( J(ret_k, ret_m) + J(par_k, par_m) ) / 2
+    chd = mean over pairs of fdom(k, m),  fdom = J(fterm(k), fterm(m))
+
+J is Jaccard. chm + LoCmsg = 1 and chd + LoCdom = 1. `fterm` is "the set of
+domain terms contained in the signature" of the operation, which leaves its
+OpenAPI form to the port.
+
+- **ret** = response schema names. **par** = parameter names plus request-body
+  schema names. Both come from `parse_spec`'s own helpers, lowercased.
+- **CHD_sig** — fterm from the whole signature: operationId, path, parameter
+  names and schema names, tokenised with the corpus tokenizer. This is Jin's
+  wording.
+- **CHD_name** — fterm from the operationId alone. This is LoCdom's wording
+  (Def. 11: terms of the operation *name*), reported in cohesion form,
+  1 − LoCdom.
+- **Action terms are removed** from both, as Def. 11 requires, using a fixed list
+  in `config.BASELINE_ACTION_TERMS`. It also holds `using`, the suffix Springfox
+  appends (`deleteOrderUsingDELETE`), which D-08 already treats as a generator
+  artifact.
+- **No mask, no exclusions.** As in D-28, a baseline is measured as published:
+  an empty set scores 0 (J(∅, ∅) = 0), which is LoC's own treatment of a missing
+  edge, and no D-26 exclusion applies.
+- **Service level:** the mean over all pairs. Jin's value of 1 for a one-operation
+  service never arises in the corpus (at least 3 operations).
+
+CHM is not the LoCmsg already in the study. That one is RAMA's port, and Exp. 4b
+uses a binary pair predicate. CHM is continuous and keeps Jin's definition.
+
+### Three tests, same protocol as before
+
+1. **Corpus** (primary population, 2,136 services): distribution, share at or
+   above 0.999 (saturation), SD and IQR, and Spearman ρ against ILSC, size and
+   resource count, as in Exp. 4 and `size_mechanism`.
+2. **Developer boundaries:** Train Ticket A1, Train Ticket A1+S1 and Sock Shop,
+   with the strata all / diff_resource / same_resource, using D-31's AUC,
+   dyadic bootstrap and verdict rule. Each row keeps the status of the condition
+   it joins: A1 is an amendment, and the diff_resource stratum is exploratory
+   (E2).
+3. **Perturbation:** D-33's loop with `PYTHONHASHSEED=0`, so the injected
+   operations are the same draws. ILSC is checked against
+   `results/resource_perturbation.csv`, and a difference above 1e-9 stops the
+   run. The statistic is the gap in corpus SD.
+
+**Reading, fixed now.** D-31's verdict rule applies per baseline. The claim that
+matters is the diff_resource stratum: CHD_name and CHD_sig are the published
+metrics closest to what ILSC does, so ILSC must beat them there to claim that
+embeddings add anything to name overlap.
+
+**Outputs.** `results/modern_baselines_corpus.csv`,
+`results/modern_baselines_boundaries.csv` and
+`results/modern_baselines_perturbation.csv`. No existing result file is touched.
+
+
+### Result of D-35, 2026-10-30
+
+Checks: CHD_name of Sock Shop `carts` by hand is 1.6/10 = 0.16, and the script
+gives 0.16. AUCs agree with scipy's Mann–Whitney U to 3 decimals. ILSC reproduces
+D-33's stored draws exactly (max difference 0). The first run stopped on Sock
+Shop's same_resource stratum, which is empty; it is now skipped, as in E2.
+
+**1. Corpus (2,136 services).**
+
+| metric | median | IQR | at ≥ 0.999 | ρ ILSC | ρ size | ρ resources |
+|---|--:|--:|--:|--:|--:|--:|
+| ILSC_mean | 0.366 | 0.167 | 0.0% | — | −0.550 | −0.622 |
+| CHD_sig | 0.535 | 0.339 | 0.1% | 0.595 | −0.330 | −0.431 |
+| CHD_name | 0.130 | 0.342 | 0.8% | 0.422 | −0.253 | −0.370 |
+| CHM | 0.371 | 0.247 | 2.0% | 0.414 | −0.251 | −0.326 |
+
+- ILSC's saturation advantage holds against SIDC (35.8%) and LoCmsg (77.0%)
+  only. These three do not saturate either.
+- **ILSC is more tied to size and to resource count than any of the three.**
+
+**2. Developer boundaries, AUC.** "better" and "indist." are ILSC against that
+baseline, under D-31's rule.
+
+| condition, stratum | ILSC | f1_only | CHD_sig | CHD_name | CHM |
+|---|--:|--:|--:|--:|--:|
+| Train Ticket A1, all | 0.795 | 0.777 | 0.750 (better, +0.046) | 0.629 (better) | 0.620 (better) |
+| Train Ticket A1+S1, all | 0.863 | 0.807 | 0.821 (better, +0.042) | 0.629 (better) | 0.564 (better) |
+| Sock Shop, all | 0.701 | 0.716 | 0.696 (**indist.**, +0.005) | 0.574 (better) | 0.678 (indist.) |
+| Train Ticket A1, diff_resource | 0.500 | 0.552 | 0.463 (better) | 0.570 (**indist.**) | 0.430 (better) |
+| Train Ticket A1+S1, diff_resource | 0.658 | 0.651 | 0.572 (better) | 0.570 (better) | 0.525 (better) |
+| Sock Shop, diff_resource | 0.578 | 0.617 | 0.573 (**indist.**, +0.004) | 0.507 (better) | 0.640 (indist.) |
+
+**3. Perturbation, gap in corpus SD, same draws as D-33.** LoCmsg −0.263, **CHD_sig
+−0.196**, **ILSC −0.187**, CHM −0.157, RES_root −0.139, SIDC −0.043, CHD_name
+−0.021, RES_leaf −0.020.
+
+**Reading, against the rule fixed above.**
+- ILSC clearly beats **CHD_name**, the published name-only form, except in one
+  diff_resource cell. A metric that reads only names is well behind ILSC.
+- **CHD_sig is the real competitor.** It is plain token overlap over the
+  signature, with no embeddings and no mask, and it stays close to ILSC in all
+  three tests. ILSC leads it by about 0.04 on Train Ticket, ties it on Sock Shop
+  (the only hand-written system) and is level with it under perturbation.
+- The direct test of "embeddings add to overlap" is f1_only against CHD_sig on
+  diff_resource. f1 wins on Train Ticket (+0.089 [0.051, 0.119] in A1, +0.078
+  [0.037, 0.111] in A1+S1). On Sock Shop the difference is +0.044 [−0.112,
+  0.398], which is no evidence either way with five services.
+- So the rule fixed in this entry is **only partly met**: embeddings add
+  something on Train Ticket and are unproven on the independent system.
+
+**Limits.** CHD_sig is this project's port. Jin's "signature" is a Java method
+signature, and adding path and schema terms makes the baseline stronger than a
+strict reading of the original, which is the safe direction for a comparison. The
+diff_resource rows are exploratory, like E2. Sock Shop has five services, so its
+intervals are wide.
+
+**Consequence.** The evolution test must include CHD_sig among its competitors,
+and the paper cannot rest on ILSC's lead over SIDC and LoCmsg alone.

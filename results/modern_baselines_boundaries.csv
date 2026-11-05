@@ -1,0 +1,97 @@
+system,condition,stratum,n_pos,n_neg,kind,predictor,value,lo,hi,reading
+trainticket,A1_amended,all,794,21361,auc,ILSC,0.795363,0.746314,0.832895,above chance
+trainticket,A1_amended,all,794,21361,auc,f1_only,0.777218,0.744009,0.805782,above chance
+trainticket,A1_amended,all,794,21361,auc,resource_pair,0.829852,0.751703,0.893128,above chance
+trainticket,A1_amended,all,794,21361,auc,CHM,0.620266,0.573872,0.66762,above chance
+trainticket,A1_amended,all,794,21361,auc,CHD_sig,0.749753,0.707852,0.78482,above chance
+trainticket,A1_amended,all,794,21361,auc,CHD_name,0.629245,0.594892,0.660388,above chance
+trainticket,A1_amended,all,794,21361,diff,ILSC - CHM,0.175096,0.129972,0.214192,ILSC better
+trainticket,A1_amended,all,794,21361,diff,ILSC - CHD_sig,0.04561,0.026024,0.066621,ILSC better
+trainticket,A1_amended,all,794,21361,diff,ILSC - CHD_name,0.166118,0.11393,0.205327,ILSC better
+trainticket,A1_amended,all,794,21361,diff,f1_only - CHM,0.156951,0.115576,0.200159,f1_only better
+trainticket,A1_amended,all,794,21361,diff,f1_only - CHD_sig,0.027464,0.000133,0.056776,f1_only better
+trainticket,A1_amended,all,794,21361,diff,f1_only - CHD_name,0.147973,0.105488,0.185275,f1_only better
+trainticket,A1_amended,diff_resource,257,21006,auc,ILSC,0.500393,0.320523,0.616196,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,f1_only,0.5519,0.356791,0.661218,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,CHM,0.430073,0.285183,0.527799,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,CHD_sig,0.462521,0.283031,0.573526,chance
+trainticket,A1_amended,diff_resource,257,21006,auc,CHD_name,0.57036,0.496906,0.613569,chance
+trainticket,A1_amended,diff_resource,257,21006,diff,ILSC - CHM,0.07032,0.021578,0.099154,ILSC better
+trainticket,A1_amended,diff_resource,257,21006,diff,ILSC - CHD_sig,0.037872,0.005888,0.072451,ILSC better
+trainticket,A1_amended,diff_resource,257,21006,diff,ILSC - CHD_name,-0.069967,-0.193452,0.018388,indistinguishable
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - CHM,0.121827,0.057898,0.158243,f1_only better
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - CHD_sig,0.089379,0.051472,0.11912,f1_only better
+trainticket,A1_amended,diff_resource,257,21006,diff,f1_only - CHD_name,-0.01846,-0.153521,0.061678,indistinguishable
+trainticket,A1_amended,same_resource,537,355,auc,ILSC,0.093057,0.0,0.223437,below chance
+trainticket,A1_amended,same_resource,537,355,auc,f1_only,0.077656,0.0,0.195679,below chance
+trainticket,A1_amended,same_resource,537,355,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_amended,same_resource,537,355,auc,CHM,0.841653,0.672572,0.966162,above chance
+trainticket,A1_amended,same_resource,537,355,auc,CHD_sig,0.110496,0.006514,0.249759,below chance
+trainticket,A1_amended,same_resource,537,355,auc,CHD_name,0.132418,0.019582,0.290318,below chance
+trainticket,A1_amended,same_resource,537,355,diff,ILSC - CHM,-0.748595,-0.957442,-0.463166,ILSC worse
+trainticket,A1_amended,same_resource,537,355,diff,ILSC - CHD_sig,-0.017439,-0.033247,-0.003309,ILSC worse
+trainticket,A1_amended,same_resource,537,355,diff,ILSC - CHD_name,-0.039361,-0.084739,0.017874,indistinguishable
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - CHM,-0.763997,-0.957879,-0.495415,f1_only worse
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - CHD_sig,-0.03284,-0.064606,-0.003886,f1_only worse
+trainticket,A1_amended,same_resource,537,355,diff,f1_only - CHD_name,-0.054762,-0.11344,0.010803,indistinguishable
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,ILSC,0.862973,0.821768,0.891518,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,f1_only,0.807441,0.77596,0.838406,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,resource_pair,0.829852,0.751703,0.893128,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,CHM,0.563748,0.548994,0.586086,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,CHD_sig,0.821067,0.783506,0.852435,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,auc,CHD_name,0.629245,0.594892,0.660388,above chance
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,ILSC - CHM,0.299226,0.253057,0.3318,ILSC better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,ILSC - CHD_sig,0.041906,0.020641,0.060468,ILSC better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,ILSC - CHD_name,0.233729,0.186565,0.272035,ILSC better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - CHM,0.243693,0.208519,0.277242,f1_only better
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - CHD_sig,-0.013626,-0.039554,0.017041,indistinguishable
+trainticket,A1_S1_no_wrapper,all,794,21361,diff,f1_only - CHD_name,0.178196,0.136148,0.223989,f1_only better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,ILSC,0.658249,0.542967,0.73168,above chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,f1_only,0.650639,0.511004,0.729781,above chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,CHM,0.525071,0.502938,0.538826,above chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,CHD_sig,0.572358,0.448091,0.650456,chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,auc,CHD_name,0.57036,0.496906,0.613569,chance
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,ILSC - CHM,0.133178,0.033877,0.197464,ILSC better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,ILSC - CHD_sig,0.085892,0.045001,0.127879,ILSC better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,ILSC - CHD_name,0.087889,0.021992,0.13242,ILSC better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - CHM,0.125568,0.00392,0.193629,f1_only better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - CHD_sig,0.078281,0.036674,0.110997,f1_only better
+trainticket,A1_S1_no_wrapper,diff_resource,257,21006,diff,f1_only - CHD_name,0.080279,-0.006609,0.133631,indistinguishable
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,ILSC,0.089488,0.0,0.22226,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,f1_only,0.076075,0.0,0.194313,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,resource_pair,0.5,0.5,0.5,chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,CHM,0.571632,0.527608,0.623393,above chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,CHD_sig,0.113043,0.008527,0.254665,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,auc,CHD_name,0.132418,0.019582,0.290318,below chance
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,ILSC - CHM,-0.482144,-0.610584,-0.314378,ILSC worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,ILSC - CHD_sig,-0.023555,-0.041494,-0.005086,ILSC worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,ILSC - CHD_name,-0.04293,-0.089013,0.014511,indistinguishable
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - CHM,-0.495557,-0.611298,-0.340924,f1_only worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - CHD_sig,-0.036969,-0.073856,-0.005593,f1_only worse
+trainticket,A1_S1_no_wrapper,same_resource,537,355,diff,f1_only - CHD_name,-0.056343,-0.116761,0.010319,indistinguishable
+sockshop,primary,all,122,229,auc,ILSC,0.700838,0.650946,1.0,above chance
+sockshop,primary,all,122,229,auc,f1_only,0.715907,0.635742,1.0,above chance
+sockshop,primary,all,122,229,auc,resource_pair,0.647541,0.607256,1.0,above chance
+sockshop,primary,all,122,229,auc,CHM,0.678395,0.5,0.97619,chance
+sockshop,primary,all,122,229,auc,CHD_sig,0.695719,0.588286,1.0,above chance
+sockshop,primary,all,122,229,auc,CHD_name,0.573788,0.529685,0.75,above chance
+sockshop,primary,all,122,229,diff,ILSC - CHM,0.022443,-0.056173,0.406593,indistinguishable
+sockshop,primary,all,122,229,diff,ILSC - CHD_sig,0.005118,-0.089255,0.088154,indistinguishable
+sockshop,primary,all,122,229,diff,ILSC - CHD_name,0.127049,0.072685,0.398072,ILSC better
+sockshop,primary,all,122,229,diff,f1_only - CHM,0.037512,-0.029186,0.489011,indistinguishable
+sockshop,primary,all,122,229,diff,f1_only - CHD_sig,0.020188,-0.094965,0.136752,indistinguishable
+sockshop,primary,all,122,229,diff,f1_only - CHD_name,0.142118,0.067179,0.448753,f1_only better
+sockshop,primary,diff_resource,86,229,auc,ILSC,0.577689,0.518781,0.839827,above chance
+sockshop,primary,diff_resource,86,229,auc,f1_only,0.617295,0.541589,0.980392,above chance
+sockshop,primary,diff_resource,86,229,auc,resource_pair,0.5,0.5,0.5,chance
+sockshop,primary,diff_resource,86,229,auc,CHM,0.640322,0.5,0.662651,chance
+sockshop,primary,diff_resource,86,229,auc,CHD_sig,0.573195,0.433239,0.692771,chance
+sockshop,primary,diff_resource,86,229,auc,CHD_name,0.507312,0.461039,0.512048,chance
+sockshop,primary,diff_resource,86,229,diff,ILSC - CHM,-0.062633,-0.14387,0.339827,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,ILSC - CHD_sig,0.004494,-0.114212,0.264069,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,ILSC - CHD_name,0.070377,0.006733,0.378788,ILSC better
+sockshop,primary,diff_resource,86,229,diff,f1_only - CHM,-0.023027,-0.08781,0.480392,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,f1_only - CHD_sig,0.0441,-0.112103,0.398268,indistinguishable
+sockshop,primary,diff_resource,86,229,diff,f1_only - CHD_name,0.109983,0.029856,0.512987,f1_only better
