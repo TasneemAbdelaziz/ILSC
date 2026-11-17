@@ -2223,3 +2223,99 @@ intervals are wide.
 
 **Consequence.** The evolution test must include CHD_sig among its competitors,
 and the paper cannot rest on ILSC's lead over SIDC and LoCmsg alone.
+
+
+---
+
+## D-36 · Size dependence — ILSC_mean split into within-resource and between-resource similarity, fixed before any value is computed
+
+**Decision (Tasneem, 2026-11-17).** The manuscript draft of 2026-11-12 reports
+weak results, and three causes were named: the score falls with size, its six
+signals repeat each other, and textual likeness is not capability. Each cause
+gets one pre-specified change, run once. This entry covers the first: size.
+
+**Status of the candidate.** It is a candidate score, computed in
+`src/experiments/`. `src/metric/` is not touched and the definition of ILSC does
+not change. Adopting it is the metric lead's decision and is raised as a flag
+once the result is known.
+
+### Why this change and no other
+
+`size_mechanism` already shows where the dependence sits: ρ(ILSC_mean, size) is
+−0.5505, and it vanishes once the number of resources is held fixed (partial
++0.0040). The mean over all pairs mixes two kinds of pair:
+
+    ILSC_mean = s · W + (1 − s) · B
+
+- **W** is the mean Sim over pairs on the **same** resource.
+- **B** is the mean Sim over pairs on **different** resources.
+- **s** is the share of same-resource pairs (`same_share`).
+
+If W is above B, a service with more resources has a smaller s, so its mean
+falls even when W and B do not move. The candidate removes the mixing term and
+reports the two parts.
+
+### Definitions, fixed now
+
+- **Sim** is the engine's pair score, unchanged: six signals, the mask, equal
+  weights.
+- **Resource** is the leaf resource of `size_mechanism.leaf_resources`,
+  unchanged. It is the definition that carries the size dependence, and it does
+  not depend on the other operations of the set, so an injected operation never
+  changes the label of an existing one.
+- **ILSC_between (B)** is the candidate: the mean Sim over all operation pairs
+  whose resources differ. It is undefined for a service with one resource.
+- **ILSC_within (W)** is reported beside it. It is undefined when no two
+  operations share a resource.
+- **The identity** s·W + (1 − s)·B = ILSC_mean is checked for every service. A
+  difference above 1e-6 stops the run.
+
+Two variants are computed as sensitivity only, and no rule is applied to them:
+- **B_res**: every pair of resources counts once (the mean over resource pairs of
+  the mean Sim between their operations), so a large resource does not dominate.
+- **B_root**: B with `size_mechanism.root_resources` in place of the leaf.
+
+No other variant is computed under this entry.
+
+### Two tests and their rules
+
+**Test 1 — size independence.** Population: the primary 2,136 services, on those
+where B is defined. The number left out is reported.
+- Statistics: Spearman ρ(B, operations) and ρ(B, resources). ILSC_mean is
+  recomputed on the same services for comparison.
+- **Rule: B passes if |ρ| ≤ 0.20 for both.** 0.20 is the limit the manuscript
+  already used for its two size-removal candidates.
+- Intervals come from a bootstrap that resamples providers (2,000 resamples, seed
+  42), because services of one provider are not independent. They are reported
+  and are not part of the rule.
+
+**Test 2 — sensitivity is kept.** D-33's loop with `PYTHONHASHSEED=0`, so the
+injected operations are the same draws. ILSC is checked against
+`results/resource_perturbation.csv`, and a difference above 1e-9 stops the run.
+- Statistic: slope(cross_provider) − slope(same_provider), in units of B's corpus
+  SD, with the sign-flip test, as in D-33.
+- A level at which B is undefined is left out of the slope, which is what
+  `inject.ols_slope` does. A service without a defined slope in both conditions
+  is left out of the gap and counted.
+- **Rule: B passes if the mean gap is negative with sign-flip p < 0.05.**
+
+**Descriptive, no rule.** Distribution of B and W, the share at or above 0.999,
+medians per size band, ρ(B, ILSC_mean), ρ(W, size), ρ(s, size) and the partial
+correlations of B with size and with resources.
+
+### Reading, fixed now
+
+- **Both pass:** B is a size-independent candidate that still responds to foreign
+  operations. It goes to the metric lead as a flag.
+- **Test 1 fails:** the size dependence is not only a mixing effect. Services
+  with more resources are less alike across resources, which is a property of the
+  services and not of the arithmetic. This is reported as it is, and no further
+  aggregation is tried under this entry.
+- **Test 1 passes and Test 2 fails:** B is size-free but insensitive, like the
+  largest-component candidate in the manuscript.
+
+**Outputs.** `results/resource_decomposition.csv` (one row per service),
+`results/resource_decomposition_summary.csv`,
+`results/resource_decomposition_perturbation.csv` (per draw) and
+`results/resource_decomposition_perturbation_comparison.csv`. No existing result
+file is touched.
