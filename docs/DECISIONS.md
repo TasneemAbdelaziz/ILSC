@@ -2319,3 +2319,93 @@ correlations of B with size and with resources.
 `results/resource_decomposition_perturbation.csv` (per draw) and
 `results/resource_decomposition_perturbation_comparison.csv`. No existing result
 file is touched.
+
+
+### Result of D-36, 2026-11-17
+
+**Verdict: Test 1 fails, Test 2 passes.** Splitting the mean does not remove the
+size dependence. Under the reading fixed above, the dependence is mostly a
+property of the services, and no further aggregation is tried under this entry.
+
+Checks:
+- The identity s·W + (1 − s)·B = ILSC_mean holds for every service (max
+  difference 1.1e-16).
+- ILSC_mean agrees with `size_mechanism.csv` to 1.3e-07 on all 2,136 services,
+  with no resource-count mismatch.
+- One service by hand (Azure Log Analytics Query Packs, 5 operations, 6 pairs on
+  `queries` and 4 pairs against `search`): W = 4.350223/6 = 0.725037, B =
+  2.663985/4 = 0.665996, and 0.6·W + 0.4·B = 0.701421. The script gives the same
+  three values.
+- Every ρ below was recomputed with scipy and agrees to 4 decimals.
+- ILSC reproduces D-33's stored draws exactly (max difference 0).
+
+**Test 1 — size independence (limit |ρ| ≤ 0.20).** B is defined for 2,019 of the
+2,136 primary services; the other 117 have one resource. Intervals resample
+providers.
+
+| score | n | ρ with operations | ρ with resources |
+|---|--:|--:|--:|
+| ILSC_mean, all primary | 2,136 | −0.551 [−0.598, −0.491] | −0.622 [−0.699, −0.466] |
+| ILSC_mean, where B is defined | 2,019 | −0.513 [−0.568, −0.457] | −0.582 [−0.667, −0.432] |
+| **B** | 2,019 | **−0.434** [−0.512, −0.365] **fail** | **−0.415** [−0.542, −0.251] **fail** |
+| B_res (sensitivity) | 2,019 | −0.442 | −0.409 |
+| B_root (sensitivity) | 2,070 | −0.482 | −0.458 |
+| W | 1,684 | −0.032 [−0.206, +0.127] | +0.026 [−0.190, +0.207] |
+| s | 2,136 | −0.241 | −0.592 |
+
+Medians per size band:
+
+| operations | ILSC_mean | B | W |
+|---|--:|--:|--:|
+| 3–5 | 0.470 | 0.417 | 0.622 |
+| 6–10 | 0.430 | 0.369 | 0.660 |
+| 11–20 | 0.381 | 0.344 | 0.617 |
+| 21–50 | 0.327 | 0.299 | 0.624 |
+| 51–200 | 0.266 | 0.256 | 0.642 |
+
+- **The mixing term is the smaller part.** Removing it moves ρ with operations
+  from −0.513 to −0.434 on the same services. Across the size bands the median of
+  ILSC_mean falls by 0.203 and the median of B by 0.162, about four fifths of it.
+- **W does not depend on size at all.** Operations on the same resource are as
+  alike in a large service as in a small one (median 0.62 to 0.66 in every band).
+- **What falls is B.** In larger services the operations of different resources
+  resemble each other less. W exceeds B in 99.1% of the 1,567 services that have
+  both, by 0.312 on average.
+- Both sensitivity variants fail in the same way, so the result does not hang on
+  the resource definition or on how resources are weighted.
+- Partial correlations of B: −0.157 with operations given resources, −0.072 with
+  resources given operations. ρ(B, ILSC_mean) = 0.933.
+
+**Test 2 — sensitivity (gap negative, sign-flip p < 0.05).** Same draws as D-33.
+
+| score | gap | gap in corpus SD | services with a negative gap | p |
+|---|--:|--:|--:|--:|
+| ILSC | −0.0233 | −0.187 | 19 of 20 | 1.9e-06 |
+| **B** | −0.0196 | **−0.182** | 18 of 20 | 9.5e-06 **pass** |
+| B_res | −0.0216 | −0.200 | 18 of 20 | 9.5e-06 |
+| B_root | −0.0181 | −0.148 | 17 of 20 | 0.0011 |
+| W | +0.0024 | +0.018 | 1 of 15 | 0.99 |
+
+B keeps the sensitivity of the full mean. The effect comes from the 13 services
+that have more than one resource before injection (mean gap −0.0287, negative in
+all 13). In the 7 one-resource services B exists only after injection and its
+gap is near zero (−0.0029, negative in 5 of 7).
+
+**Limits.**
+- The test separates the mixing term from the rest. It does not say why B falls
+  with size: broader scope in larger services and publisher style are both
+  possible, and neither is tested here.
+- The resource is a path heuristic (`size_mechanism`), not a validated label.
+- The population is all 2,136 primary services, not one representative per API
+  family, because the family list of the manuscript draft is not in the
+  repository.
+
+**Consequence.**
+- B is not a size-free replacement for ILSC_mean, so nothing goes to the metric
+  lead for adoption. Three aggregation candidates have now failed to remove the
+  dependence (the two in the manuscript draft and this one).
+- The manuscript's explanation needs correcting (flag F-09): it says the mean
+  "falls with size by arithmetic". The arithmetic part is the smaller part.
+- W and B are worth reporting as a decomposition: W is a size-free description of
+  how alike the operations of one resource are, and B carries all of the size
+  dependence.

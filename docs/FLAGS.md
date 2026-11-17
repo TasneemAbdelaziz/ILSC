@@ -425,3 +425,41 @@ is perturbed the same way within one run — but that has not been checked.
    spread over several seeds.
 
 **Do not choose by which gives the better gap.**
+
+
+---
+
+## F-09 · The manuscript says ILSC_mean "falls with size by arithmetic"; D-36 shows the arithmetic part is the smaller part — **owner: both (the text is Mohamed's, the measurement is Tasneem's)**
+
+Raised 2026-11-17 by D-36.
+
+**What is there.** The manuscript draft of 2026-11-12 (Sec. V-C) explains the
+size dependence this way: "A mean over all pairs falls with size by arithmetic:
+more operations mean more pairs of unrelated operations."
+
+**What D-36 measured.** ILSC_mean = s·W + (1 − s)·B, with W the mean Sim on the
+same resource, B the mean Sim across resources and s the share of same-resource
+pairs. On the 2,019 primary services with more than one resource:
+- W does not depend on size (ρ = −0.03 with operations, +0.03 with resources).
+- B does (ρ = −0.43 with operations, −0.41 with resources).
+- Removing the mixing term s moves ρ with operations only from −0.51 to −0.43.
+  Across the size bands the median of ILSC_mean falls by 0.203 and the median of
+  B by 0.162.
+
+So the fall is mostly not a mixing effect. In larger services the operations of
+different resources are less alike. D-36 does not say why: broader scope and
+publisher style are both possible.
+
+**What it affects.** The sentence in Sec. V-C, and the reading that the size
+dependence is a defect of the aggregation that a better aggregation could
+remove. Three aggregation candidates have now failed to remove it (percentile
+within resource bands, largest component, and B).
+
+**Options.**
+1. Replace the sentence with the decomposition and report W and B beside the
+   mean, per size band.
+2. Keep the mean as the only reported score and correct the sentence only.
+3. Test why B falls (within publishers, and against the breadth of the API)
+   before changing the text.
+
+**Do not choose by which reads better for the score.**

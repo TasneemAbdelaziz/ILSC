@@ -57,6 +57,12 @@ BASELINE_ACTION_TERMS = {
     "modify", "using",
 }
 
+# D-36 only - NOT part of the metric. A candidate score counts as independent of
+# size when its |Spearman rho| with the operation count and with the resource
+# count is at most this. It is the limit the manuscript used for its two
+# size-removal candidates.
+SIZE_INDEPENDENCE_RHO_LIMIT = 0.20
+
 # ---------------------------------------------------------------------------
 # Paths
 # ---------------------------------------------------------------------------
